@@ -1,33 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // if (context.watch<UserProvider>().authenticationUser != null) {
+    //   return const Center(child: CircularProgressIndicator());
+    // }
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // const Padding(
-            //   padding: EdgeInsets.only(bottom: 50),
-            //   child: Text(
-            //     'Drive',
-            //     style: TextStyle(fontSize: 30),
-            //   ),
-            // ),
-            Row(
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _socialLoginIconForm(
-                    onTap: () {}, title: 'K', color: Colors.amber),
-                _socialLoginIconForm(
-                    onTap: () {}, title: 'G', color: Colors.blue),
+                // const Padding(
+                //   padding: EdgeInsets.only(bottom: 50),
+                //   child: Text(
+                //     'Drive',
+                //     style: TextStyle(fontSize: 30),
+                //   ),
+                // ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _socialLoginIconForm(
+                        onTap: () {
+                          context.read<AuthProvider>().signInWithGoogle();
+                        },
+                        title: 'G',
+                        color: Colors.blue),
+                  ],
+                )
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+          // if (context.watch<AuthProvider>().isSignIn) ...[
+          //   const Center(
+          //     child: CircularProgressIndicator(),
+          //   )
+          // ],
+        ],
       ),
     );
   }

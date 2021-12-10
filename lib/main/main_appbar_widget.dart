@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
 
-AppBar mainAppbarWidget() {
+AppBar mainAppbarWidget({
+  required BuildContext context,
+}) {
   return AppBar(
     title: Text('Drive'),
     actions: [
       _actionIcons(onTap: () {}, icon: Icons.add_box_outlined),
       _actionIcons(onTap: () {}, icon: Icons.settings),
-      _actionIcons(onTap: () {}, icon: Icons.account_box_rounded),
+      _actionIcons(
+          onTap: () {
+            context.read<AuthProvider>().signOut();
+          },
+          icon: Icons.account_box_rounded),
     ],
   );
 }
