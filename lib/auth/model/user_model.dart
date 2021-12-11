@@ -9,6 +9,7 @@ class UserModel {
   final String email;
   final String profileUrl;
   final String createdAt;
+  final String provider;
 
   UserModel({
     required this.userKey,
@@ -16,6 +17,7 @@ class UserModel {
     required this.email,
     required this.profileUrl,
     required this.createdAt,
+    required this.provider,
   });
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

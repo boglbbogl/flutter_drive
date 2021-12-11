@@ -10,7 +10,7 @@ final routerDelegate = BeamerDelegate(
     BeamGuard(
       pathBlueprints: ['/'],
       check: (context, location) {
-        return context.watch<AuthProvider>().userStatus;
+        return context.watch<AuthProvider>().user != null;
 
         // false -> SignIn, true -> Main
       },

@@ -15,9 +15,7 @@ class MainPage extends StatelessWidget {
     return Consumer<AuthProvider>(
       builder: (c, p, child) {
         if (p.user == null) {
-          return Scaffold(
-            backgroundColor: Colors.amber,
-          );
+          return Container();
         }
         return Scaffold(
           appBar: mainAppbarWidget(context: context),

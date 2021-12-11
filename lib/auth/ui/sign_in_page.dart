@@ -7,43 +7,39 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // if (context.watch<UserProvider>().authenticationUser != null) {
-    //   return const Center(child: CircularProgressIndicator());
-    // }
+    if (context.watch<AuthProvider>().user != null) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return Scaffold(
-      body: Stack(
-        children: [
-          Center(
-            child: Column(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const Text(
+              'Drive',
+              style: TextStyle(fontSize: 30),
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // const Padding(
-                //   padding: EdgeInsets.only(bottom: 50),
-                //   child: Text(
-                //     'Drive',
-                //     style: TextStyle(fontSize: 30),
-                //   ),
-                // ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _socialLoginIconForm(
-                        onTap: () {
-                          context.read<AuthProvider>().signInWithGoogle();
-                        },
-                        title: 'G',
-                        color: Colors.blue),
-                  ],
-                )
+                _socialLoginIconForm(
+                    isSignIn: context.watch<AuthProvider>().isGoogle,
+                    onTap: () {
+                      context.read<AuthProvider>().signInWithGoogle();
+                    },
+                    title: 'G',
+                    color: Colors.red),
+                _socialLoginIconForm(
+                    isSignIn: context.watch<AuthProvider>().isKakao,
+                    onTap: () {
+                      context.read<AuthProvider>().signInWithKakao();
+                    },
+                    title: 'K',
+                    color: Colors.amber),
               ],
-            ),
-          ),
-          // if (context.watch<AuthProvider>().isSignIn) ...[
-          //   const Center(
-          //     child: CircularProgressIndicator(),
-          //   )
-          // ],
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -52,6 +48,7 @@ class SignInPage extends StatelessWidget {
     required Function() onTap,
     required String title,
     required Color color,
+    required bool isSignIn,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -63,7 +60,9 @@ class SignInPage extends StatelessWidget {
             width: 60,
             height: 60,
             color: color,
-            child: Center(child: Text(title)),
+            child: Center(
+                child:
+                    isSignIn ? const CircularProgressIndicator() : Text(title)),
           ),
         ),
       ),

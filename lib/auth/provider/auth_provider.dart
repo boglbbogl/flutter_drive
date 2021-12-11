@@ -10,8 +10,9 @@ class AuthProvider extends ChangeNotifier {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final UserRepository _userRepository = UserRepository();
 
-  bool _userStatus = false;
   UserModel? _user;
+  bool _isGoogle = false;
+  bool _isKakao = false;
 
   AuthProvider() {
     _userLoginState();
@@ -20,20 +21,11 @@ class AuthProvider extends ChangeNotifier {
   Future<void> _userLoginState() async {
     final User? _firebaseUser = FirebaseAuth.instance.currentUser;
     if (_firebaseUser == null) {
-      _userStatus = false;
+      _user = null;
       notifyListeners();
     } else {
-      final _resultUser =
-          await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
-      if (_resultUser == null) {
-        _createUserProfile(_firebaseUser);
-        _userStatus = true;
-        notifyListeners();
-      } else {
-        _user = _resultUser;
-        _userStatus = true;
-        notifyListeners();
-      }
+      _user = await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
+      notifyListeners();
     }
   }
 
@@ -46,12 +38,23 @@ class AuthProvider extends ChangeNotifier {
         email: user.email!,
         profileUrl: user.photoURL!,
         createdAt: DateTime.now().toUtc().toString(),
+        provider: 'google',
       ),
       userKey: user.uid,
     );
   }
 
+  Future<void> signInWithKakao() async {
+    _isKakao = true;
+    notifyListeners();
+    await Future.delayed(const Duration(milliseconds: 3000));
+    _isKakao = false;
+    notifyListeners();
+  }
+
   Future<void> signInWithGoogle() async {
+    _isGoogle = true;
+    notifyListeners();
     final _googleSignInUser = await _googleSignIn.signIn();
     if (_googleSignInUser == null) {
       // show snack bar
@@ -62,17 +65,28 @@ class AuthProvider extends ChangeNotifier {
         accessToken: _authentication.accessToken,
       );
       await _firebaseAuth.signInWithCredential(_authCredential);
-      _userLoginState();
+      final User? _firebaseUser = FirebaseAuth.instance.currentUser;
+      if (_firebaseUser != null) {
+        final _resultUser =
+            await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
+        if (_resultUser == null) {
+          await _createUserProfile(_firebaseUser);
+        }
+        await _userLoginState();
+      }
     }
+    _isGoogle = false;
+    notifyListeners();
   }
 
   Future<void> signOut() async {
     await _googleSignIn.signOut();
     await _firebaseAuth.signOut();
-    _userStatus = false;
+    _user = null;
     notifyListeners();
   }
 
-  bool get userStatus => _userStatus;
   UserModel? get user => _user;
+  bool get isGoogle => _isGoogle;
+  bool get isKakao => _isKakao;
 }
