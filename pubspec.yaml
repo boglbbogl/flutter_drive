@@ -28,6 +28,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_sign_in: ^5.2.1
+  kakao_flutter_sdk: ^0.8.2
   logger: ^1.1.0
   persistent_bottom_nav_bar: ^4.0.2
   provider: ^6.0.1

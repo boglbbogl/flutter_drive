@@ -13,7 +13,9 @@ AppBar mainAppbarWidget({
       _actionIcons(onTap: () {}, icon: Icons.settings),
       _actionIcons(
           onTap: () {
-            context.read<AuthProvider>().signOut();
+            context
+                .read<AuthProvider>()
+                .signOut(provider: context.read<AuthProvider>().user!.provider);
           },
           icon: Icons.account_box_rounded),
     ],

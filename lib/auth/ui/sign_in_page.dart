@@ -7,7 +7,8 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (context.watch<AuthProvider>().user != null) {
+    if (context.watch<AuthProvider>().isLoginState &&
+        context.watch<AuthProvider>().user != null) {
       return const Center(child: CircularProgressIndicator());
     }
     return Scaffold(
