@@ -24,31 +24,53 @@ class AuthProvider extends ChangeNotifier {
     _isLoginState = true;
     notifyListeners();
     final User? _firebaseUser = FirebaseAuth.instance.currentUser;
-    if (_firebaseUser == null) {
-      _user = null;
+    final kakao.OAuthToken _kakaoToken =
+        await kakao.TokenManager.instance.getToken();
+    if (_firebaseUser != null) {
+      _user = await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
+      notifyListeners();
+    } else if (_kakaoToken.accessToken != null ||
+        _kakaoToken.refreshToken != null) {
+      final kakao.User _kakaoUser = await kakao.UserApi.instance.me();
+      logger.e(_kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl);
+      _user = await _userRepository.getUserProfile(
+          userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
       notifyListeners();
     } else {
-      if (_firebaseUser.uid.isNotEmpty) {
-        _user =
-            await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
-      }
+      _user = null;
+      _isLoginState = false;
       notifyListeners();
     }
   }
 
-  Future<void> _createUserProfile(User user) async {
+  Future<void> _createUserProfile(
+      User? firebaseUser, kakao.User? kakaoUser) async {
     final UserRepository _userRepository = UserRepository();
-    await _userRepository.createUserProfile(
-      userModel: UserModel(
-        userKey: user.uid,
-        nickName: user.displayName!,
-        email: user.email!,
-        profileUrl: user.photoURL!,
-        createdAt: DateTime.now().toUtc().toString(),
-        provider: 'google',
-      ),
-      userKey: user.uid,
-    );
+    if (firebaseUser != null) {
+      await _userRepository.createUserProfile(
+        userModel: UserModel(
+          userKey: firebaseUser.uid,
+          nickName: firebaseUser.displayName!,
+          email: firebaseUser.email!,
+          profileUrl: firebaseUser.photoURL!,
+          createdAt: DateTime.now().toString(),
+          provider: 'Google',
+        ),
+        userKey: firebaseUser.uid,
+      );
+    } else if (kakaoUser != null) {
+      await _userRepository.createUserProfile(
+        userModel: UserModel(
+          userKey: kakaoUser.id.toString() + kakaoUser.kakaoAccount!.email!,
+          nickName: kakaoUser.kakaoAccount!.profile!.nickname,
+          email: kakaoUser.kakaoAccount!.email!,
+          profileUrl: kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!,
+          createdAt: DateTime.now().toString(),
+          provider: 'Kakao',
+        ),
+        userKey: kakaoUser.id.toString() + kakaoUser.kakaoAccount!.email!,
+      );
+    }
   }
 
   Future<void> signInWithKakao() async {
@@ -63,7 +85,13 @@ class AuthProvider extends ChangeNotifier {
         await kakao.TokenManager.instance.setToken(_token);
         final kakao.User _kakaoUser = await kakao.UserApi.instance.me();
         if (_kakaoUser.kakaoAccount != null) {
-          logger.d(_kakaoUser);
+          final _resultUser = await _userRepository.getUserProfile(
+              userKey:
+                  _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
+          if (_resultUser == null) {
+            await _createUserProfile(null, _kakaoUser);
+          }
+          await _userLoginState();
         }
       } catch (error) {
         _isKakao = false;
@@ -93,7 +121,7 @@ class AuthProvider extends ChangeNotifier {
           final _resultUser =
               await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
           if (_resultUser == null) {
-            await _createUserProfile(_firebaseUser);
+            await _createUserProfile(_firebaseUser, null);
           }
           await _userLoginState();
         }
@@ -106,12 +134,16 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> signOut({required String provider}) async {
-    if (provider.contains('google')) {
+    if (provider.contains('Google')) {
       await _googleSignIn.signOut();
       await _firebaseAuth.signOut();
       _user = null;
       notifyListeners();
-    } else if (provider.contains('kakao')) {
+    } else if (provider.contains('Kakao')) {
+      await kakao.UserApi.instance.logout();
+      await kakao.TokenManager.instance.clear();
+      _user = null;
+      notifyListeners();
     } else {}
     _isLoginState = false;
   }

@@ -1,23 +1,44 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
-import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:flutter_drive/main/appbar_setting_widget.dart';
 import 'package:provider/provider.dart';
 
 AppBar mainAppbarWidget({
   required BuildContext context,
 }) {
   return AppBar(
-    title: Text('Drive'),
+    title: const Text('Drive'),
     actions: [
       _actionIcons(onTap: () {}, icon: Icons.add_box_outlined),
-      _actionIcons(onTap: () {}, icon: Icons.settings),
       _actionIcons(
           onTap: () {
-            context
-                .read<AuthProvider>()
-                .signOut(provider: context.read<AuthProvider>().user!.provider);
+            appbarSettingWidget(context: context);
           },
-          icon: Icons.account_box_rounded),
+          icon: Icons.settings),
+      Padding(
+        padding: const EdgeInsets.only(left: 8, right: 10),
+        child: CircleAvatar(
+          backgroundColor: Colors.white,
+          radius: 14,
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: ClipOval(
+              child: CachedNetworkImage(
+                  placeholder: (context, url) => const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        child: CircularProgressIndicator(
+                          strokeWidth: 5,
+                          color: Colors.white,
+                        ),
+                      ),
+                  fit: BoxFit.cover,
+                  fadeOutDuration: const Duration(milliseconds: 1),
+                  imageUrl: context.watch<AuthProvider>().user!.profileUrl),
+            ),
+          ),
+        ),
+      ),
     ],
   );
 }

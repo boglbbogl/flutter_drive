@@ -12,7 +12,7 @@ class DriveApp extends StatelessWidget {
       builder: (context, snapshot) {
         // switcher duration 테스트 중
         return AnimatedSwitcher(
-          duration: const Duration(milliseconds: 100),
+          duration: const Duration(milliseconds: 2000),
           child: _splashLoadingWidget(snapshot),
         );
       },

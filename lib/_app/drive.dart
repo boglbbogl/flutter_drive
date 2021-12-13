@@ -2,7 +2,6 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_theme.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
-import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/router/route_delegate.dart';
 import 'package:provider/provider.dart';
 
