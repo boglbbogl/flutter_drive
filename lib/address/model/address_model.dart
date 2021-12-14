@@ -17,17 +17,14 @@ class AddressModel with _$AddressModel {
 class AddressModelDocument with _$AddressModelDocument {
   const factory AddressModelDocument({
     @JsonKey(name: 'place_name') required String placeName,
-    // required String? distance,
     // @JsonKey(name: 'place_url') required String placeUrl,
     // @JsonKey(name: 'category_name') required String categoryName,
-    // @JsonKey(name: 'address_name') required String addressName,
-    // @JsonKey(name: 'road_address_name') required String roadAddressName,
-    // required String id,
+    @JsonKey(name: 'address_name') required String addressName,
+    @JsonKey(name: 'road_address_name') required String roadAddressName,
+    required String id,
     // required String phone,
-    // // required String categoryGroupCode,
-    // // required String categoryGroupName,
-    // required String latitude,
-    // required String longitude,
+    @JsonKey(name: 'y') required String latitude,
+    @JsonKey(name: 'x') required String longitude,
   }) = _AddressModelDocument;
   factory AddressModelDocument.fromJson(Map<String, dynamic> json) =>
       _$AddressModelDocumentFromJson(json);

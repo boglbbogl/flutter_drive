@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/address/provider/address_provider.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
-import 'package:flutter_drive/create/provider/course_animation_provider.dart';
 import 'package:flutter_drive/create/provider/course_provider.dart';
 import 'package:flutter_drive/create/ui/create_page.dart';
 import 'package:flutter_drive/main/setting_bottom_widget.dart';
@@ -17,14 +16,10 @@ AppBar mainAppbarWidget({
     actions: [
       _actionIcons(
           onTap: () {
-            context.read<AddressProvider>().getAddressSearch();
-            // context.read<CourseProvider>().createCourse(
-            //     userKey: context.read<AuthProvider>().user!.userKey);
-            // pushNewScreen(context,
-            //     screen: ChangeNotifierProvider(
-            //         create: (context) => CourseAnimationProvider(),
-            //         child: const CreatePage()),
-            //     pageTransitionAnimation: PageTransitionAnimation.slideUp);
+            // context.read<AddressProvider>().getAddressSearch();
+            pushNewScreen(context,
+                screen: const CreatePage(),
+                pageTransitionAnimation: PageTransitionAnimation.slideUp);
           },
           icon: Icons.add_box_outlined),
       _actionIcons(

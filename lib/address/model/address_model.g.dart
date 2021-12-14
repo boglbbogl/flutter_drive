@@ -24,12 +24,22 @@ _$_AddressModelDocument _$$_AddressModelDocumentFromJson(
         Map<String, dynamic> json) =>
     _$_AddressModelDocument(
       placeName: json['place_name'] as String,
+      addressName: json['address_name'] as String,
+      roadAddressName: json['road_address_name'] as String,
+      id: json['id'] as String,
+      latitude: json['y'] as String,
+      longitude: json['x'] as String,
     );
 
 Map<String, dynamic> _$$_AddressModelDocumentToJson(
         _$_AddressModelDocument instance) =>
     <String, dynamic>{
       'place_name': instance.placeName,
+      'address_name': instance.addressName,
+      'road_address_name': instance.roadAddressName,
+      'id': instance.id,
+      'y': instance.latitude,
+      'x': instance.longitude,
     };
 
 _$_AddressModelMetaData _$$_AddressModelMetaDataFromJson(

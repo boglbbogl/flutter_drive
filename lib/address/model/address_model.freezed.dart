@@ -205,9 +205,19 @@ class _$AddressModelDocumentTearOff {
   const _$AddressModelDocumentTearOff();
 
   _AddressModelDocument call(
-      {@JsonKey(name: 'place_name') required String placeName}) {
+      {@JsonKey(name: 'place_name') required String placeName,
+      @JsonKey(name: 'address_name') required String addressName,
+      @JsonKey(name: 'road_address_name') required String roadAddressName,
+      required String id,
+      @JsonKey(name: 'y') required String latitude,
+      @JsonKey(name: 'x') required String longitude}) {
     return _AddressModelDocument(
       placeName: placeName,
+      addressName: addressName,
+      roadAddressName: roadAddressName,
+      id: id,
+      latitude: latitude,
+      longitude: longitude,
     );
   }
 
@@ -222,7 +232,18 @@ const $AddressModelDocument = _$AddressModelDocumentTearOff();
 /// @nodoc
 mixin _$AddressModelDocument {
   @JsonKey(name: 'place_name')
-  String get placeName => throw _privateConstructorUsedError;
+  String get placeName =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'place_url') required String placeUrl,
+// @JsonKey(name: 'category_name') required String categoryName,
+  @JsonKey(name: 'address_name')
+  String get addressName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'road_address_name')
+  String get roadAddressName => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError; // required String phone,
+  @JsonKey(name: 'y')
+  String get latitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'x')
+  String get longitude => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -235,7 +256,13 @@ abstract class $AddressModelDocumentCopyWith<$Res> {
   factory $AddressModelDocumentCopyWith(AddressModelDocument value,
           $Res Function(AddressModelDocument) then) =
       _$AddressModelDocumentCopyWithImpl<$Res>;
-  $Res call({@JsonKey(name: 'place_name') String placeName});
+  $Res call(
+      {@JsonKey(name: 'place_name') String placeName,
+      @JsonKey(name: 'address_name') String addressName,
+      @JsonKey(name: 'road_address_name') String roadAddressName,
+      String id,
+      @JsonKey(name: 'y') String latitude,
+      @JsonKey(name: 'x') String longitude});
 }
 
 /// @nodoc
@@ -250,11 +277,36 @@ class _$AddressModelDocumentCopyWithImpl<$Res>
   @override
   $Res call({
     Object? placeName = freezed,
+    Object? addressName = freezed,
+    Object? roadAddressName = freezed,
+    Object? id = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_value.copyWith(
       placeName: placeName == freezed
           ? _value.placeName
           : placeName // ignore: cast_nullable_to_non_nullable
+              as String,
+      addressName: addressName == freezed
+          ? _value.addressName
+          : addressName // ignore: cast_nullable_to_non_nullable
+              as String,
+      roadAddressName: roadAddressName == freezed
+          ? _value.roadAddressName
+          : roadAddressName // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -267,7 +319,13 @@ abstract class _$AddressModelDocumentCopyWith<$Res>
           $Res Function(_AddressModelDocument) then) =
       __$AddressModelDocumentCopyWithImpl<$Res>;
   @override
-  $Res call({@JsonKey(name: 'place_name') String placeName});
+  $Res call(
+      {@JsonKey(name: 'place_name') String placeName,
+      @JsonKey(name: 'address_name') String addressName,
+      @JsonKey(name: 'road_address_name') String roadAddressName,
+      String id,
+      @JsonKey(name: 'y') String latitude,
+      @JsonKey(name: 'x') String longitude});
 }
 
 /// @nodoc
@@ -284,11 +342,36 @@ class __$AddressModelDocumentCopyWithImpl<$Res>
   @override
   $Res call({
     Object? placeName = freezed,
+    Object? addressName = freezed,
+    Object? roadAddressName = freezed,
+    Object? id = freezed,
+    Object? latitude = freezed,
+    Object? longitude = freezed,
   }) {
     return _then(_AddressModelDocument(
       placeName: placeName == freezed
           ? _value.placeName
           : placeName // ignore: cast_nullable_to_non_nullable
+              as String,
+      addressName: addressName == freezed
+          ? _value.addressName
+          : addressName // ignore: cast_nullable_to_non_nullable
+              as String,
+      roadAddressName: roadAddressName == freezed
+          ? _value.roadAddressName
+          : roadAddressName // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      latitude: latitude == freezed
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String,
+      longitude: longitude == freezed
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -298,7 +381,12 @@ class __$AddressModelDocumentCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AddressModelDocument implements _AddressModelDocument {
   const _$_AddressModelDocument(
-      {@JsonKey(name: 'place_name') required this.placeName});
+      {@JsonKey(name: 'place_name') required this.placeName,
+      @JsonKey(name: 'address_name') required this.addressName,
+      @JsonKey(name: 'road_address_name') required this.roadAddressName,
+      required this.id,
+      @JsonKey(name: 'y') required this.latitude,
+      @JsonKey(name: 'x') required this.longitude});
 
   factory _$_AddressModelDocument.fromJson(Map<String, dynamic> json) =>
       _$$_AddressModelDocumentFromJson(json);
@@ -306,10 +394,25 @@ class _$_AddressModelDocument implements _AddressModelDocument {
   @override
   @JsonKey(name: 'place_name')
   final String placeName;
+  @override // @JsonKey(name: 'place_url') required String placeUrl,
+// @JsonKey(name: 'category_name') required String categoryName,
+  @JsonKey(name: 'address_name')
+  final String addressName;
+  @override
+  @JsonKey(name: 'road_address_name')
+  final String roadAddressName;
+  @override
+  final String id;
+  @override // required String phone,
+  @JsonKey(name: 'y')
+  final String latitude;
+  @override
+  @JsonKey(name: 'x')
+  final String longitude;
 
   @override
   String toString() {
-    return 'AddressModelDocument(placeName: $placeName)';
+    return 'AddressModelDocument(placeName: $placeName, addressName: $addressName, roadAddressName: $roadAddressName, id: $id, latitude: $latitude, longitude: $longitude)';
   }
 
   @override
@@ -317,12 +420,25 @@ class _$_AddressModelDocument implements _AddressModelDocument {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _AddressModelDocument &&
-            const DeepCollectionEquality().equals(other.placeName, placeName));
+            const DeepCollectionEquality().equals(other.placeName, placeName) &&
+            const DeepCollectionEquality()
+                .equals(other.addressName, addressName) &&
+            const DeepCollectionEquality()
+                .equals(other.roadAddressName, roadAddressName) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.latitude, latitude) &&
+            const DeepCollectionEquality().equals(other.longitude, longitude));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(placeName));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(placeName),
+      const DeepCollectionEquality().hash(addressName),
+      const DeepCollectionEquality().hash(roadAddressName),
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(latitude),
+      const DeepCollectionEquality().hash(longitude));
 
   @JsonKey(ignore: true)
   @override
@@ -338,8 +454,12 @@ class _$_AddressModelDocument implements _AddressModelDocument {
 
 abstract class _AddressModelDocument implements AddressModelDocument {
   const factory _AddressModelDocument(
-          {@JsonKey(name: 'place_name') required String placeName}) =
-      _$_AddressModelDocument;
+      {@JsonKey(name: 'place_name') required String placeName,
+      @JsonKey(name: 'address_name') required String addressName,
+      @JsonKey(name: 'road_address_name') required String roadAddressName,
+      required String id,
+      @JsonKey(name: 'y') required String latitude,
+      @JsonKey(name: 'x') required String longitude}) = _$_AddressModelDocument;
 
   factory _AddressModelDocument.fromJson(Map<String, dynamic> json) =
       _$_AddressModelDocument.fromJson;
@@ -347,6 +467,21 @@ abstract class _AddressModelDocument implements AddressModelDocument {
   @override
   @JsonKey(name: 'place_name')
   String get placeName;
+  @override // @JsonKey(name: 'place_url') required String placeUrl,
+// @JsonKey(name: 'category_name') required String categoryName,
+  @JsonKey(name: 'address_name')
+  String get addressName;
+  @override
+  @JsonKey(name: 'road_address_name')
+  String get roadAddressName;
+  @override
+  String get id;
+  @override // required String phone,
+  @JsonKey(name: 'y')
+  String get latitude;
+  @override
+  @JsonKey(name: 'x')
+  String get longitude;
   @override
   @JsonKey(ignore: true)
   _$AddressModelDocumentCopyWith<_AddressModelDocument> get copyWith =>
