@@ -8,8 +8,19 @@ class AppTheme {
       primaryColor: appSubColor,
       canvasColor: darkThemeMainColor,
       primarySwatch: materialWhiteColor,
+      inputDecorationTheme: InputDecorationTheme(
+          labelStyle: const TextStyle(
+              color: Color.fromRGBO(175, 175, 175, 1), fontSize: 9),
+          hintStyle: const TextStyle(
+              color: Color.fromRGBO(175, 175, 175, 1), fontSize: 8),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: darkThemeMainColor),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: darkThemeMainColor),
+          )),
       textTheme: const TextTheme(
-          bodyText2: TextStyle(color: Colors.white, fontSize: 18)),
+          bodyText2: TextStyle(color: Colors.white, fontSize: 14)),
       appBarTheme: AppBarTheme(
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),

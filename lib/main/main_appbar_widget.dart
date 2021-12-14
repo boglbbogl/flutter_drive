@@ -1,7 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drive/address/provider/address_provider.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
-import 'package:flutter_drive/main/appbar_setting_widget.dart';
+import 'package:flutter_drive/create/provider/course_animation_provider.dart';
+import 'package:flutter_drive/create/provider/course_provider.dart';
+import 'package:flutter_drive/create/ui/create_page.dart';
+import 'package:flutter_drive/main/setting_bottom_widget.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
 AppBar mainAppbarWidget({
@@ -10,10 +15,21 @@ AppBar mainAppbarWidget({
   return AppBar(
     title: const Text('Drive'),
     actions: [
-      _actionIcons(onTap: () {}, icon: Icons.add_box_outlined),
       _actionIcons(
           onTap: () {
-            appbarSettingWidget(context: context);
+            context.read<AddressProvider>().getAddressSearch();
+            // context.read<CourseProvider>().createCourse(
+            //     userKey: context.read<AuthProvider>().user!.userKey);
+            // pushNewScreen(context,
+            //     screen: ChangeNotifierProvider(
+            //         create: (context) => CourseAnimationProvider(),
+            //         child: const CreatePage()),
+            //     pageTransitionAnimation: PageTransitionAnimation.slideUp);
+          },
+          icon: Icons.add_box_outlined),
+      _actionIcons(
+          onTap: () {
+            settingBottomWidget(context: context);
           },
           icon: Icons.settings),
       Padding(

@@ -1,6 +1,7 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_theme.dart';
+import 'package:flutter_drive/address/provider/address_provider.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/router/route_delegate.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,7 @@ class Drive extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => AddressProvider()),
       ],
       child: MaterialApp.router(
         routeInformationParser: BeamerParser(),

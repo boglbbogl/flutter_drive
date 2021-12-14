@@ -3,7 +3,7 @@ import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
-Future<void> appbarSettingWidget({
+Future<void> settingBottomWidget({
   required BuildContext context,
 }) {
   return showModalBottomSheet(
@@ -11,7 +11,7 @@ Future<void> appbarSettingWidget({
     isScrollControlled: true,
     backgroundColor: materialBlackColor,
     builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * 0.25,
+        height: MediaQuery.of(context).size.height * 0.28,
         decoration: BoxDecoration(
           color: darkThemeMainColor,
           borderRadius: const BorderRadius.only(

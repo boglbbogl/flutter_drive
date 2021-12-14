@@ -45,7 +45,6 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> _createUserProfile(
       User? firebaseUser, kakao.User? kakaoUser) async {
-    final UserRepository _userRepository = UserRepository();
     if (firebaseUser != null) {
       await _userRepository.createUserProfile(
         userModel: UserModel(
