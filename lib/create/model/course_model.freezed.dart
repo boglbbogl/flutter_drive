@@ -30,7 +30,8 @@ class _$CourseModelTearOff {
       required String updateAt,
       required List<String> tagKeyword,
       required int likeCount,
-      required List<String> likeUserId}) {
+      required List<String> likeUserId,
+      required List<CoursePlace> coursePlace}) {
     return _CourseModel(
       userKey: userKey,
       docKey: docKey,
@@ -41,6 +42,7 @@ class _$CourseModelTearOff {
       tagKeyword: tagKeyword,
       likeCount: likeCount,
       likeUserId: likeUserId,
+      coursePlace: coursePlace,
     );
   }
 
@@ -63,6 +65,7 @@ mixin _$CourseModel {
   List<String> get tagKeyword => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
   List<String> get likeUserId => throw _privateConstructorUsedError;
+  List<CoursePlace> get coursePlace => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -84,7 +87,8 @@ abstract class $CourseModelCopyWith<$Res> {
       String updateAt,
       List<String> tagKeyword,
       int likeCount,
-      List<String> likeUserId});
+      List<String> likeUserId,
+      List<CoursePlace> coursePlace});
 }
 
 /// @nodoc
@@ -106,6 +110,7 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? tagKeyword = freezed,
     Object? likeCount = freezed,
     Object? likeUserId = freezed,
+    Object? coursePlace = freezed,
   }) {
     return _then(_value.copyWith(
       userKey: userKey == freezed
@@ -144,6 +149,10 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
           ? _value.likeUserId
           : likeUserId // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      coursePlace: coursePlace == freezed
+          ? _value.coursePlace
+          : coursePlace // ignore: cast_nullable_to_non_nullable
+              as List<CoursePlace>,
     ));
   }
 }
@@ -164,7 +173,8 @@ abstract class _$CourseModelCopyWith<$Res>
       String updateAt,
       List<String> tagKeyword,
       int likeCount,
-      List<String> likeUserId});
+      List<String> likeUserId,
+      List<CoursePlace> coursePlace});
 }
 
 /// @nodoc
@@ -188,6 +198,7 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
     Object? tagKeyword = freezed,
     Object? likeCount = freezed,
     Object? likeUserId = freezed,
+    Object? coursePlace = freezed,
   }) {
     return _then(_CourseModel(
       userKey: userKey == freezed
@@ -226,6 +237,10 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
           ? _value.likeUserId
           : likeUserId // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      coursePlace: coursePlace == freezed
+          ? _value.coursePlace
+          : coursePlace // ignore: cast_nullable_to_non_nullable
+              as List<CoursePlace>,
     ));
   }
 }
@@ -242,7 +257,8 @@ class _$_CourseModel implements _CourseModel {
       required this.updateAt,
       required this.tagKeyword,
       required this.likeCount,
-      required this.likeUserId});
+      required this.likeUserId,
+      required this.coursePlace});
 
   factory _$_CourseModel.fromJson(Map<String, dynamic> json) =>
       _$$_CourseModelFromJson(json);
@@ -265,10 +281,12 @@ class _$_CourseModel implements _CourseModel {
   final int likeCount;
   @override
   final List<String> likeUserId;
+  @override
+  final List<CoursePlace> coursePlace;
 
   @override
   String toString() {
-    return 'CourseModel(userKey: $userKey, docKey: $docKey, title: $title, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId)';
+    return 'CourseModel(userKey: $userKey, docKey: $docKey, title: $title, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, coursePlace: $coursePlace)';
   }
 
   @override
@@ -287,7 +305,9 @@ class _$_CourseModel implements _CourseModel {
                 .equals(other.tagKeyword, tagKeyword) &&
             const DeepCollectionEquality().equals(other.likeCount, likeCount) &&
             const DeepCollectionEquality()
-                .equals(other.likeUserId, likeUserId));
+                .equals(other.likeUserId, likeUserId) &&
+            const DeepCollectionEquality()
+                .equals(other.coursePlace, coursePlace));
   }
 
   @override
@@ -301,7 +321,8 @@ class _$_CourseModel implements _CourseModel {
       const DeepCollectionEquality().hash(updateAt),
       const DeepCollectionEquality().hash(tagKeyword),
       const DeepCollectionEquality().hash(likeCount),
-      const DeepCollectionEquality().hash(likeUserId));
+      const DeepCollectionEquality().hash(likeUserId),
+      const DeepCollectionEquality().hash(coursePlace));
 
   @JsonKey(ignore: true)
   @override
@@ -324,7 +345,8 @@ abstract class _CourseModel implements CourseModel {
       required String updateAt,
       required List<String> tagKeyword,
       required int likeCount,
-      required List<String> likeUserId}) = _$_CourseModel;
+      required List<String> likeUserId,
+      required List<CoursePlace> coursePlace}) = _$_CourseModel;
 
   factory _CourseModel.fromJson(Map<String, dynamic> json) =
       _$_CourseModel.fromJson;
@@ -348,7 +370,223 @@ abstract class _CourseModel implements CourseModel {
   @override
   List<String> get likeUserId;
   @override
+  List<CoursePlace> get coursePlace;
+  @override
   @JsonKey(ignore: true)
   _$CourseModelCopyWith<_CourseModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+CoursePlace _$CoursePlaceFromJson(Map<String, dynamic> json) {
+  return _CoursePlace.fromJson(json);
+}
+
+/// @nodoc
+class _$CoursePlaceTearOff {
+  const _$CoursePlaceTearOff();
+
+  _CoursePlace call(
+      {required String placeName,
+      required String id,
+      required String lat,
+      required String lon}) {
+    return _CoursePlace(
+      placeName: placeName,
+      id: id,
+      lat: lat,
+      lon: lon,
+    );
+  }
+
+  CoursePlace fromJson(Map<String, Object?> json) {
+    return CoursePlace.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $CoursePlace = _$CoursePlaceTearOff();
+
+/// @nodoc
+mixin _$CoursePlace {
+  String get placeName => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get lat => throw _privateConstructorUsedError;
+  String get lon => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CoursePlaceCopyWith<CoursePlace> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CoursePlaceCopyWith<$Res> {
+  factory $CoursePlaceCopyWith(
+          CoursePlace value, $Res Function(CoursePlace) then) =
+      _$CoursePlaceCopyWithImpl<$Res>;
+  $Res call({String placeName, String id, String lat, String lon});
+}
+
+/// @nodoc
+class _$CoursePlaceCopyWithImpl<$Res> implements $CoursePlaceCopyWith<$Res> {
+  _$CoursePlaceCopyWithImpl(this._value, this._then);
+
+  final CoursePlace _value;
+  // ignore: unused_field
+  final $Res Function(CoursePlace) _then;
+
+  @override
+  $Res call({
+    Object? placeName = freezed,
+    Object? id = freezed,
+    Object? lat = freezed,
+    Object? lon = freezed,
+  }) {
+    return _then(_value.copyWith(
+      placeName: placeName == freezed
+          ? _value.placeName
+          : placeName // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as String,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CoursePlaceCopyWith<$Res>
+    implements $CoursePlaceCopyWith<$Res> {
+  factory _$CoursePlaceCopyWith(
+          _CoursePlace value, $Res Function(_CoursePlace) then) =
+      __$CoursePlaceCopyWithImpl<$Res>;
+  @override
+  $Res call({String placeName, String id, String lat, String lon});
+}
+
+/// @nodoc
+class __$CoursePlaceCopyWithImpl<$Res> extends _$CoursePlaceCopyWithImpl<$Res>
+    implements _$CoursePlaceCopyWith<$Res> {
+  __$CoursePlaceCopyWithImpl(
+      _CoursePlace _value, $Res Function(_CoursePlace) _then)
+      : super(_value, (v) => _then(v as _CoursePlace));
+
+  @override
+  _CoursePlace get _value => super._value as _CoursePlace;
+
+  @override
+  $Res call({
+    Object? placeName = freezed,
+    Object? id = freezed,
+    Object? lat = freezed,
+    Object? lon = freezed,
+  }) {
+    return _then(_CoursePlace(
+      placeName: placeName == freezed
+          ? _value.placeName
+          : placeName // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      lat: lat == freezed
+          ? _value.lat
+          : lat // ignore: cast_nullable_to_non_nullable
+              as String,
+      lon: lon == freezed
+          ? _value.lon
+          : lon // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_CoursePlace implements _CoursePlace {
+  const _$_CoursePlace(
+      {required this.placeName,
+      required this.id,
+      required this.lat,
+      required this.lon});
+
+  factory _$_CoursePlace.fromJson(Map<String, dynamic> json) =>
+      _$$_CoursePlaceFromJson(json);
+
+  @override
+  final String placeName;
+  @override
+  final String id;
+  @override
+  final String lat;
+  @override
+  final String lon;
+
+  @override
+  String toString() {
+    return 'CoursePlace(placeName: $placeName, id: $id, lat: $lat, lon: $lon)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _CoursePlace &&
+            const DeepCollectionEquality().equals(other.placeName, placeName) &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.lat, lat) &&
+            const DeepCollectionEquality().equals(other.lon, lon));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(placeName),
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(lat),
+      const DeepCollectionEquality().hash(lon));
+
+  @JsonKey(ignore: true)
+  @override
+  _$CoursePlaceCopyWith<_CoursePlace> get copyWith =>
+      __$CoursePlaceCopyWithImpl<_CoursePlace>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_CoursePlaceToJson(this);
+  }
+}
+
+abstract class _CoursePlace implements CoursePlace {
+  const factory _CoursePlace(
+      {required String placeName,
+      required String id,
+      required String lat,
+      required String lon}) = _$_CoursePlace;
+
+  factory _CoursePlace.fromJson(Map<String, dynamic> json) =
+      _$_CoursePlace.fromJson;
+
+  @override
+  String get placeName;
+  @override
+  String get id;
+  @override
+  String get lat;
+  @override
+  String get lon;
+  @override
+  @JsonKey(ignore: true)
+  _$CoursePlaceCopyWith<_CoursePlace> get copyWith =>
       throw _privateConstructorUsedError;
 }

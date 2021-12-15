@@ -14,6 +14,7 @@ class AddressRepository {
   }) async {
     const apiBase = 'https://dapi.kakao.com';
     const apiKey = 'f040fd49aeeb43372643c860fc9b266f';
+
     final uri = Uri.parse(
         "$apiBase/v2/local/search/keyword.json?page=$page&query=$query");
     final response = await http.get(uri, headers: {

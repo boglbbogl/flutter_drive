@@ -21,6 +21,9 @@ _$_CourseModel _$$_CourseModelFromJson(Map<String, dynamic> json) =>
       likeUserId: (json['likeUserId'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      coursePlace: (json['coursePlace'] as List<dynamic>)
+          .map((e) => CoursePlace.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
@@ -34,4 +37,21 @@ Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
       'tagKeyword': instance.tagKeyword,
       'likeCount': instance.likeCount,
       'likeUserId': instance.likeUserId,
+      'coursePlace': instance.coursePlace,
+    };
+
+_$_CoursePlace _$$_CoursePlaceFromJson(Map<String, dynamic> json) =>
+    _$_CoursePlace(
+      placeName: json['placeName'] as String,
+      id: json['id'] as String,
+      lat: json['lat'] as String,
+      lon: json['lon'] as String,
+    );
+
+Map<String, dynamic> _$$_CoursePlaceToJson(_$_CoursePlace instance) =>
+    <String, dynamic>{
+      'placeName': instance.placeName,
+      'id': instance.id,
+      'lat': instance.lat,
+      'lon': instance.lon,
     };
