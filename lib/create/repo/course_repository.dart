@@ -10,7 +10,7 @@ class CourseRepository {
   Future<void> createCourseModel({
     required CourseModel courseModel,
   }) async {
-    final DocumentReference<Map<String, dynamic>> _documentReference =
+    final DocumentReference _documentReference =
         FirebaseFirestore.instance.collection(collectionCourse).doc();
     final DocumentSnapshot _documentSnapshot = await _documentReference.get();
     if (!_documentSnapshot.exists) {

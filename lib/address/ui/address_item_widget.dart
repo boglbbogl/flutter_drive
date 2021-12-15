@@ -12,9 +12,8 @@ Padding addressItemWidget({
     padding: const EdgeInsets.symmetric(vertical: 12),
     child: InkWell(
       onTap: () {
-        context.read<CourseProvider>().getCoursePlace(
-            coursePlace: context.read<CourseProvider>().coursePlace.copyWith(
-                  id: address.id,
+        context.read<CourseProvider>().getCourseSpotList(
+            courseSpot: context.read<CourseProvider>().courseSpot.copyWith(
                   placeName: address.placeName,
                   lat: address.latitude,
                   lon: address.longitude,

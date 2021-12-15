@@ -21,9 +21,8 @@ AppBar createAppbarWidget({
         child: TextButton(
           onPressed: () {
             context.read<CourseProvider>().createCourse(
-                userKey: 'userKey',
-                coursePlace: CoursePlace(
-                    placeName: "123", id: "123", lat: "123", lon: "123"));
+                  userKey: 'userKey',
+                );
           },
           child: Text(
             '올리기',

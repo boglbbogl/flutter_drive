@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
@@ -5,13 +6,12 @@ import 'package:flutter_drive/create/repo/course_repository.dart';
 
 class CourseProvider extends ChangeNotifier {
   final CourseRepository _courseRepository = CourseRepository();
-  final CoursePlace _coursePlace = CoursePlace.empty();
   CourseModel _courseModel = CourseModel.empty();
-  final List<CoursePlace> _coursePlaceList = [];
+  final CourseSpot _courseSpot = CourseSpot.empty();
+  final List<Map<String, dynamic>> _courseSpotList = [];
 
   Future<void> createCourse({
     required String userKey,
-    required CoursePlace coursePlace,
   }) async {
     await _courseRepository.createCourseModel(
         courseModel: _courseModel.copyWith(
@@ -22,17 +22,18 @@ class CourseProvider extends ChangeNotifier {
     ));
   }
 
-  void getCoursePlace({
-    required CoursePlace coursePlace,
+  void getCourseSpotList({
+    required CourseSpot courseSpot,
   }) {
-    _coursePlaceList.add(coursePlace);
-    // if () {
-    //   _coursePlaceList.remove(coursePlace.toJson());
+    // if (mapEquals(, courseSpot.toJson())) {
+    //   _courseSpotList.remove(courseSpot.toJson());
     // } else {
-    //   _coursePlaceList.add(coursePlace.toJson());
+    //   _courseSpotList.add(courseSpot.toJson());
     // }
-    // _courseModel = _courseModel.copyWith(coursePlace: _coursePlaceList);
-    logger.e(_coursePlaceList);
+    // _courseSpotList.add(courseSpot.toJson());
+    _courseSpotList.remove(courseSpot.toJson());
+    _courseModel = _courseModel.copyWith(spot: _courseSpotList);
+    logger.e(_courseSpotList);
   }
 
   // void getCourseTitle({
@@ -40,6 +41,5 @@ class CourseProvider extends ChangeNotifier {
   // }) {
   //   _courseModel = _courseModel.copyWith(title: title);
   // }
-
-  CoursePlace get coursePlace => _coursePlace;
+  CourseSpot get courseSpot => _courseSpot;
 }

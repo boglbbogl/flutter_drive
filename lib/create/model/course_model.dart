@@ -15,7 +15,7 @@ class CourseModel with _$CourseModel {
     required List<String> tagKeyword,
     required int likeCount,
     required List<String> likeUserId,
-    required List<CoursePlace> coursePlace,
+    required List<Map<String, dynamic>> spot,
   }) = _CourseModel;
   factory CourseModel.fromJson(Map<String, dynamic> json) =>
       _$CourseModelFromJson(json);
@@ -30,25 +30,21 @@ class CourseModel with _$CourseModel {
         tagKeyword: [],
         likeCount: 0,
         likeUserId: [],
-        coursePlace: [],
+        spot: [],
       );
 }
 
 @freezed
-class CoursePlace with _$CoursePlace {
-  const factory CoursePlace({
+class CourseSpot with _$CourseSpot {
+  const factory CourseSpot({
     required String placeName,
-    required String id,
     required String lat,
     required String lon,
-  }) = _CoursePlace;
-
-  factory CoursePlace.fromJson(Map<String, dynamic> json) =>
-      _$CoursePlaceFromJson(json);
-
-  factory CoursePlace.empty() => const CoursePlace(
+  }) = _CourseSpot;
+  factory CourseSpot.fromJson(Map<String, dynamic> json) =>
+      _$CourseSpotFromJson(json);
+  factory CourseSpot.empty() => const CourseSpot(
         placeName: "",
-        id: "",
         lat: "",
         lon: "",
       );
