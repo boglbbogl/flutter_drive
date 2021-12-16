@@ -3,6 +3,7 @@ import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/address/provider/address_provider.dart';
 import 'package:flutter_drive/address/ui/address_item_widget.dart';
 import 'package:flutter_drive/address/ui/shimmer_list_widget.dart';
+import 'package:flutter_drive/create/provider/course_provider.dart';
 import 'package:provider/provider.dart';
 
 class AddressScreen extends StatelessWidget {
@@ -17,7 +18,9 @@ class AddressScreen extends StatelessWidget {
           appBar: AppBar(
             actions: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.read<CourseProvider>().courseSpotClear();
+                },
                 child: Text(
                   '초기화',
                   style: theme.textTheme.bodyText2!.copyWith(
@@ -43,7 +46,7 @@ class AddressScreen extends StatelessWidget {
                     hintStyle: theme.textTheme.bodyText2!.copyWith(
                         color: const Color.fromRGBO(155, 155, 155, 1),
                         fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                        fontSize: 16),
                   ),
                 ),
                 Row(
@@ -60,15 +63,16 @@ class AddressScreen extends StatelessWidget {
                         Text(
                           '코스는 최대 10개 까지 추가할 수 있습니다',
                           style: theme.textTheme.bodyText2!.copyWith(
-                              color: const Color.fromRGBO(155, 155, 155, 1)),
+                              color: const Color.fromRGBO(155, 155, 155, 1),
+                              fontSize: 12),
                         ),
                       ],
                     ),
                     Text(
-                      // '1/10',
-                      provider.isLoading.toString(),
+                      "${context.watch<CourseProvider>().courseSpotList.length.toString()}/10",
                       style: theme.textTheme.bodyText2!.copyWith(
-                          color: const Color.fromRGBO(155, 155, 155, 1)),
+                          color: const Color.fromRGBO(155, 155, 155, 1),
+                          fontSize: 12),
                     ),
                   ],
                 ),

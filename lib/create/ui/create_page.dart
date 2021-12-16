@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/address/provider/address_provider.dart';
 import 'package:flutter_drive/address/ui/address_screen.dart';
 import 'package:flutter_drive/create/provider/course_provider.dart';
 import 'package:flutter_drive/create/ui/create_appbar_widget.dart';
@@ -21,7 +20,7 @@ class CreatePage extends StatelessWidget {
         child: Stack(
           children: [
             Scaffold(
-              appBar: createAppbarWidget(context: context, submitted: () {}),
+              appBar: createAppbarWidget(context: context),
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Column(
@@ -60,6 +59,11 @@ class CreatePage extends StatelessWidget {
                             width: size.width * 0.6,
                             height: size.width * 0.4,
                             child: TextFormField(
+                              onChanged: (value) {
+                                context
+                                    .read<CourseProvider>()
+                                    .getCourseExplanation(value: value);
+                              },
                               style: theme.textTheme.bodyText2!
                                   .copyWith(fontSize: 11),
                               keyboardType: TextInputType.multiline,
@@ -74,10 +78,10 @@ class CreatePage extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 11),
                       child: InkWell(
                         onTap: () {
-                          pushNewScreen(context, screen: AddressScreen());
+                          pushNewScreen(context, screen: const AddressScreen());
                         },
                         child: SizedBox(
-                          width: size.width * 0.5,
+                          width: size.width * 0.9,
                           height: size.height * 0.08,
                           child: Row(
                             children: [
@@ -92,12 +96,47 @@ class CreatePage extends StatelessWidget {
                                 Icons.add_box_outlined,
                                 size: 18,
                                 color: appMainColor,
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ),
                     ),
+                    const SizedBox(height: 30),
+                    Flexible(
+                        child: Padding(
+                      padding: const EdgeInsets.only(left: 80),
+                      child: ListView(
+                        children: [
+                          ...context
+                              .watch<CourseProvider>()
+                              .courseSpotList
+                              .map((spot) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 30),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.circle_outlined,
+                                          size: 22,
+                                          color: appSubColor,
+                                        ),
+                                        const SizedBox(width: 30),
+                                        Text(
+                                          spot.placeName,
+                                          style: theme.textTheme.bodyText2!
+                                              .copyWith(
+                                                  color: const Color.fromRGBO(
+                                                      195, 195, 195, 1),
+                                                  fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ))
+                        ],
+                      ),
+                    ))
                   ],
                 ),
               ),

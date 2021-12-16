@@ -15,6 +15,10 @@ Padding addressItemWidget({
         context.read<CourseProvider>().getCourseSpotList(
             courseSpot: context.read<CourseProvider>().courseSpot.copyWith(
                   placeName: address.placeName,
+                  addressName: address.roadAddressName.isEmpty
+                      ? address.addressName
+                      : address.roadAddressName,
+                  id: address.id,
                   lat: address.latitude,
                   lon: address.longitude,
                 ));
@@ -24,8 +28,14 @@ Padding addressItemWidget({
         height: size.height * 0.1,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-              color: const Color.fromRGBO(115, 115, 115, 1), width: 2.5),
+          border: context
+                  .watch<CourseProvider>()
+                  .courseSpotList
+                  .map((e) => e.id)
+                  .contains(address.id)
+              ? Border.all(color: appSubColor, width: 3)
+              : Border.all(
+                  color: const Color.fromRGBO(115, 115, 115, 1), width: 2.5),
           color: const Color.fromRGBO(71, 71, 71, 1),
         ),
         child: DefaultTextStyle(
