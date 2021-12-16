@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/address/ui/address_screen.dart';
@@ -75,28 +76,57 @@ class CreatePage extends StatelessWidget {
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 11),
+                      padding: const EdgeInsets.only(left: 11, right: 15),
                       child: InkWell(
-                        onTap: () {
-                          pushNewScreen(context, screen: const AddressScreen());
-                        },
+                        onTap: () => pushNewScreen(context,
+                            screen: const AddressScreen()),
                         child: SizedBox(
-                          width: size.width * 0.9,
+                          width: size.width,
                           height: size.height * 0.08,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                '드라이브 코스 추가',
-                                style: theme.textTheme.bodyText2!.copyWith(
+                              Row(
+                                children: [
+                                  Text(
+                                    '드라이브 코스 추가',
+                                    style: theme.textTheme.bodyText2!.copyWith(
+                                        color: appMainColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Icon(
+                                    Icons.add_box_outlined,
+                                    size: 18,
                                     color: appMainColor,
-                                    fontWeight: FontWeight.bold),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: 8),
-                              Icon(
-                                Icons.add_box_outlined,
-                                size: 18,
-                                color: appMainColor,
-                              ),
+                              if (context
+                                  .watch<CourseProvider>()
+                                  .courseSpotList
+                                  .isNotEmpty) ...[
+                                Switch(
+                                  value: context
+                                      .watch<CourseProvider>()
+                                      .isSwitcher,
+                                  onChanged: (value) {
+                                    value = context
+                                        .read<CourseProvider>()
+                                        .isSwitcher;
+                                    context
+                                        .read<CourseProvider>()
+                                        .showCourseKeywordAndAddress(
+                                            value: value);
+                                  },
+                                  activeColor: appMainColor,
+                                  activeTrackColor: appMainColor.withAlpha(150),
+                                  inactiveThumbColor:
+                                      const Color.fromRGBO(115, 115, 115, 1),
+                                  inactiveTrackColor:
+                                      const Color.fromRGBO(71, 71, 71, 1),
+                                ),
+                              ],
                             ],
                           ),
                         ),
@@ -114,22 +144,24 @@ class CreatePage extends StatelessWidget {
                               .map((spot) => Padding(
                                     padding: const EdgeInsets.only(bottom: 30),
                                     child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
                                       children: [
                                         Icon(
                                           Icons.circle_outlined,
-                                          size: 22,
+                                          size: 18,
                                           color: appSubColor,
                                         ),
                                         const SizedBox(width: 30),
                                         Text(
-                                          spot.placeName,
+                                          context
+                                                  .watch<CourseProvider>()
+                                                  .isSwitcher
+                                              ? spot.addressName
+                                              : spot.placeName,
                                           style: theme.textTheme.bodyText2!
                                               .copyWith(
                                                   color: const Color.fromRGBO(
                                                       195, 195, 195, 1),
-                                                  fontSize: 12),
+                                                  fontSize: 15),
                                         ),
                                       ],
                                     ),

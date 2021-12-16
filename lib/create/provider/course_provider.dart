@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
 import 'package:flutter_drive/create/repo/course_repository.dart';
 
@@ -10,7 +9,7 @@ class CourseProvider extends ChangeNotifier {
   final CourseSpot _courseSpot = CourseSpot.empty();
   final List<CourseSpot> _courseSpotList = [];
   String _explanation = "";
-  bool _isToggle = false;
+  bool _isSwitcher = false;
 
   Future<void> createCourse({
     required String userKey,
@@ -53,16 +52,14 @@ class CourseProvider extends ChangeNotifier {
     _courseModel = _courseModel.copyWith(explanation: _explanation);
   }
 
-  void showCourseToggleSwitch({
+  void showCourseKeywordAndAddress({
     required bool value,
   }) {
-    value == true ? _isToggle = false : _isToggle = true;
-
+    value == true ? _isSwitcher = false : _isSwitcher = true;
     notifyListeners();
-    logger.e(_isToggle);
   }
 
   CourseSpot get courseSpot => _courseSpot;
   List<CourseSpot> get courseSpotList => _courseSpotList;
-  bool get isToggle => _isToggle;
+  bool get isSwitcher => _isSwitcher;
 }
