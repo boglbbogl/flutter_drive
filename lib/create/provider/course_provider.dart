@@ -6,10 +6,18 @@ import 'package:flutter_drive/create/repo/course_repository.dart';
 class CourseProvider extends ChangeNotifier {
   final CourseRepository _courseRepository = CourseRepository();
   CourseModel _courseModel = CourseModel.empty();
-  final CourseSpot _courseSpot = CourseSpot.empty();
-  final List<CourseSpot> _courseSpotList = [];
+  CourseSpot _courseSpot = CourseSpot.empty();
+  List<CourseSpot> _courseSpotList = [];
   String _explanation = "";
   bool _isSwitcher = false;
+
+  void started() {
+    _explanation = "";
+    _isSwitcher = false;
+    _courseSpotList = [];
+    _courseModel = CourseModel.empty();
+    _courseSpot = CourseSpot.empty();
+  }
 
   Future<void> createCourse({
     required String userKey,

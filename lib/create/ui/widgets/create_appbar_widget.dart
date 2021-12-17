@@ -9,7 +9,9 @@ AppBar createAppbarWidget({
 }) {
   return AppBar(
     leading: IconButton(
-      onPressed: () => Navigator.of(context).pop(),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
       icon: const Icon(Icons.clear),
     ),
     actions: [
