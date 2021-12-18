@@ -23,7 +23,6 @@ class ImageRepository {
   }) async {
     imageFile.map((e) async {
       _byteImageList.add(await e.readAsBytes());
-      // logger.e(e);
     });
     if (_byteImageList.isNotEmpty) {
       _byteImageList.map((e) {
@@ -33,8 +32,7 @@ class ImageRepository {
         _resizedImage.add(copyResize(_decodeImageList[i]!, width: 375));
       }
     }
-
-    logger.d(_resizedImage);
+    logger.d(_resizedImage.length);
     return [];
   }
 }
