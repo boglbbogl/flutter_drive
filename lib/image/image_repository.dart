@@ -16,25 +16,25 @@ class ImageRepository {
   final List<Uint8List> _byteImageList = [];
   final List<Image?> _decodeImageList = [];
   final List<Image> _resizedImage = [];
+
   Future<List<String>> imageUploadResized({
     required String userKey,
     required List<XFile> imageFile,
   }) async {
-    imageFile.forEach((e) async {
+    imageFile.map((e) async {
       _byteImageList.add(await e.readAsBytes());
       // logger.e(e);
     });
-    logger.e(_byteImageList);
     if (_byteImageList.isNotEmpty) {
       _byteImageList.map((e) {
         return _decodeImageList.add(decodeImage(e));
       });
+      for (int i = 0; i < _decodeImageList.length; i++) {
+        _resizedImage.add(copyResize(_decodeImageList[i]!, width: 375));
+      }
     }
-    // for (int i = 0; i < _decodeImageList.length; i++) {
-    //   _resizedImage.add(copyResize(_decodeImageList[i]!, width: 375));
-    // }
-    // logger.e(_decodeImageList);
-    // logger.e(_resizedImage);
+
+    logger.d(_resizedImage);
     return [];
   }
 }
