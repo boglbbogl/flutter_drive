@@ -2,9 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
 import 'package:flutter_drive/create/repo/course_repository.dart';
+import 'package:flutter_drive/image/image_repository.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CourseProvider extends ChangeNotifier {
   final CourseRepository _courseRepository = CourseRepository();
+  final ImageRepository _imageRepository = ImageRepository();
   CourseModel _courseModel = CourseModel.empty();
   CourseSpot _courseSpot = CourseSpot.empty();
   List<CourseSpot> _courseSpotList = [];
@@ -21,7 +24,12 @@ class CourseProvider extends ChangeNotifier {
 
   Future<void> createCourse({
     required String userKey,
+    required List<XFile> multiImage,
   }) async {
+    if (multiImage.isNotEmpty) {
+      await _imageRepository.imageUploadResized(
+          userKey: userKey, imageFile: multiImage);
+    }
     await _courseRepository.createCourseModel(
         courseSpot: _courseSpotList,
         courseModel: _courseModel.copyWith(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/create/provider/course_provider.dart';
+import 'package:flutter_drive/image/images_provider.dart';
 import 'package:provider/provider.dart';
 
 AppBar createAppbarWidget({
@@ -20,7 +21,8 @@ AppBar createAppbarWidget({
         child: TextButton(
           onPressed: () {
             context.read<CourseProvider>().createCourse(
-                userKey: context.read<AuthProvider>().user!.userKey);
+                userKey: context.read<AuthProvider>().user!.userKey,
+                multiImage: context.read<ImagesProvider>().pickedImages!);
           },
           child: Text(
             '올리기',
