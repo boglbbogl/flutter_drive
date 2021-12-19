@@ -13,6 +13,7 @@ class CourseModel with _$CourseModel {
     required List<String> tagKeyword,
     required int likeCount,
     required List<String> likeUserId,
+    required List<String> imageUrl,
     // required List<CourseSpot> spot,
   }) = _CourseModel;
 
@@ -25,6 +26,7 @@ class CourseModel with _$CourseModel {
         tagKeyword: [],
         likeCount: 0,
         likeUserId: [],
+        imageUrl: [],
         // spot: [],
       );
 }

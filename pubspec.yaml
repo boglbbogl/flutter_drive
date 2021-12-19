@@ -45,7 +45,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^1.1.0
-  json_annotation: ^4.0.1
+  # json_annotation: ^4.4.0
   lint: ^1.7.2
   logger: ^1.1.0
 

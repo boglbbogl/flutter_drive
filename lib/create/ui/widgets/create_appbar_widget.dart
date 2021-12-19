@@ -19,8 +19,8 @@ AppBar createAppbarWidget({
       Padding(
         padding: const EdgeInsets.only(right: 8),
         child: TextButton(
-          onPressed: () {
-            context.read<CourseProvider>().createCourse(
+          onPressed: () async {
+            await context.read<CourseProvider>().createCourse(
                 userKey: context.read<AuthProvider>().user!.userKey,
                 multiImage: context.read<ImagesProvider>().pickedImages);
           },

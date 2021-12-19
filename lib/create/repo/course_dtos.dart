@@ -15,6 +15,7 @@ class CourseDto with _$CourseDto {
     required List<String> tagKeyword,
     required int likeCount,
     required List<String> likeUserId,
+    required List<String> imageUrl,
     // required List<CourseSpotDto> spot,
   }) = _CourseDto;
   const CourseDto._();
@@ -30,6 +31,7 @@ class CourseDto with _$CourseDto {
         tagKeyword: c.tagKeyword,
         likeCount: c.likeCount,
         likeUserId: c.likeUserId,
+        imageUrl: c.imageUrl,
         // spot: c.spot.map((e) => CourseSpotDto.toFireStore(e)).toList(),
       );
 }

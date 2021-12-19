@@ -6,10 +6,10 @@ import 'package:flutter_drive/_constant/logger.dart';
 import 'package:image/image.dart';
 import 'package:path_provider/path_provider.dart';
 
-class ImageRepository {
-  static final ImageRepository _repository = ImageRepository._internal();
-  factory ImageRepository() => _repository;
-  ImageRepository._internal();
+class ImageSRepository {
+  static final ImageSRepository _repository = ImageSRepository._internal();
+  factory ImageSRepository() => _repository;
+  ImageSRepository._internal();
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<List<String>> imageUploadResized({
@@ -34,7 +34,7 @@ class ImageRepository {
         final _fileTask = File("${appDocDir.path}/$fileName")
             .writeAsBytes(encodeJpg(_resizedImage[i]));
         final _file = await _fileTask;
-        final _imageRef = "images/${userKey}_$_dateTime/$i";
+        final _imageRef = "course_images/${userKey}_$_dateTime/$i";
         await _storage.ref(_imageRef).putFile(_file);
         final String _urlString =
             await _storage.ref(_imageRef).getDownloadURL();

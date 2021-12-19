@@ -25,7 +25,8 @@ class _$CourseModelTearOff {
       required String updateAt,
       required List<String> tagKeyword,
       required int likeCount,
-      required List<String> likeUserId}) {
+      required List<String> likeUserId,
+      required List<String> imageUrl}) {
     return _CourseModel(
       userKey: userKey,
       docKey: docKey,
@@ -35,6 +36,7 @@ class _$CourseModelTearOff {
       tagKeyword: tagKeyword,
       likeCount: likeCount,
       likeUserId: likeUserId,
+      imageUrl: imageUrl,
     );
   }
 }
@@ -52,6 +54,7 @@ mixin _$CourseModel {
   List<String> get tagKeyword => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
   List<String> get likeUserId => throw _privateConstructorUsedError;
+  List<String> get imageUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CourseModelCopyWith<CourseModel> get copyWith =>
@@ -71,7 +74,8 @@ abstract class $CourseModelCopyWith<$Res> {
       String updateAt,
       List<String> tagKeyword,
       int likeCount,
-      List<String> likeUserId});
+      List<String> likeUserId,
+      List<String> imageUrl});
 }
 
 /// @nodoc
@@ -92,6 +96,7 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? tagKeyword = freezed,
     Object? likeCount = freezed,
     Object? likeUserId = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       userKey: userKey == freezed
@@ -126,6 +131,10 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
           ? _value.likeUserId
           : likeUserId // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -145,7 +154,8 @@ abstract class _$CourseModelCopyWith<$Res>
       String updateAt,
       List<String> tagKeyword,
       int likeCount,
-      List<String> likeUserId});
+      List<String> likeUserId,
+      List<String> imageUrl});
 }
 
 /// @nodoc
@@ -168,6 +178,7 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
     Object? tagKeyword = freezed,
     Object? likeCount = freezed,
     Object? likeUserId = freezed,
+    Object? imageUrl = freezed,
   }) {
     return _then(_CourseModel(
       userKey: userKey == freezed
@@ -202,6 +213,10 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
           ? _value.likeUserId
           : likeUserId // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -217,7 +232,8 @@ class _$_CourseModel implements _CourseModel {
       required this.updateAt,
       required this.tagKeyword,
       required this.likeCount,
-      required this.likeUserId});
+      required this.likeUserId,
+      required this.imageUrl});
 
   @override
   final String userKey;
@@ -235,10 +251,12 @@ class _$_CourseModel implements _CourseModel {
   final int likeCount;
   @override
   final List<String> likeUserId;
+  @override
+  final List<String> imageUrl;
 
   @override
   String toString() {
-    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId)';
+    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl)';
   }
 
   @override
@@ -256,7 +274,8 @@ class _$_CourseModel implements _CourseModel {
                 .equals(other.tagKeyword, tagKeyword) &&
             const DeepCollectionEquality().equals(other.likeCount, likeCount) &&
             const DeepCollectionEquality()
-                .equals(other.likeUserId, likeUserId));
+                .equals(other.likeUserId, likeUserId) &&
+            const DeepCollectionEquality().equals(other.imageUrl, imageUrl));
   }
 
   @override
@@ -269,7 +288,8 @@ class _$_CourseModel implements _CourseModel {
       const DeepCollectionEquality().hash(updateAt),
       const DeepCollectionEquality().hash(tagKeyword),
       const DeepCollectionEquality().hash(likeCount),
-      const DeepCollectionEquality().hash(likeUserId));
+      const DeepCollectionEquality().hash(likeUserId),
+      const DeepCollectionEquality().hash(imageUrl));
 
   @JsonKey(ignore: true)
   @override
@@ -286,7 +306,8 @@ abstract class _CourseModel implements CourseModel {
       required String updateAt,
       required List<String> tagKeyword,
       required int likeCount,
-      required List<String> likeUserId}) = _$_CourseModel;
+      required List<String> likeUserId,
+      required List<String> imageUrl}) = _$_CourseModel;
 
   @override
   String get userKey;
@@ -304,6 +325,8 @@ abstract class _CourseModel implements CourseModel {
   int get likeCount;
   @override
   List<String> get likeUserId;
+  @override
+  List<String> get imageUrl;
   @override
   @JsonKey(ignore: true)
   _$CourseModelCopyWith<_CourseModel> get copyWith =>
