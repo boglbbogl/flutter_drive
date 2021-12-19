@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/image/provider/images_provider.dart';
@@ -26,11 +25,11 @@ Container createImageWidget({
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: const Color.fromRGBO(71, 71, 71, 1)),
-            child: context.watch<ImagesProvider>().pickedImages.isNotEmpty
+            child: context.watch<ImagesProvider>().pickedImagesFirst != null
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.memory(
-                      context.watch<ImagesProvider>().pickedImages.first,
+                      context.watch<ImagesProvider>().pickedImagesFirst!,
                       fit: BoxFit.fill,
                     ),
                   )
