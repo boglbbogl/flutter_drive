@@ -21,6 +21,7 @@ class FeedProvider extends ChangeNotifier {
     _courseStreamSubscription =
         _feedRepostiory.getStreamCourse().listen((course) {
       _courseList = course;
+
       notifyListeners();
     });
   }

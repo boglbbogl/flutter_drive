@@ -12,6 +12,7 @@ class UserModel with _$UserModel {
     required String profileUrl,
     required String createdAt,
     required String provider,
+    required String updatedAt,
   }) = _UserModel;
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

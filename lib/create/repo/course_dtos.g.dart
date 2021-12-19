@@ -8,6 +8,8 @@ part of 'course_dtos.dart';
 
 _$_CourseDto _$$_CourseDtoFromJson(Map<String, dynamic> json) => _$_CourseDto(
       userKey: json['userKey'] as String,
+      userProfileUrl: json['userProfileUrl'] as String,
+      userNickName: json['userNickName'] as String,
       docKey: json['docKey'] as String,
       explanation: json['explanation'] as String,
       createAt: json['createAt'] as String,
@@ -23,14 +25,13 @@ _$_CourseDto _$$_CourseDtoFromJson(Map<String, dynamic> json) => _$_CourseDto(
           (json['imageUrl'] as List<dynamic>).map((e) => e as String).toList(),
       spotName:
           (json['spotName'] as List<dynamic>).map((e) => e as String).toList(),
-      userModel: json['userModel'] == null
-          ? null
-          : UserModel.fromJson(json['userModel'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_CourseDtoToJson(_$_CourseDto instance) =>
     <String, dynamic>{
       'userKey': instance.userKey,
+      'userProfileUrl': instance.userProfileUrl,
+      'userNickName': instance.userNickName,
       'docKey': instance.docKey,
       'explanation': instance.explanation,
       'createAt': instance.createAt,
@@ -40,7 +41,6 @@ Map<String, dynamic> _$$_CourseDtoToJson(_$_CourseDto instance) =>
       'likeUserId': instance.likeUserId,
       'imageUrl': instance.imageUrl,
       'spotName': instance.spotName,
-      'userModel': instance.userModel,
     };
 
 _$_CourseSpotDto _$$_CourseSpotDtoFromJson(Map<String, dynamic> json) =>

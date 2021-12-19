@@ -31,7 +31,7 @@ AppBar createAppbarWidget({
             onPressed: () async {
               if (context.read<CourseProvider>().courseSpotList.isNotEmpty) {
                 await context.read<CourseProvider>().createCourse(
-                    userKey: context.read<AuthProvider>().user!.userKey,
+                    user: context.read<AuthProvider>().user!,
                     multiImage: context.read<ImagesProvider>().pickedImages);
                 Navigator.of(context).pop();
               }

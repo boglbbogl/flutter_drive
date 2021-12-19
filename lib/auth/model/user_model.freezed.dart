@@ -27,7 +27,8 @@ class _$UserModelTearOff {
       required String email,
       required String profileUrl,
       required String createdAt,
-      required String provider}) {
+      required String provider,
+      required String updatedAt}) {
     return _UserModel(
       userKey: userKey,
       nickName: nickName,
@@ -35,6 +36,7 @@ class _$UserModelTearOff {
       profileUrl: profileUrl,
       createdAt: createdAt,
       provider: provider,
+      updatedAt: updatedAt,
     );
   }
 
@@ -54,6 +56,7 @@ mixin _$UserModel {
   String get profileUrl => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
   String get provider => throw _privateConstructorUsedError;
+  String get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,7 +74,8 @@ abstract class $UserModelCopyWith<$Res> {
       String email,
       String profileUrl,
       String createdAt,
-      String provider});
+      String provider,
+      String updatedAt});
 }
 
 /// @nodoc
@@ -90,6 +94,7 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? profileUrl = freezed,
     Object? createdAt = freezed,
     Object? provider = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       userKey: userKey == freezed
@@ -116,6 +121,10 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.provider
           : provider // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -132,7 +141,8 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String email,
       String profileUrl,
       String createdAt,
-      String provider});
+      String provider,
+      String updatedAt});
 }
 
 /// @nodoc
@@ -152,6 +162,7 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? profileUrl = freezed,
     Object? createdAt = freezed,
     Object? provider = freezed,
+    Object? updatedAt = freezed,
   }) {
     return _then(_UserModel(
       userKey: userKey == freezed
@@ -178,6 +189,10 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.provider
           : provider // ignore: cast_nullable_to_non_nullable
               as String,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -191,7 +206,8 @@ class _$_UserModel implements _UserModel {
       required this.email,
       required this.profileUrl,
       required this.createdAt,
-      required this.provider});
+      required this.provider,
+      required this.updatedAt});
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
@@ -208,10 +224,12 @@ class _$_UserModel implements _UserModel {
   final String createdAt;
   @override
   final String provider;
+  @override
+  final String updatedAt;
 
   @override
   String toString() {
-    return 'UserModel(userKey: $userKey, nickName: $nickName, email: $email, profileUrl: $profileUrl, createdAt: $createdAt, provider: $provider)';
+    return 'UserModel(userKey: $userKey, nickName: $nickName, email: $email, profileUrl: $profileUrl, createdAt: $createdAt, provider: $provider, updatedAt: $updatedAt)';
   }
 
   @override
@@ -225,7 +243,8 @@ class _$_UserModel implements _UserModel {
             const DeepCollectionEquality()
                 .equals(other.profileUrl, profileUrl) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            const DeepCollectionEquality().equals(other.provider, provider));
+            const DeepCollectionEquality().equals(other.provider, provider) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
 
   @override
@@ -236,7 +255,8 @@ class _$_UserModel implements _UserModel {
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(profileUrl),
       const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(provider));
+      const DeepCollectionEquality().hash(provider),
+      const DeepCollectionEquality().hash(updatedAt));
 
   @JsonKey(ignore: true)
   @override
@@ -256,7 +276,8 @@ abstract class _UserModel implements UserModel {
       required String email,
       required String profileUrl,
       required String createdAt,
-      required String provider}) = _$_UserModel;
+      required String provider,
+      required String updatedAt}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
@@ -273,6 +294,8 @@ abstract class _UserModel implements UserModel {
   String get createdAt;
   @override
   String get provider;
+  @override
+  String get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$UserModelCopyWith<_UserModel> get copyWith =>

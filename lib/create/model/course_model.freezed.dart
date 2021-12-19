@@ -19,6 +19,8 @@ class _$CourseModelTearOff {
 
   _CourseModel call(
       {required String userKey,
+      required String userProfileUrl,
+      required String userNickName,
       required String docKey,
       required String explanation,
       required String createAt,
@@ -27,10 +29,11 @@ class _$CourseModelTearOff {
       required int likeCount,
       required List<String> likeUserId,
       required List<String> imageUrl,
-      required List<String> spotName,
-      required UserModel? userModel}) {
+      required List<String> spotName}) {
     return _CourseModel(
       userKey: userKey,
+      userProfileUrl: userProfileUrl,
+      userNickName: userNickName,
       docKey: docKey,
       explanation: explanation,
       createAt: createAt,
@@ -40,7 +43,6 @@ class _$CourseModelTearOff {
       likeUserId: likeUserId,
       imageUrl: imageUrl,
       spotName: spotName,
-      userModel: userModel,
     );
   }
 }
@@ -51,6 +53,8 @@ const $CourseModel = _$CourseModelTearOff();
 /// @nodoc
 mixin _$CourseModel {
   String get userKey => throw _privateConstructorUsedError;
+  String get userProfileUrl => throw _privateConstructorUsedError;
+  String get userNickName => throw _privateConstructorUsedError;
   String get docKey => throw _privateConstructorUsedError;
   String get explanation => throw _privateConstructorUsedError;
   String get createAt => throw _privateConstructorUsedError;
@@ -60,7 +64,6 @@ mixin _$CourseModel {
   List<String> get likeUserId => throw _privateConstructorUsedError;
   List<String> get imageUrl => throw _privateConstructorUsedError;
   List<String> get spotName => throw _privateConstructorUsedError;
-  UserModel? get userModel => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CourseModelCopyWith<CourseModel> get copyWith =>
@@ -74,6 +77,8 @@ abstract class $CourseModelCopyWith<$Res> {
       _$CourseModelCopyWithImpl<$Res>;
   $Res call(
       {String userKey,
+      String userProfileUrl,
+      String userNickName,
       String docKey,
       String explanation,
       String createAt,
@@ -82,10 +87,7 @@ abstract class $CourseModelCopyWith<$Res> {
       int likeCount,
       List<String> likeUserId,
       List<String> imageUrl,
-      List<String> spotName,
-      UserModel? userModel});
-
-  $UserModelCopyWith<$Res>? get userModel;
+      List<String> spotName});
 }
 
 /// @nodoc
@@ -99,6 +101,8 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
   @override
   $Res call({
     Object? userKey = freezed,
+    Object? userProfileUrl = freezed,
+    Object? userNickName = freezed,
     Object? docKey = freezed,
     Object? explanation = freezed,
     Object? createAt = freezed,
@@ -108,12 +112,19 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? likeUserId = freezed,
     Object? imageUrl = freezed,
     Object? spotName = freezed,
-    Object? userModel = freezed,
   }) {
     return _then(_value.copyWith(
       userKey: userKey == freezed
           ? _value.userKey
           : userKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      userProfileUrl: userProfileUrl == freezed
+          ? _value.userProfileUrl
+          : userProfileUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNickName: userNickName == freezed
+          ? _value.userNickName
+          : userNickName // ignore: cast_nullable_to_non_nullable
               as String,
       docKey: docKey == freezed
           ? _value.docKey
@@ -151,22 +162,7 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
           ? _value.spotName
           : spotName // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      userModel: userModel == freezed
-          ? _value.userModel
-          : userModel // ignore: cast_nullable_to_non_nullable
-              as UserModel?,
     ));
-  }
-
-  @override
-  $UserModelCopyWith<$Res>? get userModel {
-    if (_value.userModel == null) {
-      return null;
-    }
-
-    return $UserModelCopyWith<$Res>(_value.userModel!, (value) {
-      return _then(_value.copyWith(userModel: value));
-    });
   }
 }
 
@@ -179,6 +175,8 @@ abstract class _$CourseModelCopyWith<$Res>
   @override
   $Res call(
       {String userKey,
+      String userProfileUrl,
+      String userNickName,
       String docKey,
       String explanation,
       String createAt,
@@ -187,11 +185,7 @@ abstract class _$CourseModelCopyWith<$Res>
       int likeCount,
       List<String> likeUserId,
       List<String> imageUrl,
-      List<String> spotName,
-      UserModel? userModel});
-
-  @override
-  $UserModelCopyWith<$Res>? get userModel;
+      List<String> spotName});
 }
 
 /// @nodoc
@@ -207,6 +201,8 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userKey = freezed,
+    Object? userProfileUrl = freezed,
+    Object? userNickName = freezed,
     Object? docKey = freezed,
     Object? explanation = freezed,
     Object? createAt = freezed,
@@ -216,12 +212,19 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
     Object? likeUserId = freezed,
     Object? imageUrl = freezed,
     Object? spotName = freezed,
-    Object? userModel = freezed,
   }) {
     return _then(_CourseModel(
       userKey: userKey == freezed
           ? _value.userKey
           : userKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      userProfileUrl: userProfileUrl == freezed
+          ? _value.userProfileUrl
+          : userProfileUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNickName: userNickName == freezed
+          ? _value.userNickName
+          : userNickName // ignore: cast_nullable_to_non_nullable
               as String,
       docKey: docKey == freezed
           ? _value.docKey
@@ -259,10 +262,6 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
           ? _value.spotName
           : spotName // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      userModel: userModel == freezed
-          ? _value.userModel
-          : userModel // ignore: cast_nullable_to_non_nullable
-              as UserModel?,
     ));
   }
 }
@@ -272,6 +271,8 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
 class _$_CourseModel implements _CourseModel {
   const _$_CourseModel(
       {required this.userKey,
+      required this.userProfileUrl,
+      required this.userNickName,
       required this.docKey,
       required this.explanation,
       required this.createAt,
@@ -280,11 +281,14 @@ class _$_CourseModel implements _CourseModel {
       required this.likeCount,
       required this.likeUserId,
       required this.imageUrl,
-      required this.spotName,
-      required this.userModel});
+      required this.spotName});
 
   @override
   final String userKey;
+  @override
+  final String userProfileUrl;
+  @override
+  final String userNickName;
   @override
   final String docKey;
   @override
@@ -303,12 +307,10 @@ class _$_CourseModel implements _CourseModel {
   final List<String> imageUrl;
   @override
   final List<String> spotName;
-  @override
-  final UserModel? userModel;
 
   @override
   String toString() {
-    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl, spotName: $spotName, userModel: $userModel)';
+    return 'CourseModel(userKey: $userKey, userProfileUrl: $userProfileUrl, userNickName: $userNickName, docKey: $docKey, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl, spotName: $spotName)';
   }
 
   @override
@@ -317,6 +319,10 @@ class _$_CourseModel implements _CourseModel {
         (other.runtimeType == runtimeType &&
             other is _CourseModel &&
             const DeepCollectionEquality().equals(other.userKey, userKey) &&
+            const DeepCollectionEquality()
+                .equals(other.userProfileUrl, userProfileUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.userNickName, userNickName) &&
             const DeepCollectionEquality().equals(other.docKey, docKey) &&
             const DeepCollectionEquality()
                 .equals(other.explanation, explanation) &&
@@ -328,14 +334,15 @@ class _$_CourseModel implements _CourseModel {
             const DeepCollectionEquality()
                 .equals(other.likeUserId, likeUserId) &&
             const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
-            const DeepCollectionEquality().equals(other.spotName, spotName) &&
-            const DeepCollectionEquality().equals(other.userModel, userModel));
+            const DeepCollectionEquality().equals(other.spotName, spotName));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(userKey),
+      const DeepCollectionEquality().hash(userProfileUrl),
+      const DeepCollectionEquality().hash(userNickName),
       const DeepCollectionEquality().hash(docKey),
       const DeepCollectionEquality().hash(explanation),
       const DeepCollectionEquality().hash(createAt),
@@ -344,8 +351,7 @@ class _$_CourseModel implements _CourseModel {
       const DeepCollectionEquality().hash(likeCount),
       const DeepCollectionEquality().hash(likeUserId),
       const DeepCollectionEquality().hash(imageUrl),
-      const DeepCollectionEquality().hash(spotName),
-      const DeepCollectionEquality().hash(userModel));
+      const DeepCollectionEquality().hash(spotName));
 
   @JsonKey(ignore: true)
   @override
@@ -356,6 +362,8 @@ class _$_CourseModel implements _CourseModel {
 abstract class _CourseModel implements CourseModel {
   const factory _CourseModel(
       {required String userKey,
+      required String userProfileUrl,
+      required String userNickName,
       required String docKey,
       required String explanation,
       required String createAt,
@@ -364,11 +372,14 @@ abstract class _CourseModel implements CourseModel {
       required int likeCount,
       required List<String> likeUserId,
       required List<String> imageUrl,
-      required List<String> spotName,
-      required UserModel? userModel}) = _$_CourseModel;
+      required List<String> spotName}) = _$_CourseModel;
 
   @override
   String get userKey;
+  @override
+  String get userProfileUrl;
+  @override
+  String get userNickName;
   @override
   String get docKey;
   @override
@@ -387,8 +398,6 @@ abstract class _CourseModel implements CourseModel {
   List<String> get imageUrl;
   @override
   List<String> get spotName;
-  @override
-  UserModel? get userModel;
   @override
   @JsonKey(ignore: true)
   _$CourseModelCopyWith<_CourseModel> get copyWith =>

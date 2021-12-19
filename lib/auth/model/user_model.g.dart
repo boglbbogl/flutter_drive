@@ -13,6 +13,7 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
       profileUrl: json['profileUrl'] as String,
       createdAt: json['createdAt'] as String,
       provider: json['provider'] as String,
+      updatedAt: json['updatedAt'] as String,
     );
 
 Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
       'profileUrl': instance.profileUrl,
       'createdAt': instance.createdAt,
       'provider': instance.provider,
+      'updatedAt': instance.updatedAt,
     };

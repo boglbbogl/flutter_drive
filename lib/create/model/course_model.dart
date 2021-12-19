@@ -1,4 +1,3 @@
-import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'course_model.freezed.dart';
@@ -7,6 +6,8 @@ part 'course_model.freezed.dart';
 class CourseModel with _$CourseModel {
   const factory CourseModel({
     required String userKey,
+    required String userProfileUrl,
+    required String userNickName,
     required String docKey,
     required String explanation,
     required String createAt,
@@ -16,11 +17,12 @@ class CourseModel with _$CourseModel {
     required List<String> likeUserId,
     required List<String> imageUrl,
     required List<String> spotName,
-    required UserModel? userModel,
   }) = _CourseModel;
 
   factory CourseModel.empty() => CourseModel(
         userKey: "",
+        userProfileUrl: "",
+        userNickName: "",
         docKey: "",
         explanation: "",
         createAt: DateTime.now().toString(),
@@ -30,7 +32,6 @@ class CourseModel with _$CourseModel {
         likeUserId: [],
         imageUrl: [],
         spotName: [],
-        userModel: null,
       );
 }
 

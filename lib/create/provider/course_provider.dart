@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
 import 'package:flutter_drive/create/repo/course_repository.dart';
 import 'package:flutter_drive/image/repository/images_repository.dart';
@@ -28,7 +29,7 @@ class CourseProvider extends ChangeNotifier {
   }
 
   Future<void> createCourse({
-    required String userKey,
+    required UserModel user,
     required List<Uint8List> multiImage,
   }) async {
     _isUploading = true;
@@ -38,12 +39,14 @@ class CourseProvider extends ChangeNotifier {
     }
     if (multiImage.isNotEmpty) {
       _imageUrl = await _imageRepository.imageUploadResized(
-          userKey: userKey, imageFile: multiImage);
+          userKey: user.userKey, imageFile: multiImage);
     }
     await _courseRepository.createCourseModel(
         courseSpot: _courseSpotList,
         courseModel: _courseModel.copyWith(
-          userKey: userKey,
+          userProfileUrl: user.profileUrl,
+          userNickName: user.nickName,
+          userKey: user.userKey,
           createAt: DateTime.now().toString(),
           updateAt: DateTime.now().toString(),
           imageUrl: _imageUrl,

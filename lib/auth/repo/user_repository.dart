@@ -32,4 +32,21 @@ class UserRepository {
       _documentReference.set(userModel.toJson());
     }
   }
+
+  Future updateUserProfile({
+    required String profileUrl,
+    required String nickName,
+    required String userKey,
+  }) async {
+    final DocumentReference<Map<String, dynamic>> _documentReference =
+        FirebaseFirestore.instance.collection(collectionUser).doc(userKey);
+    final DocumentSnapshot _documentSnapshot = await _documentReference.get();
+    if (_documentSnapshot.exists) {
+      _documentReference.update({
+        "profileUrl": profileUrl,
+        "nickName": nickName,
+        "updatedAt": DateTime.now().toString(),
+      });
+    }
+  }
 }

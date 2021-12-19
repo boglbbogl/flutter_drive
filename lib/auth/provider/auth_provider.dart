@@ -28,13 +28,14 @@ class AuthProvider extends ChangeNotifier {
         await kakao.TokenManager.instance.getToken();
     if (_firebaseUser != null) {
       _user = await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
+
       notifyListeners();
     } else if (_kakaoToken.accessToken != null ||
         _kakaoToken.refreshToken != null) {
       final kakao.User _kakaoUser = await kakao.UserApi.instance.me();
-      logger.e(_kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl);
       _user = await _userRepository.getUserProfile(
           userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
+
       notifyListeners();
     } else {
       _user = null;
@@ -53,6 +54,7 @@ class AuthProvider extends ChangeNotifier {
           email: firebaseUser.email!,
           profileUrl: firebaseUser.photoURL!,
           createdAt: DateTime.now().toString(),
+          updatedAt: DateTime.now().toString(),
           provider: 'Google',
         ),
         userKey: firebaseUser.uid,
@@ -65,6 +67,7 @@ class AuthProvider extends ChangeNotifier {
           email: kakaoUser.kakaoAccount!.email!,
           profileUrl: kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!,
           createdAt: DateTime.now().toString(),
+          updatedAt: DateTime.now().toString(),
           provider: 'Kakao',
         ),
         userKey: kakaoUser.id.toString() + kakaoUser.kakaoAccount!.email!,
