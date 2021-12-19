@@ -42,11 +42,4 @@ class CourseRepository {
       }
     }
   }
-
-  // Stream<List<CourseModel>> getCourseModel() {
-  //   final CollectionReference _collectionRef =
-  //       FirebaseFirestore.instance.collection(collectionCourse);
-  //   List<Stream<List<CourseModel>>> stream = [];
-  //   // return _collectionRef.limit(20).get().;
-  // }
 }

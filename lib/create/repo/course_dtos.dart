@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -21,6 +22,9 @@ class CourseDto with _$CourseDto {
   const CourseDto._();
   factory CourseDto.fromJson(Map<String, dynamic> json) =>
       _$CourseDtoFromJson(json);
+  factory CourseDto.fromFireStore(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return CourseDto.fromJson(doc.data()!);
+  }
 
   factory CourseDto.toFirestore(CourseModel c) => CourseDto(
         userKey: c.userKey,
@@ -33,6 +37,17 @@ class CourseDto with _$CourseDto {
         likeUserId: c.likeUserId,
         imageUrl: c.imageUrl,
         // spot: c.spot.map((e) => CourseSpotDto.toFireStore(e)).toList(),
+      );
+  CourseModel toDomain() => CourseModel(
+        userKey: userKey,
+        docKey: docKey,
+        explanation: explanation,
+        createAt: createAt,
+        updateAt: updateAt,
+        tagKeyword: tagKeyword,
+        likeCount: likeCount,
+        likeUserId: likeUserId,
+        imageUrl: imageUrl,
       );
 }
 
@@ -49,6 +64,10 @@ class CourseSpotDto with _$CourseSpotDto {
   const CourseSpotDto._();
   factory CourseSpotDto.fromJson(Map<String, dynamic> json) =>
       _$CourseSpotDtoFromJson(json);
+  factory CourseSpotDto.fromFireStore(
+      DocumentSnapshot<Map<String, dynamic>> doc) {
+    return CourseSpotDto.fromJson(doc.data()!);
+  }
 
   factory CourseSpotDto.toFireStore(CourseSpot s) => CourseSpotDto(
         placeName: s.placeName,
@@ -56,5 +75,13 @@ class CourseSpotDto with _$CourseSpotDto {
         id: s.id,
         lat: s.lat,
         lon: s.lon,
+      );
+
+  CourseSpot toDomain() => CourseSpot(
+        placeName: placeName,
+        addressName: addressName,
+        id: id,
+        lat: lat,
+        lon: lon,
       );
 }
