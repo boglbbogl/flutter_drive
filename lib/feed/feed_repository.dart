@@ -18,17 +18,4 @@ class FeedRepostiory {
       }).toList();
     });
   }
-
-  Stream<List<CourseSpot>> getStreamSpot() async* {
-    final CollectionReference<Map<String, dynamic>> _collectionRef =
-        FirebaseFirestore.instance
-            .collection(collectionCourse)
-            .doc()
-            .collection(collectionCourseSpot);
-    yield* _collectionRef.snapshots().map((sn) {
-      return sn.docs.map((doc) {
-        return CourseSpotDto.fromFireStore(doc).toDomain();
-      }).toList();
-    });
-  }
 }

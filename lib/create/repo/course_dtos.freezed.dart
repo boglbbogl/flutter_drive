@@ -30,7 +30,8 @@ class _$CourseDtoTearOff {
       required List<String> tagKeyword,
       required int likeCount,
       required List<String> likeUserId,
-      required List<String> imageUrl}) {
+      required List<String> imageUrl,
+      required List<String> spotName}) {
     return _CourseDto(
       userKey: userKey,
       docKey: docKey,
@@ -41,6 +42,7 @@ class _$CourseDtoTearOff {
       likeCount: likeCount,
       likeUserId: likeUserId,
       imageUrl: imageUrl,
+      spotName: spotName,
     );
   }
 
@@ -63,6 +65,7 @@ mixin _$CourseDto {
   int get likeCount => throw _privateConstructorUsedError;
   List<String> get likeUserId => throw _privateConstructorUsedError;
   List<String> get imageUrl => throw _privateConstructorUsedError;
+  List<String> get spotName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -83,7 +86,8 @@ abstract class $CourseDtoCopyWith<$Res> {
       List<String> tagKeyword,
       int likeCount,
       List<String> likeUserId,
-      List<String> imageUrl});
+      List<String> imageUrl,
+      List<String> spotName});
 }
 
 /// @nodoc
@@ -105,6 +109,7 @@ class _$CourseDtoCopyWithImpl<$Res> implements $CourseDtoCopyWith<$Res> {
     Object? likeCount = freezed,
     Object? likeUserId = freezed,
     Object? imageUrl = freezed,
+    Object? spotName = freezed,
   }) {
     return _then(_value.copyWith(
       userKey: userKey == freezed
@@ -143,6 +148,10 @@ class _$CourseDtoCopyWithImpl<$Res> implements $CourseDtoCopyWith<$Res> {
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      spotName: spotName == freezed
+          ? _value.spotName
+          : spotName // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -162,7 +171,8 @@ abstract class _$CourseDtoCopyWith<$Res> implements $CourseDtoCopyWith<$Res> {
       List<String> tagKeyword,
       int likeCount,
       List<String> likeUserId,
-      List<String> imageUrl});
+      List<String> imageUrl,
+      List<String> spotName});
 }
 
 /// @nodoc
@@ -185,6 +195,7 @@ class __$CourseDtoCopyWithImpl<$Res> extends _$CourseDtoCopyWithImpl<$Res>
     Object? likeCount = freezed,
     Object? likeUserId = freezed,
     Object? imageUrl = freezed,
+    Object? spotName = freezed,
   }) {
     return _then(_CourseDto(
       userKey: userKey == freezed
@@ -223,6 +234,10 @@ class __$CourseDtoCopyWithImpl<$Res> extends _$CourseDtoCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      spotName: spotName == freezed
+          ? _value.spotName
+          : spotName // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -239,7 +254,8 @@ class _$_CourseDto extends _CourseDto {
       required this.tagKeyword,
       required this.likeCount,
       required this.likeUserId,
-      required this.imageUrl})
+      required this.imageUrl,
+      required this.spotName})
       : super._();
 
   factory _$_CourseDto.fromJson(Map<String, dynamic> json) =>
@@ -263,10 +279,12 @@ class _$_CourseDto extends _CourseDto {
   final List<String> likeUserId;
   @override
   final List<String> imageUrl;
+  @override
+  final List<String> spotName;
 
   @override
   String toString() {
-    return 'CourseDto(userKey: $userKey, docKey: $docKey, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl)';
+    return 'CourseDto(userKey: $userKey, docKey: $docKey, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl, spotName: $spotName)';
   }
 
   @override
@@ -285,7 +303,8 @@ class _$_CourseDto extends _CourseDto {
             const DeepCollectionEquality().equals(other.likeCount, likeCount) &&
             const DeepCollectionEquality()
                 .equals(other.likeUserId, likeUserId) &&
-            const DeepCollectionEquality().equals(other.imageUrl, imageUrl));
+            const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
+            const DeepCollectionEquality().equals(other.spotName, spotName));
   }
 
   @override
@@ -299,7 +318,8 @@ class _$_CourseDto extends _CourseDto {
       const DeepCollectionEquality().hash(tagKeyword),
       const DeepCollectionEquality().hash(likeCount),
       const DeepCollectionEquality().hash(likeUserId),
-      const DeepCollectionEquality().hash(imageUrl));
+      const DeepCollectionEquality().hash(imageUrl),
+      const DeepCollectionEquality().hash(spotName));
 
   @JsonKey(ignore: true)
   @override
@@ -322,7 +342,8 @@ abstract class _CourseDto extends CourseDto {
       required List<String> tagKeyword,
       required int likeCount,
       required List<String> likeUserId,
-      required List<String> imageUrl}) = _$_CourseDto;
+      required List<String> imageUrl,
+      required List<String> spotName}) = _$_CourseDto;
   const _CourseDto._() : super._();
 
   factory _CourseDto.fromJson(Map<String, dynamic> json) =
@@ -346,6 +367,8 @@ abstract class _CourseDto extends CourseDto {
   List<String> get likeUserId;
   @override
   List<String> get imageUrl;
+  @override
+  List<String> get spotName;
   @override
   @JsonKey(ignore: true)
   _$CourseDtoCopyWith<_CourseDto> get copyWith =>

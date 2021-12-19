@@ -21,6 +21,8 @@ _$_CourseDto _$$_CourseDtoFromJson(Map<String, dynamic> json) => _$_CourseDto(
           .toList(),
       imageUrl:
           (json['imageUrl'] as List<dynamic>).map((e) => e as String).toList(),
+      spotName:
+          (json['spotName'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$_CourseDtoToJson(_$_CourseDto instance) =>
@@ -34,6 +36,7 @@ Map<String, dynamic> _$$_CourseDtoToJson(_$_CourseDto instance) =>
       'likeCount': instance.likeCount,
       'likeUserId': instance.likeUserId,
       'imageUrl': instance.imageUrl,
+      'spotName': instance.spotName,
     };
 
 _$_CourseSpotDto _$$_CourseSpotDtoFromJson(Map<String, dynamic> json) =>

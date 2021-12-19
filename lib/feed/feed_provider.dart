@@ -13,7 +13,6 @@ class FeedProvider extends ChangeNotifier {
   List<CourseSpot> _spotList = [];
   FeedProvider() {
     _courseStream();
-    _spotStream();
   }
 
   Future _courseStream() async {
@@ -21,14 +20,6 @@ class FeedProvider extends ChangeNotifier {
     _courseStreamSubscription =
         _feedRepostiory.getStreamCourse().listen((course) {
       _courseList = course;
-      notifyListeners();
-    });
-  }
-
-  Future _spotStream() async {
-    await _spotStreamSubscription?.cancel();
-    _spotStreamSubscription = _feedRepostiory.getStreamSpot().listen((spot) {
-      _spotList = spot;
       notifyListeners();
     });
   }

@@ -12,6 +12,7 @@ class CourseProvider extends ChangeNotifier {
   CourseModel _courseModel = CourseModel.empty();
   CourseSpot _courseSpot = CourseSpot.empty();
   List<CourseSpot> _courseSpotList = [];
+  final List<String> _spotName = [];
   String _explanation = "";
   bool _isSwitcher = false;
   bool _isUploading = false;
@@ -32,6 +33,9 @@ class CourseProvider extends ChangeNotifier {
   }) async {
     _isUploading = true;
     notifyListeners();
+    for (final element in _courseSpotList) {
+      _spotName.add(element.placeName);
+    }
     if (multiImage.isNotEmpty) {
       _imageUrl = await _imageRepository.imageUploadResized(
           userKey: userKey, imageFile: multiImage);
@@ -43,6 +47,7 @@ class CourseProvider extends ChangeNotifier {
           createAt: DateTime.now().toString(),
           updateAt: DateTime.now().toString(),
           imageUrl: _imageUrl,
+          spotName: _spotName,
         ));
     _isUploading = false;
     notifyListeners();

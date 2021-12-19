@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/create/provider/course_provider.dart';
 import 'package:flutter_drive/create/ui/screen/create_page.dart';
+import 'package:flutter_drive/home/setting_bottom_widget.dart';
 import 'package:flutter_drive/image/images_provider.dart';
-import 'package:flutter_drive/main/setting_bottom_widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
-AppBar mainAppbarWidget({
+AppBar homeAppbarWidget({
   required BuildContext context,
 }) {
   return AppBar(

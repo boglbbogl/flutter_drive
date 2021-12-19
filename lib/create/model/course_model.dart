@@ -14,7 +14,7 @@ class CourseModel with _$CourseModel {
     required int likeCount,
     required List<String> likeUserId,
     required List<String> imageUrl,
-    // required List<CourseSpot> spot,
+    required List<String> spotName,
   }) = _CourseModel;
 
   factory CourseModel.empty() => CourseModel(
@@ -27,7 +27,7 @@ class CourseModel with _$CourseModel {
         likeCount: 0,
         likeUserId: [],
         imageUrl: [],
-        // spot: [],
+        spotName: [],
       );
 }
 

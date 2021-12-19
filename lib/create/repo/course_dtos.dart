@@ -17,7 +17,7 @@ class CourseDto with _$CourseDto {
     required int likeCount,
     required List<String> likeUserId,
     required List<String> imageUrl,
-    // required List<CourseSpotDto> spot,
+    required List<String> spotName,
   }) = _CourseDto;
   const CourseDto._();
   factory CourseDto.fromJson(Map<String, dynamic> json) =>
@@ -36,6 +36,7 @@ class CourseDto with _$CourseDto {
         likeCount: c.likeCount,
         likeUserId: c.likeUserId,
         imageUrl: c.imageUrl,
+        spotName: c.spotName,
         // spot: c.spot.map((e) => CourseSpotDto.toFireStore(e)).toList(),
       );
   CourseModel toDomain() => CourseModel(
@@ -48,6 +49,7 @@ class CourseDto with _$CourseDto {
         likeCount: likeCount,
         likeUserId: likeUserId,
         imageUrl: imageUrl,
+        spotName: spotName,
       );
 }
 

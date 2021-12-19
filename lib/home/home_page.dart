@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/feed/feed_provider.dart';
-import 'package:flutter_drive/main/main_appbar_widget.dart';
+import 'package:flutter_drive/home/home_appbar_widget.dart';
 import 'package:provider/provider.dart';
 
-class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class MainPage extends StatelessWidget {
           return Container();
         }
         return Scaffold(
-          appBar: mainAppbarWidget(context: context),
+          appBar: homeAppbarWidget(context: context),
           body: Consumer<FeedProvider>(builder: (context, course, child) {
             return Center(
               child: Column(
@@ -28,8 +28,6 @@ class MainPage extends StatelessWidget {
                   Text(p.user!.email),
                   Text(p.user!.nickName),
                   Text(p.user!.userKey),
-                  Text(course.courseList.length.toString()),
-                  Text(course.spotList.length.toString()),
                 ],
               ),
             );

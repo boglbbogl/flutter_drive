@@ -1,13 +1,13 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_drive/main/main_page.dart';
+import 'package:flutter_drive/home/home_page.dart';
 
 // Main Location
 class Location extends BeamLocation {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
-      BeamPage(child: const MainPage(), key: const ValueKey('main')),
+      BeamPage(child: const HomePage(), key: const ValueKey('main')),
     ];
   }
 
