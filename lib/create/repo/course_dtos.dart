@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -18,6 +19,7 @@ class CourseDto with _$CourseDto {
     required List<String> likeUserId,
     required List<String> imageUrl,
     required List<String> spotName,
+    required UserModel? userModel,
   }) = _CourseDto;
   const CourseDto._();
   factory CourseDto.fromJson(Map<String, dynamic> json) =>
@@ -37,6 +39,7 @@ class CourseDto with _$CourseDto {
         likeUserId: c.likeUserId,
         imageUrl: c.imageUrl,
         spotName: c.spotName,
+        userModel: null,
         // spot: c.spot.map((e) => CourseSpotDto.toFireStore(e)).toList(),
       );
   CourseModel toDomain() => CourseModel(
@@ -50,6 +53,7 @@ class CourseDto with _$CourseDto {
         likeUserId: likeUserId,
         imageUrl: imageUrl,
         spotName: spotName,
+        userModel: null,
       );
 }
 

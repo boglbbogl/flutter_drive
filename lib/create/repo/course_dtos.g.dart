@@ -23,6 +23,9 @@ _$_CourseDto _$$_CourseDtoFromJson(Map<String, dynamic> json) => _$_CourseDto(
           (json['imageUrl'] as List<dynamic>).map((e) => e as String).toList(),
       spotName:
           (json['spotName'] as List<dynamic>).map((e) => e as String).toList(),
+      userModel: json['userModel'] == null
+          ? null
+          : UserModel.fromJson(json['userModel'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_CourseDtoToJson(_$_CourseDto instance) =>
@@ -37,6 +40,7 @@ Map<String, dynamic> _$$_CourseDtoToJson(_$_CourseDto instance) =>
       'likeUserId': instance.likeUserId,
       'imageUrl': instance.imageUrl,
       'spotName': instance.spotName,
+      'userModel': instance.userModel,
     };
 
 _$_CourseSpotDto _$$_CourseSpotDtoFromJson(Map<String, dynamic> json) =>
