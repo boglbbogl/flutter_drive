@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
 import 'package:flutter_drive/create/provider/course_provider.dart';
 import 'package:flutter_drive/create/ui/screen/create_page.dart';
 import 'package:flutter_drive/home/setting_bottom_widget.dart';
-import 'package:flutter_drive/image/images_provider.dart';
+import 'package:flutter_drive/image/provider/images_provider.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
@@ -32,26 +33,8 @@ AppBar homeAppbarWidget({
           icon: Icons.settings),
       Padding(
         padding: const EdgeInsets.only(left: 8, right: 10),
-        child: CircleAvatar(
-          backgroundColor: Colors.white,
-          radius: 14,
-          child: Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: ClipOval(
-              child: CachedNetworkImage(
-                  placeholder: (context, url) => const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        child: CircularProgressIndicator(
-                          strokeWidth: 5,
-                          color: Colors.white,
-                        ),
-                      ),
-                  fit: BoxFit.cover,
-                  fadeOutDuration: const Duration(milliseconds: 1),
-                  imageUrl: context.watch<AuthProvider>().user!.profileUrl),
-            ),
-          ),
-        ),
+        child: userCircleImageWidget(
+            imageUrl: context.watch<AuthProvider>().user!.profileUrl),
       ),
     ],
   );

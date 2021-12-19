@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/image/images_provider.dart';
+import 'package:flutter_drive/image/provider/images_provider.dart';
 import 'package:provider/provider.dart';
 
 Container createImageWidget({

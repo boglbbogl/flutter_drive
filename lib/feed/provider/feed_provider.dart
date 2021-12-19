@@ -2,15 +2,19 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_drive/_constant/logger.dart';
+import 'package:flutter_drive/auth/model/user_model.dart';
+import 'package:flutter_drive/auth/repo/user_repository.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
-import 'package:flutter_drive/feed/feed_repository.dart';
+import 'package:flutter_drive/feed/repository/feed_repository.dart';
+import 'package:kakao_flutter_sdk/all.dart';
 
 class FeedProvider extends ChangeNotifier {
   final FeedRepostiory _feedRepostiory = FeedRepostiory();
+  final UserRepository _userRepository = UserRepository();
   StreamSubscription<List<CourseModel>?>? _courseStreamSubscription;
-  StreamSubscription<List<CourseSpot>?>? _spotStreamSubscription;
   List<CourseModel> _courseList = [];
-  List<CourseSpot> _spotList = [];
+  UserModel? _postUser;
+
   FeedProvider() {
     _courseStream();
   }
@@ -24,6 +28,12 @@ class FeedProvider extends ChangeNotifier {
     });
   }
 
+  Future<void> getPostUser({
+    required String userKey,
+  }) async {
+    _postUser = await _userRepository.getUserProfile(userKey: userKey);
+  }
+
   List<CourseModel> get courseList => _courseList;
-  List<CourseSpot> get spotList => _spotList;
+  UserModel? get postUser => _postUser;
 }

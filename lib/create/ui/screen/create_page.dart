@@ -8,7 +8,7 @@ import 'package:flutter_drive/create/ui/widgets/create_explanation_widget.dart';
 import 'package:flutter_drive/create/ui/widgets/create_image_bottom_widget.dart';
 import 'package:flutter_drive/create/ui/widgets/create_image_widget.dart';
 import 'package:flutter_drive/create/ui/widgets/create_select_spot_widget.dart';
-import 'package:flutter_drive/image/images_provider.dart';
+import 'package:flutter_drive/image/provider/images_provider.dart';
 import 'package:provider/provider.dart';
 
 class CreatePage extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
 import 'package:flutter_drive/create/repo/course_repository.dart';
-import 'package:flutter_drive/image/images_repository.dart';
+import 'package:flutter_drive/image/repository/images_repository.dart';
 
 class CourseProvider extends ChangeNotifier {
   final CourseRepository _courseRepository = CourseRepository();
