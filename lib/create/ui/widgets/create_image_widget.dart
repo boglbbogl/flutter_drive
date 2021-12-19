@@ -26,15 +26,11 @@ Container createImageWidget({
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: const Color.fromRGBO(71, 71, 71, 1)),
-            child: context.watch<ImagesProvider>().pickedImages!.isNotEmpty
+            child: context.watch<ImagesProvider>().pickedImages.isNotEmpty
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.file(
-                      File(context
-                          .watch<ImagesProvider>()
-                          .pickedImages!
-                          .first
-                          .path),
+                    child: Image.memory(
+                      context.watch<ImagesProvider>().pickedImages.first,
                       fit: BoxFit.fill,
                     ),
                   )
@@ -46,7 +42,7 @@ Container createImageWidget({
           ),
         ),
         Text(
-          "${context.watch<ImagesProvider>().pickedImages!.length.toString()}/6",
+          "${context.watch<ImagesProvider>().pickedImages.length.toString()}/6",
           style: theme.textTheme.bodyText2!.copyWith(
               color: const Color.fromRGBO(135, 135, 135, 1), fontSize: 9),
         ),

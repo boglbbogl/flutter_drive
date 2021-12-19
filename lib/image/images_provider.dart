@@ -1,25 +1,31 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImagesProvider extends ChangeNotifier {
   final ImagePicker _imagePicker = ImagePicker();
-  final List<XFile> _pickedImages = [];
+  final List<Uint8List> _pickedImages = [];
   double _isUnderSize = size.height;
 
   Future<void> imagePicker() async {
     final List<XFile>? _selectedImages = await _imagePicker.pickMultiImage();
     if (_selectedImages != null &&
         _pickedImages.length + _selectedImages.length < 7) {
-      _pickedImages.addAll(_selectedImages);
+      for (final images in _selectedImages) {
+        _pickedImages.add(await images.readAsBytes());
+      }
     }
     notifyListeners();
+    logger.e(_pickedImages.length);
   }
 
   void imageDelete({
-    required String image,
+    required Uint8List image,
   }) {
-    _pickedImages.removeWhere((element) => element.path == image);
+    _pickedImages.removeWhere((element) => element == image);
     notifyListeners();
   }
 
@@ -34,6 +40,6 @@ class ImagesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<XFile>? get pickedImages => _pickedImages;
+  List<Uint8List> get pickedImages => _pickedImages;
   double get isUnderSize => _isUnderSize;
 }

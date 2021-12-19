@@ -59,8 +59,8 @@ Positioned createImageBottomWidget({
               children: [
                 ...context
                     .watch<ImagesProvider>()
-                    .pickedImages!
-                    .map((e) => Stack(
+                    .pickedImages
+                    .map((image) => Stack(
                           fit: StackFit.expand,
                           children: [
                             Padding(
@@ -74,8 +74,8 @@ Positioned createImageBottomWidget({
                                   padding: const EdgeInsets.all(3.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(12),
-                                    child: Image.file(
-                                      File(e.path),
+                                    child: Image.memory(
+                                      image,
                                       fit: BoxFit.fill,
                                     ),
                                   ),
@@ -89,7 +89,7 @@ Positioned createImageBottomWidget({
                                 onTap: () {
                                   context
                                       .read<ImagesProvider>()
-                                      .imageDelete(image: e.path);
+                                      .imageDelete(image: image);
                                 },
                                 child: const Icon(
                                   Icons.remove_circle_outlined,

@@ -22,7 +22,7 @@ AppBar createAppbarWidget({
           onPressed: () {
             context.read<CourseProvider>().createCourse(
                 userKey: context.read<AuthProvider>().user!.userKey,
-                multiImage: context.read<ImagesProvider>().pickedImages!);
+                multiImage: context.read<ImagesProvider>().pickedImages);
           },
           child: Text(
             '올리기',

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
@@ -24,10 +26,10 @@ class CourseProvider extends ChangeNotifier {
 
   Future<void> createCourse({
     required String userKey,
-    required List<XFile> multiImage,
+    required List<Uint8List> multiImage,
   }) async {
     if (multiImage.isNotEmpty) {
-      await _imageRepository.imageUploadResized(
+      final List<String> _url = await _imageRepository.imageUploadResized(
           userKey: userKey, imageFile: multiImage);
     }
     await _courseRepository.createCourseModel(

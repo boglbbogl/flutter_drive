@@ -39,7 +39,7 @@ class CreatePage extends StatelessWidget {
                           createExplanationWidget(context: context),
                         ],
                       ),
-                      if (context.watch<ImagesProvider>().pickedImages!.length >
+                      if (context.watch<ImagesProvider>().pickedImages.length >
                           1) ...[
                         Padding(
                             padding: const EdgeInsets.only(left: 2),
