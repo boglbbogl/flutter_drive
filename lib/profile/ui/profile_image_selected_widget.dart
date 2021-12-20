@@ -1,13 +1,19 @@
+import 'dart:typed_data';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/profile/provider/profile_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 
 class ProfileImageSelectedWidget extends StatelessWidget {
   final UserModel user;
+  final Uint8List? pickedImage;
   const ProfileImageSelectedWidget({
     Key? key,
     required this.user,
+    required this.pickedImage,
   }) : super(key: key);
 
   @override
@@ -15,18 +21,23 @@ class ProfileImageSelectedWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        if (user.localProfileUrl.isEmpty)
+        if (user.localProfileUrl.isEmpty && pickedImage == null)
           Column(
             children: [
-              Container(
-                width: size.width * 0.32,
-                height: size.width * 0.32,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(60),
-                  color: const Color.fromRGBO(91, 91, 91, 1),
+              InkWell(
+                onTap: () {
+                  context.read<ProfileProvider>().profileImagePicker();
+                },
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(60),
+                    color: const Color.fromRGBO(91, 91, 91, 1),
+                  ),
+                  child: const Icon(Icons.add_circle_outline,
+                      size: 30, color: Color.fromRGBO(155, 155, 155, 1)),
                 ),
-                child: const Icon(Icons.add_circle_outline,
-                    size: 30, color: Color.fromRGBO(155, 155, 155, 1)),
               ),
               profileImageSelectButton(
                 hideColor: darkThemeMainColor,
@@ -34,20 +45,48 @@ class ProfileImageSelectedWidget extends StatelessWidget {
               ),
             ],
           )
+        else if (pickedImage != null)
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: ClipOval(
+                  child: CachedNetworkImage(imageUrl: user.socialProfileUrl)),
+            ),
+          )
         else
-          CircleAvatar(
-            backgroundColor: Colors.white,
-            radius: 58,
-            child: ClipOval(
-                child: CachedNetworkImage(imageUrl: user.socialProfileUrl)),
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: ClipOval(
+                  child: CachedNetworkImage(imageUrl: user.socialProfileUrl)),
+            ),
           ),
         Column(
           children: [
-            CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 58,
-              child: ClipOval(
-                  child: CachedNetworkImage(imageUrl: user.socialProfileUrl)),
+            Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: Colors.white,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: ClipOval(
+                    child: CachedNetworkImage(imageUrl: user.socialProfileUrl)),
+              ),
             ),
             profileImageSelectButton(
               hideColor: const Color.fromRGBO(215, 215, 215, 1),

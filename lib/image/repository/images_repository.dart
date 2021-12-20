@@ -12,16 +12,24 @@ class ImageSRepository {
   ImageSRepository._internal();
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  Future<String> userProfileUpladResized({
+  Future<String> userProfileImageUpladResized({
     required Uint8List image,
+    required String userKey,
   }) async {
+    final String _dateTime = DateTime.now().millisecondsSinceEpoch.toString();
+    final appDocDir = await getApplicationDocumentsDirectory();
     final Image? _decodedImage = decodeImage(image);
     final Image _resizedImage = copyResize(_decodedImage!);
 
     const fileName = '375.jpg';
+    final _fileTask = File("${appDocDir.path}/$fileName")
+        .writeAsBytes(encodeJpg(_resizedImage));
+    final _file = await _fileTask;
+    final _imageRef = "user_profile/${userKey}_$_dateTime/0";
 
-    // await _storage.ref().putFile();
-    return '';
+    await _storage.ref(_imageRef).putFile(_file);
+    final _url = await _storage.ref(_imageRef).getDownloadURL();
+    return _url;
   }
 
   Future<List<String>> imageUploadResized({
