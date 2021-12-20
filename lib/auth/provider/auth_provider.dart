@@ -29,9 +29,9 @@ class AuthProvider extends ChangeNotifier {
     if (_firebaseUser != null) {
       _user = await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
       if (_user != null) {
-        if (!_user!.profileUrl.contains(_firebaseUser.photoURL!)) {
-          await _userRepository.updateUserProfileImage(
-              profileUrl: _firebaseUser.photoURL!, userKey: _firebaseUser.uid);
+        if (!_user!.socialProfileUrl.contains(_firebaseUser.photoURL!)) {
+          await _updateSoicalUserImage(
+              socialProfileUrl: _firebaseUser.photoURL!);
           _user =
               await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
         }
@@ -43,12 +43,11 @@ class AuthProvider extends ChangeNotifier {
       _user = await _userRepository.getUserProfile(
           userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
       if (_user != null) {
-        if (!_user!.profileUrl
+        if (!_user!.socialProfileUrl
             .contains(_kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!)) {
-          await _userRepository.updateUserProfileImage(
-              profileUrl: _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!,
-              userKey:
-                  _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
+          await _updateSoicalUserImage(
+              socialProfileUrl:
+                  _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!);
           _user = await _userRepository.getUserProfile(
               userKey:
                   _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
@@ -62,6 +61,18 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> _updateSoicalUserImage({
+    required String socialProfileUrl,
+  }) async {
+    await _userRepository.loginUpdateSocialUserImage(
+      socialProfileUrl: socialProfileUrl,
+      localProfileUrl: _user!.localProfileUrl,
+      nickName: _user!.nickName,
+      isSocialImage: _user!.isSocialImage,
+      userKey: _user!.userKey,
+    );
+  }
+
   Future<void> _createUserProfile(
       User? firebaseUser, kakao.User? kakaoUser) async {
     if (firebaseUser != null) {
@@ -70,7 +81,9 @@ class AuthProvider extends ChangeNotifier {
           userKey: firebaseUser.uid,
           nickName: firebaseUser.displayName!,
           email: firebaseUser.email!,
-          profileUrl: firebaseUser.photoURL!,
+          socialProfileUrl: firebaseUser.photoURL!,
+          localProfileUrl: "",
+          isSocialImage: true,
           createdAt: DateTime.now().toString(),
           updatedAt: DateTime.now().toString(),
           provider: 'Google',
@@ -83,7 +96,9 @@ class AuthProvider extends ChangeNotifier {
           userKey: kakaoUser.id.toString() + kakaoUser.kakaoAccount!.email!,
           nickName: kakaoUser.kakaoAccount!.profile!.nickname,
           email: kakaoUser.kakaoAccount!.email!,
-          profileUrl: kakaoUser.kakaoAccount!.profile!.profileImageUrl!,
+          socialProfileUrl: kakaoUser.kakaoAccount!.profile!.profileImageUrl!,
+          localProfileUrl: "",
+          isSocialImage: true,
           createdAt: DateTime.now().toString(),
           updatedAt: DateTime.now().toString(),
           provider: 'Kakao',
@@ -111,13 +126,11 @@ class AuthProvider extends ChangeNotifier {
           if (_resultUser == null) {
             await _createUserProfile(null, _kakaoUser);
           } else {
-            if (!_resultUser.profileUrl.contains(
+            if (!_resultUser.socialProfileUrl.contains(
                 _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!)) {
-              await _userRepository.updateUserProfileImage(
-                  profileUrl:
-                      _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!,
-                  userKey: _kakaoUser.id.toString() +
-                      _kakaoUser.kakaoAccount!.email!);
+              await _updateSoicalUserImage(
+                  socialProfileUrl:
+                      _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!);
             }
           }
           await _userLoginState();
@@ -152,10 +165,10 @@ class AuthProvider extends ChangeNotifier {
           if (_resultUser == null) {
             await _createUserProfile(_firebaseUser, null);
           } else {
-            if (!_resultUser.profileUrl.contains(_firebaseUser.photoURL!)) {
-              await _userRepository.updateUserProfileImage(
-                  profileUrl: _firebaseUser.photoURL!,
-                  userKey: _firebaseUser.uid);
+            if (!_resultUser.socialProfileUrl
+                .contains(_firebaseUser.photoURL!)) {
+              await _updateSoicalUserImage(
+                  socialProfileUrl: _firebaseUser.photoURL!);
             }
           }
           await _userLoginState();

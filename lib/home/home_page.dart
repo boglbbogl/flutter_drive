@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/_constant/firebase_keys.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
 import 'package:flutter_drive/feed/provider/feed_provider.dart';
 import 'package:flutter_drive/home/home_appbar_widget.dart';
@@ -21,12 +24,15 @@ class HomePage extends StatelessWidget {
             ...provider.courseList.map((course) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Row(
-                    //   children: [
-                    //     userCircleImageWidget(imageUrl: course.userProfileUrl),
-                    //     Text(course.userNickName),
-                    //   ],
-                    // ),
+                    Row(
+                      children: [
+                        userCircleImageWidget(
+                            imageUrl: course.user.isSocialImage
+                                ? course.user.socialProfileUrl
+                                : course.user.localProfileUrl),
+                        Text(course.user.nickName),
+                      ],
+                    ),
                     SizedBox(
                       width: size.width,
                       height: size.width,

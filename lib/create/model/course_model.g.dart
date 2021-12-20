@@ -25,7 +25,7 @@ _$_CourseModel _$$_CourseModelFromJson(Map<String, dynamic> json) =>
       spot: (json['spot'] as List<dynamic>)
           .map((e) => CourseSpot.fromJson(e as Map<String, dynamic>))
           .toList(),
-      user: CourseUser.fromJson(json['user'] as Map<String, dynamic>),
+      user: ProfileModel.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
@@ -41,18 +41,6 @@ Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
       'imageUrl': instance.imageUrl,
       'spot': instance.spot,
       'user': instance.user,
-    };
-
-_$_CourseUser _$$_CourseUserFromJson(Map<String, dynamic> json) =>
-    _$_CourseUser(
-      userProfileUrl: json['userProfileUrl'] as String,
-      userNickname: json['userNickname'] as String,
-    );
-
-Map<String, dynamic> _$$_CourseUserToJson(_$_CourseUser instance) =>
-    <String, dynamic>{
-      'userProfileUrl': instance.userProfileUrl,
-      'userNickname': instance.userNickname,
     };
 
 _$_CourseSpot _$$_CourseSpotFromJson(Map<String, dynamic> json) =>

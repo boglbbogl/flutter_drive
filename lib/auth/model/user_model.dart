@@ -9,10 +9,12 @@ class UserModel with _$UserModel {
     required String userKey,
     required String nickName,
     required String email,
-    required String profileUrl,
+    required String socialProfileUrl,
+    required String localProfileUrl,
+    required bool isSocialImage,
     required String createdAt,
-    required String provider,
     required String updatedAt,
+    required String provider,
   }) = _UserModel;
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/repo/user_repository.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
@@ -18,10 +19,10 @@ class FeedProvider extends ChangeNotifier {
 
   Future _courseStream() async {
     await _courseStreamSubscription?.cancel();
+
     _courseStreamSubscription =
         _feedRepostiory.getStreamCourse().listen((course) {
       _courseList = course;
-
       notifyListeners();
     });
   }

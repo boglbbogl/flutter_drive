@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_drive/profile/model/profile_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'course_model.freezed.dart';
@@ -17,7 +18,7 @@ class CourseModel with _$CourseModel {
     required List<String> likeUserId,
     required List<String> imageUrl,
     required List<CourseSpot> spot,
-    required CourseUser user,
+    required ProfileModel user,
   }) = _CourseModel;
 
   const CourseModel._();
@@ -55,30 +56,11 @@ class CourseModel with _$CourseModel {
       likeUserId: [],
       imageUrl: [],
       spot: [],
-      user: const CourseUser(
-        userNickname: "",
-        userProfileUrl: "",
-      ));
-}
-
-@freezed
-class CourseUser with _$CourseUser {
-  const factory CourseUser({
-    required String userProfileUrl,
-    required String userNickname,
-  }) = _CourseUser;
-  const CourseUser._();
-  factory CourseUser.fromFireStore(DocumentSnapshot<Map<String, dynamic>> doc) {
-    return CourseUser.fromJson(doc.data()!);
-  }
-  factory CourseUser.fromJson(Map<String, dynamic> json) =>
-      _$CourseUserFromJson(json);
-  Map<String, dynamic> toFireStore() {
-    final map = <String, dynamic>{};
-    map["userProfileUrl"] = userProfileUrl;
-    map["userNickname"] = userNickname;
-    return map;
-  }
+      user: const ProfileModel(
+          socialProfileUrl: "",
+          localProfileUrl: "",
+          isSocialImage: false,
+          nickName: ""));
 }
 
 @freezed

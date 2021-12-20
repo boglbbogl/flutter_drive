@@ -25,18 +25,22 @@ class _$UserModelTearOff {
       {required String userKey,
       required String nickName,
       required String email,
-      required String profileUrl,
+      required String socialProfileUrl,
+      required String localProfileUrl,
+      required bool isSocialImage,
       required String createdAt,
-      required String provider,
-      required String updatedAt}) {
+      required String updatedAt,
+      required String provider}) {
     return _UserModel(
       userKey: userKey,
       nickName: nickName,
       email: email,
-      profileUrl: profileUrl,
+      socialProfileUrl: socialProfileUrl,
+      localProfileUrl: localProfileUrl,
+      isSocialImage: isSocialImage,
       createdAt: createdAt,
-      provider: provider,
       updatedAt: updatedAt,
+      provider: provider,
     );
   }
 
@@ -53,10 +57,12 @@ mixin _$UserModel {
   String get userKey => throw _privateConstructorUsedError;
   String get nickName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  String get profileUrl => throw _privateConstructorUsedError;
+  String get socialProfileUrl => throw _privateConstructorUsedError;
+  String get localProfileUrl => throw _privateConstructorUsedError;
+  bool get isSocialImage => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
-  String get provider => throw _privateConstructorUsedError;
   String get updatedAt => throw _privateConstructorUsedError;
+  String get provider => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -72,10 +78,12 @@ abstract class $UserModelCopyWith<$Res> {
       {String userKey,
       String nickName,
       String email,
-      String profileUrl,
+      String socialProfileUrl,
+      String localProfileUrl,
+      bool isSocialImage,
       String createdAt,
-      String provider,
-      String updatedAt});
+      String updatedAt,
+      String provider});
 }
 
 /// @nodoc
@@ -91,10 +99,12 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? userKey = freezed,
     Object? nickName = freezed,
     Object? email = freezed,
-    Object? profileUrl = freezed,
+    Object? socialProfileUrl = freezed,
+    Object? localProfileUrl = freezed,
+    Object? isSocialImage = freezed,
     Object? createdAt = freezed,
-    Object? provider = freezed,
     Object? updatedAt = freezed,
+    Object? provider = freezed,
   }) {
     return _then(_value.copyWith(
       userKey: userKey == freezed
@@ -109,21 +119,29 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      profileUrl: profileUrl == freezed
-          ? _value.profileUrl
-          : profileUrl // ignore: cast_nullable_to_non_nullable
+      socialProfileUrl: socialProfileUrl == freezed
+          ? _value.socialProfileUrl
+          : socialProfileUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      localProfileUrl: localProfileUrl == freezed
+          ? _value.localProfileUrl
+          : localProfileUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      isSocialImage: isSocialImage == freezed
+          ? _value.isSocialImage
+          : isSocialImage // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
-      provider: provider == freezed
-          ? _value.provider
-          : provider // ignore: cast_nullable_to_non_nullable
-              as String,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      provider: provider == freezed
+          ? _value.provider
+          : provider // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -139,10 +157,12 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       {String userKey,
       String nickName,
       String email,
-      String profileUrl,
+      String socialProfileUrl,
+      String localProfileUrl,
+      bool isSocialImage,
       String createdAt,
-      String provider,
-      String updatedAt});
+      String updatedAt,
+      String provider});
 }
 
 /// @nodoc
@@ -159,10 +179,12 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? userKey = freezed,
     Object? nickName = freezed,
     Object? email = freezed,
-    Object? profileUrl = freezed,
+    Object? socialProfileUrl = freezed,
+    Object? localProfileUrl = freezed,
+    Object? isSocialImage = freezed,
     Object? createdAt = freezed,
-    Object? provider = freezed,
     Object? updatedAt = freezed,
+    Object? provider = freezed,
   }) {
     return _then(_UserModel(
       userKey: userKey == freezed
@@ -177,21 +199,29 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      profileUrl: profileUrl == freezed
-          ? _value.profileUrl
-          : profileUrl // ignore: cast_nullable_to_non_nullable
+      socialProfileUrl: socialProfileUrl == freezed
+          ? _value.socialProfileUrl
+          : socialProfileUrl // ignore: cast_nullable_to_non_nullable
               as String,
+      localProfileUrl: localProfileUrl == freezed
+          ? _value.localProfileUrl
+          : localProfileUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      isSocialImage: isSocialImage == freezed
+          ? _value.isSocialImage
+          : isSocialImage // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String,
-      provider: provider == freezed
-          ? _value.provider
-          : provider // ignore: cast_nullable_to_non_nullable
-              as String,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
+              as String,
+      provider: provider == freezed
+          ? _value.provider
+          : provider // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -204,10 +234,12 @@ class _$_UserModel implements _UserModel {
       {required this.userKey,
       required this.nickName,
       required this.email,
-      required this.profileUrl,
+      required this.socialProfileUrl,
+      required this.localProfileUrl,
+      required this.isSocialImage,
       required this.createdAt,
-      required this.provider,
-      required this.updatedAt});
+      required this.updatedAt,
+      required this.provider});
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
@@ -219,17 +251,21 @@ class _$_UserModel implements _UserModel {
   @override
   final String email;
   @override
-  final String profileUrl;
+  final String socialProfileUrl;
+  @override
+  final String localProfileUrl;
+  @override
+  final bool isSocialImage;
   @override
   final String createdAt;
   @override
-  final String provider;
-  @override
   final String updatedAt;
+  @override
+  final String provider;
 
   @override
   String toString() {
-    return 'UserModel(userKey: $userKey, nickName: $nickName, email: $email, profileUrl: $profileUrl, createdAt: $createdAt, provider: $provider, updatedAt: $updatedAt)';
+    return 'UserModel(userKey: $userKey, nickName: $nickName, email: $email, socialProfileUrl: $socialProfileUrl, localProfileUrl: $localProfileUrl, isSocialImage: $isSocialImage, createdAt: $createdAt, updatedAt: $updatedAt, provider: $provider)';
   }
 
   @override
@@ -241,10 +277,14 @@ class _$_UserModel implements _UserModel {
             const DeepCollectionEquality().equals(other.nickName, nickName) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality()
-                .equals(other.profileUrl, profileUrl) &&
+                .equals(other.socialProfileUrl, socialProfileUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.localProfileUrl, localProfileUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.isSocialImage, isSocialImage) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
-            const DeepCollectionEquality().equals(other.provider, provider) &&
-            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
+            const DeepCollectionEquality().equals(other.provider, provider));
   }
 
   @override
@@ -253,10 +293,12 @@ class _$_UserModel implements _UserModel {
       const DeepCollectionEquality().hash(userKey),
       const DeepCollectionEquality().hash(nickName),
       const DeepCollectionEquality().hash(email),
-      const DeepCollectionEquality().hash(profileUrl),
+      const DeepCollectionEquality().hash(socialProfileUrl),
+      const DeepCollectionEquality().hash(localProfileUrl),
+      const DeepCollectionEquality().hash(isSocialImage),
       const DeepCollectionEquality().hash(createdAt),
-      const DeepCollectionEquality().hash(provider),
-      const DeepCollectionEquality().hash(updatedAt));
+      const DeepCollectionEquality().hash(updatedAt),
+      const DeepCollectionEquality().hash(provider));
 
   @JsonKey(ignore: true)
   @override
@@ -274,10 +316,12 @@ abstract class _UserModel implements UserModel {
       {required String userKey,
       required String nickName,
       required String email,
-      required String profileUrl,
+      required String socialProfileUrl,
+      required String localProfileUrl,
+      required bool isSocialImage,
       required String createdAt,
-      required String provider,
-      required String updatedAt}) = _$_UserModel;
+      required String updatedAt,
+      required String provider}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
@@ -289,13 +333,17 @@ abstract class _UserModel implements UserModel {
   @override
   String get email;
   @override
-  String get profileUrl;
+  String get socialProfileUrl;
+  @override
+  String get localProfileUrl;
+  @override
+  bool get isSocialImage;
   @override
   String get createdAt;
   @override
-  String get provider;
-  @override
   String get updatedAt;
+  @override
+  String get provider;
   @override
   @JsonKey(ignore: true)
   _$UserModelCopyWith<_UserModel> get copyWith =>

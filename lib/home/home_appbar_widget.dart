@@ -7,6 +7,8 @@ import 'package:flutter_drive/create/provider/course_provider.dart';
 import 'package:flutter_drive/create/ui/screen/create_page.dart';
 import 'package:flutter_drive/home/setting_bottom_widget.dart';
 import 'package:flutter_drive/image/provider/images_provider.dart';
+import 'package:flutter_drive/profile/provider/profile_provider.dart';
+import 'package:flutter_drive/profile/ui/profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
@@ -31,19 +33,28 @@ AppBar homeAppbarWidget({
             settingBottomWidget(context: context);
           },
           icon: Icons.settings),
-      Padding(
-        padding: const EdgeInsets.only(left: 8, right: 10),
-        child: context.watch<AuthProvider>().user == null
-            ? const CircleAvatar(
-                backgroundColor: Color.fromRGBO(91, 91, 91, 1),
-                radius: 14,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 2, vertical: 15),
-                  child: CircularProgressIndicator(),
-                ),
-              )
-            : userCircleImageWidget(
-                imageUrl: context.watch<AuthProvider>().user!.profileUrl),
+      InkWell(
+        onTap: () {
+          pushNewScreen(context,
+              screen: ChangeNotifierProvider(
+                  create: (context) => ProfileProvider(),
+                  child: const ProfilePage()));
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8, right: 10),
+          child: context.watch<AuthProvider>().user == null
+              ? const CircleAvatar(
+                  backgroundColor: Color.fromRGBO(91, 91, 91, 1),
+                  radius: 14,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 15),
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : userCircleImageWidget(
+                  imageUrl:
+                      context.watch<AuthProvider>().user!.socialProfileUrl),
+        ),
       ),
     ],
   );

@@ -6,6 +6,7 @@ import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
 import 'package:flutter_drive/create/repo/course_repository.dart';
 import 'package:flutter_drive/image/repository/images_repository.dart';
+import 'package:flutter_drive/profile/model/profile_model.dart';
 
 class CourseProvider extends ChangeNotifier {
   final CourseRepository _courseRepository = CourseRepository();
@@ -40,16 +41,16 @@ class CourseProvider extends ChangeNotifier {
     }
     await _courseRepository.createCourseModel(
         courseModel: _courseModel.copyWith(
-      userKey: user.userKey,
-      createAt: DateTime.now().toString(),
-      updateAt: DateTime.now().toString(),
-      imageUrl: _imageUrl,
-      spot: _courseSpotList,
-      user: CourseUser(
-        userProfileUrl: user.profileUrl,
-        userNickname: user.nickName,
-      ),
-    ));
+            userKey: user.userKey,
+            createAt: DateTime.now().toString(),
+            updateAt: DateTime.now().toString(),
+            imageUrl: _imageUrl,
+            spot: _courseSpotList,
+            user: ProfileModel(
+                socialProfileUrl: user.socialProfileUrl,
+                localProfileUrl: user.localProfileUrl,
+                isSocialImage: user.isSocialImage,
+                nickName: user.nickName)));
     _isUploading = false;
     notifyListeners();
   }

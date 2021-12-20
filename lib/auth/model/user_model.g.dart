@@ -10,10 +10,12 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
       userKey: json['userKey'] as String,
       nickName: json['nickName'] as String,
       email: json['email'] as String,
-      profileUrl: json['profileUrl'] as String,
+      socialProfileUrl: json['socialProfileUrl'] as String,
+      localProfileUrl: json['localProfileUrl'] as String,
+      isSocialImage: json['isSocialImage'] as bool,
       createdAt: json['createdAt'] as String,
-      provider: json['provider'] as String,
       updatedAt: json['updatedAt'] as String,
+      provider: json['provider'] as String,
     );
 
 Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
@@ -21,8 +23,10 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
       'userKey': instance.userKey,
       'nickName': instance.nickName,
       'email': instance.email,
-      'profileUrl': instance.profileUrl,
+      'socialProfileUrl': instance.socialProfileUrl,
+      'localProfileUrl': instance.localProfileUrl,
+      'isSocialImage': instance.isSocialImage,
       'createdAt': instance.createdAt,
-      'provider': instance.provider,
       'updatedAt': instance.updatedAt,
+      'provider': instance.provider,
     };
