@@ -12,6 +12,18 @@ class ImageSRepository {
   ImageSRepository._internal();
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
+  Future<String> userProfileUpladResized({
+    required Uint8List image,
+  }) async {
+    final Image? _decodedImage = decodeImage(image);
+    final Image _resizedImage = copyResize(_decodedImage!);
+
+    const fileName = '375.jpg';
+
+    // await _storage.ref().putFile();
+    return '';
+  }
+
   Future<List<String>> imageUploadResized({
     required String userKey,
     required List<Uint8List> imageFile,
