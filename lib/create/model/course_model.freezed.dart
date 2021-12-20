@@ -13,14 +13,16 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+CourseModel _$CourseModelFromJson(Map<String, dynamic> json) {
+  return _CourseModel.fromJson(json);
+}
+
 /// @nodoc
 class _$CourseModelTearOff {
   const _$CourseModelTearOff();
 
   _CourseModel call(
       {required String userKey,
-      required String userProfileUrl,
-      required String userNickName,
       required String docKey,
       required String explanation,
       required String createAt,
@@ -29,11 +31,10 @@ class _$CourseModelTearOff {
       required int likeCount,
       required List<String> likeUserId,
       required List<String> imageUrl,
-      required List<String> spotName}) {
+      required List<CourseSpot> spot,
+      required CourseUser user}) {
     return _CourseModel(
       userKey: userKey,
-      userProfileUrl: userProfileUrl,
-      userNickName: userNickName,
       docKey: docKey,
       explanation: explanation,
       createAt: createAt,
@@ -42,8 +43,13 @@ class _$CourseModelTearOff {
       likeCount: likeCount,
       likeUserId: likeUserId,
       imageUrl: imageUrl,
-      spotName: spotName,
+      spot: spot,
+      user: user,
     );
+  }
+
+  CourseModel fromJson(Map<String, Object?> json) {
+    return CourseModel.fromJson(json);
   }
 }
 
@@ -53,8 +59,6 @@ const $CourseModel = _$CourseModelTearOff();
 /// @nodoc
 mixin _$CourseModel {
   String get userKey => throw _privateConstructorUsedError;
-  String get userProfileUrl => throw _privateConstructorUsedError;
-  String get userNickName => throw _privateConstructorUsedError;
   String get docKey => throw _privateConstructorUsedError;
   String get explanation => throw _privateConstructorUsedError;
   String get createAt => throw _privateConstructorUsedError;
@@ -63,8 +67,10 @@ mixin _$CourseModel {
   int get likeCount => throw _privateConstructorUsedError;
   List<String> get likeUserId => throw _privateConstructorUsedError;
   List<String> get imageUrl => throw _privateConstructorUsedError;
-  List<String> get spotName => throw _privateConstructorUsedError;
+  List<CourseSpot> get spot => throw _privateConstructorUsedError;
+  CourseUser get user => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $CourseModelCopyWith<CourseModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -77,8 +83,6 @@ abstract class $CourseModelCopyWith<$Res> {
       _$CourseModelCopyWithImpl<$Res>;
   $Res call(
       {String userKey,
-      String userProfileUrl,
-      String userNickName,
       String docKey,
       String explanation,
       String createAt,
@@ -87,7 +91,10 @@ abstract class $CourseModelCopyWith<$Res> {
       int likeCount,
       List<String> likeUserId,
       List<String> imageUrl,
-      List<String> spotName});
+      List<CourseSpot> spot,
+      CourseUser user});
+
+  $CourseUserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -101,8 +108,6 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
   @override
   $Res call({
     Object? userKey = freezed,
-    Object? userProfileUrl = freezed,
-    Object? userNickName = freezed,
     Object? docKey = freezed,
     Object? explanation = freezed,
     Object? createAt = freezed,
@@ -111,20 +116,13 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? likeCount = freezed,
     Object? likeUserId = freezed,
     Object? imageUrl = freezed,
-    Object? spotName = freezed,
+    Object? spot = freezed,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       userKey: userKey == freezed
           ? _value.userKey
           : userKey // ignore: cast_nullable_to_non_nullable
-              as String,
-      userProfileUrl: userProfileUrl == freezed
-          ? _value.userProfileUrl
-          : userProfileUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      userNickName: userNickName == freezed
-          ? _value.userNickName
-          : userNickName // ignore: cast_nullable_to_non_nullable
               as String,
       docKey: docKey == freezed
           ? _value.docKey
@@ -158,11 +156,22 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      spotName: spotName == freezed
-          ? _value.spotName
-          : spotName // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      spot: spot == freezed
+          ? _value.spot
+          : spot // ignore: cast_nullable_to_non_nullable
+              as List<CourseSpot>,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as CourseUser,
     ));
+  }
+
+  @override
+  $CourseUserCopyWith<$Res> get user {
+    return $CourseUserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
@@ -175,8 +184,6 @@ abstract class _$CourseModelCopyWith<$Res>
   @override
   $Res call(
       {String userKey,
-      String userProfileUrl,
-      String userNickName,
       String docKey,
       String explanation,
       String createAt,
@@ -185,7 +192,11 @@ abstract class _$CourseModelCopyWith<$Res>
       int likeCount,
       List<String> likeUserId,
       List<String> imageUrl,
-      List<String> spotName});
+      List<CourseSpot> spot,
+      CourseUser user});
+
+  @override
+  $CourseUserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -201,8 +212,6 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userKey = freezed,
-    Object? userProfileUrl = freezed,
-    Object? userNickName = freezed,
     Object? docKey = freezed,
     Object? explanation = freezed,
     Object? createAt = freezed,
@@ -211,20 +220,13 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
     Object? likeCount = freezed,
     Object? likeUserId = freezed,
     Object? imageUrl = freezed,
-    Object? spotName = freezed,
+    Object? spot = freezed,
+    Object? user = freezed,
   }) {
     return _then(_CourseModel(
       userKey: userKey == freezed
           ? _value.userKey
           : userKey // ignore: cast_nullable_to_non_nullable
-              as String,
-      userProfileUrl: userProfileUrl == freezed
-          ? _value.userProfileUrl
-          : userProfileUrl // ignore: cast_nullable_to_non_nullable
-              as String,
-      userNickName: userNickName == freezed
-          ? _value.userNickName
-          : userNickName // ignore: cast_nullable_to_non_nullable
               as String,
       docKey: docKey == freezed
           ? _value.docKey
@@ -258,21 +260,23 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      spotName: spotName == freezed
-          ? _value.spotName
-          : spotName // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+      spot: spot == freezed
+          ? _value.spot
+          : spot // ignore: cast_nullable_to_non_nullable
+              as List<CourseSpot>,
+      user: user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as CourseUser,
     ));
   }
 }
 
 /// @nodoc
-
-class _$_CourseModel implements _CourseModel {
+@JsonSerializable()
+class _$_CourseModel extends _CourseModel {
   const _$_CourseModel(
       {required this.userKey,
-      required this.userProfileUrl,
-      required this.userNickName,
       required this.docKey,
       required this.explanation,
       required this.createAt,
@@ -281,14 +285,15 @@ class _$_CourseModel implements _CourseModel {
       required this.likeCount,
       required this.likeUserId,
       required this.imageUrl,
-      required this.spotName});
+      required this.spot,
+      required this.user})
+      : super._();
+
+  factory _$_CourseModel.fromJson(Map<String, dynamic> json) =>
+      _$$_CourseModelFromJson(json);
 
   @override
   final String userKey;
-  @override
-  final String userProfileUrl;
-  @override
-  final String userNickName;
   @override
   final String docKey;
   @override
@@ -306,11 +311,13 @@ class _$_CourseModel implements _CourseModel {
   @override
   final List<String> imageUrl;
   @override
-  final List<String> spotName;
+  final List<CourseSpot> spot;
+  @override
+  final CourseUser user;
 
   @override
   String toString() {
-    return 'CourseModel(userKey: $userKey, userProfileUrl: $userProfileUrl, userNickName: $userNickName, docKey: $docKey, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl, spotName: $spotName)';
+    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl, spot: $spot, user: $user)';
   }
 
   @override
@@ -319,10 +326,6 @@ class _$_CourseModel implements _CourseModel {
         (other.runtimeType == runtimeType &&
             other is _CourseModel &&
             const DeepCollectionEquality().equals(other.userKey, userKey) &&
-            const DeepCollectionEquality()
-                .equals(other.userProfileUrl, userProfileUrl) &&
-            const DeepCollectionEquality()
-                .equals(other.userNickName, userNickName) &&
             const DeepCollectionEquality().equals(other.docKey, docKey) &&
             const DeepCollectionEquality()
                 .equals(other.explanation, explanation) &&
@@ -334,15 +337,14 @@ class _$_CourseModel implements _CourseModel {
             const DeepCollectionEquality()
                 .equals(other.likeUserId, likeUserId) &&
             const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
-            const DeepCollectionEquality().equals(other.spotName, spotName));
+            const DeepCollectionEquality().equals(other.spot, spot) &&
+            const DeepCollectionEquality().equals(other.user, user));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(userKey),
-      const DeepCollectionEquality().hash(userProfileUrl),
-      const DeepCollectionEquality().hash(userNickName),
       const DeepCollectionEquality().hash(docKey),
       const DeepCollectionEquality().hash(explanation),
       const DeepCollectionEquality().hash(createAt),
@@ -351,19 +353,23 @@ class _$_CourseModel implements _CourseModel {
       const DeepCollectionEquality().hash(likeCount),
       const DeepCollectionEquality().hash(likeUserId),
       const DeepCollectionEquality().hash(imageUrl),
-      const DeepCollectionEquality().hash(spotName));
+      const DeepCollectionEquality().hash(spot),
+      const DeepCollectionEquality().hash(user));
 
   @JsonKey(ignore: true)
   @override
   _$CourseModelCopyWith<_CourseModel> get copyWith =>
       __$CourseModelCopyWithImpl<_CourseModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_CourseModelToJson(this);
+  }
 }
 
-abstract class _CourseModel implements CourseModel {
+abstract class _CourseModel extends CourseModel {
   const factory _CourseModel(
       {required String userKey,
-      required String userProfileUrl,
-      required String userNickName,
       required String docKey,
       required String explanation,
       required String createAt,
@@ -372,14 +378,15 @@ abstract class _CourseModel implements CourseModel {
       required int likeCount,
       required List<String> likeUserId,
       required List<String> imageUrl,
-      required List<String> spotName}) = _$_CourseModel;
+      required List<CourseSpot> spot,
+      required CourseUser user}) = _$_CourseModel;
+  const _CourseModel._() : super._();
+
+  factory _CourseModel.fromJson(Map<String, dynamic> json) =
+      _$_CourseModel.fromJson;
 
   @override
   String get userKey;
-  @override
-  String get userProfileUrl;
-  @override
-  String get userNickName;
   @override
   String get docKey;
   @override
@@ -397,11 +404,190 @@ abstract class _CourseModel implements CourseModel {
   @override
   List<String> get imageUrl;
   @override
-  List<String> get spotName;
+  List<CourseSpot> get spot;
+  @override
+  CourseUser get user;
   @override
   @JsonKey(ignore: true)
   _$CourseModelCopyWith<_CourseModel> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+CourseUser _$CourseUserFromJson(Map<String, dynamic> json) {
+  return _CourseUser.fromJson(json);
+}
+
+/// @nodoc
+class _$CourseUserTearOff {
+  const _$CourseUserTearOff();
+
+  _CourseUser call(
+      {required String userProfileUrl, required String userNickname}) {
+    return _CourseUser(
+      userProfileUrl: userProfileUrl,
+      userNickname: userNickname,
+    );
+  }
+
+  CourseUser fromJson(Map<String, Object?> json) {
+    return CourseUser.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $CourseUser = _$CourseUserTearOff();
+
+/// @nodoc
+mixin _$CourseUser {
+  String get userProfileUrl => throw _privateConstructorUsedError;
+  String get userNickname => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $CourseUserCopyWith<CourseUser> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CourseUserCopyWith<$Res> {
+  factory $CourseUserCopyWith(
+          CourseUser value, $Res Function(CourseUser) then) =
+      _$CourseUserCopyWithImpl<$Res>;
+  $Res call({String userProfileUrl, String userNickname});
+}
+
+/// @nodoc
+class _$CourseUserCopyWithImpl<$Res> implements $CourseUserCopyWith<$Res> {
+  _$CourseUserCopyWithImpl(this._value, this._then);
+
+  final CourseUser _value;
+  // ignore: unused_field
+  final $Res Function(CourseUser) _then;
+
+  @override
+  $Res call({
+    Object? userProfileUrl = freezed,
+    Object? userNickname = freezed,
+  }) {
+    return _then(_value.copyWith(
+      userProfileUrl: userProfileUrl == freezed
+          ? _value.userProfileUrl
+          : userProfileUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNickname: userNickname == freezed
+          ? _value.userNickname
+          : userNickname // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$CourseUserCopyWith<$Res> implements $CourseUserCopyWith<$Res> {
+  factory _$CourseUserCopyWith(
+          _CourseUser value, $Res Function(_CourseUser) then) =
+      __$CourseUserCopyWithImpl<$Res>;
+  @override
+  $Res call({String userProfileUrl, String userNickname});
+}
+
+/// @nodoc
+class __$CourseUserCopyWithImpl<$Res> extends _$CourseUserCopyWithImpl<$Res>
+    implements _$CourseUserCopyWith<$Res> {
+  __$CourseUserCopyWithImpl(
+      _CourseUser _value, $Res Function(_CourseUser) _then)
+      : super(_value, (v) => _then(v as _CourseUser));
+
+  @override
+  _CourseUser get _value => super._value as _CourseUser;
+
+  @override
+  $Res call({
+    Object? userProfileUrl = freezed,
+    Object? userNickname = freezed,
+  }) {
+    return _then(_CourseUser(
+      userProfileUrl: userProfileUrl == freezed
+          ? _value.userProfileUrl
+          : userProfileUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNickname: userNickname == freezed
+          ? _value.userNickname
+          : userNickname // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_CourseUser extends _CourseUser {
+  const _$_CourseUser(
+      {required this.userProfileUrl, required this.userNickname})
+      : super._();
+
+  factory _$_CourseUser.fromJson(Map<String, dynamic> json) =>
+      _$$_CourseUserFromJson(json);
+
+  @override
+  final String userProfileUrl;
+  @override
+  final String userNickname;
+
+  @override
+  String toString() {
+    return 'CourseUser(userProfileUrl: $userProfileUrl, userNickname: $userNickname)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _CourseUser &&
+            const DeepCollectionEquality()
+                .equals(other.userProfileUrl, userProfileUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.userNickname, userNickname));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(userProfileUrl),
+      const DeepCollectionEquality().hash(userNickname));
+
+  @JsonKey(ignore: true)
+  @override
+  _$CourseUserCopyWith<_CourseUser> get copyWith =>
+      __$CourseUserCopyWithImpl<_CourseUser>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_CourseUserToJson(this);
+  }
+}
+
+abstract class _CourseUser extends CourseUser {
+  const factory _CourseUser(
+      {required String userProfileUrl,
+      required String userNickname}) = _$_CourseUser;
+  const _CourseUser._() : super._();
+
+  factory _CourseUser.fromJson(Map<String, dynamic> json) =
+      _$_CourseUser.fromJson;
+
+  @override
+  String get userProfileUrl;
+  @override
+  String get userNickname;
+  @override
+  @JsonKey(ignore: true)
+  _$CourseUserCopyWith<_CourseUser> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+CourseSpot _$CourseSpotFromJson(Map<String, dynamic> json) {
+  return _CourseSpot.fromJson(json);
 }
 
 /// @nodoc
@@ -422,6 +608,10 @@ class _$CourseSpotTearOff {
       lon: lon,
     );
   }
+
+  CourseSpot fromJson(Map<String, Object?> json) {
+    return CourseSpot.fromJson(json);
+  }
 }
 
 /// @nodoc
@@ -435,6 +625,7 @@ mixin _$CourseSpot {
   String get lat => throw _privateConstructorUsedError;
   String get lon => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $CourseSpotCopyWith<CourseSpot> get copyWith =>
       throw _privateConstructorUsedError;
@@ -552,14 +743,18 @@ class __$CourseSpotCopyWithImpl<$Res> extends _$CourseSpotCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-class _$_CourseSpot implements _CourseSpot {
+@JsonSerializable()
+class _$_CourseSpot extends _CourseSpot {
   const _$_CourseSpot(
       {required this.placeName,
       required this.addressName,
       required this.id,
       required this.lat,
-      required this.lon});
+      required this.lon})
+      : super._();
+
+  factory _$_CourseSpot.fromJson(Map<String, dynamic> json) =>
+      _$$_CourseSpotFromJson(json);
 
   @override
   final String placeName;
@@ -603,15 +798,24 @@ class _$_CourseSpot implements _CourseSpot {
   @override
   _$CourseSpotCopyWith<_CourseSpot> get copyWith =>
       __$CourseSpotCopyWithImpl<_CourseSpot>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_CourseSpotToJson(this);
+  }
 }
 
-abstract class _CourseSpot implements CourseSpot {
+abstract class _CourseSpot extends CourseSpot {
   const factory _CourseSpot(
       {required String placeName,
       required String addressName,
       required String id,
       required String lat,
       required String lon}) = _$_CourseSpot;
+  const _CourseSpot._() : super._();
+
+  factory _CourseSpot.fromJson(Map<String, dynamic> json) =
+      _$_CourseSpot.fromJson;
 
   @override
   String get placeName;

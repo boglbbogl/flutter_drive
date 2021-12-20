@@ -21,12 +21,12 @@ class HomePage extends StatelessWidget {
             ...provider.courseList.map((course) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        userCircleImageWidget(imageUrl: course.userProfileUrl),
-                        Text(course.userNickName),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     userCircleImageWidget(imageUrl: course.userProfileUrl),
+                    //     Text(course.userNickName),
+                    //   ],
+                    // ),
                     SizedBox(
                       width: size.width,
                       height: size.width,

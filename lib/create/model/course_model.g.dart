@@ -1,15 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'course_dtos.dart';
+part of 'course_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CourseDto _$$_CourseDtoFromJson(Map<String, dynamic> json) => _$_CourseDto(
+_$_CourseModel _$$_CourseModelFromJson(Map<String, dynamic> json) =>
+    _$_CourseModel(
       userKey: json['userKey'] as String,
-      userProfileUrl: json['userProfileUrl'] as String,
-      userNickName: json['userNickName'] as String,
       docKey: json['docKey'] as String,
       explanation: json['explanation'] as String,
       createAt: json['createAt'] as String,
@@ -23,15 +22,15 @@ _$_CourseDto _$$_CourseDtoFromJson(Map<String, dynamic> json) => _$_CourseDto(
           .toList(),
       imageUrl:
           (json['imageUrl'] as List<dynamic>).map((e) => e as String).toList(),
-      spotName:
-          (json['spotName'] as List<dynamic>).map((e) => e as String).toList(),
+      spot: (json['spot'] as List<dynamic>)
+          .map((e) => CourseSpot.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      user: CourseUser.fromJson(json['user'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_CourseDtoToJson(_$_CourseDto instance) =>
+Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
     <String, dynamic>{
       'userKey': instance.userKey,
-      'userProfileUrl': instance.userProfileUrl,
-      'userNickName': instance.userNickName,
       'docKey': instance.docKey,
       'explanation': instance.explanation,
       'createAt': instance.createAt,
@@ -40,11 +39,24 @@ Map<String, dynamic> _$$_CourseDtoToJson(_$_CourseDto instance) =>
       'likeCount': instance.likeCount,
       'likeUserId': instance.likeUserId,
       'imageUrl': instance.imageUrl,
-      'spotName': instance.spotName,
+      'spot': instance.spot,
+      'user': instance.user,
     };
 
-_$_CourseSpotDto _$$_CourseSpotDtoFromJson(Map<String, dynamic> json) =>
-    _$_CourseSpotDto(
+_$_CourseUser _$$_CourseUserFromJson(Map<String, dynamic> json) =>
+    _$_CourseUser(
+      userProfileUrl: json['userProfileUrl'] as String,
+      userNickname: json['userNickname'] as String,
+    );
+
+Map<String, dynamic> _$$_CourseUserToJson(_$_CourseUser instance) =>
+    <String, dynamic>{
+      'userProfileUrl': instance.userProfileUrl,
+      'userNickname': instance.userNickname,
+    };
+
+_$_CourseSpot _$$_CourseSpotFromJson(Map<String, dynamic> json) =>
+    _$_CourseSpot(
       placeName: json['placeName'] as String,
       addressName: json['addressName'] as String,
       id: json['id'] as String,
@@ -52,7 +64,7 @@ _$_CourseSpotDto _$$_CourseSpotDtoFromJson(Map<String, dynamic> json) =>
       lon: json['lon'] as String,
     );
 
-Map<String, dynamic> _$$_CourseSpotDtoToJson(_$_CourseSpotDto instance) =>
+Map<String, dynamic> _$$_CourseSpotToJson(_$_CourseSpot instance) =>
     <String, dynamic>{
       'placeName': instance.placeName,
       'addressName': instance.addressName,

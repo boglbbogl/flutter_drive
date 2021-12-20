@@ -33,8 +33,17 @@ AppBar homeAppbarWidget({
           icon: Icons.settings),
       Padding(
         padding: const EdgeInsets.only(left: 8, right: 10),
-        child: userCircleImageWidget(
-            imageUrl: context.watch<AuthProvider>().user!.profileUrl),
+        child: context.watch<AuthProvider>().user == null
+            ? const CircleAvatar(
+                backgroundColor: Color.fromRGBO(91, 91, 91, 1),
+                radius: 14,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 2, vertical: 15),
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : userCircleImageWidget(
+                imageUrl: context.watch<AuthProvider>().user!.profileUrl),
       ),
     ],
   );

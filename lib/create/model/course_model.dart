@@ -1,13 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'course_model.freezed.dart';
+part 'course_model.g.dart';
 
 @freezed
 class CourseModel with _$CourseModel {
   const factory CourseModel({
     required String userKey,
-    required String userProfileUrl,
-    required String userNickName,
     required String docKey,
     required String explanation,
     required String createAt,
@@ -16,23 +16,69 @@ class CourseModel with _$CourseModel {
     required int likeCount,
     required List<String> likeUserId,
     required List<String> imageUrl,
-    required List<String> spotName,
+    required List<CourseSpot> spot,
+    required CourseUser user,
   }) = _CourseModel;
 
+  const CourseModel._();
+  factory CourseModel.fromFireStore(
+      DocumentSnapshot<Map<String, dynamic>> doc) {
+    return CourseModel.fromJson(doc.data()!);
+  }
+  factory CourseModel.fromJson(Map<String, dynamic> json) =>
+      _$CourseModelFromJson(json);
+
+  Map<String, dynamic> toFireStore() {
+    final map = <String, dynamic>{};
+    map["userKey"] = userKey;
+    map["docKey"] = docKey;
+    map["explanation"] = explanation;
+    map["createAt"] = createAt;
+    map["updateAt"] = updateAt;
+    map["tagKeyword"] = tagKeyword;
+    map["likeCount"] = likeCount;
+    map["likeUserId"] = likeUserId;
+    map["imageUrl"] = imageUrl;
+    map["spot"] = spot.map((e) => e.toFireStore()).toList();
+    map["user"] = user.toFireStore();
+    return map;
+  }
+
   factory CourseModel.empty() => CourseModel(
-        userKey: "",
+      userKey: "",
+      docKey: "",
+      explanation: "",
+      createAt: DateTime.now().toString(),
+      updateAt: DateTime.now().toString(),
+      tagKeyword: [],
+      likeCount: 0,
+      likeUserId: [],
+      imageUrl: [],
+      spot: [],
+      user: const CourseUser(
+        userNickname: "",
         userProfileUrl: "",
-        userNickName: "",
-        docKey: "",
-        explanation: "",
-        createAt: DateTime.now().toString(),
-        updateAt: DateTime.now().toString(),
-        tagKeyword: [],
-        likeCount: 0,
-        likeUserId: [],
-        imageUrl: [],
-        spotName: [],
-      );
+      ));
+}
+
+@freezed
+class CourseUser with _$CourseUser {
+  const factory CourseUser({
+    required String userProfileUrl,
+    required String userNickname,
+  }) = _CourseUser;
+  const CourseUser._();
+  factory CourseUser.fromFireStore(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return CourseUser.fromJson(doc.data()!);
+  }
+  factory CourseUser.fromJson(Map<String, dynamic> json) =>
+      _$CourseUserFromJson(json);
+  Map<String, dynamic> toFireStore() {
+    final map = <String, dynamic>{};
+    map["userProfileUrl"] = userProfileUrl;
+    map["userNickname"] = userNickname;
+    return map;
+  }
 }
 
 @freezed
@@ -44,6 +90,22 @@ class CourseSpot with _$CourseSpot {
     required String lat,
     required String lon,
   }) = _CourseSpot;
+  const CourseSpot._();
+  factory CourseSpot.fromFireStore(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return CourseSpot.fromJson(doc.data()!);
+  }
+  factory CourseSpot.fromJson(Map<String, dynamic> json) =>
+      _$CourseSpotFromJson(json);
+
+  Map<String, dynamic> toFireStore() {
+    final map = <String, dynamic>{};
+    map["placeName"] = placeName;
+    map["addressName"] = addressName;
+    map["id"] = id;
+    map["lat"] = lat;
+    map["lon"] = lon;
+    return map;
+  }
 
   factory CourseSpot.empty() => const CourseSpot(
         placeName: "",

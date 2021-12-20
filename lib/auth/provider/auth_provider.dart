@@ -28,14 +28,32 @@ class AuthProvider extends ChangeNotifier {
         await kakao.TokenManager.instance.getToken();
     if (_firebaseUser != null) {
       _user = await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
-
+      if (_user != null) {
+        if (!_user!.profileUrl.contains(_firebaseUser.photoURL!)) {
+          await _userRepository.updateUserProfileImage(
+              profileUrl: _firebaseUser.photoURL!, userKey: _firebaseUser.uid);
+          _user =
+              await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
+        }
+      }
       notifyListeners();
     } else if (_kakaoToken.accessToken != null ||
         _kakaoToken.refreshToken != null) {
       final kakao.User _kakaoUser = await kakao.UserApi.instance.me();
       _user = await _userRepository.getUserProfile(
           userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
-
+      if (_user != null) {
+        if (!_user!.profileUrl
+            .contains(_kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!)) {
+          await _userRepository.updateUserProfileImage(
+              profileUrl: _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!,
+              userKey:
+                  _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
+          _user = await _userRepository.getUserProfile(
+              userKey:
+                  _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
+        }
+      }
       notifyListeners();
     } else {
       _user = null;
@@ -65,7 +83,7 @@ class AuthProvider extends ChangeNotifier {
           userKey: kakaoUser.id.toString() + kakaoUser.kakaoAccount!.email!,
           nickName: kakaoUser.kakaoAccount!.profile!.nickname,
           email: kakaoUser.kakaoAccount!.email!,
-          profileUrl: kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!,
+          profileUrl: kakaoUser.kakaoAccount!.profile!.profileImageUrl!,
           createdAt: DateTime.now().toString(),
           updatedAt: DateTime.now().toString(),
           provider: 'Kakao',
@@ -92,6 +110,15 @@ class AuthProvider extends ChangeNotifier {
                   _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
           if (_resultUser == null) {
             await _createUserProfile(null, _kakaoUser);
+          } else {
+            if (!_resultUser.profileUrl.contains(
+                _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!)) {
+              await _userRepository.updateUserProfileImage(
+                  profileUrl:
+                      _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!,
+                  userKey: _kakaoUser.id.toString() +
+                      _kakaoUser.kakaoAccount!.email!);
+            }
           }
           await _userLoginState();
         }
@@ -124,6 +151,12 @@ class AuthProvider extends ChangeNotifier {
               await _userRepository.getUserProfile(userKey: _firebaseUser.uid);
           if (_resultUser == null) {
             await _createUserProfile(_firebaseUser, null);
+          } else {
+            if (!_resultUser.profileUrl.contains(_firebaseUser.photoURL!)) {
+              await _userRepository.updateUserProfileImage(
+                  profileUrl: _firebaseUser.photoURL!,
+                  userKey: _firebaseUser.uid);
+            }
           }
           await _userLoginState();
         }
