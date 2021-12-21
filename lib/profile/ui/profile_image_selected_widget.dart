@@ -11,11 +11,13 @@ class ProfileImageSelectedWidget extends StatelessWidget {
   final UserModel user;
   final bool isSocialImage;
   final Uint8List? pickedImage;
+  final bool isImageSelectLoading;
   const ProfileImageSelectedWidget({
     Key? key,
     required this.user,
     required this.pickedImage,
     required this.isSocialImage,
+    required this.isImageSelectLoading,
   }) : super(key: key);
 
   @override
@@ -49,46 +51,87 @@ class ProfileImageSelectedWidget extends StatelessWidget {
             ],
           )
         else if (pickedImage != null)
-          Column(
+          Stack(
             children: [
-              Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Colors.white,
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: ClipOval(child: Image.memory(pickedImage!)),
-                ),
+              Column(
+                children: [
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: !isSocialImage
+                          ? appSubColor
+                          : const Color.fromRGBO(215, 215, 215, 1),
+                    ),
+                    child: isImageSelectLoading
+                        ? const Padding(
+                            padding: EdgeInsets.all(30.0),
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 5,
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: ClipOval(
+                                child: Image.memory(
+                              pickedImage!,
+                              fit: BoxFit.cover,
+                            )),
+                          ),
+                  ),
+                  _profileImageSelectButton(
+                    onTap: () {
+                      context
+                          .read<ProfileProvider>()
+                          .imageSocialSelectButton(value: false);
+                    },
+                    hideColor: const Color.fromRGBO(215, 215, 215, 1),
+                    selectColor:
+                        isSocialImage ? darkThemeMainColor : appSubColor,
+                  ),
+                ],
               ),
-              _profileImageSelectButton(
-                onTap: () {
-                  context
-                      .read<ProfileProvider>()
-                      .imageSocialSelectButton(value: false);
-                },
-                hideColor: const Color.fromRGBO(215, 215, 215, 1),
-                selectColor: isSocialImage ? darkThemeMainColor : appSubColor,
-              ),
+              _imageChangedIcon(context: context),
             ],
           )
         else
-          _circleImageForm(
-            imageUrl: user.localProfileUrl,
-            widgets: _profileImageSelectButton(
-              onTap: () {
-                context
-                    .read<ProfileProvider>()
-                    .imageSocialSelectButton(value: false);
-              },
-              hideColor: const Color.fromRGBO(215, 215, 215, 1),
-              selectColor: !isSocialImage ? appSubColor : darkThemeMainColor,
-            ),
+          Stack(
+            children: [
+              _circleImageForm(
+                color: !isSocialImage
+                    ? appSubColor
+                    : const Color.fromRGBO(215, 215, 215, 1),
+                imageUrl: user.localProfileUrl,
+                widgets: _profileImageSelectButton(
+                  onTap: () {
+                    context
+                        .read<ProfileProvider>()
+                        .imageSocialSelectButton(value: false);
+                  },
+                  hideColor: const Color.fromRGBO(215, 215, 215, 1),
+                  selectColor:
+                      !isSocialImage ? appSubColor : darkThemeMainColor,
+                ),
+              ),
+              _imageChangedIcon(context: context),
+              if (isImageSelectLoading) ...[
+                const Padding(
+                  padding: EdgeInsets.all(30.0),
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 5,
+                  ),
+                )
+              ],
+            ],
           ),
         _circleImageForm(
           imageUrl: user.socialProfileUrl,
+          color: isSocialImage
+              ? appSubColor
+              : const Color.fromRGBO(215, 215, 215, 1),
           widgets: _profileImageSelectButton(
             onTap: () {
               context
@@ -103,9 +146,26 @@ class ProfileImageSelectedWidget extends StatelessWidget {
     );
   }
 
+  Positioned _imageChangedIcon({
+    required BuildContext context,
+  }) {
+    return Positioned(
+        top: 0,
+        right: 0,
+        child: InkWell(
+          onTap: () => context.read<ProfileProvider>().profileImagePicker(),
+          child: const Icon(
+            Icons.add_circle_outline_outlined,
+            color: Colors.white,
+            size: 25,
+          ),
+        ));
+  }
+
   Column _circleImageForm({
     required String imageUrl,
     required Widget widgets,
+    required Color color,
   }) {
     return Column(
       children: [
@@ -114,11 +174,23 @@ class ProfileImageSelectedWidget extends StatelessWidget {
           height: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
-            color: Colors.white,
+            color: color,
           ),
           child: Padding(
             padding: const EdgeInsets.all(2.0),
-            child: ClipOval(child: CachedNetworkImage(imageUrl: imageUrl)),
+            child: ClipOval(
+                child: CachedNetworkImage(
+              imageUrl: imageUrl,
+              placeholder: (context, string) {
+                return const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  child: CircularProgressIndicator(
+                    strokeWidth: 5,
+                    color: Colors.white,
+                  ),
+                );
+              },
+            )),
           ),
         ),
         widgets,
@@ -135,18 +207,35 @@ class ProfileImageSelectedWidget extends StatelessWidget {
       onTap: onTap,
       child: Column(
         children: [
-          const SizedBox(height: 30),
+          const SizedBox(height: 15),
           Container(
-            width: 15,
-            height: 15,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), color: hideColor),
+            width: 50,
+            height: 50,
+            color: darkThemeMainColor,
             child: Padding(
-              padding: const EdgeInsets.all(3.0),
+              padding: const EdgeInsets.all(13.0),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: selectColor,
+                  color: const Color.fromRGBO(215, 215, 215, 1),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: darkThemeMainColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: selectColor,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

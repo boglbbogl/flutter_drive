@@ -62,6 +62,7 @@ class ProfilePage extends StatelessWidget {
                   user: _user,
                   pickedImage: provider.pickedImage,
                   isSocialImage: provider.isSocialImage!,
+                  isImageSelectLoading: provider.isImageSelectLoading,
                 ),
               ],
             ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:flutter_drive/profile/provider/profile_provider.dart';
+import 'package:flutter_drive/profile/ui/profile_page.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
 Future<void> settingBottomWidget({
@@ -11,7 +14,7 @@ Future<void> settingBottomWidget({
     isScrollControlled: true,
     backgroundColor: materialBlackColor,
     builder: (context) => Container(
-        height: MediaQuery.of(context).size.height * 0.28,
+        height: MediaQuery.of(context).size.height * 0.35,
         decoration: BoxDecoration(
           color: darkThemeMainColor,
           borderRadius: const BorderRadius.only(
@@ -39,6 +42,21 @@ Future<void> settingBottomWidget({
                   children: [
                     _menuItemListTile(
                         title: '설정', icons: Icons.settings, onTap: () {}),
+                    _menuItemListTile(
+                        title: '프로필',
+                        icons: Icons.account_circle,
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          pushNewScreen(context,
+                              screen: ChangeNotifierProvider(
+                                  create: (context) => ProfileProvider()
+                                    ..started(
+                                        isSocialImage: context
+                                            .read<AuthProvider>()
+                                            .user!
+                                            .isSocialImage),
+                                  child: const ProfilePage()));
+                        }),
                     _menuItemListTile(
                         title: '로그아웃',
                         icons: Icons.logout_outlined,

@@ -13,6 +13,7 @@ class ProfileProvider extends ChangeNotifier {
   Uint8List? _pickedImage;
   bool _isTextForm = false;
   bool? _isSocialImage;
+  bool _isImageSelectLoading = false;
   String _nickName = "";
   String _localImageUrl = "";
 
@@ -48,11 +49,14 @@ class ProfileProvider extends ChangeNotifier {
   }
 
   Future profileImagePicker() async {
+    _isImageSelectLoading = true;
+    notifyListeners();
     final XFile? _selectedImage =
         await _imagePicker.pickImage(source: ImageSource.gallery);
     if (_selectedImage != null) {
       _pickedImage = await _selectedImage.readAsBytes();
     }
+    _isImageSelectLoading = false;
     notifyListeners();
   }
 
@@ -67,6 +71,7 @@ class ProfileProvider extends ChangeNotifier {
     required String nickName,
   }) {
     _nickName = nickName;
+
     notifyListeners();
   }
 
@@ -78,6 +83,7 @@ class ProfileProvider extends ChangeNotifier {
   }
 
   bool get isTextForm => _isTextForm;
+  bool get isImageSelectLoading => _isImageSelectLoading;
   bool get isLoading => _isLoading;
   String get nickName => _nickName;
   String get localImageUrl => _localImageUrl;

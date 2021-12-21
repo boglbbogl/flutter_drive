@@ -5,8 +5,6 @@ import 'package:flutter_drive/create/provider/course_provider.dart';
 import 'package:flutter_drive/create/ui/screen/create_page.dart';
 import 'package:flutter_drive/home/setting_bottom_widget.dart';
 import 'package:flutter_drive/image/provider/images_provider.dart';
-import 'package:flutter_drive/profile/provider/profile_provider.dart';
-import 'package:flutter_drive/profile/ui/profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
@@ -27,20 +25,11 @@ AppBar homeAppbarWidget({
           },
           icon: Icons.add_box_outlined),
       _actionIcons(
-          onTap: () {
-            settingBottomWidget(context: context);
-          },
-          icon: Icons.settings),
+        onTap: () {},
+        icon: Icons.bookmark_border_outlined,
+      ),
       InkWell(
-        onTap: () {
-          pushNewScreen(context,
-              screen: ChangeNotifierProvider(
-                  create: (context) => ProfileProvider()
-                    ..started(
-                        isSocialImage:
-                            context.read<AuthProvider>().user!.isSocialImage),
-                  child: const ProfilePage()));
-        },
+        onTap: () => settingBottomWidget(context: context),
         child: Padding(
           padding: const EdgeInsets.only(left: 8, right: 10),
           child: context.watch<AuthProvider>().user == null
@@ -65,5 +54,11 @@ AppBar homeAppbarWidget({
 IconButton _actionIcons({
   required IconData icon,
   required Function() onTap,
+  double? iconSize,
 }) =>
-    IconButton(onPressed: onTap, icon: Icon(icon));
+    IconButton(
+        onPressed: onTap,
+        icon: Icon(
+          icon,
+          size: iconSize ?? 30,
+        ));
