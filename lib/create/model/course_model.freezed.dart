@@ -32,7 +32,7 @@ class _$CourseModelTearOff {
       required List<String> likeUserId,
       required List<String> imageUrl,
       required List<CourseSpot> spot,
-      required ProfileModel user}) {
+      required ProfileModel userProfile}) {
     return _CourseModel(
       userKey: userKey,
       docKey: docKey,
@@ -44,7 +44,7 @@ class _$CourseModelTearOff {
       likeUserId: likeUserId,
       imageUrl: imageUrl,
       spot: spot,
-      user: user,
+      userProfile: userProfile,
     );
   }
 
@@ -68,7 +68,7 @@ mixin _$CourseModel {
   List<String> get likeUserId => throw _privateConstructorUsedError;
   List<String> get imageUrl => throw _privateConstructorUsedError;
   List<CourseSpot> get spot => throw _privateConstructorUsedError;
-  ProfileModel get user => throw _privateConstructorUsedError;
+  ProfileModel get userProfile => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -92,9 +92,9 @@ abstract class $CourseModelCopyWith<$Res> {
       List<String> likeUserId,
       List<String> imageUrl,
       List<CourseSpot> spot,
-      ProfileModel user});
+      ProfileModel userProfile});
 
-  $ProfileModelCopyWith<$Res> get user;
+  $ProfileModelCopyWith<$Res> get userProfile;
 }
 
 /// @nodoc
@@ -117,7 +117,7 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? likeUserId = freezed,
     Object? imageUrl = freezed,
     Object? spot = freezed,
-    Object? user = freezed,
+    Object? userProfile = freezed,
   }) {
     return _then(_value.copyWith(
       userKey: userKey == freezed
@@ -160,17 +160,17 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
           ? _value.spot
           : spot // ignore: cast_nullable_to_non_nullable
               as List<CourseSpot>,
-      user: user == freezed
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
+      userProfile: userProfile == freezed
+          ? _value.userProfile
+          : userProfile // ignore: cast_nullable_to_non_nullable
               as ProfileModel,
     ));
   }
 
   @override
-  $ProfileModelCopyWith<$Res> get user {
-    return $ProfileModelCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
+  $ProfileModelCopyWith<$Res> get userProfile {
+    return $ProfileModelCopyWith<$Res>(_value.userProfile, (value) {
+      return _then(_value.copyWith(userProfile: value));
     });
   }
 }
@@ -193,10 +193,10 @@ abstract class _$CourseModelCopyWith<$Res>
       List<String> likeUserId,
       List<String> imageUrl,
       List<CourseSpot> spot,
-      ProfileModel user});
+      ProfileModel userProfile});
 
   @override
-  $ProfileModelCopyWith<$Res> get user;
+  $ProfileModelCopyWith<$Res> get userProfile;
 }
 
 /// @nodoc
@@ -221,7 +221,7 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
     Object? likeUserId = freezed,
     Object? imageUrl = freezed,
     Object? spot = freezed,
-    Object? user = freezed,
+    Object? userProfile = freezed,
   }) {
     return _then(_CourseModel(
       userKey: userKey == freezed
@@ -264,9 +264,9 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
           ? _value.spot
           : spot // ignore: cast_nullable_to_non_nullable
               as List<CourseSpot>,
-      user: user == freezed
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
+      userProfile: userProfile == freezed
+          ? _value.userProfile
+          : userProfile // ignore: cast_nullable_to_non_nullable
               as ProfileModel,
     ));
   }
@@ -286,7 +286,7 @@ class _$_CourseModel extends _CourseModel {
       required this.likeUserId,
       required this.imageUrl,
       required this.spot,
-      required this.user})
+      required this.userProfile})
       : super._();
 
   factory _$_CourseModel.fromJson(Map<String, dynamic> json) =>
@@ -313,11 +313,11 @@ class _$_CourseModel extends _CourseModel {
   @override
   final List<CourseSpot> spot;
   @override
-  final ProfileModel user;
+  final ProfileModel userProfile;
 
   @override
   String toString() {
-    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl, spot: $spot, user: $user)';
+    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl, spot: $spot, userProfile: $userProfile)';
   }
 
   @override
@@ -338,7 +338,8 @@ class _$_CourseModel extends _CourseModel {
                 .equals(other.likeUserId, likeUserId) &&
             const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
             const DeepCollectionEquality().equals(other.spot, spot) &&
-            const DeepCollectionEquality().equals(other.user, user));
+            const DeepCollectionEquality()
+                .equals(other.userProfile, userProfile));
   }
 
   @override
@@ -354,7 +355,7 @@ class _$_CourseModel extends _CourseModel {
       const DeepCollectionEquality().hash(likeUserId),
       const DeepCollectionEquality().hash(imageUrl),
       const DeepCollectionEquality().hash(spot),
-      const DeepCollectionEquality().hash(user));
+      const DeepCollectionEquality().hash(userProfile));
 
   @JsonKey(ignore: true)
   @override
@@ -379,7 +380,7 @@ abstract class _CourseModel extends CourseModel {
       required List<String> likeUserId,
       required List<String> imageUrl,
       required List<CourseSpot> spot,
-      required ProfileModel user}) = _$_CourseModel;
+      required ProfileModel userProfile}) = _$_CourseModel;
   const _CourseModel._() : super._();
 
   factory _CourseModel.fromJson(Map<String, dynamic> json) =
@@ -406,7 +407,7 @@ abstract class _CourseModel extends CourseModel {
   @override
   List<CourseSpot> get spot;
   @override
-  ProfileModel get user;
+  ProfileModel get userProfile;
   @override
   @JsonKey(ignore: true)
   _$CourseModelCopyWith<_CourseModel> get copyWith =>

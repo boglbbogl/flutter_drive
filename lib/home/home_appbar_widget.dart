@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
 import 'package:flutter_drive/create/provider/course_provider.dart';

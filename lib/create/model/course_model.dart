@@ -18,7 +18,7 @@ class CourseModel with _$CourseModel {
     required List<String> likeUserId,
     required List<String> imageUrl,
     required List<CourseSpot> spot,
-    required ProfileModel user,
+    required ProfileModel userProfile,
   }) = _CourseModel;
 
   const CourseModel._();
@@ -41,7 +41,7 @@ class CourseModel with _$CourseModel {
     map["likeUserId"] = likeUserId;
     map["imageUrl"] = imageUrl;
     map["spot"] = spot.map((e) => e.toFireStore()).toList();
-    map["user"] = user.toFireStore();
+    map["userProfile"] = userProfile.toFireStore();
     return map;
   }
 
@@ -56,7 +56,7 @@ class CourseModel with _$CourseModel {
       likeUserId: [],
       imageUrl: [],
       spot: [],
-      user: const ProfileModel(
+      userProfile: const ProfileModel(
           socialProfileUrl: "",
           localProfileUrl: "",
           isSocialImage: false,

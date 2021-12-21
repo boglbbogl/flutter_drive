@@ -46,7 +46,7 @@ class CourseProvider extends ChangeNotifier {
             updateAt: DateTime.now().toString(),
             imageUrl: _imageUrl,
             spot: _courseSpotList,
-            user: ProfileModel(
+            userProfile: ProfileModel(
                 socialProfileUrl: user.socialProfileUrl,
                 localProfileUrl: user.localProfileUrl,
                 isSocialImage: user.isSocialImage,

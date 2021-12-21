@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/profile/provider/profile_provider.dart';

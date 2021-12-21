@@ -1,9 +1,5 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_drive/_constant/logger.dart';
-import 'package:flutter_drive/auth/model/user_model.dart';
-import 'package:flutter_drive/auth/repo/user_repository.dart';
 import 'package:flutter_drive/profile/repository/profile_repository.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -17,7 +13,9 @@ class ProfileProvider extends ChangeNotifier {
   Future profileImagePicker() async {
     final XFile? _selectedImage =
         await _imagePicker.pickImage(source: ImageSource.gallery);
-    _pickedImage = await _selectedImage!.readAsBytes();
+    if (_selectedImage != null) {
+      _pickedImage = await _selectedImage.readAsBytes();
+    }
     notifyListeners();
   }
 
@@ -32,7 +30,6 @@ class ProfileProvider extends ChangeNotifier {
     required bool value,
   }) {
     value == true ? _isBottom = true : _isBottom = false;
-    logger.e(_isBottom);
     notifyListeners();
   }
 
@@ -45,6 +42,7 @@ class ProfileProvider extends ChangeNotifier {
   //     userKey: userKey,
   //   );
   // }
+
   bool get isBottom => _isBottom;
   String get nickName => _nickName;
   Uint8List? get pickedImage => _pickedImage;

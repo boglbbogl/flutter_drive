@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_drive/_constant/firebase_keys.dart';
+import 'package:flutter_drive/profile/model/profile_model.dart';
 
 class ProfileRepository {
   static final ProfileRepository _repository = ProfileRepository._internal();
@@ -9,10 +10,7 @@ class ProfileRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future userPofileUpdate({
-    required String socialProfileUrl,
-    required String localProfileUrl,
-    required String nickName,
-    required bool isSocialImage,
+    required ProfileModel userProfile,
     required String userKey,
   }) async {
     final DocumentReference<Map<String, dynamic>> _userReference =
@@ -29,19 +27,14 @@ class ProfileRepository {
             .collection(collectionCourse)
             .doc(element.id)
             .update({
-          "user": {
-            "socialProfileUrl": socialProfileUrl,
-            "localProfileUrl": localProfileUrl,
-            "nickName": nickName,
-            "isSocialImage": isSocialImage,
-          }
+          "userProfile": userProfile.toFireStore(),
         });
       }
     });
     await _userReference.update({
-      "socialProfileUrl": socialProfileUrl,
-      "localProfileUrl": localProfileUrl,
-      "nickName": nickName,
+      "socialProfileUrl": userProfile.socialProfileUrl,
+      "localProfileUrl": userProfile.localProfileUrl,
+      "nickName": userProfile.nickName,
       "updatedAt": DateTime.now().toString(),
     });
   }
