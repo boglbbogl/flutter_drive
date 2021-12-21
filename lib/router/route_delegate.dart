@@ -19,6 +19,7 @@ final routerDelegate = BeamerDelegate(
   locationBuilder: BeamerLocationBuilder(
     beamLocations: [
       Location(),
+      RebuildLocation(),
     ],
   ),
 );

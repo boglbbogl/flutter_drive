@@ -62,6 +62,12 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> getUpdateUserProfile({
+    required String userKey,
+  }) async {
+    _user = await _userRepository.getUserProfile(userKey: userKey);
+  }
+
   Future<void> _updateSoicalUserImage({
     required String socialProfileUrl,
   }) async {

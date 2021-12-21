@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/create/model/course_model.dart';
 import 'package:flutter_drive/create/repo/course_repository.dart';
-import 'package:flutter_drive/image/repository/images_repository.dart';
+import 'package:flutter_drive/image/repo/images_repository.dart';
 import 'package:flutter_drive/profile/model/profile_model.dart';
 
 class CourseProvider extends ChangeNotifier {
   final CourseRepository _courseRepository = CourseRepository();
-  final ImageSRepository _imageRepository = ImageSRepository();
+  final ImagesRepository _imagesRepository = ImagesRepository();
   CourseModel _courseModel = CourseModel.empty();
   CourseSpot _courseSpot = CourseSpot.empty();
   List<CourseSpot> _courseSpotList = [];
@@ -36,7 +36,7 @@ class CourseProvider extends ChangeNotifier {
     notifyListeners();
 
     if (multiImage.isNotEmpty) {
-      _imageUrl = await _imageRepository.imageUploadResized(
+      _imageUrl = await _imagesRepository.imageUploadResized(
           userKey: user.userKey, imageFile: multiImage);
     }
     await _courseRepository.createCourseModel(

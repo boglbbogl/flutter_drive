@@ -6,10 +6,10 @@ import 'package:flutter_drive/_constant/logger.dart';
 import 'package:image/image.dart';
 import 'package:path_provider/path_provider.dart';
 
-class ImageSRepository {
-  static final ImageSRepository _repository = ImageSRepository._internal();
-  factory ImageSRepository() => _repository;
-  ImageSRepository._internal();
+class ImagesRepository {
+  static final ImagesRepository _repository = ImagesRepository._internal();
+  factory ImagesRepository() => _repository;
+  ImagesRepository._internal();
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<String> userProfileImageUpladResized({
@@ -19,9 +19,10 @@ class ImageSRepository {
     final String _dateTime = DateTime.now().millisecondsSinceEpoch.toString();
     final appDocDir = await getApplicationDocumentsDirectory();
     final Image? _decodedImage = decodeImage(image);
-    final Image _resizedImage = copyResize(_decodedImage!);
+    final Image _resizedImage =
+        copyResize(_decodedImage!, width: 110, height: 110);
 
-    const fileName = '375.jpg';
+    const fileName = '110.jpg';
     final _fileTask = File("${appDocDir.path}/$fileName")
         .writeAsBytes(encodeJpg(_resizedImage));
     final _file = await _fileTask;

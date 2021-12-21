@@ -35,7 +35,10 @@ AppBar homeAppbarWidget({
         onTap: () {
           pushNewScreen(context,
               screen: ChangeNotifierProvider(
-                  create: (context) => ProfileProvider(),
+                  create: (context) => ProfileProvider()
+                    ..started(
+                        isSocialImage:
+                            context.read<AuthProvider>().user!.isSocialImage),
                   child: const ProfilePage()));
         },
         child: Padding(
@@ -50,8 +53,9 @@ AppBar homeAppbarWidget({
                   ),
                 )
               : userCircleImageWidget(
-                  imageUrl:
-                      context.watch<AuthProvider>().user!.socialProfileUrl),
+                  imageUrl: context.watch<AuthProvider>().user!.isSocialImage
+                      ? context.watch<AuthProvider>().user!.socialProfileUrl
+                      : context.watch<AuthProvider>().user!.localProfileUrl),
         ),
       ),
     ],

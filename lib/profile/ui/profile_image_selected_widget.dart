@@ -9,11 +9,13 @@ import 'package:provider/provider.dart';
 
 class ProfileImageSelectedWidget extends StatelessWidget {
   final UserModel user;
+  final bool isSocialImage;
   final Uint8List? pickedImage;
   const ProfileImageSelectedWidget({
     Key? key,
     required this.user,
     required this.pickedImage,
+    required this.isSocialImage,
   }) : super(key: key);
 
   @override
@@ -39,71 +41,98 @@ class ProfileImageSelectedWidget extends StatelessWidget {
                       size: 30, color: Color.fromRGBO(155, 155, 155, 1)),
                 ),
               ),
-              profileImageSelectButton(
+              _profileImageSelectButton(
+                onTap: () {},
                 hideColor: darkThemeMainColor,
                 selectColor: darkThemeMainColor,
               ),
             ],
           )
         else if (pickedImage != null)
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: Colors.white,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: ClipOval(
-                  child: CachedNetworkImage(imageUrl: user.socialProfileUrl)),
-            ),
+          Column(
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: ClipOval(child: Image.memory(pickedImage!)),
+                ),
+              ),
+              _profileImageSelectButton(
+                onTap: () {
+                  context
+                      .read<ProfileProvider>()
+                      .imageSocialSelectButton(value: false);
+                },
+                hideColor: const Color.fromRGBO(215, 215, 215, 1),
+                selectColor: isSocialImage ? darkThemeMainColor : appSubColor,
+              ),
+            ],
           )
         else
-          Container(
-            width: 100,
-            height: 100,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: Colors.white,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: ClipOval(
-                  child: CachedNetworkImage(imageUrl: user.socialProfileUrl)),
+          _circleImageForm(
+            imageUrl: user.localProfileUrl,
+            widgets: _profileImageSelectButton(
+              onTap: () {
+                context
+                    .read<ProfileProvider>()
+                    .imageSocialSelectButton(value: false);
+              },
+              hideColor: const Color.fromRGBO(215, 215, 215, 1),
+              selectColor: !isSocialImage ? appSubColor : darkThemeMainColor,
             ),
           ),
-        Column(
-          children: [
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                color: Colors.white,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: ClipOval(
-                    child: CachedNetworkImage(imageUrl: user.socialProfileUrl)),
-              ),
-            ),
-            profileImageSelectButton(
-              hideColor: const Color.fromRGBO(215, 215, 215, 1),
-              selectColor: appSubColor,
-            ),
-          ],
+        _circleImageForm(
+          imageUrl: user.socialProfileUrl,
+          widgets: _profileImageSelectButton(
+            onTap: () {
+              context
+                  .read<ProfileProvider>()
+                  .imageSocialSelectButton(value: true);
+            },
+            hideColor: const Color.fromRGBO(215, 215, 215, 1),
+            selectColor: isSocialImage ? appSubColor : darkThemeMainColor,
+          ),
         ),
       ],
     );
   }
 
-  InkWell profileImageSelectButton({
+  Column _circleImageForm({
+    required String imageUrl,
+    required Widget widgets,
+  }) {
+    return Column(
+      children: [
+        Container(
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: ClipOval(child: CachedNetworkImage(imageUrl: imageUrl)),
+          ),
+        ),
+        widgets,
+      ],
+    );
+  }
+
+  InkWell _profileImageSelectButton({
     required Color hideColor,
     required Color selectColor,
+    required Function() onTap,
   }) {
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Column(
         children: [
           const SizedBox(height: 30),
