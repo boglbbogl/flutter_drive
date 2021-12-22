@@ -3,7 +3,7 @@ import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/image/provider/images_provider.dart';
 import 'package:provider/provider.dart';
 
-Positioned createImageBottomWidget({
+Positioned courseImageBottomWidget({
   required BuildContext context,
 }) {
   return Positioned(
@@ -108,7 +108,7 @@ Positioned createImageBottomWidget({
   );
 }
 
-GestureDetector createImageBottomUpWidget({
+GestureDetector courseImageBottomUpWidget({
   required BuildContext context,
 }) {
   return GestureDetector(

@@ -3,7 +3,7 @@ import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/image/provider/images_provider.dart';
 import 'package:provider/provider.dart';
 
-Container createImageWidget({
+Container courseImageWidget({
   required BuildContext context,
 }) {
   return Container(

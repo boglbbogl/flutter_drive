@@ -99,7 +99,7 @@ class ProfileNickNameWidget extends StatelessWidget {
                                             .copyWith(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 18),
+                                                fontSize: 15),
                                         inputFormatters: [
                                           FilteringTextInputFormatter(
                                               RegExp("[a-z_]"),
@@ -116,12 +116,14 @@ class ProfileNickNameWidget extends StatelessWidget {
                                           ),
                                           enabledBorder: InputBorder.none,
                                           focusedBorder: InputBorder.none,
+                                          errorBorder: InputBorder.none,
+                                          focusedErrorBorder: InputBorder.none,
                                         ),
                                       )),
                                   InkWell(
                                     onTap: () {
                                       if (_controller.text.isNotEmpty &&
-                                          _controller.text.length < 11) {
+                                          _controller.text.length < 16) {
                                         context.read<ProfileProvider>()
                                           ..changedNickName(
                                               nickName: _controller.text)

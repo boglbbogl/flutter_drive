@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/address/ui/address_screen.dart';
-import 'package:flutter_drive/create/provider/course_provider.dart';
+import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
-Padding createCourseSelectButton({
+Padding courseSelectButton({
   required BuildContext context,
 }) {
   return Padding(

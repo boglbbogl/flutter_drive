@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
-import 'package:flutter_drive/create/provider/course_provider.dart';
+import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:flutter_drive/image/provider/images_provider.dart';
 import 'package:provider/provider.dart';
 
-AppBar createAppbarWidget({
+AppBar courseAppbarWidget({
   required BuildContext context,
 }) {
   return AppBar(

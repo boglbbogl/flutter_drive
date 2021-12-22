@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/create/provider/course_provider.dart';
+import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:provider/provider.dart';
 
-SizedBox createExplanationWidget({
+SizedBox courseExplanationWidget({
   required BuildContext context,
 }) {
   return SizedBox(

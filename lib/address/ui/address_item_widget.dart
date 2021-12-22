@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/address/model/address_model.dart';
-import 'package:flutter_drive/create/provider/course_provider.dart';
+import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:provider/provider.dart';
 
 Padding addressItemWidget({

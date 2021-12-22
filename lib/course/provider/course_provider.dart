@@ -3,8 +3,8 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
-import 'package:flutter_drive/create/model/course_model.dart';
-import 'package:flutter_drive/create/repo/course_repository.dart';
+import 'package:flutter_drive/course/model/course_model.dart';
+import 'package:flutter_drive/course/repo/course_repository.dart';
 import 'package:flutter_drive/image/repo/images_repository.dart';
 import 'package:flutter_drive/profile/model/profile_model.dart';
 

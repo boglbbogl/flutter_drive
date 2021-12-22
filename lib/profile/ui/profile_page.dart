@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
-import 'package:flutter_drive/feed/provider/feed_provider.dart';
 import 'package:flutter_drive/profile/provider/profile_provider.dart';
 import 'package:flutter_drive/profile/ui/profile_appbar_widget.dart';
 import 'package:flutter_drive/profile/ui/profile_image_selected_widget.dart';
@@ -19,6 +19,8 @@ class ProfilePage extends StatelessWidget {
       builder: (context, provider, child) {
         final UserModel _user =
             Provider.of<AuthProvider>(context, listen: false).user!;
+        logger.e(provider.localImageUrl);
+        logger.e(_user.localProfileUrl);
         return GestureDetector(
           onTap: () {
             provider.showNickNameChangedWidget(value: false);
@@ -30,23 +32,21 @@ class ProfilePage extends StatelessWidget {
               color: provider.isSocialImage != _user.isSocialImage ||
                       (provider.nickName != _user.nickName &&
                           provider.nickName.isNotEmpty) ||
-                      (provider.localImageUrl != _user.localProfileUrl &&
-                          provider.localImageUrl.isNotEmpty)
+                      provider.pickedImage != null
                   ? appSubColor
                   : const Color.fromRGBO(115, 115, 115, 1),
               onTap: () async {
                 if (provider.isSocialImage != _user.isSocialImage ||
                     (provider.nickName != _user.nickName &&
                         provider.nickName.isNotEmpty) ||
-                    (provider.localImageUrl != _user.localProfileUrl &&
-                        provider.localImageUrl.isNotEmpty)) {
+                    provider.pickedImage != null) {
                   await provider.userProfileUpdate(
                     socialProfileUrl: _user.socialProfileUrl,
                     localProfileUrl: _user.localProfileUrl,
                     nickName: _user.nickName,
                     userKey: _user.userKey,
                   );
-                  await Phoenix.rebirth(context);
+                  Phoenix.rebirth(context);
                 }
               },
             ),

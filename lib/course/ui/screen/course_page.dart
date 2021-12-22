@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/create/provider/course_provider.dart';
-import 'package:flutter_drive/create/ui/widgets/create_appbar_widget.dart';
-import 'package:flutter_drive/create/ui/widgets/create_course_select_button.dart';
-import 'package:flutter_drive/create/ui/widgets/create_explanation_widget.dart';
-import 'package:flutter_drive/create/ui/widgets/create_image_bottom_widget.dart';
-import 'package:flutter_drive/create/ui/widgets/create_image_widget.dart';
-import 'package:flutter_drive/create/ui/widgets/create_select_spot_widget.dart';
+import 'package:flutter_drive/course/provider/course_provider.dart';
+import 'package:flutter_drive/course/ui/widgets/course_appbar_widget.dart';
+import 'package:flutter_drive/course/ui/widgets/course_explanation_widget.dart';
+import 'package:flutter_drive/course/ui/widgets/course_image_bottom_widget.dart';
+import 'package:flutter_drive/course/ui/widgets/course_image_widget.dart';
+import 'package:flutter_drive/course/ui/widgets/course_select_button.dart';
+import 'package:flutter_drive/course/ui/widgets/course_select_spot_widget.dart';
 import 'package:flutter_drive/image/provider/images_provider.dart';
 import 'package:provider/provider.dart';
 
-class CreatePage extends StatelessWidget {
-  const CreatePage({Key? key}) : super(key: key);
+class CoursePage extends StatelessWidget {
+  const CoursePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class CreatePage extends StatelessWidget {
         child: Stack(
           children: [
             Scaffold(
-              appBar: createAppbarWidget(context: context),
+              appBar: courseAppbarWidget(context: context),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -35,8 +35,8 @@ class CreatePage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          createImageWidget(context: context),
-                          createExplanationWidget(context: context),
+                          courseImageWidget(context: context),
+                          courseExplanationWidget(context: context),
                         ],
                       ),
                       if (context.watch<ImagesProvider>().pickedImages.length >
@@ -57,7 +57,7 @@ class CreatePage extends StatelessWidget {
                               ),
                             )),
                       ],
-                      createCourseSelectButton(context: context),
+                      courseSelectButton(context: context),
                       const SizedBox(height: 15),
                       Padding(
                         padding: const EdgeInsets.only(left: 50),
@@ -69,7 +69,7 @@ class CreatePage extends StatelessWidget {
                                 .watch<CourseProvider>()
                                 .courseSpotList
                                 .map(
-                                  (spot) => CreateSelectSpotWidget(spot: spot),
+                                  (spot) => CourseSelectSpotWidget(spot: spot),
                                 )
                           ],
                         ),
@@ -79,8 +79,8 @@ class CreatePage extends StatelessWidget {
                 ),
               ),
             ),
-            createImageBottomUpWidget(context: context),
-            createImageBottomWidget(context: context),
+            courseImageBottomUpWidget(context: context),
+            courseImageBottomWidget(context: context),
           ],
         ),
       ),

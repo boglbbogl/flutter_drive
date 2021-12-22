@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/create/model/course_model.dart';
-import 'package:flutter_drive/create/provider/course_provider.dart';
+import 'package:flutter_drive/course/model/course_model.dart';
+import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:provider/provider.dart';
 
-class CreateSelectSpotWidget extends StatelessWidget {
+class CourseSelectSpotWidget extends StatelessWidget {
   final CourseSpot spot;
-  const CreateSelectSpotWidget({
+  const CourseSelectSpotWidget({
     Key? key,
     required this.spot,
   }) : super(key: key);

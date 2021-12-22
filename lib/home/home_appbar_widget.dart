@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
-import 'package:flutter_drive/create/provider/course_provider.dart';
-import 'package:flutter_drive/create/ui/screen/create_page.dart';
+import 'package:flutter_drive/course/provider/course_provider.dart';
+import 'package:flutter_drive/course/ui/screen/course_page.dart';
 import 'package:flutter_drive/home/setting_bottom_widget.dart';
 import 'package:flutter_drive/image/provider/images_provider.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -20,7 +20,7 @@ AppBar homeAppbarWidget({
             pushNewScreen(context,
                 screen: ChangeNotifierProvider(
                     create: (context) => ImagesProvider(),
-                    child: const CreatePage()),
+                    child: const CoursePage()),
                 pageTransitionAnimation: PageTransitionAnimation.slideUp);
           },
           icon: Icons.add_box_outlined),
