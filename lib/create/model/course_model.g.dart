@@ -11,8 +11,10 @@ _$_CourseModel _$$_CourseModelFromJson(Map<String, dynamic> json) =>
       userKey: json['userKey'] as String,
       docKey: json['docKey'] as String,
       explanation: json['explanation'] as String,
-      createAt: json['createAt'] as String,
-      updateAt: json['updateAt'] as String,
+      createdAt:
+          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
+      updatedAt:
+          const TimestampConverter().fromJson(json['updatedAt'] as Timestamp),
       tagKeyword: (json['tagKeyword'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
@@ -34,8 +36,8 @@ Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
       'userKey': instance.userKey,
       'docKey': instance.docKey,
       'explanation': instance.explanation,
-      'createAt': instance.createAt,
-      'updateAt': instance.updateAt,
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
+      'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
       'tagKeyword': instance.tagKeyword,
       'likeCount': instance.likeCount,
       'likeUserId': instance.likeUserId,

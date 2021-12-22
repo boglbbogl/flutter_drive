@@ -25,8 +25,8 @@ class _$CourseModelTearOff {
       {required String userKey,
       required String docKey,
       required String explanation,
-      required String createAt,
-      required String updateAt,
+      @TimestampConverter() required DateTime createdAt,
+      @TimestampConverter() required DateTime updatedAt,
       required List<String> tagKeyword,
       required int likeCount,
       required List<String> likeUserId,
@@ -37,8 +37,8 @@ class _$CourseModelTearOff {
       userKey: userKey,
       docKey: docKey,
       explanation: explanation,
-      createAt: createAt,
-      updateAt: updateAt,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
       tagKeyword: tagKeyword,
       likeCount: likeCount,
       likeUserId: likeUserId,
@@ -61,8 +61,10 @@ mixin _$CourseModel {
   String get userKey => throw _privateConstructorUsedError;
   String get docKey => throw _privateConstructorUsedError;
   String get explanation => throw _privateConstructorUsedError;
-  String get createAt => throw _privateConstructorUsedError;
-  String get updateAt => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   List<String> get tagKeyword => throw _privateConstructorUsedError;
   int get likeCount => throw _privateConstructorUsedError;
   List<String> get likeUserId => throw _privateConstructorUsedError;
@@ -85,8 +87,8 @@ abstract class $CourseModelCopyWith<$Res> {
       {String userKey,
       String docKey,
       String explanation,
-      String createAt,
-      String updateAt,
+      @TimestampConverter() DateTime createdAt,
+      @TimestampConverter() DateTime updatedAt,
       List<String> tagKeyword,
       int likeCount,
       List<String> likeUserId,
@@ -110,8 +112,8 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? userKey = freezed,
     Object? docKey = freezed,
     Object? explanation = freezed,
-    Object? createAt = freezed,
-    Object? updateAt = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
     Object? tagKeyword = freezed,
     Object? likeCount = freezed,
     Object? likeUserId = freezed,
@@ -132,14 +134,14 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
           ? _value.explanation
           : explanation // ignore: cast_nullable_to_non_nullable
               as String,
-      createAt: createAt == freezed
-          ? _value.createAt
-          : createAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      updateAt: updateAt == freezed
-          ? _value.updateAt
-          : updateAt // ignore: cast_nullable_to_non_nullable
-              as String,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       tagKeyword: tagKeyword == freezed
           ? _value.tagKeyword
           : tagKeyword // ignore: cast_nullable_to_non_nullable
@@ -186,8 +188,8 @@ abstract class _$CourseModelCopyWith<$Res>
       {String userKey,
       String docKey,
       String explanation,
-      String createAt,
-      String updateAt,
+      @TimestampConverter() DateTime createdAt,
+      @TimestampConverter() DateTime updatedAt,
       List<String> tagKeyword,
       int likeCount,
       List<String> likeUserId,
@@ -214,8 +216,8 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
     Object? userKey = freezed,
     Object? docKey = freezed,
     Object? explanation = freezed,
-    Object? createAt = freezed,
-    Object? updateAt = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
     Object? tagKeyword = freezed,
     Object? likeCount = freezed,
     Object? likeUserId = freezed,
@@ -236,14 +238,14 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
           ? _value.explanation
           : explanation // ignore: cast_nullable_to_non_nullable
               as String,
-      createAt: createAt == freezed
-          ? _value.createAt
-          : createAt // ignore: cast_nullable_to_non_nullable
-              as String,
-      updateAt: updateAt == freezed
-          ? _value.updateAt
-          : updateAt // ignore: cast_nullable_to_non_nullable
-              as String,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       tagKeyword: tagKeyword == freezed
           ? _value.tagKeyword
           : tagKeyword // ignore: cast_nullable_to_non_nullable
@@ -279,8 +281,8 @@ class _$_CourseModel extends _CourseModel {
       {required this.userKey,
       required this.docKey,
       required this.explanation,
-      required this.createAt,
-      required this.updateAt,
+      @TimestampConverter() required this.createdAt,
+      @TimestampConverter() required this.updatedAt,
       required this.tagKeyword,
       required this.likeCount,
       required this.likeUserId,
@@ -299,9 +301,11 @@ class _$_CourseModel extends _CourseModel {
   @override
   final String explanation;
   @override
-  final String createAt;
+  @TimestampConverter()
+  final DateTime createdAt;
   @override
-  final String updateAt;
+  @TimestampConverter()
+  final DateTime updatedAt;
   @override
   final List<String> tagKeyword;
   @override
@@ -317,7 +321,7 @@ class _$_CourseModel extends _CourseModel {
 
   @override
   String toString() {
-    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createAt: $createAt, updateAt: $updateAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl, spot: $spot, userProfile: $userProfile)';
+    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createdAt: $createdAt, updatedAt: $updatedAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl, spot: $spot, userProfile: $userProfile)';
   }
 
   @override
@@ -329,8 +333,8 @@ class _$_CourseModel extends _CourseModel {
             const DeepCollectionEquality().equals(other.docKey, docKey) &&
             const DeepCollectionEquality()
                 .equals(other.explanation, explanation) &&
-            const DeepCollectionEquality().equals(other.createAt, createAt) &&
-            const DeepCollectionEquality().equals(other.updateAt, updateAt) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
             const DeepCollectionEquality()
                 .equals(other.tagKeyword, tagKeyword) &&
             const DeepCollectionEquality().equals(other.likeCount, likeCount) &&
@@ -348,8 +352,8 @@ class _$_CourseModel extends _CourseModel {
       const DeepCollectionEquality().hash(userKey),
       const DeepCollectionEquality().hash(docKey),
       const DeepCollectionEquality().hash(explanation),
-      const DeepCollectionEquality().hash(createAt),
-      const DeepCollectionEquality().hash(updateAt),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt),
       const DeepCollectionEquality().hash(tagKeyword),
       const DeepCollectionEquality().hash(likeCount),
       const DeepCollectionEquality().hash(likeUserId),
@@ -373,8 +377,8 @@ abstract class _CourseModel extends CourseModel {
       {required String userKey,
       required String docKey,
       required String explanation,
-      required String createAt,
-      required String updateAt,
+      @TimestampConverter() required DateTime createdAt,
+      @TimestampConverter() required DateTime updatedAt,
       required List<String> tagKeyword,
       required int likeCount,
       required List<String> likeUserId,
@@ -393,9 +397,11 @@ abstract class _CourseModel extends CourseModel {
   @override
   String get explanation;
   @override
-  String get createAt;
+  @TimestampConverter()
+  DateTime get createdAt;
   @override
-  String get updateAt;
+  @TimestampConverter()
+  DateTime get updatedAt;
   @override
   List<String> get tagKeyword;
   @override

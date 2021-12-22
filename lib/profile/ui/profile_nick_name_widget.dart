@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/profile/provider/profile_provider.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ class ProfileNickNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double _heightSize = size.height * 0.07;
+    final double _heightSize = size.height * 0.06;
     return Padding(
       padding: const EdgeInsets.only(left: 50, top: 20),
       child: AnimatedSwitcher(
@@ -29,125 +30,167 @@ class ProfileNickNameWidget extends StatelessWidget {
               ),
           child: !isTextForm
               ? SizedBox(
-                  width: size.width * 0.7,
-                  height: _heightSize,
-                  child: Row(
+                  width: size.width * 0.8,
+                  height: size.height * 0.1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const SizedBox(width: 12),
-                      Text(
-                        changedName.isEmpty ? userName : changedName,
-                        style:
-                            theme.textTheme.bodyText2!.copyWith(fontSize: 30),
+                      Row(
+                        children: [
+                          const SizedBox(width: 12),
+                          Text(
+                            changedName.isEmpty ? userName : changedName,
+                            style: theme.textTheme.bodyText2!
+                                .copyWith(fontSize: 30),
+                          ),
+                          const SizedBox(width: 12),
+                          IconButton(
+                            onPressed: () {
+                              if (isTextForm) {
+                                context
+                                    .read<ProfileProvider>()
+                                    .showNickNameChangedWidget(value: false);
+                              } else {
+                                context
+                                    .read<ProfileProvider>()
+                                    .showNickNameChangedWidget(value: true);
+                              }
+                            },
+                            icon: isTextForm
+                                ? const Icon(Icons.clear)
+                                : const Icon(Icons.create_outlined),
+                            color: Colors.white,
+                            iconSize: 25,
+                          )
+                        ],
                       ),
-                      const SizedBox(width: 12),
-                      IconButton(
-                        onPressed: () {
-                          if (isTextForm) {
-                            context
-                                .read<ProfileProvider>()
-                                .showNickNameChangedWidget(value: false);
-                          } else {
-                            context
-                                .read<ProfileProvider>()
-                                .showNickNameChangedWidget(value: true);
-                          }
-                        },
-                        icon: isTextForm
-                            ? const Icon(Icons.clear)
-                            : const Icon(Icons.create_outlined),
-                        color: Colors.white,
-                        iconSize: 25,
-                      )
+                      _errorTextForm(hideColor: darkThemeMainColor),
                     ],
                   ),
                 )
               : SizedBox(
                   key: const ValueKey('nickName'),
-                  width: size.width * 0.7,
-                  height: _heightSize,
-                  child: Row(
+                  width: size.width * 0.8,
+                  height: size.height * 0.1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: size.width * 0.5,
-                        height: _heightSize,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: Colors.white, width: 2)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                  width: size.width * 0.3,
-                                  height: _heightSize,
-                                  child: TextFormField(
-                                    controller: _controller,
-                                    style: theme.textTheme.bodyText2!.copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                    decoration: InputDecoration(
-                                      hintText: '변경할 이름을 입력해 주세요',
-                                      hintStyle:
-                                          theme.textTheme.bodyText2!.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: const Color.fromRGBO(
-                                            195, 195, 195, 1),
-                                        fontSize: 12,
-                                      ),
-                                      enabledBorder: InputBorder.none,
-                                      focusedBorder: InputBorder.none,
-                                    ),
-                                  )),
-                              InkWell(
-                                onTap: () {
-                                  if (_controller.text.isNotEmpty &&
-                                      _controller.text.length < 11) {
-                                    context.read<ProfileProvider>()
-                                      ..changedNickName(
-                                          nickName: _controller.text)
-                                      ..showNickNameChangedWidget(value: false);
-                                  } else {
-                                    // show Snackbar
-                                  }
-                                },
-                                child: Container(
-                                    width: size.width * 0.11,
-                                    height: _heightSize,
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(10),
-                                          bottomRight: Radius.circular(10)),
-                                      border: Border.all(
-                                          color: Colors.white, width: 2),
-                                      color: Colors.white,
-                                    ),
-                                    child: const Icon(
-                                      Icons.check_outlined,
-                                    )),
+                      Row(
+                        children: [
+                          Container(
+                            width: size.width * 0.6,
+                            height: _heightSize,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border:
+                                    Border.all(color: Colors.white, width: 2)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 12),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                      width: size.width * 0.3,
+                                      height: _heightSize,
+                                      child: TextFormField(
+                                        controller: _controller,
+                                        style: theme.textTheme.bodyText2!
+                                            .copyWith(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18),
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter(
+                                              RegExp("[a-z_]"),
+                                              allow: true)
+                                        ],
+                                        decoration: InputDecoration(
+                                          hintText: '닉네임을 입력해 주세요',
+                                          hintStyle: theme.textTheme.bodyText2!
+                                              .copyWith(
+                                            fontWeight: FontWeight.bold,
+                                            color: const Color.fromRGBO(
+                                                195, 195, 195, 1),
+                                            fontSize: 12,
+                                          ),
+                                          enabledBorder: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                        ),
+                                      )),
+                                  InkWell(
+                                    onTap: () {
+                                      if (_controller.text.isNotEmpty &&
+                                          _controller.text.length < 11) {
+                                        context.read<ProfileProvider>()
+                                          ..changedNickName(
+                                              nickName: _controller.text)
+                                          ..showNickNameChangedWidget(
+                                              value: false);
+                                      } else {
+                                        // show Snackbar
+                                      }
+                                    },
+                                    child: Container(
+                                        width: size.width * 0.11,
+                                        height: _heightSize,
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.only(
+                                              topRight: Radius.circular(10),
+                                              bottomRight: Radius.circular(10)),
+                                          border: Border.all(
+                                              color: Colors.white, width: 2),
+                                          color: Colors.white,
+                                        ),
+                                        child: const Icon(
+                                          Icons.check_outlined,
+                                        )),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            context
-                                .read<ProfileProvider>()
-                                .showNickNameChangedWidget(value: false);
-                          },
-                          child: Text(
-                            '취소',
-                            style: theme.textTheme.bodyText2!.copyWith(
-                              color: appMainColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
                             ),
-                          ))
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                context
+                                    .read<ProfileProvider>()
+                                    .showNickNameChangedWidget(value: false);
+                              },
+                              child: Text(
+                                '취소',
+                                style: theme.textTheme.bodyText2!.copyWith(
+                                  color: appMainColor,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ))
+                        ],
+                      ),
+                      _errorTextForm(
+                        hideColor: const Color.fromRGBO(175, 175, 175, 1),
+                      ),
                     ],
                   ),
                 )),
+    );
+  }
+
+  Padding _errorTextForm({
+    required Color hideColor,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 6, left: 5),
+      child: Row(
+        children: [
+          Icon(Icons.error_outline_outlined, size: 12, color: hideColor),
+          const SizedBox(width: 3),
+          Text(
+            '영어만 가능합니다',
+            style: theme.textTheme.bodyText2!
+                .copyWith(color: hideColor, fontSize: 12),
+          ),
+        ],
+      ),
     );
   }
 }

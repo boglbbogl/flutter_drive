@@ -42,8 +42,8 @@ class CourseProvider extends ChangeNotifier {
     await _courseRepository.createCourseModel(
         courseModel: _courseModel.copyWith(
             userKey: user.userKey,
-            createAt: DateTime.now().toString(),
-            updateAt: DateTime.now().toString(),
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
             imageUrl: _imageUrl,
             spot: _courseSpotList,
             userProfile: ProfileModel(

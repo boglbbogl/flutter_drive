@@ -10,7 +10,10 @@ class FeedRepostiory {
   Stream<List<CourseModel>> getStreamCourse() async* {
     final CollectionReference<Map<String, dynamic>> _collectionRef =
         FirebaseFirestore.instance.collection(collectionCourse);
-    yield* _collectionRef.snapshots().map((sn) {
+    yield* _collectionRef
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map((sn) {
       return sn.docs.map((doc) {
         return CourseModel.fromFireStore(doc);
       }).toList();

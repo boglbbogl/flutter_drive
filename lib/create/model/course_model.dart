@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_drive/_constant/timestamp_converter.dart';
 import 'package:flutter_drive/profile/model/profile_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -11,8 +12,8 @@ class CourseModel with _$CourseModel {
     required String userKey,
     required String docKey,
     required String explanation,
-    required String createAt,
-    required String updateAt,
+    @TimestampConverter() required DateTime createdAt,
+    @TimestampConverter() required DateTime updatedAt,
     required List<String> tagKeyword,
     required int likeCount,
     required List<String> likeUserId,
@@ -34,8 +35,8 @@ class CourseModel with _$CourseModel {
     map["userKey"] = userKey;
     map["docKey"] = docKey;
     map["explanation"] = explanation;
-    map["createAt"] = createAt;
-    map["updateAt"] = updateAt;
+    map["createdAt"] = createdAt;
+    map["updatedAt"] = updatedAt;
     map["tagKeyword"] = tagKeyword;
     map["likeCount"] = likeCount;
     map["likeUserId"] = likeUserId;
@@ -49,8 +50,8 @@ class CourseModel with _$CourseModel {
       userKey: "",
       docKey: "",
       explanation: "",
-      createAt: DateTime.now().toString(),
-      updateAt: DateTime.now().toString(),
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
       tagKeyword: [],
       likeCount: 0,
       likeUserId: [],

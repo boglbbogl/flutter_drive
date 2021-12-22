@@ -36,7 +36,7 @@ class ProfileRepository {
       "localProfileUrl": userProfile.localProfileUrl,
       "nickName": userProfile.nickName,
       "isSocialImage": userProfile.isSocialImage,
-      "updatedAt": DateTime.now().toString(),
+      "updatedAt": DateTime.now(),
     });
   }
 }

@@ -88,13 +88,13 @@ class AuthProvider extends ChangeNotifier {
       await _userRepository.createUserProfile(
         userModel: UserModel(
           userKey: firebaseUser.uid,
-          nickName: firebaseUser.displayName!,
+          nickName: firebaseUser.email!.split('@')[0],
           email: firebaseUser.email!,
           socialProfileUrl: firebaseUser.photoURL!,
           localProfileUrl: "",
           isSocialImage: true,
-          createdAt: DateTime.now().toString(),
-          updatedAt: DateTime.now().toString(),
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
           provider: 'Google',
         ),
         userKey: firebaseUser.uid,
@@ -103,13 +103,13 @@ class AuthProvider extends ChangeNotifier {
       await _userRepository.createUserProfile(
         userModel: UserModel(
           userKey: kakaoUser.id.toString() + kakaoUser.kakaoAccount!.email!,
-          nickName: kakaoUser.kakaoAccount!.profile!.nickname,
+          nickName: kakaoUser.kakaoAccount!.email!.split('@')[0],
           email: kakaoUser.kakaoAccount!.email!,
           socialProfileUrl: kakaoUser.kakaoAccount!.profile!.profileImageUrl!,
           localProfileUrl: "",
           isSocialImage: true,
-          createdAt: DateTime.now().toString(),
-          updatedAt: DateTime.now().toString(),
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
           provider: 'Kakao',
         ),
         userKey: kakaoUser.id.toString() + kakaoUser.kakaoAccount!.email!,

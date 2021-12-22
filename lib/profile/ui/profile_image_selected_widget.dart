@@ -40,7 +40,7 @@ class ProfileImageSelectedWidget extends StatelessWidget {
                     color: const Color.fromRGBO(91, 91, 91, 1),
                   ),
                   child: const Icon(Icons.add_circle_outline,
-                      size: 30, color: Color.fromRGBO(155, 155, 155, 1)),
+                      size: 30, color: Colors.white),
                 ),
               ),
               _profileImageSelectButton(
@@ -60,9 +60,7 @@ class ProfileImageSelectedWidget extends StatelessWidget {
                     height: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      color: !isSocialImage
-                          ? appSubColor
-                          : const Color.fromRGBO(215, 215, 215, 1),
+                      color: !isSocialImage ? appSubColor : Colors.white,
                     ),
                     child: isImageSelectLoading
                         ? const Padding(
@@ -87,7 +85,7 @@ class ProfileImageSelectedWidget extends StatelessWidget {
                           .read<ProfileProvider>()
                           .imageSocialSelectButton(value: false);
                     },
-                    hideColor: const Color.fromRGBO(215, 215, 215, 1),
+                    hideColor: Colors.white,
                     selectColor:
                         isSocialImage ? darkThemeMainColor : appSubColor,
                   ),
@@ -100,9 +98,7 @@ class ProfileImageSelectedWidget extends StatelessWidget {
           Stack(
             children: [
               _circleImageForm(
-                color: !isSocialImage
-                    ? appSubColor
-                    : const Color.fromRGBO(215, 215, 215, 1),
+                color: !isSocialImage ? appSubColor : Colors.white,
                 imageUrl: user.localProfileUrl,
                 widgets: _profileImageSelectButton(
                   onTap: () {
@@ -110,7 +106,7 @@ class ProfileImageSelectedWidget extends StatelessWidget {
                         .read<ProfileProvider>()
                         .imageSocialSelectButton(value: false);
                   },
-                  hideColor: const Color.fromRGBO(215, 215, 215, 1),
+                  hideColor: Colors.white,
                   selectColor:
                       !isSocialImage ? appSubColor : darkThemeMainColor,
                 ),
@@ -129,16 +125,14 @@ class ProfileImageSelectedWidget extends StatelessWidget {
           ),
         _circleImageForm(
           imageUrl: user.socialProfileUrl,
-          color: isSocialImage
-              ? appSubColor
-              : const Color.fromRGBO(215, 215, 215, 1),
+          color: isSocialImage ? appSubColor : Colors.white,
           widgets: _profileImageSelectButton(
             onTap: () {
               context
                   .read<ProfileProvider>()
                   .imageSocialSelectButton(value: true);
             },
-            hideColor: const Color.fromRGBO(215, 215, 215, 1),
+            hideColor: Colors.white,
             selectColor: isSocialImage ? appSubColor : darkThemeMainColor,
           ),
         ),
@@ -154,10 +148,17 @@ class ProfileImageSelectedWidget extends StatelessWidget {
         right: 0,
         child: InkWell(
           onTap: () => context.read<ProfileProvider>().profileImagePicker(),
-          child: const Icon(
-            Icons.add_circle_outline_outlined,
-            color: Colors.white,
-            size: 25,
+          child: Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: darkThemeMainColor),
+            child: const Icon(
+              Icons.add_circle_outline_outlined,
+              color: Colors.white,
+              size: 25,
+            ),
           ),
         ));
   }
@@ -217,7 +218,7 @@ class ProfileImageSelectedWidget extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: const Color.fromRGBO(215, 215, 215, 1),
+                  color: hideColor,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(3.0),

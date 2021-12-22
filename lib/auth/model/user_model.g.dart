@@ -13,8 +13,10 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
       socialProfileUrl: json['socialProfileUrl'] as String,
       localProfileUrl: json['localProfileUrl'] as String,
       isSocialImage: json['isSocialImage'] as bool,
-      createdAt: json['createdAt'] as String,
-      updatedAt: json['updatedAt'] as String,
+      createdAt:
+          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
+      updatedAt:
+          const TimestampConverter().fromJson(json['updatedAt'] as Timestamp),
       provider: json['provider'] as String,
     );
 
@@ -26,7 +28,7 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) =>
       'socialProfileUrl': instance.socialProfileUrl,
       'localProfileUrl': instance.localProfileUrl,
       'isSocialImage': instance.isSocialImage,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
+      'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
       'provider': instance.provider,
     };

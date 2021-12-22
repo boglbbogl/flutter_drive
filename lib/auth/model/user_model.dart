@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_drive/_constant/timestamp_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.freezed.dart';
@@ -12,10 +14,12 @@ class UserModel with _$UserModel {
     required String socialProfileUrl,
     required String localProfileUrl,
     required bool isSocialImage,
-    required String createdAt,
-    required String updatedAt,
+    @TimestampConverter() required DateTime createdAt,
+    @TimestampConverter() required DateTime updatedAt,
     required String provider,
   }) = _UserModel;
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
+
+  const UserModel._();
 }

@@ -60,7 +60,7 @@ class UserRepository {
     await _userReference.update({
       "socialProfileUrl": userProfile.socialProfileUrl,
       "localProfileUrl": userProfile.localProfileUrl,
-      "updatedAt": DateTime.now().toString(),
+      "updatedAt": DateTime.now(),
     });
   }
 }

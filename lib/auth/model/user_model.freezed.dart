@@ -28,8 +28,8 @@ class _$UserModelTearOff {
       required String socialProfileUrl,
       required String localProfileUrl,
       required bool isSocialImage,
-      required String createdAt,
-      required String updatedAt,
+      @TimestampConverter() required DateTime createdAt,
+      @TimestampConverter() required DateTime updatedAt,
       required String provider}) {
     return _UserModel(
       userKey: userKey,
@@ -60,8 +60,10 @@ mixin _$UserModel {
   String get socialProfileUrl => throw _privateConstructorUsedError;
   String get localProfileUrl => throw _privateConstructorUsedError;
   bool get isSocialImage => throw _privateConstructorUsedError;
-  String get createdAt => throw _privateConstructorUsedError;
-  String get updatedAt => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime get updatedAt => throw _privateConstructorUsedError;
   String get provider => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -81,8 +83,8 @@ abstract class $UserModelCopyWith<$Res> {
       String socialProfileUrl,
       String localProfileUrl,
       bool isSocialImage,
-      String createdAt,
-      String updatedAt,
+      @TimestampConverter() DateTime createdAt,
+      @TimestampConverter() DateTime updatedAt,
       String provider});
 }
 
@@ -134,11 +136,11 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       provider: provider == freezed
           ? _value.provider
           : provider // ignore: cast_nullable_to_non_nullable
@@ -160,8 +162,8 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String socialProfileUrl,
       String localProfileUrl,
       bool isSocialImage,
-      String createdAt,
-      String updatedAt,
+      @TimestampConverter() DateTime createdAt,
+      @TimestampConverter() DateTime updatedAt,
       String provider});
 }
 
@@ -214,11 +216,11 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       updatedAt: updatedAt == freezed
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
       provider: provider == freezed
           ? _value.provider
           : provider // ignore: cast_nullable_to_non_nullable
@@ -229,7 +231,7 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_UserModel implements _UserModel {
+class _$_UserModel extends _UserModel {
   const _$_UserModel(
       {required this.userKey,
       required this.nickName,
@@ -237,9 +239,10 @@ class _$_UserModel implements _UserModel {
       required this.socialProfileUrl,
       required this.localProfileUrl,
       required this.isSocialImage,
-      required this.createdAt,
-      required this.updatedAt,
-      required this.provider});
+      @TimestampConverter() required this.createdAt,
+      @TimestampConverter() required this.updatedAt,
+      required this.provider})
+      : super._();
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
@@ -257,9 +260,11 @@ class _$_UserModel implements _UserModel {
   @override
   final bool isSocialImage;
   @override
-  final String createdAt;
+  @TimestampConverter()
+  final DateTime createdAt;
   @override
-  final String updatedAt;
+  @TimestampConverter()
+  final DateTime updatedAt;
   @override
   final String provider;
 
@@ -311,7 +316,7 @@ class _$_UserModel implements _UserModel {
   }
 }
 
-abstract class _UserModel implements UserModel {
+abstract class _UserModel extends UserModel {
   const factory _UserModel(
       {required String userKey,
       required String nickName,
@@ -319,9 +324,10 @@ abstract class _UserModel implements UserModel {
       required String socialProfileUrl,
       required String localProfileUrl,
       required bool isSocialImage,
-      required String createdAt,
-      required String updatedAt,
+      @TimestampConverter() required DateTime createdAt,
+      @TimestampConverter() required DateTime updatedAt,
       required String provider}) = _$_UserModel;
+  const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
@@ -339,9 +345,11 @@ abstract class _UserModel implements UserModel {
   @override
   bool get isSocialImage;
   @override
-  String get createdAt;
+  @TimestampConverter()
+  DateTime get createdAt;
   @override
-  String get updatedAt;
+  @TimestampConverter()
+  DateTime get updatedAt;
   @override
   String get provider;
   @override
