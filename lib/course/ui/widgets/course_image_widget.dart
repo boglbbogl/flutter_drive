@@ -25,11 +25,11 @@ Container courseImageWidget({
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: const Color.fromRGBO(71, 71, 71, 1)),
-            child: context.watch<ImagesProvider>().pickedImagesFirst != null
+            child: context.watch<ImagesProvider>().pickedImages.isNotEmpty
                 ? ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.memory(
-                      context.watch<ImagesProvider>().pickedImagesFirst!,
+                      context.watch<ImagesProvider>().pickedImages[0],
                       fit: BoxFit.fill,
                     ),
                   )

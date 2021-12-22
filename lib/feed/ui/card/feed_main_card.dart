@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/feed/provider/feed_provider.dart';
-import 'package:flutter_drive/feed/ui/feed_course_card.dart';
-import 'package:flutter_drive/feed/ui/feed_image_card.dart';
-import 'package:flutter_drive/feed/ui/feed_user_info_card.dart';
+import 'package:flutter_drive/feed/ui/card/feed_course_card.dart';
+import 'package:flutter_drive/feed/ui/card/feed_user_info_card.dart';
+import 'package:flutter_drive/feed/ui/widgets/feed_icons_widget.dart';
 import 'package:provider/provider.dart';
 
 class FeedMainCard extends StatelessWidget {
@@ -37,6 +35,7 @@ class FeedMainCard extends StatelessWidget {
                         isExpanded: provider.isExpanded,
                         expandableIndex: provider.expandableIndex,
                         courseList: provider.courseList),
+                    feedIconsWidget(),
                   ],
                 ),
               );

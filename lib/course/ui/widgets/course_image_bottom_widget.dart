@@ -53,7 +53,7 @@ Positioned courseImageBottomWidget({
                 crossAxisCount: 2,
                 mainAxisSpacing: 0.1,
                 crossAxisSpacing: 0.1,
-                childAspectRatio: 0.75,
+                childAspectRatio: 0.85,
               ),
               children: [
                 ...context
@@ -83,17 +83,24 @@ Positioned courseImageBottomWidget({
                             ),
                             Positioned(
                               top: 0,
-                              right: 0,
+                              right: 3,
                               child: GestureDetector(
                                 onTap: () {
                                   context
                                       .read<ImagesProvider>()
                                       .imageDelete(image: image);
                                 },
-                                child: const Icon(
-                                  Icons.remove_circle_outlined,
-                                  size: 30,
-                                  color: Colors.white,
+                                child: Container(
+                                  width: 35,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: darkThemeMainColor),
+                                  child: const Icon(
+                                    Icons.remove_circle_outlined,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             )

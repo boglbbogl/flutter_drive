@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 class ImagesProvider extends ChangeNotifier {
   final ImagePicker _imagePicker = ImagePicker();
   final List<Uint8List> _pickedImages = [];
-  Uint8List? _pickedImagesFirst;
   double _isUnderSize = size.height;
 
   Future<void> imagePicker() async {
@@ -15,7 +14,7 @@ class ImagesProvider extends ChangeNotifier {
         _pickedImages.length + _selectedImages.length < 7) {
       for (final images in _selectedImages) {
         _pickedImages.add(await images.readAsBytes());
-        _pickedImagesFirst = await images.readAsBytes();
+        // _pickedImagesFirst = await images.readAsBytes();
       }
     }
     notifyListeners();
@@ -40,6 +39,5 @@ class ImagesProvider extends ChangeNotifier {
   }
 
   List<Uint8List> get pickedImages => _pickedImages;
-  Uint8List? get pickedImagesFirst => _pickedImagesFirst;
   double get isUnderSize => _isUnderSize;
 }
