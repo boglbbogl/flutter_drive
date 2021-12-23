@@ -10,18 +10,20 @@ class FeedCourseCard extends StatelessWidget {
   final int expandableIndex;
   final bool isExpanded;
   final List<CourseModel> courseList;
+  final Function() contentOnTap;
   const FeedCourseCard({
     Key? key,
     required this.index,
     required this.isExpanded,
     required this.expandableIndex,
     required this.courseList,
+    required this.contentOnTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: contentOnTap,
       child: Column(
         children: [
           Container(
@@ -50,21 +52,19 @@ class FeedCourseCard extends StatelessWidget {
                       children: [
                         _courseSpotCircle(),
                         Container(
-                          width: size.width * 0.65,
-                          height: 5,
-                          color: appSubColor,
-                        ),
+                            width: size.width * 0.65,
+                            height: 5,
+                            color: appSubColor),
                         _courseSpotCircle(),
                       ],
                     ),
-                    if (courseList[index].spot.length - 2 == 0)
-                      Container()
-                    else
-                      Icon(
-                        Icons.more_vert_outlined,
-                        size: 25,
-                        color: appSubColor,
-                      ),
+                    Icon(
+                      Icons.more_vert_outlined,
+                      size: 25,
+                      color: courseList[index].spot.length - 2 == 0
+                          ? Colors.white
+                          : appSubColor,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -75,12 +75,11 @@ class FeedCourseCard extends StatelessWidget {
                         SizedBox(
                           child: Center(
                             child: Text(
-                              (courseList[index].spot.length - 2 == 0
-                                      ? ''
-                                      : courseList[index].spot.length - 2)
-                                  .toString(),
+                              courseList[index].spot.length - 2 == 0
+                                  ? ''
+                                  : "+${courseList[index].spot.length - 2}",
                               style: theme.textTheme.bodyText2!
-                                  .copyWith(color: Colors.black, fontSize: 9),
+                                  .copyWith(color: Colors.black, fontSize: 12),
                             ),
                           ),
                         ),
@@ -97,7 +96,11 @@ class FeedCourseCard extends StatelessWidget {
                   Container()
                 else
                   _expandableButtonForm(
-                      context: context, right: 10, bottom: -10, title: '더 보기..')
+                    context: context,
+                    right: -10,
+                    bottom: -10,
+                    icon: Icons.keyboard_arrow_down_rounded,
+                  )
               ],
             ),
           ),
@@ -147,8 +150,8 @@ class FeedCourseCard extends StatelessWidget {
                     _expandableButtonForm(
                       context: context,
                       top: -10,
-                      right: 0,
-                      title: '닫기',
+                      right: -10,
+                      icon: Icons.keyboard_arrow_up_rounded,
                     )
                   else
                     Container()
@@ -193,26 +196,23 @@ class FeedCourseCard extends StatelessWidget {
     double? top,
     double? bottom,
     double? right,
-    required String title,
+    required IconData icon,
   }) {
     return Positioned(
       top: top,
       right: right,
       bottom: bottom,
       child: TextButton(
-          onPressed: () {
-            context
-                .read<FeedProvider>()
-                .isExpandableIndex(index: index + 1, value: isExpanded);
-          },
-          child: Text(
-            title,
-            style: theme.textTheme.bodyText2!.copyWith(
-              color: appMainColor,
-              fontSize: 10,
-              fontWeight: FontWeight.bold,
-            ),
-          )),
+        onPressed: () {
+          context
+              .read<FeedProvider>()
+              .isExpandableIndex(index: index + 1, value: isExpanded);
+        },
+        child: Icon(
+          icon,
+          color: const Color.fromRGBO(175, 175, 175, 1),
+        ),
+      ),
     );
   }
 }

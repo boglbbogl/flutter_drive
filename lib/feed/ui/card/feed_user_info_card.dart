@@ -15,7 +15,7 @@ Row feedUserInfoCard({
           const SizedBox(width: 8),
           Text(
             nickName,
-            style: theme.textTheme.bodyText2!.copyWith(fontSize: 18),
+            style: theme.textTheme.bodyText2!.copyWith(fontSize: 12),
           ),
         ],
       ),

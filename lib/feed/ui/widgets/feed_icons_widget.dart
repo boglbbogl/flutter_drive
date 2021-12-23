@@ -1,20 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Row feedIconsWidget() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Row(
-        children: [
-          _iconButtonForm(
-              onPressed: () {}, icon: Icons.favorite_border_rounded),
-          _iconButtonForm(onPressed: () {}, icon: Icons.bookmark_add_outlined),
-          _iconButtonForm(onPressed: () {}, icon: Icons.chat),
-        ],
-      ),
-      _iconButtonForm(onPressed: () {}, icon: Icons.share),
-    ],
+Padding feedIconsWidget() {
+  return Padding(
+    padding: const EdgeInsets.only(top: 5),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            _iconButtonForm(
+                onPressed: () {}, icon: Icons.favorite_border_rounded),
+            _iconButtonForm(
+                onPressed: () {}, icon: Icons.bookmark_add_outlined),
+            _iconButtonForm(onPressed: () {}, icon: Icons.chat),
+          ],
+        ),
+        _iconButtonForm(onPressed: () {}, icon: Icons.share),
+      ],
+    ),
   );
 }
 
