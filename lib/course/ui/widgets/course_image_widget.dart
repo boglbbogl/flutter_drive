@@ -17,7 +17,7 @@ Container courseImageWidget({
       children: [
         InkWell(
           onTap: () {
-            context.read<ImagesProvider>().imagePicker();
+            context.read<ImagesProvider>().imagePicker(context: context);
           },
           child: Container(
             width: size.width * 0.3,

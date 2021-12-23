@@ -25,14 +25,18 @@ class SignInPage extends StatelessWidget {
                 _socialLoginIconForm(
                     isSignIn: context.watch<AuthProvider>().isGoogle,
                     onTap: () {
-                      context.read<AuthProvider>().signInWithGoogle();
+                      context
+                          .read<AuthProvider>()
+                          .signInWithGoogle(context: context);
                     },
                     title: 'G',
                     color: Colors.red),
                 _socialLoginIconForm(
                     isSignIn: context.watch<AuthProvider>().isKakao,
                     onTap: () {
-                      context.read<AuthProvider>().signInWithKakao();
+                      context
+                          .read<AuthProvider>()
+                          .signInWithKakao(context: context);
                     },
                     title: 'K',
                     color: Colors.amber),

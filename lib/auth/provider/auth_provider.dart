@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_drive/_constant/logger.dart';
+import 'package:flutter_drive/_constant/app_flushbar.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/repo/user_repository.dart';
 import 'package:flutter_drive/profile/model/profile_model.dart';
@@ -88,7 +88,7 @@ class AuthProvider extends ChangeNotifier {
       await _userRepository.createUserProfile(
         userModel: UserModel(
           userKey: firebaseUser.uid,
-          nickName: firebaseUser.email!.split('@')[0],
+          nickName: '${firebaseUser.email!.split('@')[0]}_google',
           email: firebaseUser.email!,
           socialProfileUrl: firebaseUser.photoURL!,
           localProfileUrl: "",
@@ -103,7 +103,7 @@ class AuthProvider extends ChangeNotifier {
       await _userRepository.createUserProfile(
         userModel: UserModel(
           userKey: kakaoUser.id.toString() + kakaoUser.kakaoAccount!.email!,
-          nickName: kakaoUser.kakaoAccount!.email!.split('@')[0],
+          nickName: '${kakaoUser.kakaoAccount!.email!.split('@')[0]}_kakao',
           email: kakaoUser.kakaoAccount!.email!,
           socialProfileUrl: kakaoUser.kakaoAccount!.profile!.profileImageUrl!,
           localProfileUrl: "",
@@ -117,11 +117,15 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> signInWithKakao() async {
+  Future<void> signInWithKakao({
+    required BuildContext context,
+  }) async {
     _isKakao = true;
     notifyListeners();
     final _installed = await kakao.isKakaoTalkInstalled();
     if (!_installed) {
+      signInFlushbar(message: '카카오톡이 설치되어 있지 않습니다', color: Colors.amber)
+          .show(context);
     } else {
       try {
         final _code = await kakao.AuthCodeClient.instance.requestWithTalk();
@@ -145,6 +149,8 @@ class AuthProvider extends ChangeNotifier {
           await _userLoginState();
         }
       } catch (error) {
+        signInFlushbar(message: '서버 에러가 발생 했습니다', color: Colors.amber)
+            .show(context);
         _isKakao = false;
         notifyListeners();
       }
@@ -153,13 +159,19 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> signInWithGoogle() async {
+  Future<void> signInWithGoogle({
+    required BuildContext context,
+  }) async {
     _isGoogle = true;
     notifyListeners();
     try {
       final _googleSignInUser = await _googleSignIn.signIn();
       if (_googleSignInUser == null) {
-        // show snack bar
+        signInFlushbar(
+                message: '구글 계정을 가져올 수 없습니다',
+                color: Colors.red,
+                textColor: Colors.white)
+            .show(context);
       } else {
         final _authentication = await _googleSignInUser.authentication;
         final _authCredential = GoogleAuthProvider.credential(
@@ -184,7 +196,13 @@ class AuthProvider extends ChangeNotifier {
         }
       }
     } catch (error) {
-      logger.e(error);
+      signInFlushbar(
+              message: '서버 에러가 발생 했습니다',
+              color: Colors.red,
+              textColor: Colors.white)
+          .show(context);
+      _isGoogle = false;
+      notifyListeners();
     }
     _isGoogle = false;
     notifyListeners();

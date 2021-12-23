@@ -28,7 +28,8 @@ AppBar courseAppbarWidget({
           padding: const EdgeInsets.only(right: 8),
           child: TextButton(
             onPressed: () async {
-              if (context.read<CourseProvider>().courseSpotList.isNotEmpty) {
+              if (context.read<CourseProvider>().courseSpotList.length > 1 &&
+                  context.read<CourseProvider>().courseSpotList.isNotEmpty) {
                 await context.read<CourseProvider>().createCourse(
                     user: context.read<AuthProvider>().user!,
                     multiImage: context.read<ImagesProvider>().pickedImages);
@@ -38,9 +39,14 @@ AppBar courseAppbarWidget({
             child: Text(
               '올리기',
               style: theme.textTheme.bodyText2!.copyWith(
-                  color: context.watch<CourseProvider>().courseSpotList.isEmpty
-                      ? const Color.fromRGBO(115, 115, 115, 1)
-                      : appSubColor),
+                  color: context.watch<CourseProvider>().courseSpotList.length >
+                              1 &&
+                          context
+                              .watch<CourseProvider>()
+                              .courseSpotList
+                              .isNotEmpty
+                      ? appSubColor
+                      : const Color.fromRGBO(115, 115, 115, 1)),
             ),
           ),
         )

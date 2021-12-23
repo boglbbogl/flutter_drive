@@ -9,6 +9,18 @@ class ProfileRepository {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  Future<bool> getUsersNickNameDuplication({
+    required String nickName,
+  }) async {
+    final CollectionReference<Map<String, dynamic>> _userReference =
+        _firestore.collection(collectionUser);
+    final _usersNickName = await _userReference
+        .where('nickName')
+        .get()
+        .then((value) => value.docs.map((e) => e.data()['nickName']));
+    return _usersNickName.contains(nickName);
+  }
+
   Future userPofileUpdate({
     required ProfileModel userProfile,
     required String userKey,

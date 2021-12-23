@@ -1,7 +1,7 @@
 import 'dart:typed_data';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drive/_constant/app_flushbar.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/course/repo/course_repository.dart';
@@ -57,6 +57,7 @@ class CourseProvider extends ChangeNotifier {
 
   void getCourseSpotList({
     required CourseSpot courseSpot,
+    required BuildContext context,
   }) {
     if (_courseSpotList.length < 10) {
       if (_courseSpotList.contains(courseSpot)) {
@@ -66,6 +67,7 @@ class CourseProvider extends ChangeNotifier {
       }
     } else {
       // show SnackBar
+      appFlushbar(message: '더 이상 추가할 수 없습니다').show(context);
     }
     // _courseSpotList
     //     .removeWhere((element) => element.containsValue(courseSpot.id));

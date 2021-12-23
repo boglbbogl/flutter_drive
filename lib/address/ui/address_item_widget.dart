@@ -13,6 +13,7 @@ Padding addressItemWidget({
     child: InkWell(
       onTap: () {
         context.read<CourseProvider>().getCourseSpotList(
+            context: context,
             courseSpot: context.read<CourseProvider>().courseSpot.copyWith(
                   placeName: address.placeName,
                   addressName: address.roadAddressName.isEmpty

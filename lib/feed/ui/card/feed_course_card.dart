@@ -133,6 +133,7 @@ class FeedCourseCard extends StatelessWidget {
                                     maxLines: 1,
                                     style: theme.textTheme.bodyText2!.copyWith(
                                       color: Colors.black,
+                                      fontSize: 10,
                                     ),
                                   ),
                                 ),

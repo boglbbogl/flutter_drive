@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:flutter_drive/_constant/app_flushbar.dart';
 import 'package:flutter_drive/image/repo/images_repository.dart';
 import 'package:flutter_drive/profile/model/profile_model.dart';
 import 'package:flutter_drive/profile/repo/profile_repository.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileProvider extends ChangeNotifier {
@@ -68,11 +68,21 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changedNickName({
+  Future<void> changedNickName({
     required String nickName,
-  }) {
-    _nickName = nickName;
-
+    required BuildContext context,
+  }) async {
+    if (nickName.isNotEmpty && nickName.length < 21) {
+      final _nickNameExists = await _profileRepository
+          .getUsersNickNameDuplication(nickName: nickName);
+      if (_nickNameExists) {
+        appFlushbar(message: '이미 존재하는 닉네임 입니다').show(context);
+      } else {
+        _nickName = nickName;
+      }
+    } else {
+      appFlushbar(message: '20자까지 입력할 수 있습니다').show(context);
+    }
     notifyListeners();
   }
 

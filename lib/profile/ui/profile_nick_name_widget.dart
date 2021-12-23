@@ -41,7 +41,7 @@ class ProfileNickNameWidget extends StatelessWidget {
                           Text(
                             changedName.isEmpty ? userName : changedName,
                             style: theme.textTheme.bodyText2!
-                                .copyWith(fontSize: 30),
+                                .copyWith(fontSize: 25),
                           ),
                           const SizedBox(width: 12),
                           IconButton(
@@ -122,15 +122,13 @@ class ProfileNickNameWidget extends StatelessWidget {
                                       )),
                                   InkWell(
                                     onTap: () {
-                                      if (_controller.text.isNotEmpty &&
-                                          _controller.text.length < 16) {
+                                      if (_controller.text.isNotEmpty) {
                                         context.read<ProfileProvider>()
                                           ..changedNickName(
-                                              nickName: _controller.text)
+                                              nickName: _controller.text,
+                                              context: context)
                                           ..showNickNameChangedWidget(
                                               value: false);
-                                      } else {
-                                        // show Snackbar
                                       }
                                     },
                                     child: Container(

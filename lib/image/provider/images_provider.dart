@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/_constant/app_flushbar.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImagesProvider extends ChangeNotifier {
@@ -8,7 +9,9 @@ class ImagesProvider extends ChangeNotifier {
   final List<Uint8List> _pickedImages = [];
   double _isUnderSize = size.height;
 
-  Future<void> imagePicker() async {
+  Future<void> imagePicker({
+    required BuildContext context,
+  }) async {
     final List<XFile>? _selectedImages = await _imagePicker.pickMultiImage();
     if (_selectedImages != null &&
         _pickedImages.length + _selectedImages.length < 7) {
@@ -16,6 +19,8 @@ class ImagesProvider extends ChangeNotifier {
         _pickedImages.add(await images.readAsBytes());
         // _pickedImagesFirst = await images.readAsBytes();
       }
+    } else {
+      await appFlushbar(message: '사진은 6개까지 추가 가능합니다').show(context);
     }
     notifyListeners();
   }
