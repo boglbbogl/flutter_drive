@@ -7,22 +7,27 @@ Padding feedUserInfoCard({
   required String nickName,
 }) {
   return Padding(
-    padding: const EdgeInsets.only(left: 8),
+    padding: const EdgeInsets.only(left: 8, top: 7, bottom: 10),
     child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        userCircleImageWidget(imageUrl: imageUrl),
-        const SizedBox(width: 8),
-        Text(
-          nickName,
-          style: theme.textTheme.bodyText2!.copyWith(fontSize: 11),
+        Row(
+          children: [
+            userCircleImageWidget(imageUrl: imageUrl),
+            const SizedBox(width: 8),
+            Text(
+              nickName,
+              style: theme.textTheme.bodyText2!.copyWith(fontSize: 11),
+            ),
+          ],
         ),
-        // IconButton(
-        //     onPressed: () {},
-        //     icon: const Icon(
-        //       Icons.more_horiz_outlined,
-        //       color: Colors.white,
-        //       size: 30,
-        //     )),
+        IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.more_horiz_outlined,
+              color: Colors.white,
+              size: 30,
+            )),
       ],
     ),
   );

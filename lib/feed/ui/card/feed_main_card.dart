@@ -1,9 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/feed/provider/feed_provider.dart';
 import 'package:flutter_drive/feed/ui/card/feed_course_card.dart';
-import 'package:flutter_drive/feed/ui/card/feed_explantion_card.dart';
+import 'package:flutter_drive/feed/ui/card/feed_icons_card.dart';
+import 'package:flutter_drive/feed/ui/card/feed_image_card.dart';
 import 'package:flutter_drive/feed/ui/card/feed_user_info_card.dart';
+import 'package:flutter_drive/feed/ui/widgets/image_or_course_widget.dart';
 import 'package:provider/provider.dart';
 
 class FeedMainCard extends StatelessWidget {
@@ -21,96 +25,11 @@ class FeedMainCard extends StatelessWidget {
                 child: Container(
                   width: size.width,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: const Color.fromRGBO(71, 71, 71, 1)),
+                    borderRadius: BorderRadius.circular(12),
+                    color: darkThemeCardColor,
+                  ),
                   child: Column(
                     children: [
-                      Container(
-                        height: size.height * 0.05,
-                        decoration: const BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(
-                                    color: Color.fromRGBO(91, 91, 91, 1),
-                                    width: 0.9))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              provider.courseList[index].spot.first.placeName,
-                              style: theme.textTheme.bodyText2!
-                                  .copyWith(color: Colors.white, fontSize: 9),
-                            ),
-                            Container(
-                              width: size.width * 0.2,
-                              height: 1,
-                              color: appSubColor,
-                            ),
-                            Text(
-                              provider.courseList[index].spot.last.placeName,
-                              style: theme.textTheme.bodyText2!
-                                  .copyWith(color: Colors.white, fontSize: 9),
-                            ),
-                          ],
-                        ),
-                      ),
-                      ListView(
-                        shrinkWrap: true,
-                        children: [
-                          ...provider.courseList[index].spot.map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 12),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.circle,
-                                    color: appMainColor,
-                                    size: 5,
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    e.placeName,
-                                    style: theme.textTheme.bodyText2!.copyWith(
-                                        color: Colors.white, fontSize: 10),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      Container(
-                        width: size.width,
-                        height: 0.9,
-                        color: const Color.fromRGBO(91, 91, 91, 1),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.favorite_border_rounded,
-                                    color: Colors.white,
-                                  )),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.bookmark_add_outlined,
-                                    color: Colors.white,
-                                  )),
-                            ],
-                          ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.more_horiz_rounded,
-                                color: Colors.white,
-                              )),
-                        ],
-                      ),
                       feedUserInfoCard(
                           imageUrl: provider
                                   .courseList[index].userProfile.isSocialImage
@@ -120,40 +39,87 @@ class FeedMainCard extends StatelessWidget {
                                   .localProfileUrl,
                           nickName:
                               provider.courseList[index].userProfile.nickName),
+                      _divider(),
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 500),
+                        child: provider.imageOrCouseSpotIndex == index &&
+                                provider.isImageOrCouseSpot
+                            ? FeedImageCard(
+                                imageUrl: provider.courseList[index].imageUrl,
+                              )
+                            : FeedCourseCard(
+                                courseList: provider.courseList[index]),
+                      ),
+                      if (provider.courseList[index].imageUrl.isNotEmpty) ...[
+                        AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 500),
+                            child: provider.imageOrCouseSpotIndex == index &&
+                                    provider.isImageOrCouseSpot
+                                ? feedCourseWidget(
+                                    context: context,
+                                    startPlaceName: provider
+                                        .courseList[index].spot.first.placeName,
+                                    endPlaceName: provider
+                                        .courseList[index].spot.last.placeName,
+                                    index: index,
+                                  )
+                                : feedImageWidget(
+                                    context: context,
+                                    imageUrls:
+                                        provider.courseList[index].imageUrl,
+                                    index: index)),
+                      ],
+                      _divider(),
+                      feedIconsCard(),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 12),
+                      //   child: Row(
+                      //     children: [
+                      //       Text(
+                      //         provider.courseList[index].userProfile.nickName,
+                      //         style: theme.textTheme.bodyText2!.copyWith(
+                      //           fontWeight: FontWeight.bold,
+                      //           fontSize: 10,
+                      //         ),
+                      //       ),
+                      //       const SizedBox(width: 5),
+                      //       Text(
+                      //         provider.courseList[index].explanation,
+                      //         style: theme.textTheme.bodyText2!.copyWith(
+                      //           fontSize: 9,
+                      //         ),
+                      //       ),
+                      //       InkWell(
+                      //         onTap: () {
+                      //           context.read<FeedProvider>().isShowExplanation(
+                      //               index: index, value: true);
+                      //         },
+                      //         child: Text(
+                      //           ' ...더 보기',
+                      //           style: theme.textTheme.bodyText2!.copyWith(
+                      //               color:
+                      //                   const Color.fromRGBO(155, 155, 155, 1),
+                      //               fontSize: 9,
+                      //               fontWeight: FontWeight.bold),
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
               );
-              // return Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 12),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [
-              //       feedUserInfoCard(
-              //           imageUrl:
-              //               provider.courseList[index].userProfile.isSocialImage
-              //                   ? provider.courseList[index].userProfile
-              //                       .socialProfileUrl
-              //                   : provider.courseList[index].userProfile
-              //                       .localProfileUrl,
-              //           nickName:
-              //               provider.courseList[index].userProfile.nickName),
-              //       FeedCourseCard(
-              //         index: index,
-              //         isExpanded: provider.isExpanded,
-              //         expandableIndex: provider.expandableIndex,
-              //         courseList: provider.courseList,
-              //         contentOnTap: () {},
-              //       ),
-              //       // FeedImageCard(
-              //       //     imageUrl: provider.courseList[index].imageUrl),
-              //       feedExplantionCard(courseList: provider.courseList[index]),
-              //       const SizedBox(height: 20),
-              //     ],
-              //   ),
-              // );
             });
       },
+    );
+  }
+
+  Container _divider() {
+    return Container(
+      width: size.width,
+      height: 1,
+      color: darkThemeMainColor,
     );
   }
 }

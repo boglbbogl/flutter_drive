@@ -11,6 +11,10 @@ class FeedProvider extends ChangeNotifier {
   UserModel? _postUser;
   int _expandableIndex = 0;
   bool _isExpanded = false;
+  int _imageOrCouseSpotIndex = 0;
+  bool _isImageOrCouseSpot = false;
+  int _explanationIndex = 0;
+  bool _isExplanation = false;
 
   FeedProvider() {
     _courseStream();
@@ -23,6 +27,24 @@ class FeedProvider extends ChangeNotifier {
       _courseList = course;
       notifyListeners();
     });
+  }
+
+  void isShowExplanation({
+    required int index,
+    required bool value,
+  }) {
+    _isExplanation = value;
+    _explanationIndex = index;
+    notifyListeners();
+  }
+
+  void isShowImageOrCourseSpot({
+    required int index,
+    required bool value,
+  }) {
+    _isImageOrCouseSpot = value;
+    _imageOrCouseSpotIndex = index;
+    notifyListeners();
   }
 
   void isExpandableIndex({
@@ -38,4 +60,8 @@ class FeedProvider extends ChangeNotifier {
   UserModel? get postUser => _postUser;
   int get expandableIndex => _expandableIndex;
   bool get isExpanded => _isExpanded;
+  int get imageOrCouseSpotIndex => _imageOrCouseSpotIndex;
+  bool get isImageOrCouseSpot => _isImageOrCouseSpot;
+  int get explanationIndex => _explanationIndex;
+  bool get isExplanation => _isExplanation;
 }
