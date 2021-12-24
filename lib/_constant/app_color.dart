@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 late Size size;
 late ThemeData theme;
 
-Color appMainColor = const Color.fromRGBO(104, 165, 247, 1);
-Color appSubColor = const Color.fromRGBO(247, 82, 142, 1);
-Color darkThemeMainColor = const Color.fromRGBO(31, 31, 31, 1);
+// Color appMainColor = const Color.fromRGBO(104, 165, 247, 1);
+// Color appSubColor = const Color.fromRGBO(247, 82, 142, 1);
+// Green
+Color appMainColor = const Color.fromRGBO(107, 232, 204, 1);
+// Orange
+Color appSubColor = const Color.fromRGBO(208, 84, 69, 1);
+// Color darkThemeMainColor = const Color.fromRGBO(31, 31, 31, 1);
+Color darkThemeMainColor = const Color.fromRGBO(46, 47, 64, 1);
 Color lightThemeMainColor = const Color.fromRGBO(235, 235, 235, 1);
 
 const MaterialColor materialBlackColor = MaterialColor(
