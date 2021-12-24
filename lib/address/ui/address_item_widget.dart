@@ -50,7 +50,7 @@ Padding addressItemWidget({
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodyText2!.copyWith(
-                    color: appMainColor,
+                    color: appSubColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14),
               ),

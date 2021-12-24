@@ -12,17 +12,10 @@ Shimmer homeShimmerWidet() {
           return Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 12, right: 12, bottom: 8, top: 12),
-                child: Row(
-                  children: [
-                    _shimmer(w: 30, h: size.height * 0.04, r: 50),
-                    const SizedBox(width: 10),
-                    _shimmer(w: 80, h: size.height * 0.04, r: 12),
-                  ],
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                child: _shimmer(w: size.width, h: size.width, r: 12),
               ),
-              _shimmer(w: size.width, h: size.width, r: 12),
               const SizedBox(height: 12),
             ],
           );

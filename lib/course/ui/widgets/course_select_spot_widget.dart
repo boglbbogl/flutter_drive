@@ -19,8 +19,8 @@ class CourseSelectSpotWidget extends StatelessWidget {
       child: Row(
         children: [
           Icon(
-            Icons.circle_outlined,
-            size: 18,
+            Icons.circle,
+            size: 10,
             color: appSubColor,
           ),
           if (context.watch<CourseProvider>().isSwitcher)
@@ -33,7 +33,7 @@ class CourseSelectSpotWidget extends StatelessWidget {
                 width: 40,
                 child: Icon(
                   Icons.copy_outlined,
-                  size: 18,
+                  size: 15,
                   color: Color.fromRGBO(215, 215, 215, 1),
                 ),
               ),

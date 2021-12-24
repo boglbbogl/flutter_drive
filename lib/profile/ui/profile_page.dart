@@ -31,7 +31,7 @@ class ProfilePage extends StatelessWidget {
                       (provider.nickName != _user.nickName &&
                           provider.nickName.isNotEmpty) ||
                       provider.pickedImage != null
-                  ? appSubColor
+                  ? appMainColor
                   : const Color.fromRGBO(115, 115, 115, 1),
               onTap: () async {
                 if (provider.isSocialImage != _user.isSocialImage ||

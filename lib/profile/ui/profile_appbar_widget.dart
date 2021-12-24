@@ -17,7 +17,7 @@ AppBar profileAppbarWidget({
                 padding: const EdgeInsets.only(
                     top: 15, bottom: 15, right: 25, left: 25),
                 child: CircularProgressIndicator(
-                  color: appSubColor,
+                  color: appMainColor,
                 ),
               )
             : TextButton(

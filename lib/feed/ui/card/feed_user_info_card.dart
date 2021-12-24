@@ -7,7 +7,7 @@ Padding feedUserInfoCard({
   required String nickName,
 }) {
   return Padding(
-    padding: const EdgeInsets.only(left: 8, top: 7, bottom: 10),
+    padding: const EdgeInsets.only(left: 8, top: 7, bottom: 3),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

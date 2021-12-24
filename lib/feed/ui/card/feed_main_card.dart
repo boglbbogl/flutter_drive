@@ -8,10 +8,12 @@ import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/feed/provider/feed_provider.dart';
 import 'package:flutter_drive/feed/ui/card/feed_course_card.dart';
+import 'package:flutter_drive/feed/ui/card/feed_explanation_card.dart';
 import 'package:flutter_drive/feed/ui/card/feed_icons_card.dart';
 import 'package:flutter_drive/feed/ui/card/feed_image_card.dart';
 import 'package:flutter_drive/feed/ui/card/feed_user_info_card.dart';
 import 'package:flutter_drive/feed/ui/widgets/image_or_course_widget.dart';
+import 'package:flutter_drive/feed/ui/widgets/like_or_comment_widget.dart';
 import 'package:provider/provider.dart';
 
 class FeedMainCard extends StatelessWidget {
@@ -45,7 +47,7 @@ class FeedMainCard extends StatelessWidget {
                               provider.courseList[index].userProfile.nickName),
                       _divider(),
                       AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 300),
                         child: provider.imageOrCouseSpotIndex == index &&
                                 provider.isImageOrCouseSpot
                             ? FeedImageCard(
@@ -75,6 +77,21 @@ class FeedMainCard extends StatelessWidget {
                       ],
                       _divider(),
                       feedIconsCard(),
+                      likeOrCommentWidget(
+                          onTap: () {}, title: '좋아요 98개', bottom: 2),
+                      feedExplanationCard(
+                        context: context,
+                        nickName:
+                            provider.courseList[index].userProfile.nickName,
+                        explanation: provider.courseList[index].explanation,
+                        index: index,
+                        explanationIndex: provider.explanationIndex,
+                      ),
+                      likeOrCommentWidget(
+                          onTap: () {},
+                          title: '댓글 105개 전체보기',
+                          top: 4,
+                          bottom: 15),
                     ],
                   ),
                 ),

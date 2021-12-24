@@ -9,8 +9,6 @@ class FeedProvider extends ChangeNotifier {
   StreamSubscription<List<CourseModel>?>? _courseStreamSubscription;
   List<CourseModel> _courseList = [];
   UserModel? _postUser;
-  int _expandableIndex = 0;
-  bool _isExpanded = false;
   int _imageOrCouseSpotIndex = 0;
   bool _isImageOrCouseSpot = false;
   int _explanationIndex = -1;
@@ -45,19 +43,8 @@ class FeedProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void isExpandableIndex({
-    required int index,
-    required bool value,
-  }) {
-    _expandableIndex = index;
-    value == true ? _isExpanded = false : _isExpanded = true;
-    notifyListeners();
-  }
-
   List<CourseModel> get courseList => _courseList;
   UserModel? get postUser => _postUser;
-  int get expandableIndex => _expandableIndex;
-  bool get isExpanded => _isExpanded;
   int get imageOrCouseSpotIndex => _imageOrCouseSpotIndex;
   bool get isImageOrCouseSpot => _isImageOrCouseSpot;
   int get explanationIndex => _explanationIndex;

@@ -19,14 +19,14 @@ class FeedCourseCard extends StatelessWidget {
       shrinkWrap: true,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
           child: Row(
             children: [
               Text(
                 courseList.spot.firstOrNull!.placeName,
                 style: theme.textTheme.bodyText2!.copyWith(
                     color: Colors.white,
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold),
               ),
               Padding(
@@ -34,14 +34,17 @@ class FeedCourseCard extends StatelessWidget {
                 child: Container(
                   width: size.width * 0.05,
                   height: 1,
-                  color: appMainColor,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: appMainColor,
+                  ),
                 ),
               ),
               Text(
                 courseList.spot.lastOrNull!.placeName,
                 style: theme.textTheme.bodyText2!.copyWith(
                     color: Colors.white,
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold),
               ),
             ],
@@ -60,8 +63,9 @@ class FeedCourseCard extends StatelessWidget {
                 const SizedBox(width: 5),
                 Text(
                   e.placeName,
-                  style: theme.textTheme.bodyText2!
-                      .copyWith(color: Colors.white, fontSize: 10),
+                  style: theme.textTheme.bodyText2!.copyWith(
+                      color: const Color.fromRGBO(215, 215, 215, 1),
+                      fontSize: 10),
                 ),
               ],
             ),

@@ -24,7 +24,7 @@ class AddressScreen extends StatelessWidget {
                 child: Text(
                   '초기화',
                   style: theme.textTheme.bodyText2!.copyWith(
-                      color: appSubColor, fontWeight: FontWeight.bold),
+                      color: appMainColor, fontWeight: FontWeight.bold),
                 ),
               )
             ],
