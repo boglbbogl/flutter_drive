@@ -1,7 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:collection/collection.dart';
+import 'package:flutter/gestures.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/feed/provider/feed_provider.dart';
 import 'package:flutter_drive/feed/ui/card/feed_course_card.dart';
 import 'package:flutter_drive/feed/ui/card/feed_icons_card.dart';
@@ -57,10 +61,10 @@ class FeedMainCard extends StatelessWidget {
                                     provider.isImageOrCouseSpot
                                 ? feedCourseWidget(
                                     context: context,
-                                    startPlaceName: provider
-                                        .courseList[index].spot.first.placeName,
-                                    endPlaceName: provider
-                                        .courseList[index].spot.last.placeName,
+                                    startPlaceName: provider.courseList[index]
+                                        .spot.firstOrNull!.placeName,
+                                    endPlaceName: provider.courseList[index]
+                                        .spot.lastOrNull!.placeName,
                                     index: index,
                                   )
                                 : feedImageWidget(
@@ -71,41 +75,6 @@ class FeedMainCard extends StatelessWidget {
                       ],
                       _divider(),
                       feedIconsCard(),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left: 12),
-                      //   child: Row(
-                      //     children: [
-                      //       Text(
-                      //         provider.courseList[index].userProfile.nickName,
-                      //         style: theme.textTheme.bodyText2!.copyWith(
-                      //           fontWeight: FontWeight.bold,
-                      //           fontSize: 10,
-                      //         ),
-                      //       ),
-                      //       const SizedBox(width: 5),
-                      //       Text(
-                      //         provider.courseList[index].explanation,
-                      //         style: theme.textTheme.bodyText2!.copyWith(
-                      //           fontSize: 9,
-                      //         ),
-                      //       ),
-                      //       InkWell(
-                      //         onTap: () {
-                      //           context.read<FeedProvider>().isShowExplanation(
-                      //               index: index, value: true);
-                      //         },
-                      //         child: Text(
-                      //           ' ...더 보기',
-                      //           style: theme.textTheme.bodyText2!.copyWith(
-                      //               color:
-                      //                   const Color.fromRGBO(155, 155, 155, 1),
-                      //               fontSize: 9,
-                      //               fontWeight: FontWeight.bold),
-                      //         ),
-                      //       )
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),

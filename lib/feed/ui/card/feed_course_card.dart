@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:collection/collection.dart';
+
 import 'package:flutter_drive/course/model/course_model.dart';
 
 class FeedCourseCard extends StatelessWidget {
@@ -21,7 +23,7 @@ class FeedCourseCard extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                courseList.spot.first.placeName,
+                courseList.spot.firstOrNull!.placeName,
                 style: theme.textTheme.bodyText2!.copyWith(
                     color: Colors.white,
                     fontSize: 11,
@@ -36,7 +38,7 @@ class FeedCourseCard extends StatelessWidget {
                 ),
               ),
               Text(
-                courseList.spot.last.placeName,
+                courseList.spot.lastOrNull!.placeName,
                 style: theme.textTheme.bodyText2!.copyWith(
                     color: Colors.white,
                     fontSize: 11,

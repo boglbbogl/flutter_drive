@@ -13,8 +13,7 @@ class FeedProvider extends ChangeNotifier {
   bool _isExpanded = false;
   int _imageOrCouseSpotIndex = 0;
   bool _isImageOrCouseSpot = false;
-  int _explanationIndex = 0;
-  bool _isExplanation = false;
+  int _explanationIndex = -1;
 
   FeedProvider() {
     _courseStream();
@@ -33,7 +32,6 @@ class FeedProvider extends ChangeNotifier {
     required int index,
     required bool value,
   }) {
-    _isExplanation = value;
     _explanationIndex = index;
     notifyListeners();
   }
@@ -63,5 +61,4 @@ class FeedProvider extends ChangeNotifier {
   int get imageOrCouseSpotIndex => _imageOrCouseSpotIndex;
   bool get isImageOrCouseSpot => _isImageOrCouseSpot;
   int get explanationIndex => _explanationIndex;
-  bool get isExplanation => _isExplanation;
 }
