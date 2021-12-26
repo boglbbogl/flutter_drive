@@ -1,27 +1,24 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter/gestures.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/_constant/logger.dart';
-import 'package:flutter_drive/feed/provider/feed_provider.dart';
-import 'package:flutter_drive/feed/ui/card/feed_course_card.dart';
-import 'package:flutter_drive/feed/ui/card/feed_explanation_card.dart';
-import 'package:flutter_drive/feed/ui/card/feed_icons_card.dart';
-import 'package:flutter_drive/feed/ui/card/feed_image_card.dart';
-import 'package:flutter_drive/feed/ui/card/feed_user_info_card.dart';
-import 'package:flutter_drive/feed/ui/widgets/image_or_course_widget.dart';
-import 'package:flutter_drive/feed/ui/widgets/like_or_comment_widget.dart';
+import 'package:flutter_drive/feed/content/provider/content_provider.dart';
+import 'package:flutter_drive/feed/content/ui/card/content_course_card.dart';
+import 'package:flutter_drive/feed/content/ui/card/content_explanation_card.dart';
+import 'package:flutter_drive/feed/content/ui/card/content_icons_card.dart';
+import 'package:flutter_drive/feed/content/ui/card/content_image_card.dart';
+import 'package:flutter_drive/feed/content/ui/card/content_user_info_card.dart';
+import 'package:flutter_drive/feed/content/ui/card/widgets/like_or_comment_widget.dart';
+import 'package:flutter_drive/feed/content/ui/widgets/image_or_course_widget.dart';
+import 'package:flutter_drive/feed/user/provider/user_provider.dart';
+
 import 'package:provider/provider.dart';
 
-class FeedMainCard extends StatelessWidget {
-  const FeedMainCard({Key? key}) : super(key: key);
+class ContentMainCard extends StatelessWidget {
+  const ContentMainCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FeedProvider>(
+    return Consumer<ContentProvider>(
       builder: (context, provider, child) {
         return ListView.builder(
             itemCount: provider.courseList.length,
@@ -36,7 +33,11 @@ class FeedMainCard extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      feedUserInfoCard(
+                      contentUserInfoCard(
+                          onTap: () {
+                            context.read<UserProvider>().getUserCourse(
+                                userKey: provider.courseList[index].userKey);
+                          },
                           imageUrl: provider
                                   .courseList[index].userProfile.isSocialImage
                               ? provider.courseList[index].userProfile
@@ -50,10 +51,10 @@ class FeedMainCard extends StatelessWidget {
                         duration: const Duration(milliseconds: 300),
                         child: provider.imageOrCouseSpotIndex == index &&
                                 provider.isImageOrCouseSpot
-                            ? FeedImageCard(
+                            ? ContentImageCard(
                                 imageUrl: provider.courseList[index].imageUrl,
                               )
-                            : FeedCourseCard(
+                            : ContentCourseCard(
                                 courseList: provider.courseList[index]),
                       ),
                       if (provider.courseList[index].imageUrl.isNotEmpty) ...[
@@ -61,7 +62,7 @@ class FeedMainCard extends StatelessWidget {
                             duration: const Duration(milliseconds: 500),
                             child: provider.imageOrCouseSpotIndex == index &&
                                     provider.isImageOrCouseSpot
-                                ? feedCourseWidget(
+                                ? contentCourseWidget(
                                     context: context,
                                     startPlaceName: provider.courseList[index]
                                         .spot.firstOrNull!.placeName,
@@ -69,17 +70,17 @@ class FeedMainCard extends StatelessWidget {
                                         .spot.lastOrNull!.placeName,
                                     index: index,
                                   )
-                                : feedImageWidget(
+                                : contentImageWidget(
                                     context: context,
                                     imageUrls:
                                         provider.courseList[index].imageUrl,
                                     index: index)),
                       ],
                       _divider(),
-                      feedIconsCard(),
+                      contentIconsCard(),
                       likeOrCommentWidget(
                           onTap: () {}, title: '좋아요 98개', bottom: 2),
-                      feedExplanationCard(
+                      contentExplanationCard(
                         context: context,
                         nickName:
                             provider.courseList[index].userProfile.nickName,

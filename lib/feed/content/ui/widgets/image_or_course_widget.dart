@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/feed/provider/feed_provider.dart';
+import 'package:flutter_drive/feed/content/provider/content_provider.dart';
 import 'package:provider/provider.dart';
 
-Stack feedCourseWidget({
+Stack contentCourseWidget({
   required BuildContext context,
   required String startPlaceName,
   required String endPlaceName,
@@ -50,7 +50,7 @@ Stack feedCourseWidget({
           // onTap: () {},
           widget: TextButton(
               onPressed: () =>
-                  context.read<FeedProvider>().isShowImageOrCourseSpot(
+                  context.read<ContentProvider>().isShowImageOrCourseSpot(
                         index: index,
                         value: false,
                       ),
@@ -63,7 +63,7 @@ Stack feedCourseWidget({
   );
 }
 
-Stack feedImageWidget({
+Stack contentImageWidget({
   required BuildContext context,
   required List<String> imageUrls,
   required int index,
@@ -96,7 +96,7 @@ Stack feedImageWidget({
         ),
       ),
       _changedButtonForm(
-        onTap: () => context.read<FeedProvider>().isShowImageOrCourseSpot(
+        onTap: () => context.read<ContentProvider>().isShowImageOrCourseSpot(
               index: index,
               value: true,
             ),

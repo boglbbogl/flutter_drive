@@ -3,9 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 
-class FeedImageCard extends StatelessWidget {
+class ContentImageCard extends StatelessWidget {
   final List<String> imageUrl;
-  const FeedImageCard({
+  const ContentImageCard({
     Key? key,
     required this.imageUrl,
   }) : super(key: key);

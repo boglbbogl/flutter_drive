@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/feed/ui/card/feed_main_card.dart';
+import 'package:flutter_drive/feed/content/ui/card/content_main_card.dart';
 import 'package:flutter_drive/home/home_appbar_widget.dart';
 import 'package:flutter_drive/home/home_shimmer_widget.dart';
 
@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
               return AnimatedSwitcher(
                 duration: const Duration(milliseconds: 1000),
                 child: snapshot.connectionState == ConnectionState.done
-                    ? const FeedMainCard()
+                    ? const ContentMainCard()
                     : homeShimmerWidet(),
               );
             }));

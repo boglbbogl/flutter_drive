@@ -10,7 +10,7 @@ import 'package:kakao_flutter_sdk/all.dart' as kakao;
 class AuthProvider extends ChangeNotifier {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final UserRepository _userRepository = UserRepository();
+  final AuthRepository _userRepository = AuthRepository();
 
   UserModel? _user;
   bool _isLoginState = false;

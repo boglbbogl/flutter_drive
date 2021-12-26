@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 
-Padding feedIconsCard() {
+Padding contentIconsCard() {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 4),
     child: Row(

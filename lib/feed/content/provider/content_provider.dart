@@ -1,19 +1,17 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
-import 'package:flutter_drive/feed/repo/feed_repository.dart';
+import 'package:flutter_drive/feed/content/repo/content_repository.dart';
 
-class FeedProvider extends ChangeNotifier {
-  final FeedRepostiory _feedRepostiory = FeedRepostiory();
+class ContentProvider extends ChangeNotifier {
+  final ContentRepostiory _feedRepostiory = ContentRepostiory();
   StreamSubscription<List<CourseModel>?>? _courseStreamSubscription;
   List<CourseModel> _courseList = [];
-  UserModel? _postUser;
   int _imageOrCouseSpotIndex = 0;
   bool _isImageOrCouseSpot = false;
   int _explanationIndex = -1;
 
-  FeedProvider() {
+  ContentProvider() {
     _courseStream();
   }
 
@@ -44,7 +42,6 @@ class FeedProvider extends ChangeNotifier {
   }
 
   List<CourseModel> get courseList => _courseList;
-  UserModel? get postUser => _postUser;
   int get imageOrCouseSpotIndex => _imageOrCouseSpotIndex;
   bool get isImageOrCouseSpot => _isImageOrCouseSpot;
   int get explanationIndex => _explanationIndex;

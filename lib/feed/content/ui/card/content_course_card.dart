@@ -4,10 +4,10 @@ import 'package:collection/collection.dart';
 
 import 'package:flutter_drive/course/model/course_model.dart';
 
-class FeedCourseCard extends StatelessWidget {
+class ContentCourseCard extends StatelessWidget {
   final CourseModel courseList;
 
-  const FeedCourseCard({
+  const ContentCourseCard({
     Key? key,
     required this.courseList,
   }) : super(key: key);

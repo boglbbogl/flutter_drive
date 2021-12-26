@@ -3,10 +3,10 @@ import 'package:flutter_drive/_constant/firebase_keys.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/profile/model/profile_model.dart';
 
-class UserRepository {
-  static final UserRepository _userRepository = UserRepository._internal();
-  factory UserRepository() => _userRepository;
-  UserRepository._internal();
+class AuthRepository {
+  static final AuthRepository _userRepository = AuthRepository._internal();
+  factory AuthRepository() => _userRepository;
+  AuthRepository._internal();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<UserModel?> getUserProfile({
