@@ -7,9 +7,11 @@ import 'package:flutter_drive/feed/content/ui/card/content_explanation_card.dart
 import 'package:flutter_drive/feed/content/ui/card/content_icons_card.dart';
 import 'package:flutter_drive/feed/content/ui/card/content_image_card.dart';
 import 'package:flutter_drive/feed/content/ui/card/content_user_info_card.dart';
-import 'package:flutter_drive/feed/content/ui/card/widgets/like_or_comment_widget.dart';
 import 'package:flutter_drive/feed/content/ui/widgets/image_or_course_widget.dart';
+import 'package:flutter_drive/feed/content/ui/widgets/like_or_comment_widget.dart';
+import 'package:flutter_drive/feed/user/feed_user_main_page.dart';
 import 'package:flutter_drive/feed/user/provider/user_provider.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import 'package:provider/provider.dart';
 
@@ -35,8 +37,9 @@ class ContentMainCard extends StatelessWidget {
                     children: [
                       contentUserInfoCard(
                           onTap: () {
-                            context.read<UserProvider>().getUserCourse(
+                            context.read<ContentProvider>().getUserCourse(
                                 userKey: provider.courseList[index].userKey);
+                            pushNewScreen(context, screen: FeedUserMainPage());
                           },
                           imageUrl: provider
                                   .courseList[index].userProfile.isSocialImage
