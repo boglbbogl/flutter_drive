@@ -22,4 +22,8 @@ class UserModel with _$UserModel {
       _$UserModelFromJson(json);
 
   const UserModel._();
+
+  factory UserModel.fromFireStore(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return UserModel.fromJson(doc.data()!);
+  }
 }

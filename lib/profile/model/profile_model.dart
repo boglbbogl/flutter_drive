@@ -27,4 +27,11 @@ class ProfileModel with _$ProfileModel {
     map["nickName"] = nickName;
     return map;
   }
+
+  factory ProfileModel.empty() => const ProfileModel(
+        socialProfileUrl: "",
+        localProfileUrl: "",
+        isSocialImage: false,
+        nickName: "",
+      );
 }

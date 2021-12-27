@@ -15,8 +15,8 @@ class CourseModel with _$CourseModel {
     @TimestampConverter() required DateTime createdAt,
     @TimestampConverter() required DateTime updatedAt,
     required List<String> tagKeyword,
-    required int likeCount,
-    required List<String> likeUserId,
+    required List<String> likeUserKey,
+    required int commentCount,
     required List<String> imageUrl,
     required List<CourseSpot> spot,
     required ProfileModel userProfile,
@@ -38,8 +38,8 @@ class CourseModel with _$CourseModel {
     map["createdAt"] = createdAt;
     map["updatedAt"] = updatedAt;
     map["tagKeyword"] = tagKeyword;
-    map["likeCount"] = likeCount;
-    map["likeUserId"] = likeUserId;
+    map["likeUserKey"] = likeUserKey;
+    map["commentCount"] = commentCount;
     map["imageUrl"] = imageUrl;
     map["spot"] = spot.map((e) => e.toFireStore()).toList();
     map["userProfile"] = userProfile.toFireStore();
@@ -53,15 +53,11 @@ class CourseModel with _$CourseModel {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       tagKeyword: [],
-      likeCount: 0,
-      likeUserId: [],
+      likeUserKey: [],
+      commentCount: 0,
       imageUrl: [],
       spot: [],
-      userProfile: const ProfileModel(
-          socialProfileUrl: "",
-          localProfileUrl: "",
-          isSocialImage: false,
-          nickName: ""));
+      userProfile: ProfileModel.empty());
 }
 
 @freezed

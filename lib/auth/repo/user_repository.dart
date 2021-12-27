@@ -23,6 +23,14 @@ class AuthRepository {
     return null;
   }
 
+  Future<List<UserModel>> getAllUserProfile() async {
+    final CollectionReference<Map<String, dynamic>> _courseRef =
+        _firestore.collection(collectionUser);
+    final _snap = await _courseRef.get();
+    final _result = _snap.docs.map((e) => UserModel.fromFireStore(e)).toList();
+    return _result;
+  }
+
   Future createUserProfile({
     required UserModel userModel,
     required String userKey,

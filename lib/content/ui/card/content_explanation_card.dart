@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter_drive/feed/content/provider/content_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
+import 'package:provider/provider.dart';
 
 Padding contentExplanationCard({
   required BuildContext context,
@@ -38,7 +38,7 @@ Padding contentExplanationCard({
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () => context
-                  .read<ContentProvider>()
+                  .read<FeedMainProvider>()
                   .isShowExplanation(index: index, value: true),
           ),
         ],

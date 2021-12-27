@@ -28,8 +28,8 @@ class _$CourseModelTearOff {
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt,
       required List<String> tagKeyword,
-      required int likeCount,
-      required List<String> likeUserId,
+      required List<String> likeUserKey,
+      required int commentCount,
       required List<String> imageUrl,
       required List<CourseSpot> spot,
       required ProfileModel userProfile}) {
@@ -40,8 +40,8 @@ class _$CourseModelTearOff {
       createdAt: createdAt,
       updatedAt: updatedAt,
       tagKeyword: tagKeyword,
-      likeCount: likeCount,
-      likeUserId: likeUserId,
+      likeUserKey: likeUserKey,
+      commentCount: commentCount,
       imageUrl: imageUrl,
       spot: spot,
       userProfile: userProfile,
@@ -66,8 +66,8 @@ mixin _$CourseModel {
   @TimestampConverter()
   DateTime get updatedAt => throw _privateConstructorUsedError;
   List<String> get tagKeyword => throw _privateConstructorUsedError;
-  int get likeCount => throw _privateConstructorUsedError;
-  List<String> get likeUserId => throw _privateConstructorUsedError;
+  List<String> get likeUserKey => throw _privateConstructorUsedError;
+  int get commentCount => throw _privateConstructorUsedError;
   List<String> get imageUrl => throw _privateConstructorUsedError;
   List<CourseSpot> get spot => throw _privateConstructorUsedError;
   ProfileModel get userProfile => throw _privateConstructorUsedError;
@@ -90,8 +90,8 @@ abstract class $CourseModelCopyWith<$Res> {
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt,
       List<String> tagKeyword,
-      int likeCount,
-      List<String> likeUserId,
+      List<String> likeUserKey,
+      int commentCount,
       List<String> imageUrl,
       List<CourseSpot> spot,
       ProfileModel userProfile});
@@ -115,8 +115,8 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? tagKeyword = freezed,
-    Object? likeCount = freezed,
-    Object? likeUserId = freezed,
+    Object? likeUserKey = freezed,
+    Object? commentCount = freezed,
     Object? imageUrl = freezed,
     Object? spot = freezed,
     Object? userProfile = freezed,
@@ -146,14 +146,14 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
           ? _value.tagKeyword
           : tagKeyword // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      likeCount: likeCount == freezed
-          ? _value.likeCount
-          : likeCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      likeUserId: likeUserId == freezed
-          ? _value.likeUserId
-          : likeUserId // ignore: cast_nullable_to_non_nullable
+      likeUserKey: likeUserKey == freezed
+          ? _value.likeUserKey
+          : likeUserKey // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      commentCount: commentCount == freezed
+          ? _value.commentCount
+          : commentCount // ignore: cast_nullable_to_non_nullable
+              as int,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -191,8 +191,8 @@ abstract class _$CourseModelCopyWith<$Res>
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt,
       List<String> tagKeyword,
-      int likeCount,
-      List<String> likeUserId,
+      List<String> likeUserKey,
+      int commentCount,
       List<String> imageUrl,
       List<CourseSpot> spot,
       ProfileModel userProfile});
@@ -219,8 +219,8 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? tagKeyword = freezed,
-    Object? likeCount = freezed,
-    Object? likeUserId = freezed,
+    Object? likeUserKey = freezed,
+    Object? commentCount = freezed,
     Object? imageUrl = freezed,
     Object? spot = freezed,
     Object? userProfile = freezed,
@@ -250,14 +250,14 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
           ? _value.tagKeyword
           : tagKeyword // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      likeCount: likeCount == freezed
-          ? _value.likeCount
-          : likeCount // ignore: cast_nullable_to_non_nullable
-              as int,
-      likeUserId: likeUserId == freezed
-          ? _value.likeUserId
-          : likeUserId // ignore: cast_nullable_to_non_nullable
+      likeUserKey: likeUserKey == freezed
+          ? _value.likeUserKey
+          : likeUserKey // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      commentCount: commentCount == freezed
+          ? _value.commentCount
+          : commentCount // ignore: cast_nullable_to_non_nullable
+              as int,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -284,8 +284,8 @@ class _$_CourseModel extends _CourseModel {
       @TimestampConverter() required this.createdAt,
       @TimestampConverter() required this.updatedAt,
       required this.tagKeyword,
-      required this.likeCount,
-      required this.likeUserId,
+      required this.likeUserKey,
+      required this.commentCount,
       required this.imageUrl,
       required this.spot,
       required this.userProfile})
@@ -309,9 +309,9 @@ class _$_CourseModel extends _CourseModel {
   @override
   final List<String> tagKeyword;
   @override
-  final int likeCount;
+  final List<String> likeUserKey;
   @override
-  final List<String> likeUserId;
+  final int commentCount;
   @override
   final List<String> imageUrl;
   @override
@@ -321,7 +321,7 @@ class _$_CourseModel extends _CourseModel {
 
   @override
   String toString() {
-    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createdAt: $createdAt, updatedAt: $updatedAt, tagKeyword: $tagKeyword, likeCount: $likeCount, likeUserId: $likeUserId, imageUrl: $imageUrl, spot: $spot, userProfile: $userProfile)';
+    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createdAt: $createdAt, updatedAt: $updatedAt, tagKeyword: $tagKeyword, likeUserKey: $likeUserKey, commentCount: $commentCount, imageUrl: $imageUrl, spot: $spot, userProfile: $userProfile)';
   }
 
   @override
@@ -337,9 +337,10 @@ class _$_CourseModel extends _CourseModel {
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
             const DeepCollectionEquality()
                 .equals(other.tagKeyword, tagKeyword) &&
-            const DeepCollectionEquality().equals(other.likeCount, likeCount) &&
             const DeepCollectionEquality()
-                .equals(other.likeUserId, likeUserId) &&
+                .equals(other.likeUserKey, likeUserKey) &&
+            const DeepCollectionEquality()
+                .equals(other.commentCount, commentCount) &&
             const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
             const DeepCollectionEquality().equals(other.spot, spot) &&
             const DeepCollectionEquality()
@@ -355,8 +356,8 @@ class _$_CourseModel extends _CourseModel {
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(updatedAt),
       const DeepCollectionEquality().hash(tagKeyword),
-      const DeepCollectionEquality().hash(likeCount),
-      const DeepCollectionEquality().hash(likeUserId),
+      const DeepCollectionEquality().hash(likeUserKey),
+      const DeepCollectionEquality().hash(commentCount),
       const DeepCollectionEquality().hash(imageUrl),
       const DeepCollectionEquality().hash(spot),
       const DeepCollectionEquality().hash(userProfile));
@@ -380,8 +381,8 @@ abstract class _CourseModel extends CourseModel {
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt,
       required List<String> tagKeyword,
-      required int likeCount,
-      required List<String> likeUserId,
+      required List<String> likeUserKey,
+      required int commentCount,
       required List<String> imageUrl,
       required List<CourseSpot> spot,
       required ProfileModel userProfile}) = _$_CourseModel;
@@ -405,9 +406,9 @@ abstract class _CourseModel extends CourseModel {
   @override
   List<String> get tagKeyword;
   @override
-  int get likeCount;
+  List<String> get likeUserKey;
   @override
-  List<String> get likeUserId;
+  int get commentCount;
   @override
   List<String> get imageUrl;
   @override

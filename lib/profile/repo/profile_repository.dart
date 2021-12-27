@@ -21,7 +21,7 @@ class ProfileRepository {
     return _usersNickName.contains(nickName);
   }
 
-  Future userPofileUpdate({
+  Future<bool> userPofileUpdate({
     required ProfileModel userProfile,
     required String userKey,
   }) async {
@@ -29,26 +29,30 @@ class ProfileRepository {
         _firestore.collection(collectionUser).doc(userKey);
     final CollectionReference<Map<String, dynamic>> _courseReference =
         _firestore.collection(collectionCourse);
-
-    await _courseReference
-        .where('userKey', isEqualTo: userKey)
-        .get()
-        .then((snapshot) {
-      for (final element in snapshot.docs) {
-        FirebaseFirestore.instance
-            .collection(collectionCourse)
-            .doc(element.id)
-            .update({
-          "userProfile": userProfile.toFireStore(),
-        });
-      }
-    });
-    await _userReference.update({
-      "socialProfileUrl": userProfile.socialProfileUrl,
-      "localProfileUrl": userProfile.localProfileUrl,
-      "nickName": userProfile.nickName,
-      "isSocialImage": userProfile.isSocialImage,
-      "updatedAt": DateTime.now(),
-    });
+    try {
+      await _courseReference
+          .where('userKey', isEqualTo: userKey)
+          .get()
+          .then((snapshot) async {
+        for (final element in snapshot.docs) {
+          await FirebaseFirestore.instance
+              .collection(collectionCourse)
+              .doc(element.id)
+              .update({
+            "userProfile": userProfile.toFireStore(),
+          });
+        }
+      });
+      await _userReference.update({
+        "socialProfileUrl": userProfile.socialProfileUrl,
+        "localProfileUrl": userProfile.localProfileUrl,
+        "nickName": userProfile.nickName,
+        "isSocialImage": userProfile.isSocialImage,
+        "updatedAt": DateTime.now(),
+      });
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 }

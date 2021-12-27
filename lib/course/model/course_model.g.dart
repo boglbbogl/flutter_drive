@@ -18,10 +18,10 @@ _$_CourseModel _$$_CourseModelFromJson(Map<String, dynamic> json) =>
       tagKeyword: (json['tagKeyword'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      likeCount: json['likeCount'] as int,
-      likeUserId: (json['likeUserId'] as List<dynamic>)
+      likeUserKey: (json['likeUserKey'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      commentCount: json['commentCount'] as int,
       imageUrl:
           (json['imageUrl'] as List<dynamic>).map((e) => e as String).toList(),
       spot: (json['spot'] as List<dynamic>)
@@ -39,8 +39,8 @@ Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
       'tagKeyword': instance.tagKeyword,
-      'likeCount': instance.likeCount,
-      'likeUserId': instance.likeUserId,
+      'likeUserKey': instance.likeUserKey,
+      'commentCount': instance.commentCount,
       'imageUrl': instance.imageUrl,
       'spot': instance.spot,
       'userProfile': instance.userProfile,
