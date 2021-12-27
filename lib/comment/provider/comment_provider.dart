@@ -12,6 +12,8 @@ class CommentProvider extends ChangeNotifier {
   List<CommentModel> _commentList = [];
   final CommentModel _comment = CommentModel.empty();
   String _commentText = "";
+  bool _isShowBottom = false;
+  String _commentDocKey = "";
   CommentProvider(List<UserModel> allUser) {
     _getUserProfile(allUser: allUser);
   }
@@ -34,6 +36,18 @@ class CommentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future removeComment({
+    required String docKey,
+  }) async {
+    if (_commentDocKey.isEmpty) {
+      //show SnackBar
+    } else {
+      await _commentRepository.removeComment(
+          docKey: docKey, commentDocKey: _commentDocKey);
+    }
+    notifyListeners();
+  }
+
   Future createComment({
     required String docKey,
     required UserModel userModel,
@@ -49,6 +63,15 @@ class CommentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void showCommentSettingBottom({
+    required bool value,
+    required String commentDocKey,
+  }) {
+    _isShowBottom = value;
+    _commentDocKey = commentDocKey;
+    notifyListeners();
+  }
+
   void getCommentText({
     required String value,
   }) {
@@ -59,4 +82,5 @@ class CommentProvider extends ChangeNotifier {
   CommentModel? get comment => _comment;
   List<CommentModel> get commentList => _commentList;
   List<UserModel> get allUserProfile => _allUserProfile;
+  bool get isShowBottom => _isShowBottom;
 }

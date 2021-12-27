@@ -9,6 +9,7 @@ part 'comment_model.g.dart';
 class CommentModel with _$CommentModel {
   const factory CommentModel({
     required String userKey,
+    required String docKey,
     required String comment,
     @TimestampConverter() required DateTime createdAt,
     @TimestampConverter() required DateTime updatedAt,
@@ -24,6 +25,7 @@ class CommentModel with _$CommentModel {
   Map<String, dynamic> toFireStore() {
     final map = <String, dynamic>{};
     map["userKey"] = userKey;
+    map["docKey"] = docKey;
     map["comment"] = comment;
     map["createdAt"] = createdAt;
     map["updatedAt"] = updatedAt;
@@ -32,6 +34,7 @@ class CommentModel with _$CommentModel {
 
   factory CommentModel.empty() => CommentModel(
         userKey: "",
+        docKey: "",
         comment: "",
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),

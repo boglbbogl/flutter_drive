@@ -23,11 +23,13 @@ class _$CommentModelTearOff {
 
   _CommentModel call(
       {required String userKey,
+      required String docKey,
       required String comment,
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt}) {
     return _CommentModel(
       userKey: userKey,
+      docKey: docKey,
       comment: comment,
       createdAt: createdAt,
       updatedAt: updatedAt,
@@ -45,6 +47,7 @@ const $CommentModel = _$CommentModelTearOff();
 /// @nodoc
 mixin _$CommentModel {
   String get userKey => throw _privateConstructorUsedError;
+  String get docKey => throw _privateConstructorUsedError;
   String get comment => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -64,6 +67,7 @@ abstract class $CommentModelCopyWith<$Res> {
       _$CommentModelCopyWithImpl<$Res>;
   $Res call(
       {String userKey,
+      String docKey,
       String comment,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt});
@@ -80,6 +84,7 @@ class _$CommentModelCopyWithImpl<$Res> implements $CommentModelCopyWith<$Res> {
   @override
   $Res call({
     Object? userKey = freezed,
+    Object? docKey = freezed,
     Object? comment = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -88,6 +93,10 @@ class _$CommentModelCopyWithImpl<$Res> implements $CommentModelCopyWith<$Res> {
       userKey: userKey == freezed
           ? _value.userKey
           : userKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      docKey: docKey == freezed
+          ? _value.docKey
+          : docKey // ignore: cast_nullable_to_non_nullable
               as String,
       comment: comment == freezed
           ? _value.comment
@@ -114,6 +123,7 @@ abstract class _$CommentModelCopyWith<$Res>
   @override
   $Res call(
       {String userKey,
+      String docKey,
       String comment,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt});
@@ -132,6 +142,7 @@ class __$CommentModelCopyWithImpl<$Res> extends _$CommentModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? userKey = freezed,
+    Object? docKey = freezed,
     Object? comment = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -140,6 +151,10 @@ class __$CommentModelCopyWithImpl<$Res> extends _$CommentModelCopyWithImpl<$Res>
       userKey: userKey == freezed
           ? _value.userKey
           : userKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      docKey: docKey == freezed
+          ? _value.docKey
+          : docKey // ignore: cast_nullable_to_non_nullable
               as String,
       comment: comment == freezed
           ? _value.comment
@@ -162,6 +177,7 @@ class __$CommentModelCopyWithImpl<$Res> extends _$CommentModelCopyWithImpl<$Res>
 class _$_CommentModel extends _CommentModel {
   const _$_CommentModel(
       {required this.userKey,
+      required this.docKey,
       required this.comment,
       @TimestampConverter() required this.createdAt,
       @TimestampConverter() required this.updatedAt})
@@ -173,6 +189,8 @@ class _$_CommentModel extends _CommentModel {
   @override
   final String userKey;
   @override
+  final String docKey;
+  @override
   final String comment;
   @override
   @TimestampConverter()
@@ -183,7 +201,7 @@ class _$_CommentModel extends _CommentModel {
 
   @override
   String toString() {
-    return 'CommentModel(userKey: $userKey, comment: $comment, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'CommentModel(userKey: $userKey, docKey: $docKey, comment: $comment, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -192,6 +210,7 @@ class _$_CommentModel extends _CommentModel {
         (other.runtimeType == runtimeType &&
             other is _CommentModel &&
             const DeepCollectionEquality().equals(other.userKey, userKey) &&
+            const DeepCollectionEquality().equals(other.docKey, docKey) &&
             const DeepCollectionEquality().equals(other.comment, comment) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
@@ -201,6 +220,7 @@ class _$_CommentModel extends _CommentModel {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(userKey),
+      const DeepCollectionEquality().hash(docKey),
       const DeepCollectionEquality().hash(comment),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(updatedAt));
@@ -219,6 +239,7 @@ class _$_CommentModel extends _CommentModel {
 abstract class _CommentModel extends CommentModel {
   const factory _CommentModel(
       {required String userKey,
+      required String docKey,
       required String comment,
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt}) = _$_CommentModel;
@@ -229,6 +250,8 @@ abstract class _CommentModel extends CommentModel {
 
   @override
   String get userKey;
+  @override
+  String get docKey;
   @override
   String get comment;
   @override

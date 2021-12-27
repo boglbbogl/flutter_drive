@@ -38,11 +38,34 @@ class CommentRepository {
     final _commentCountRef =
         _firestore.collection(collectionCourse).doc(docKey);
     final DocumentSnapshot _documentSnapshot = await _commentRef.get();
+    final _toWrite = commentModel.copyWith(docKey: _documentSnapshot.id);
     final _batch = _firestore.batch();
     if (!_documentSnapshot.exists) {
-      _batch.set(_commentRef, commentModel.toFireStore());
+      _batch.set(_commentRef, _toWrite.toFireStore());
       _batch.update(_commentCountRef, {
         "commentCount": FieldValue.increment(1),
+      });
+      await _batch.commit();
+    }
+  }
+
+  Future removeComment({
+    required String docKey,
+    required String commentDocKey,
+  }) async {
+    final DocumentReference<Map<String, dynamic>> _commentRef = _firestore
+        .collection(collectionCourse)
+        .doc(docKey)
+        .collection(collectionComment)
+        .doc(commentDocKey);
+    final _commentCountRef =
+        _firestore.collection(collectionCourse).doc(docKey);
+    final DocumentSnapshot _documentSnapshot = await _commentRef.get();
+    final _batch = _firestore.batch();
+    if (_documentSnapshot.exists) {
+      _batch.delete(_commentRef);
+      _batch.update(_commentCountRef, {
+        "commentCount": FieldValue.increment(-1),
       });
       await _batch.commit();
     }
