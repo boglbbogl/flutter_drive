@@ -52,6 +52,11 @@ class ContentMainCard extends StatelessWidget {
                   child: Column(
                     children: [
                       contentUserInfoCard(
+                        course: courseList[index],
+                        isMe: courseList[index].userKey.contains(
+                            context.read<AuthProvider>().user!.userKey),
+                        docKey: courseList[index].docKey,
+                        context: context,
                         userOnTap: () {
                           context.read<FeedUserProvider>().getUserCourse(
                               userKey: courseList[index].userKey);
@@ -106,23 +111,19 @@ class ContentMainCard extends StatelessWidget {
                           isLike: courseList[index].likeUserKey.contains(
                               context.read<AuthProvider>().user!.userKey),
                           likeOnTap: () {
-                            if (!context.read<ContentProvider>().clickLiked) {
-                              context
-                                  .read<ContentProvider>()
-                                  .incrementAndDecrement(
-                                      isLike:
-                                          courseList[index]
-                                              .likeUserKey
-                                              .contains(
-                                                  context
-                                                      .read<AuthProvider>()
-                                                      .user!
-                                                      .userKey),
-                                      docKey: courseList[index].docKey,
-                                      userKey: context
+                            if (!context.read<ContentProvider>().isClickLiked) {
+                              context.read<ContentProvider>().addAndRemove(
+                                  isLike: courseList[index]
+                                      .likeUserKey
+                                      .contains(context
                                           .read<AuthProvider>()
                                           .user!
-                                          .userKey);
+                                          .userKey),
+                                  docKey: courseList[index].docKey,
+                                  userKey: context
+                                      .read<AuthProvider>()
+                                      .user!
+                                      .userKey);
                             }
                           },
                           commentOnTap: () async {

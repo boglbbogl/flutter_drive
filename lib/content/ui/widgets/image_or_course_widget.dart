@@ -98,6 +98,14 @@ Stack contentImageWidget({
                   child: CachedNetworkImage(
                     imageUrl: image,
                     fit: BoxFit.cover,
+                    placeholder: (context, url) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 15),
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: appMainColor,
+                      ),
+                    ),
                   ),
                 ),
               )

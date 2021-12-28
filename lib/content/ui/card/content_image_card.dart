@@ -21,6 +21,14 @@ class ContentImageCard extends StatelessWidget {
           child: CachedNetworkImage(
             imageUrl: imageUrl[itemIndex],
             fit: BoxFit.cover,
+            placeholder: (context, url) => Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 185, horizontal: 180),
+              child: CircularProgressIndicator(
+                strokeWidth: 5,
+                color: appMainColor,
+              ),
+            ),
           ),
         );
       },

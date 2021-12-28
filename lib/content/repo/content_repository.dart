@@ -8,7 +8,26 @@ class ContentRepository {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future incrementLike({
+  Future contentFeedDelete({
+    required String docKey,
+  }) async {
+    final DocumentReference<Map<String, dynamic>> _courseRef =
+        _firestore.collection(collectionCourse).doc(docKey);
+    await _courseRef.delete();
+  }
+
+  Future contentFeedUpdate({
+    required String docKey,
+    required String explanation,
+  }) async {
+    final DocumentReference<Map<String, dynamic>> _courseRef =
+        _firestore.collection(collectionCourse).doc(docKey);
+    await _courseRef.update(
+      {"explanation": explanation},
+    );
+  }
+
+  Future addLike({
     required String docKey,
     required String userKey,
   }) async {
@@ -26,7 +45,7 @@ class ContentRepository {
     await _batch.commit();
   }
 
-  Future decrementLike({
+  Future removeLike({
     required String docKey,
     required String userKey,
   }) async {
