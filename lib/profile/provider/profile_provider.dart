@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/image/repo/images_repository.dart';
 import 'package:flutter_drive/profile/model/profile_model.dart';
 import 'package:flutter_drive/profile/repo/profile_repository.dart';
@@ -17,14 +18,16 @@ class ProfileProvider extends ChangeNotifier {
   bool _isImageSelectLoading = false;
   String _nickName = "";
   String _localImageUrl = "";
+  bool _updateSuccessOrFailure = false;
 
   Future<void> started({
     required bool isSocialImage,
   }) async {
     _isSocialImage = isSocialImage;
+    _updateSuccessOrFailure = false;
   }
 
-  Future<void> userProfileUpdate({
+  Future userProfileUpdate({
     required String socialProfileUrl,
     required String localProfileUrl,
     required String nickName,
@@ -46,6 +49,8 @@ class ProfileProvider extends ChangeNotifier {
       userKey: userKey,
     );
     _isLoading = false;
+    logger.e('success');
+    _updateSuccessOrFailure = true;
     notifyListeners();
   }
 
@@ -100,4 +105,5 @@ class ProfileProvider extends ChangeNotifier {
   String get localImageUrl => _localImageUrl;
   bool? get isSocialImage => _isSocialImage;
   Uint8List? get pickedImage => _pickedImage;
+  bool get updateSuccessOrFailure => _updateSuccessOrFailure;
 }

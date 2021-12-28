@@ -21,6 +21,8 @@ class AppTheme {
           )),
       textTheme: const TextTheme(
           bodyText2: TextStyle(color: Colors.white, fontSize: 14)),
+      dividerTheme:
+          const DividerThemeData(color: Color.fromRGBO(115, 115, 115, 1)),
       appBarTheme: AppBarTheme(
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),

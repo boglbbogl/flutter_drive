@@ -4,6 +4,7 @@ import 'package:flutter_drive/content/repo/content_repository.dart';
 class ContentProvider extends ChangeNotifier {
   final ContentRepository _contentRepository = ContentRepository();
   bool _clickLiked = false;
+
   Future incrementAndDecrement({
     required String docKey,
     required String userKey,

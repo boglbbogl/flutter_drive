@@ -23,7 +23,7 @@ Positioned commentSettingWidget({
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _textButtonItem(
+          textButtonItem(
               title: '댓글 지우기',
               titleColor: appSubColor,
               onTap: () {
@@ -32,7 +32,7 @@ Positioned commentSettingWidget({
                   ..showCommentSettingBottom(value: false, commentDocKey: "");
               }),
           const SizedBox(height: 10),
-          _textButtonItem(
+          textButtonItem(
               title: '닫기',
               titleColor: Colors.white,
               onTap: () {
@@ -46,7 +46,7 @@ Positioned commentSettingWidget({
   );
 }
 
-Container _textButtonItem({
+Container textButtonItem({
   required String title,
   required Color titleColor,
   required Function() onTap,

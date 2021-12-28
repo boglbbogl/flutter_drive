@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
+import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:provider/provider.dart';
 
 Stack contentCourseWidget({
@@ -9,6 +10,7 @@ Stack contentCourseWidget({
   required String startPlaceName,
   required String endPlaceName,
   required int index,
+  required bool isDetail,
 }) {
   return Stack(
     children: [
@@ -49,11 +51,18 @@ Stack contentCourseWidget({
       _changedButtonForm(
           // onTap: () {},
           widget: TextButton(
-              onPressed: () =>
-                  context.read<FeedMainProvider>().isShowImageOrCourseSpot(
+              onPressed: () {
+                if (isDetail) {
+                  context.read<FeedUserProvider>().isShowImageOrCourseSpot(
                         index: index,
                         value: false,
-                      ),
+                      );
+                }
+                context.read<FeedMainProvider>().isShowImageOrCourseSpot(
+                      index: index,
+                      value: false,
+                    );
+              },
               child: Text(
                 '경로보기',
                 style: theme.textTheme.bodyText2!
@@ -67,6 +76,7 @@ Stack contentImageWidget({
   required BuildContext context,
   required List<String> imageUrls,
   required int index,
+  required bool isDetail,
 }) {
   return Stack(
     children: [
@@ -96,10 +106,18 @@ Stack contentImageWidget({
         ),
       ),
       _changedButtonForm(
-        onTap: () => context.read<FeedMainProvider>().isShowImageOrCourseSpot(
-              index: index,
-              value: true,
-            ),
+        onTap: () {
+          if (isDetail) {
+            context.read<FeedUserProvider>().isShowImageOrCourseSpot(
+                  index: index,
+                  value: true,
+                );
+          }
+          context.read<FeedMainProvider>().isShowImageOrCourseSpot(
+                index: index,
+                value: true,
+              );
+        },
         widget: Icon(
           Icons.double_arrow_rounded,
           color: appMainColor,

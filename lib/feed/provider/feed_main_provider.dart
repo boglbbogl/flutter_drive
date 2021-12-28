@@ -7,12 +7,19 @@ class FeedMainProvider extends ChangeNotifier {
   final FeedRepostiory _feedRepostiory = FeedRepostiory();
   StreamSubscription<List<CourseModel>?>? _courseStreamSubscription;
   List<CourseModel> _courseList = [];
-  int _imageOrCouseSpotIndex = 0;
+  int _imageOrCouseSpotIndex = -1;
   bool _isImageOrCouseSpot = false;
   int _explanationIndex = -1;
 
   FeedMainProvider() {
     _courseStream();
+  }
+
+  void initialization() {
+    _explanationIndex = -1;
+    _isImageOrCouseSpot = false;
+    _imageOrCouseSpotIndex = -1;
+    notifyListeners();
   }
 
   Future _courseStream() async {

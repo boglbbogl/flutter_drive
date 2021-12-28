@@ -7,14 +7,33 @@ class FeedUserProvider extends ChangeNotifier {
   final FeedRepostiory _feedRepostiory = FeedRepostiory();
   List<CourseModel> _courseList = [];
   UserModel? _userProfile;
-  int _imageOrCouseSpotIndex = 0;
+  int _imageOrCouseSpotIndex = -1;
   bool _isImageOrCouseSpot = false;
   int _explanationIndex = -1;
+  bool _isDetail = false;
+  bool _isLoading = false;
+
+  void initialization() {
+    _isDetail = true;
+    _explanationIndex = -1;
+    _isImageOrCouseSpot = false;
+    _imageOrCouseSpotIndex = -1;
+    _isLoading = false;
+    notifyListeners();
+  }
+
   Future getUserCourse({
     required String userKey,
   }) async {
+    _isLoading = true;
+    notifyListeners();
     _courseList = await _feedRepostiory.getFeedUserCourse(userKey: userKey);
     _userProfile = await _feedRepostiory.getFeedUserProfile(userKey: userKey);
+    _isDetail = true;
+    _explanationIndex = -1;
+    _isImageOrCouseSpot = false;
+    _imageOrCouseSpotIndex = -1;
+    _isLoading = false;
     notifyListeners();
   }
 
@@ -40,4 +59,6 @@ class FeedUserProvider extends ChangeNotifier {
   int get imageOrCouseSpotIndex => _imageOrCouseSpotIndex;
   bool get isImageOrCouseSpot => _isImageOrCouseSpot;
   int get explanationIndex => _explanationIndex;
+  bool get isDetail => _isDetail;
+  bool get isLoading => _isLoading;
 }

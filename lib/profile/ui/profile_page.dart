@@ -44,6 +44,8 @@ class ProfilePage extends StatelessWidget {
                     nickName: _user.nickName,
                     userKey: _user.userKey,
                   );
+                }
+                if (context.read<ProfileProvider>().updateSuccessOrFailure) {
                   Phoenix.rebirth(context);
                 }
               },

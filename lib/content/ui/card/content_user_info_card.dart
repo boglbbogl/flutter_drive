@@ -5,7 +5,7 @@ import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
 Padding contentUserInfoCard({
   required String imageUrl,
   required String nickName,
-  required Function() onTap,
+  required Function() userOnTap,
 }) {
   return Padding(
     padding: const EdgeInsets.only(left: 8, top: 7, bottom: 3),
@@ -13,7 +13,7 @@ Padding contentUserInfoCard({
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         InkWell(
-          onTap: onTap,
+          onTap: userOnTap,
           child: Row(
             children: [
               userCircleImageWidget(imageUrl: imageUrl),
@@ -26,12 +26,12 @@ Padding contentUserInfoCard({
           ),
         ),
         IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.more_horiz_outlined,
-              color: Colors.white,
-              size: 30,
-            )),
+          onPressed: () {},
+          icon: const Icon(
+            Icons.more_vert_rounded,
+            color: Colors.white,
+          ),
+        )
       ],
     ),
   );
