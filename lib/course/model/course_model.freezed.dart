@@ -29,6 +29,7 @@ class _$CourseModelTearOff {
       @TimestampConverter() required DateTime updatedAt,
       required List<String> tagKeyword,
       required List<String> likeUserKey,
+      required List<String> bookmarkUserKey,
       required int commentCount,
       required List<String> imageUrl,
       required List<CourseSpot> spot,
@@ -41,6 +42,7 @@ class _$CourseModelTearOff {
       updatedAt: updatedAt,
       tagKeyword: tagKeyword,
       likeUserKey: likeUserKey,
+      bookmarkUserKey: bookmarkUserKey,
       commentCount: commentCount,
       imageUrl: imageUrl,
       spot: spot,
@@ -67,6 +69,7 @@ mixin _$CourseModel {
   DateTime get updatedAt => throw _privateConstructorUsedError;
   List<String> get tagKeyword => throw _privateConstructorUsedError;
   List<String> get likeUserKey => throw _privateConstructorUsedError;
+  List<String> get bookmarkUserKey => throw _privateConstructorUsedError;
   int get commentCount => throw _privateConstructorUsedError;
   List<String> get imageUrl => throw _privateConstructorUsedError;
   List<CourseSpot> get spot => throw _privateConstructorUsedError;
@@ -91,6 +94,7 @@ abstract class $CourseModelCopyWith<$Res> {
       @TimestampConverter() DateTime updatedAt,
       List<String> tagKeyword,
       List<String> likeUserKey,
+      List<String> bookmarkUserKey,
       int commentCount,
       List<String> imageUrl,
       List<CourseSpot> spot,
@@ -116,6 +120,7 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? updatedAt = freezed,
     Object? tagKeyword = freezed,
     Object? likeUserKey = freezed,
+    Object? bookmarkUserKey = freezed,
     Object? commentCount = freezed,
     Object? imageUrl = freezed,
     Object? spot = freezed,
@@ -149,6 +154,10 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
       likeUserKey: likeUserKey == freezed
           ? _value.likeUserKey
           : likeUserKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      bookmarkUserKey: bookmarkUserKey == freezed
+          ? _value.bookmarkUserKey
+          : bookmarkUserKey // ignore: cast_nullable_to_non_nullable
               as List<String>,
       commentCount: commentCount == freezed
           ? _value.commentCount
@@ -192,6 +201,7 @@ abstract class _$CourseModelCopyWith<$Res>
       @TimestampConverter() DateTime updatedAt,
       List<String> tagKeyword,
       List<String> likeUserKey,
+      List<String> bookmarkUserKey,
       int commentCount,
       List<String> imageUrl,
       List<CourseSpot> spot,
@@ -220,6 +230,7 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
     Object? updatedAt = freezed,
     Object? tagKeyword = freezed,
     Object? likeUserKey = freezed,
+    Object? bookmarkUserKey = freezed,
     Object? commentCount = freezed,
     Object? imageUrl = freezed,
     Object? spot = freezed,
@@ -254,6 +265,10 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
           ? _value.likeUserKey
           : likeUserKey // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      bookmarkUserKey: bookmarkUserKey == freezed
+          ? _value.bookmarkUserKey
+          : bookmarkUserKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       commentCount: commentCount == freezed
           ? _value.commentCount
           : commentCount // ignore: cast_nullable_to_non_nullable
@@ -285,6 +300,7 @@ class _$_CourseModel extends _CourseModel {
       @TimestampConverter() required this.updatedAt,
       required this.tagKeyword,
       required this.likeUserKey,
+      required this.bookmarkUserKey,
       required this.commentCount,
       required this.imageUrl,
       required this.spot,
@@ -311,6 +327,8 @@ class _$_CourseModel extends _CourseModel {
   @override
   final List<String> likeUserKey;
   @override
+  final List<String> bookmarkUserKey;
+  @override
   final int commentCount;
   @override
   final List<String> imageUrl;
@@ -321,7 +339,7 @@ class _$_CourseModel extends _CourseModel {
 
   @override
   String toString() {
-    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createdAt: $createdAt, updatedAt: $updatedAt, tagKeyword: $tagKeyword, likeUserKey: $likeUserKey, commentCount: $commentCount, imageUrl: $imageUrl, spot: $spot, userProfile: $userProfile)';
+    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createdAt: $createdAt, updatedAt: $updatedAt, tagKeyword: $tagKeyword, likeUserKey: $likeUserKey, bookmarkUserKey: $bookmarkUserKey, commentCount: $commentCount, imageUrl: $imageUrl, spot: $spot, userProfile: $userProfile)';
   }
 
   @override
@@ -340,6 +358,8 @@ class _$_CourseModel extends _CourseModel {
             const DeepCollectionEquality()
                 .equals(other.likeUserKey, likeUserKey) &&
             const DeepCollectionEquality()
+                .equals(other.bookmarkUserKey, bookmarkUserKey) &&
+            const DeepCollectionEquality()
                 .equals(other.commentCount, commentCount) &&
             const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
             const DeepCollectionEquality().equals(other.spot, spot) &&
@@ -357,6 +377,7 @@ class _$_CourseModel extends _CourseModel {
       const DeepCollectionEquality().hash(updatedAt),
       const DeepCollectionEquality().hash(tagKeyword),
       const DeepCollectionEquality().hash(likeUserKey),
+      const DeepCollectionEquality().hash(bookmarkUserKey),
       const DeepCollectionEquality().hash(commentCount),
       const DeepCollectionEquality().hash(imageUrl),
       const DeepCollectionEquality().hash(spot),
@@ -382,6 +403,7 @@ abstract class _CourseModel extends CourseModel {
       @TimestampConverter() required DateTime updatedAt,
       required List<String> tagKeyword,
       required List<String> likeUserKey,
+      required List<String> bookmarkUserKey,
       required int commentCount,
       required List<String> imageUrl,
       required List<CourseSpot> spot,
@@ -407,6 +429,8 @@ abstract class _CourseModel extends CourseModel {
   List<String> get tagKeyword;
   @override
   List<String> get likeUserKey;
+  @override
+  List<String> get bookmarkUserKey;
   @override
   int get commentCount;
   @override

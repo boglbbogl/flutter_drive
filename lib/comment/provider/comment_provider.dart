@@ -17,6 +17,9 @@ class CommentProvider extends ChangeNotifier {
   CommentProvider(List<UserModel> allUser) {
     _getUserProfile(allUser: allUser);
   }
+  void commentProviderDispose() {
+    _courseStreamSubscription?.cancel();
+  }
 
   Future getComment({
     required String docKey,

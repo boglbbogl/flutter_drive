@@ -29,27 +29,28 @@ class ProfileRepository {
         _firestore.collection(collectionUser).doc(userKey);
     final CollectionReference<Map<String, dynamic>> _courseReference =
         _firestore.collection(collectionCourse);
+    final _batch = _firestore.batch();
     try {
       await _courseReference
           .where('userKey', isEqualTo: userKey)
           .get()
           .then((snapshot) async {
         for (final element in snapshot.docs) {
-          await FirebaseFirestore.instance
-              .collection(collectionCourse)
-              .doc(element.id)
-              .update({
+          _batch
+              .update(_firestore.collection(collectionCourse).doc(element.id), {
             "userProfile": userProfile.toFireStore(),
           });
         }
       });
-      await _userReference.update({
+      _batch.update(_userReference, {
         "socialProfileUrl": userProfile.socialProfileUrl,
         "localProfileUrl": userProfile.localProfileUrl,
         "nickName": userProfile.nickName,
         "isSocialImage": userProfile.isSocialImage,
         "updatedAt": DateTime.now(),
       });
+      await _batch.commit();
+
       return true;
     } catch (error) {
       return false;

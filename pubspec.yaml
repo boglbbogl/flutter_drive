@@ -90,6 +90,9 @@ flutter:
     - family: NotoSansKR
       fonts:
         - asset: assets/fonts/NotoSansKR-Medium.otf
+    - family: DoHyeon
+      fonts:
+        - asset: assets/fonts/BMDOHYEON.otf
 
   #   - family: Trajan Pro
   #     fonts:

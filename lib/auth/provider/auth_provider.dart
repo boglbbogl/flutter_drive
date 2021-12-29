@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
+import 'package:flutter_drive/activity/activity_model.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/repo/user_repository.dart';
 import 'package:flutter_drive/profile/model/profile_model.dart';
@@ -104,6 +105,7 @@ class AuthProvider extends ChangeNotifier {
           updatedAt: DateTime.now(),
           provider: 'Google',
         ),
+        activityModel: ActivityModel.empty(),
         userKey: firebaseUser.uid,
       );
     } else if (kakaoUser != null) {
@@ -119,6 +121,7 @@ class AuthProvider extends ChangeNotifier {
           updatedAt: DateTime.now(),
           provider: 'Kakao',
         ),
+        activityModel: ActivityModel.empty(),
         userKey: kakaoUser.id.toString() + kakaoUser.kakaoAccount!.email!,
       );
     }

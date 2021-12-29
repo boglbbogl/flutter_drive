@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter_drive/content/provider/content_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/_constant/app_indicator.dart';
+import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:flutter_drive/content/provider/content_provider.dart';
 import 'package:flutter_drive/content/ui/card/content_image_card.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
+import 'package:provider/provider.dart';
 
 class ContentUpdatePage extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
@@ -22,31 +22,38 @@ class ContentUpdatePage extends StatelessWidget {
     _controller.text = course.explanation;
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Text(
-              course.spot.firstOrNull!.placeName,
-              style: theme.textTheme.bodyText2!.copyWith(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+        title: SizedBox(
+          width: size.width * 0.7,
+          child: Row(
+            children: [
+              Text(
+                course.spot.firstOrNull!.placeName.length > 10
+                    ? "${course.spot.firstOrNull!.placeName.substring(0, 10)}..."
+                    : course.spot.firstOrNull!.placeName,
+                style: theme.textTheme.bodyText2!.copyWith(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Container(
-                height: 2,
-                width: size.width * 0.05,
-                color: appMainColor,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: Container(
+                  height: 2,
+                  width: size.width * 0.02,
+                  color: appMainColor,
+                ),
               ),
-            ),
-            Text(
-              course.spot.lastOrNull!.placeName,
-              style: theme.textTheme.bodyText2!.copyWith(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
+              Text(
+                course.spot.lastOrNull!.placeName.length > 10
+                    ? "${course.spot.lastOrNull!.placeName.substring(0, 10)}..."
+                    : course.spot.lastOrNull!.placeName,
+                style: theme.textTheme.bodyText2!.copyWith(
+                  fontSize: 11,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         automaticallyImplyLeading: false,
         actions: [
@@ -61,14 +68,16 @@ class ContentUpdatePage extends StatelessWidget {
           else
             TextButton(
                 onPressed: () {
-                  context.read<ContentProvider>().contentFeedUpdate(isMe: isMe);
-                  Navigator.of(context).pop();
+                  FocusScope.of(context).unfocus();
+                  context
+                      .read<ContentProvider>()
+                      .contentFeedUpdate(isMe: isMe, context: context);
                 },
                 child: Text(
                   '수정하기',
                   style: theme.textTheme.bodyText2!.copyWith(
                     color: appSubColor,
-                    fontSize: 15,
+                    fontSize: 13,
                     fontWeight: FontWeight.bold,
                   ),
                 )),
@@ -84,7 +93,7 @@ class ContentUpdatePage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,6 +135,46 @@ class ContentUpdatePage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      if (context.read<ContentProvider>().isLoading)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 1),
+                              child: SizedBox(
+                                width: 14,
+                                height: 14,
+                                child: CircularProgressIndicator(
+                                  color: appMainColor,
+                                  strokeWidth: 3,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      else
+                        InkWell(
+                          onTap: () {
+                            context.read<ContentProvider>().contentFeedDelete(
+                                isMe: isMe,
+                                context: context,
+                                userKey:
+                                    context.read<AuthProvider>().user!.userKey);
+                          },
+                          child: Text(
+                            '삭제하기',
+                            textAlign: TextAlign.end,
+                            style: theme.textTheme.bodyText2!.copyWith(
+                                color: appMainColor,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      const SizedBox(height: 15),
+                      _userStateTextForm(
+                          title: course.createdAt.toString().substring(0, 10)),
+                      const SizedBox(height: 8),
                       _userStateTextForm(
                           title: '좋아요 ${course.likeUserKey.length} 개'),
                       _userStateTextForm(title: '댓글 ${course.commentCount} 개'),
@@ -161,7 +210,7 @@ class ContentUpdatePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 25, top: 8, bottom: 8),
+              padding: const EdgeInsets.only(left: 25, top: 8, bottom: 12),
               child: Row(
                 children: [
                   Icon(
@@ -181,9 +230,10 @@ class ContentUpdatePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 18),
               child: ContentImageCard(imageUrl: course.imageUrl),
             ),
+            const SizedBox(height: 12),
           ],
         ),
       ),

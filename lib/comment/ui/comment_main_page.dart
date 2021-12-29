@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/_constant/app_date_time.dart';
 import 'package:flutter_drive/_constant/app_indicator.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
@@ -43,7 +44,7 @@ class CommentMainPage extends StatelessWidget {
                         itemCount: provider.commentList.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(12.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -71,7 +72,7 @@ class CommentMainPage extends StatelessWidget {
                                                         .userKey)
                                                 .firstOrNull!
                                                 .localProfileUrl),
-                                    const SizedBox(width: 6),
+                                    const SizedBox(width: 12),
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -100,6 +101,30 @@ class CommentMainPage extends StatelessWidget {
                                                         fontSize: 9)),
                                           ])),
                                         ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5, top: 5),
+                                              child: Text(
+                                                appDateTime(
+                                                    dateTime: provider
+                                                        .commentList[index]
+                                                        .createdAt),
+                                                style: theme
+                                                    .textTheme.bodyText2!
+                                                    .copyWith(
+                                                        color: const Color
+                                                                .fromRGBO(
+                                                            155, 155, 155, 1),
+                                                        fontSize: 8),
+                                              ),
+                                            ),
+                                            Container(),
+                                          ],
+                                        )
                                       ],
                                     ),
                                   ],
@@ -164,7 +189,7 @@ class CommentMainPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               if (provider.isShowBottom) ...[

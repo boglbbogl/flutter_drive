@@ -50,10 +50,6 @@ Padding contentUserInfoCard({
                     ),
                     pageTransitionAnimation: PageTransitionAnimation.slideUp);
               },
-              deleteTap: () {
-                context.read<ContentProvider>().contentFeedDelete(isMe: isMe);
-                Navigator.of(context).pop();
-              },
             );
           },
           icon: const Icon(

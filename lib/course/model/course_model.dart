@@ -16,6 +16,7 @@ class CourseModel with _$CourseModel {
     @TimestampConverter() required DateTime updatedAt,
     required List<String> tagKeyword,
     required List<String> likeUserKey,
+    required List<String> bookmarkUserKey,
     required int commentCount,
     required List<String> imageUrl,
     required List<CourseSpot> spot,
@@ -39,6 +40,7 @@ class CourseModel with _$CourseModel {
     map["updatedAt"] = updatedAt;
     map["tagKeyword"] = tagKeyword;
     map["likeUserKey"] = likeUserKey;
+    map["bookmarkUserKey"] = bookmarkUserKey;
     map["commentCount"] = commentCount;
     map["imageUrl"] = imageUrl;
     map["spot"] = spot.map((e) => e.toFireStore()).toList();
@@ -54,6 +56,7 @@ class CourseModel with _$CourseModel {
       updatedAt: DateTime.now(),
       tagKeyword: [],
       likeUserKey: [],
+      bookmarkUserKey: [],
       commentCount: 0,
       imageUrl: [],
       spot: [],

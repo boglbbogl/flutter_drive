@@ -29,6 +29,7 @@ class AppTheme {
         backgroundColor: darkThemeMainColor,
         actionsIconTheme: const IconThemeData(color: Colors.white),
         titleTextStyle: const TextStyle(
+            // fontFamily: 'DoHyeon',
             color: materialWhiteColor,
             fontSize: 25,
             fontWeight: FontWeight.bold),

@@ -3,7 +3,6 @@ import 'package:flutter_drive/_constant/app_color.dart';
 
 Future<void> contentSettingWidget({
   required BuildContext context,
-  required Function() deleteTap,
   required Function() updateTap,
   required bool isMe,
 }) {
@@ -12,7 +11,7 @@ Future<void> contentSettingWidget({
     isScrollControlled: true,
     backgroundColor: materialBlackColor,
     builder: (context) => Container(
-        height: isMe ? size.height * 0.25 : size.height * 0.15,
+        height: size.height * 0.15,
         decoration: BoxDecoration(
           color: darkThemeMainColor,
           borderRadius: const BorderRadius.only(
@@ -42,21 +41,15 @@ Future<void> contentSettingWidget({
                       _menuItemListTile(
                         title: '수정하기',
                         icons: Icons.create,
-                        color: const Color.fromRGBO(215, 215, 215, 1),
+                        color: appMainColor,
                         onTap: updateTap,
-                      ),
-                      _menuItemListTile(
-                        title: '삭제하기',
-                        icons: Icons.delete_outline,
-                        color: appSubColor,
-                        onTap: deleteTap,
                       ),
                     ],
                     if (!isMe) ...[
                       _menuItemListTile(
                           title: '신고하기',
                           icons: Icons.error_outline_rounded,
-                          color: const Color.fromRGBO(155, 155, 155, 1),
+                          color: appSubColor,
                           onTap: () {}),
                     ],
                   ],
