@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/course/repo/course_repository.dart';
@@ -18,6 +19,9 @@ class CourseProvider extends ChangeNotifier {
   bool _isSwitcher = false;
   bool _isUploading = false;
   List<String> _imageUrl = [];
+  List<String> _driveSeason = [];
+  List<String> _driveTime = [];
+  List<String> _srcsKeyword = [];
 
   void started() {
     _explanation = "";
@@ -26,6 +30,9 @@ class CourseProvider extends ChangeNotifier {
     _imageUrl = [];
     _courseModel = CourseModel.empty();
     _courseSpot = CourseSpot.empty();
+    _driveSeason = [];
+    _driveTime = [];
+    _srcsKeyword = [];
   }
 
   Future<void> createCourse({
@@ -46,6 +53,10 @@ class CourseProvider extends ChangeNotifier {
             updatedAt: DateTime.now(),
             imageUrl: _imageUrl,
             spot: _courseSpotList,
+            srcKeyword: _srcsKeyword,
+            tagKeyword: [],
+            driveSeason: _driveSeason,
+            driveTime: _driveTime,
             userProfile: ProfileModel(
                 socialProfileUrl: user.socialProfileUrl,
                 localProfileUrl: user.localProfileUrl,
@@ -74,6 +85,39 @@ class CourseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void driveSeasonAddOrRemove({
+    required String value,
+  }) {
+    if (_driveSeason.contains(value)) {
+      _driveSeason.remove(value);
+    } else {
+      _driveSeason.add(value);
+    }
+    notifyListeners();
+  }
+
+  void driveTimeAddOrRemove({
+    required String value,
+  }) {
+    if (_driveTime.contains(value)) {
+      _driveTime.remove(value);
+    } else {
+      _driveTime.add(value);
+    }
+    notifyListeners();
+  }
+
+  void hashTagsKeyword({
+    required String srcKeyword,
+  }) {
+    if (_srcsKeyword.contains(srcKeyword)) {
+      _srcsKeyword.remove(srcKeyword);
+    } else {
+      _srcsKeyword.add(srcKeyword);
+    }
+    notifyListeners();
+  }
+
   void courseSpotClear() {
     _courseSpotList.clear();
     notifyListeners();
@@ -97,4 +141,7 @@ class CourseProvider extends ChangeNotifier {
   List<CourseSpot> get courseSpotList => _courseSpotList;
   bool get isSwitcher => _isSwitcher;
   bool get isUploading => _isUploading;
+  List<String> get driveSeason => _driveSeason;
+  List<String> get driveTime => _driveTime;
+  List<String> get srcsKeyword => _srcsKeyword;
 }

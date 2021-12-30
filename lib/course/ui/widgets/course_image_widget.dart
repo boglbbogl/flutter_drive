@@ -26,12 +26,38 @@ Container courseImageWidget({
                 borderRadius: BorderRadius.circular(12),
                 color: const Color.fromRGBO(71, 71, 71, 1)),
             child: context.watch<ImagesProvider>().pickedImages.isNotEmpty
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.memory(
-                      context.watch<ImagesProvider>().pickedImages[0],
-                      fit: BoxFit.fill,
-                    ),
+                ? Stack(
+                    children: [
+                      SizedBox(
+                        width: size.width * 0.3,
+                        height: size.width * 0.3,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.memory(
+                            context.watch<ImagesProvider>().pickedImages[0],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        right: -4,
+                        top: -4,
+                        child: Container(
+                          width: 25,
+                          height: 25,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: darkThemeCardColor),
+                          child: const Center(
+                            child: Icon(
+                              Icons.add_circle_outline,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   )
                 : const Icon(
                     Icons.add_circle_outline_outlined,

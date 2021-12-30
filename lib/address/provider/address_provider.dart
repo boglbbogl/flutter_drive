@@ -20,7 +20,7 @@ class AddressProvider extends ChangeNotifier {
     notifyListeners();
     _addressModel = await _repository.getAddressKeyword(query: query, page: 1);
     _addressDocument = _addressModel!.documents;
-    Future.delayed(const Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       _isEnd = _addressModel!.meta.isEnd;
       _query = query;
       _page = 1;

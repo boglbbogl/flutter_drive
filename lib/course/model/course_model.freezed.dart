@@ -27,7 +27,10 @@ class _$CourseModelTearOff {
       required String explanation,
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt,
+      required List<String> srcKeyword,
       required List<String> tagKeyword,
+      required List<String> driveSeason,
+      required List<String> driveTime,
       required List<String> likeUserKey,
       required List<String> bookmarkUserKey,
       required int commentCount,
@@ -40,7 +43,10 @@ class _$CourseModelTearOff {
       explanation: explanation,
       createdAt: createdAt,
       updatedAt: updatedAt,
+      srcKeyword: srcKeyword,
       tagKeyword: tagKeyword,
+      driveSeason: driveSeason,
+      driveTime: driveTime,
       likeUserKey: likeUserKey,
       bookmarkUserKey: bookmarkUserKey,
       commentCount: commentCount,
@@ -67,7 +73,10 @@ mixin _$CourseModel {
   DateTime get createdAt => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get updatedAt => throw _privateConstructorUsedError;
+  List<String> get srcKeyword => throw _privateConstructorUsedError;
   List<String> get tagKeyword => throw _privateConstructorUsedError;
+  List<String> get driveSeason => throw _privateConstructorUsedError;
+  List<String> get driveTime => throw _privateConstructorUsedError;
   List<String> get likeUserKey => throw _privateConstructorUsedError;
   List<String> get bookmarkUserKey => throw _privateConstructorUsedError;
   int get commentCount => throw _privateConstructorUsedError;
@@ -92,7 +101,10 @@ abstract class $CourseModelCopyWith<$Res> {
       String explanation,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt,
+      List<String> srcKeyword,
       List<String> tagKeyword,
+      List<String> driveSeason,
+      List<String> driveTime,
       List<String> likeUserKey,
       List<String> bookmarkUserKey,
       int commentCount,
@@ -118,7 +130,10 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? explanation = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? srcKeyword = freezed,
     Object? tagKeyword = freezed,
+    Object? driveSeason = freezed,
+    Object? driveTime = freezed,
     Object? likeUserKey = freezed,
     Object? bookmarkUserKey = freezed,
     Object? commentCount = freezed,
@@ -147,9 +162,21 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      srcKeyword: srcKeyword == freezed
+          ? _value.srcKeyword
+          : srcKeyword // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       tagKeyword: tagKeyword == freezed
           ? _value.tagKeyword
           : tagKeyword // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      driveSeason: driveSeason == freezed
+          ? _value.driveSeason
+          : driveSeason // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      driveTime: driveTime == freezed
+          ? _value.driveTime
+          : driveTime // ignore: cast_nullable_to_non_nullable
               as List<String>,
       likeUserKey: likeUserKey == freezed
           ? _value.likeUserKey
@@ -199,7 +226,10 @@ abstract class _$CourseModelCopyWith<$Res>
       String explanation,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt,
+      List<String> srcKeyword,
       List<String> tagKeyword,
+      List<String> driveSeason,
+      List<String> driveTime,
       List<String> likeUserKey,
       List<String> bookmarkUserKey,
       int commentCount,
@@ -228,7 +258,10 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
     Object? explanation = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? srcKeyword = freezed,
     Object? tagKeyword = freezed,
+    Object? driveSeason = freezed,
+    Object? driveTime = freezed,
     Object? likeUserKey = freezed,
     Object? bookmarkUserKey = freezed,
     Object? commentCount = freezed,
@@ -257,9 +290,21 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      srcKeyword: srcKeyword == freezed
+          ? _value.srcKeyword
+          : srcKeyword // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       tagKeyword: tagKeyword == freezed
           ? _value.tagKeyword
           : tagKeyword // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      driveSeason: driveSeason == freezed
+          ? _value.driveSeason
+          : driveSeason // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      driveTime: driveTime == freezed
+          ? _value.driveTime
+          : driveTime // ignore: cast_nullable_to_non_nullable
               as List<String>,
       likeUserKey: likeUserKey == freezed
           ? _value.likeUserKey
@@ -298,7 +343,10 @@ class _$_CourseModel extends _CourseModel {
       required this.explanation,
       @TimestampConverter() required this.createdAt,
       @TimestampConverter() required this.updatedAt,
+      required this.srcKeyword,
       required this.tagKeyword,
+      required this.driveSeason,
+      required this.driveTime,
       required this.likeUserKey,
       required this.bookmarkUserKey,
       required this.commentCount,
@@ -323,7 +371,13 @@ class _$_CourseModel extends _CourseModel {
   @TimestampConverter()
   final DateTime updatedAt;
   @override
+  final List<String> srcKeyword;
+  @override
   final List<String> tagKeyword;
+  @override
+  final List<String> driveSeason;
+  @override
+  final List<String> driveTime;
   @override
   final List<String> likeUserKey;
   @override
@@ -339,7 +393,7 @@ class _$_CourseModel extends _CourseModel {
 
   @override
   String toString() {
-    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createdAt: $createdAt, updatedAt: $updatedAt, tagKeyword: $tagKeyword, likeUserKey: $likeUserKey, bookmarkUserKey: $bookmarkUserKey, commentCount: $commentCount, imageUrl: $imageUrl, spot: $spot, userProfile: $userProfile)';
+    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createdAt: $createdAt, updatedAt: $updatedAt, srcKeyword: $srcKeyword, tagKeyword: $tagKeyword, driveSeason: $driveSeason, driveTime: $driveTime, likeUserKey: $likeUserKey, bookmarkUserKey: $bookmarkUserKey, commentCount: $commentCount, imageUrl: $imageUrl, spot: $spot, userProfile: $userProfile)';
   }
 
   @override
@@ -354,7 +408,12 @@ class _$_CourseModel extends _CourseModel {
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
             const DeepCollectionEquality()
+                .equals(other.srcKeyword, srcKeyword) &&
+            const DeepCollectionEquality()
                 .equals(other.tagKeyword, tagKeyword) &&
+            const DeepCollectionEquality()
+                .equals(other.driveSeason, driveSeason) &&
+            const DeepCollectionEquality().equals(other.driveTime, driveTime) &&
             const DeepCollectionEquality()
                 .equals(other.likeUserKey, likeUserKey) &&
             const DeepCollectionEquality()
@@ -375,7 +434,10 @@ class _$_CourseModel extends _CourseModel {
       const DeepCollectionEquality().hash(explanation),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(updatedAt),
+      const DeepCollectionEquality().hash(srcKeyword),
       const DeepCollectionEquality().hash(tagKeyword),
+      const DeepCollectionEquality().hash(driveSeason),
+      const DeepCollectionEquality().hash(driveTime),
       const DeepCollectionEquality().hash(likeUserKey),
       const DeepCollectionEquality().hash(bookmarkUserKey),
       const DeepCollectionEquality().hash(commentCount),
@@ -401,7 +463,10 @@ abstract class _CourseModel extends CourseModel {
       required String explanation,
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt,
+      required List<String> srcKeyword,
       required List<String> tagKeyword,
+      required List<String> driveSeason,
+      required List<String> driveTime,
       required List<String> likeUserKey,
       required List<String> bookmarkUserKey,
       required int commentCount,
@@ -426,7 +491,13 @@ abstract class _CourseModel extends CourseModel {
   @TimestampConverter()
   DateTime get updatedAt;
   @override
+  List<String> get srcKeyword;
+  @override
   List<String> get tagKeyword;
+  @override
+  List<String> get driveSeason;
+  @override
+  List<String> get driveTime;
   @override
   List<String> get likeUserKey;
   @override

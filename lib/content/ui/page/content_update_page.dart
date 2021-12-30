@@ -231,7 +231,9 @@ class ContentUpdatePage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: ContentImageCard(imageUrl: course.imageUrl),
+              child: ContentImageCard(
+                imageUrl: course.imageUrl,
+              ),
             ),
             const SizedBox(height: 12),
           ],

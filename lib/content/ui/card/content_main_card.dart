@@ -144,6 +144,7 @@ class ContentMainCard extends StatelessWidget {
                                   context.read<AuthProvider>().user!.userKey),
                           isLike: courseList[index].likeUserKey.contains(
                               context.read<AuthProvider>().user!.userKey),
+                          isComment: courseList[index].commentCount == 0,
                           bookmarkOnTap: () {
                             context
                                 .read<ContentProvider>()

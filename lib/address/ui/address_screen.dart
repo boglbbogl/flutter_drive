@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/address/provider/address_provider.dart';
+import 'package:flutter_drive/address/ui/address_item_selected_widget.dart';
 import 'package:flutter_drive/address/ui/address_item_widget.dart';
 import 'package:flutter_drive/address/ui/address_shimmer_widget.dart';
 import 'package:flutter_drive/course/provider/course_provider.dart';
@@ -33,6 +34,12 @@ class AddressScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 22),
             child: Column(
               children: [
+                if (context
+                    .watch<CourseProvider>()
+                    .courseSpotList
+                    .isNotEmpty) ...[
+                  addressItemSelectedWidget(context: context),
+                ],
                 TextFormField(
                   onFieldSubmitted: (value) {
                     context

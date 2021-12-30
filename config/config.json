@@ -1,0 +1,154 @@
+{
+  "name": "CustomIcons",
+  "css_prefix_text": "",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "b69ac48f8ad98e786047ff3d33101045",
+      "css": "windy-rain-inv",
+      "code": 59396,
+      "src": "meteocons"
+    },
+    {
+      "uid": "f1315f7ea135cbea7966cce0e7c10ce0",
+      "css": "snow-heavy-inv",
+      "code": 59397,
+      "src": "meteocons"
+    },
+    {
+      "uid": "ab5c31256cdd1f6b2d6de7202936f5a1",
+      "css": "hail-inv",
+      "code": 59398,
+      "src": "meteocons"
+    },
+    {
+      "uid": "d577552bb94bdeb53e6517873481aeea",
+      "css": "rain",
+      "code": 59399,
+      "src": "meteocons"
+    },
+    {
+      "uid": "f59875f40cbc5ad1b04775cd96feabf1",
+      "css": "drizzle",
+      "code": 59400,
+      "src": "meteocons"
+    },
+    {
+      "uid": "17463471d0f132cee16835507ea51ecf",
+      "css": "cloud",
+      "code": 59401,
+      "src": "meteocons"
+    },
+    {
+      "uid": "8d8a2d9bcc41c7ac794e83ffbb919c3c",
+      "css": "rain-inv",
+      "code": 59402,
+      "src": "meteocons"
+    },
+    {
+      "uid": "9cd3e294ca3ad3dda66bc5a804021c46",
+      "css": "cloud-sun",
+      "code": 59403,
+      "src": "meteocons"
+    },
+    {
+      "uid": "2440f961b415837c6bf30424a6711708",
+      "css": "cloud-moon",
+      "code": 59404,
+      "src": "meteocons"
+    },
+    {
+      "uid": "2c304ff49075ec9647f498504651abf5",
+      "css": "cloud-sun-inv",
+      "code": 59405,
+      "src": "meteocons"
+    },
+    {
+      "uid": "c823149b79158a2bd56d802a6a6f1d1c",
+      "css": "cloud-moon-inv",
+      "code": 59406,
+      "src": "meteocons"
+    },
+    {
+      "uid": "d73eceadda1f594cec0536087539afbf",
+      "css": "heart",
+      "code": 59392,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f3dc2d6d8fe9cf9ebff84dc260888cdf",
+      "css": "heart-empty",
+      "code": 59393,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "2f5ef6f6b7aaebc56458ab4e865beff5",
+      "css": "bookmark-empty",
+      "code": 61591,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f04a5d24e9e659145b966739c4fde82a",
+      "css": "bookmark",
+      "code": 59407,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "85528017f1e6053b2253785c31047f44",
+      "css": "comment",
+      "code": 59408,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "dcedf50ab1ede3283d7a6c70e2fe32f3",
+      "css": "chat",
+      "code": 59409,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "9c1376672bb4f1ed616fdd78a23667e9",
+      "css": "comment-empty",
+      "code": 61669,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "31951fbb9820ed0690f675b3d495c8da",
+      "css": "chat-empty",
+      "code": 61670,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "4aad6bb50b02c18508aae9cbe14e784e",
+      "css": "share",
+      "code": 61920,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "1a5cfa186647e8c929c2b17b9fc4dac1",
+      "css": "plus-squared",
+      "code": 61694,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "2d3be3e856fc1e4ac067590d2ded1b07",
+      "css": "plus-squared-alt",
+      "code": 61846,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "a3f89e106175a5c5c4e9738870b12e55",
+      "css": "tags-1",
+      "code": 59410,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "3db5347bd219f3bce6025780f5d9ef45",
+      "css": "tag-1",
+      "code": 59411,
+      "src": "fontawesome"
+    }
+  ]
+}

@@ -93,6 +93,9 @@ flutter:
     - family: DoHyeon
       fonts:
         - asset: assets/fonts/BMDOHYEON.otf
+    - family: CustomIcon
+      fonts:
+        - asset: assets/fonts/CustomIcons.ttf
 
   #   - family: Trajan Pro
   #     fonts:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/_constant/custom_icon.dart';
 
 Padding contentIconsCard({
   required Function() commentOnTap,
@@ -9,6 +10,7 @@ Padding contentIconsCard({
   required Function() bookMarkPageTap,
   required bool isLike,
   required bool isBookmark,
+  required bool isComment,
   required int likeCount,
   required int bookmarkCount,
 }) {
@@ -24,8 +26,7 @@ Padding contentIconsCard({
                 _animatedIconBtn(
                     isFilled: isLike,
                     color: isLike ? Colors.redAccent : Colors.white,
-                    icon:
-                        isLike ? Icons.favorite : Icons.favorite_border_rounded,
+                    icon: isLike ? CustomIcon.heart : CustomIcon.heartEmpty,
                     onTap: likeOnTap),
                 const SizedBox(height: 1),
                 _contentCountForm(
@@ -33,14 +34,23 @@ Padding contentIconsCard({
                     title: likeCount == 0 ? "" : likeCount.toString()),
               ],
             ),
-            _iconBtn(icon: Icons.mode_comment_outlined, onTap: commentOnTap),
+            Column(
+              children: [
+                _iconBtn(
+                    icon: !isComment
+                        ? CustomIcon.comment
+                        : CustomIcon.commentEmpty,
+                    onTap: commentOnTap),
+                _contentCountForm(onTap: () {}, title: ""),
+              ],
+            ),
             Column(
               children: [
                 _animatedIconBtn(
                   isFilled: isBookmark,
                   icon: isBookmark
-                      ? Icons.bookmark_added_rounded
-                      : Icons.bookmark_add_outlined,
+                      ? CustomIcon.bookmark
+                      : CustomIcon.bookmarkEmpty,
                   color: isBookmark ? Colors.green : Colors.white,
                   onTap: bookmarkOnTap,
                 ),
@@ -52,7 +62,12 @@ Padding contentIconsCard({
             ),
           ],
         ),
-        _iconBtn(icon: Icons.share, onTap: () {}),
+        Column(
+          children: [
+            _iconBtn(icon: Icons.share, onTap: () {}),
+            _contentCountForm(onTap: () {}, title: ""),
+          ],
+        ),
       ],
     ),
   );
@@ -110,10 +125,10 @@ IconButton _iconBtn({
   Color? color = Colors.white,
 }) {
   return IconButton(
-      // padding: EdgeInsets.all(8),
-      // constraints: BoxConstraints(),
+      padding: const EdgeInsets.only(left: 12, right: 12, top: 8),
+      constraints: const BoxConstraints(),
       onPressed: onTap,
-      iconSize: 22,
+      // iconSize: 22,
       icon: Icon(
         icon,
         color: color,

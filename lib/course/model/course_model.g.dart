@@ -15,9 +15,17 @@ _$_CourseModel _$$_CourseModelFromJson(Map<String, dynamic> json) =>
           const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
       updatedAt:
           const TimestampConverter().fromJson(json['updatedAt'] as Timestamp),
+      srcKeyword: (json['srcKeyword'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       tagKeyword: (json['tagKeyword'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      driveSeason: (json['driveSeason'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      driveTime:
+          (json['driveTime'] as List<dynamic>).map((e) => e as String).toList(),
       likeUserKey: (json['likeUserKey'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
@@ -41,7 +49,10 @@ Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
       'explanation': instance.explanation,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
+      'srcKeyword': instance.srcKeyword,
       'tagKeyword': instance.tagKeyword,
+      'driveSeason': instance.driveSeason,
+      'driveTime': instance.driveTime,
       'likeUserKey': instance.likeUserKey,
       'bookmarkUserKey': instance.bookmarkUserKey,
       'commentCount': instance.commentCount,

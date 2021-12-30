@@ -14,7 +14,10 @@ class CourseModel with _$CourseModel {
     required String explanation,
     @TimestampConverter() required DateTime createdAt,
     @TimestampConverter() required DateTime updatedAt,
+    required List<String> srcKeyword,
     required List<String> tagKeyword,
+    required List<String> driveSeason,
+    required List<String> driveTime,
     required List<String> likeUserKey,
     required List<String> bookmarkUserKey,
     required int commentCount,
@@ -38,7 +41,10 @@ class CourseModel with _$CourseModel {
     map["explanation"] = explanation;
     map["createdAt"] = createdAt;
     map["updatedAt"] = updatedAt;
+    map["srcKeyword"] = srcKeyword;
     map["tagKeyword"] = tagKeyword;
+    map["driveSeason"] = driveSeason;
+    map["driveTime"] = driveTime;
     map["likeUserKey"] = likeUserKey;
     map["bookmarkUserKey"] = bookmarkUserKey;
     map["commentCount"] = commentCount;
@@ -54,7 +60,10 @@ class CourseModel with _$CourseModel {
       explanation: "",
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
+      srcKeyword: [],
       tagKeyword: [],
+      driveSeason: [],
+      driveTime: [],
       likeUserKey: [],
       bookmarkUserKey: [],
       commentCount: 0,
