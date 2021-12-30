@@ -61,5 +61,5 @@ IconButton _actionIcons({
         onPressed: onTap,
         icon: Icon(
           icon,
-          size: iconSize ?? 30,
+          size: iconSize ?? 24,
         ));

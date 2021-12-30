@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/_constant/custom_icon.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/content/provider/content_provider.dart';
 import 'package:flutter_drive/content/ui/card/content_image_card.dart';
@@ -117,7 +118,9 @@ class ContentUpdatePage extends StatelessWidget {
                               ),
                               const SizedBox(width: 5),
                               Text(
-                                e.placeName,
+                                e.placeName.length > 25
+                                    ? "${e.placeName.substring(0, 25)} ..."
+                                    : e.placeName,
                                 style: theme.textTheme.bodyText2!.copyWith(
                                     color:
                                         const Color.fromRGBO(215, 215, 215, 1),
@@ -177,13 +180,57 @@ class ContentUpdatePage extends StatelessWidget {
                       const SizedBox(height: 8),
                       _userStateTextForm(
                           title: '좋아요 ${course.likeUserKey.length} 개'),
+                      _userStateTextForm(
+                          title: '북마크 ${course.bookmarkUserKey.length} 개'),
                       _userStateTextForm(title: '댓글 ${course.commentCount} 개'),
                     ],
                   ),
                 )
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      ...course.driveSeason.map((e) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              e.contains("1")
+                                  ? CustomIcon.cloudSun
+                                  : e.contains("2")
+                                      ? CustomIcon.windyRainEmpty
+                                      : e.contains("3")
+                                          ? CustomIcon.snowHeavyEmpty
+                                          : Icons.circle,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                          )),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      ...course.driveTime.map((e) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              e.contains("1")
+                                  ? Icons.wb_sunny
+                                  : e.contains("2")
+                                      ? Icons.mode_night_sharp
+                                      : Icons.circle,
+                              size: 15,
+                              color: Colors.white,
+                            ),
+                          )),
+                    ],
+                  ),
+                ],
+              ),
+            ),
             Container(
               width: size.width * 0.9,
               decoration: BoxDecoration(

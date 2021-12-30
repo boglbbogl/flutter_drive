@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter_drive/content/ui/widgets/season_or_time_icon_widget.dart';
 
 import 'package:flutter_drive/course/model/course_model.dart';
 
@@ -21,32 +22,42 @@ class ContentCourseCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                courseList.spot.firstOrNull!.placeName,
-                style: theme.textTheme.bodyText2!.copyWith(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Container(
-                  width: size.width * 0.05,
-                  height: 1,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: appMainColor,
+              Row(
+                children: [
+                  Text(
+                    courseList.spot.firstOrNull!.placeName.length > 15
+                        ? "${courseList.spot.firstOrNull!.placeName.substring(0, 15)} ..."
+                        : courseList.spot.firstOrNull!.placeName,
+                    style: theme.textTheme.bodyText2!.copyWith(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Container(
+                      width: size.width * 0.05,
+                      height: 1,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: appMainColor,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    courseList.spot.lastOrNull!.placeName.length > 15
+                        ? "${courseList.spot.lastOrNull!.placeName.substring(0, 15)} ..."
+                        : courseList.spot.lastOrNull!.placeName,
+                    style: theme.textTheme.bodyText2!.copyWith(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              Text(
-                courseList.spot.lastOrNull!.placeName,
-                style: theme.textTheme.bodyText2!.copyWith(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold),
-              ),
+              seasonIconWidget(season: courseList.driveSeason),
             ],
           ),
         ),

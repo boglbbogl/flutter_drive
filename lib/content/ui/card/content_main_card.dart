@@ -60,11 +60,10 @@ class ContentMainCard extends StatelessWidget {
                         docKey: courseList[index].docKey,
                         context: context,
                         userOnTap: () {
-                          appDateTime(dateTime: courseList[index].createdAt);
-                          // context.read<FeedUserProvider>().getUserCourse(
-                          //     userKey: courseList[index].userKey);
-                          // context.read<FeedMainProvider>().initialization();
-                          // pushNewScreen(context, screen: const FeedUserPage());
+                          context.read<FeedUserProvider>().getUserCourse(
+                              userKey: courseList[index].userKey);
+                          context.read<FeedMainProvider>().initialization();
+                          pushNewScreen(context, screen: const FeedUserPage());
                         },
                         imageUrl: courseList[index].userProfile.isSocialImage
                             ? courseList[index].userProfile.socialProfileUrl
@@ -178,23 +177,6 @@ class ContentMainCard extends StatelessWidget {
                                     .read<AuthProvider>()
                                     .allUserProfile);
                           }),
-                      // if (courseList[index].likeUserKey.isEmpty)
-                      //   Container()
-                      // else
-                      //   likeOrCommentWidget(
-                      //       onTap: () {
-                      //         pushNewScreen(context,
-                      //             screen: ContentLikePage(
-                      //               userId:
-                      //                   courseList[index].userProfile.nickName,
-                      //               likeUserKey: courseList[index].likeUserKey,
-                      //             ),
-                      //             pageTransitionAnimation:
-                      //                 PageTransitionAnimation.slideUp);
-                      //       },
-                      //       title:
-                      //           '좋아요 ${courseList[index].likeUserKey.length}개',
-                      //       bottom: 2),
                       contentExplanationCard(
                         isDetail: context.read<FeedUserProvider>().isDetail,
                         context: context,
@@ -203,6 +185,41 @@ class ContentMainCard extends StatelessWidget {
                         index: index,
                         explanationIndex: explanationIndex,
                       ),
+                      if (courseList[index].srcKeyword.isNotEmpty) ...[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 12,
+                            right: 12,
+                          ),
+                          child: SizedBox(
+                            width: size.width,
+                            height: size.height * 0.015,
+                            child: ListView(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                ...courseList[index]
+                                    .srcKeyword
+                                    .map((e) => Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8),
+                                          child: Center(
+                                            child: Text(
+                                              "#$e",
+                                              style: theme.textTheme.bodyText2!
+                                                  .copyWith(
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              195, 195, 195, 1),
+                                                      fontSize: 12),
+                                            ),
+                                          ),
+                                        ))
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                       likeOrCommentWidget(
                           onTap: () async {
                             await _commentPushPaged(

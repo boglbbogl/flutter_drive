@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/custom_icon.dart';
 import 'package:flutter_drive/_constant/logger.dart';
@@ -40,7 +41,12 @@ Row courseTagKeywordWidget({
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 2, horizontal: 15),
-                            child: Center(child: Text(e)),
+                            child: Center(
+                                child: Text(
+                              "#$e",
+                              style: theme.textTheme.bodyText2!.copyWith(
+                                  fontWeight: FontWeight.bold, fontSize: 12),
+                            )),
                           )),
                     ),
                     Positioned(
@@ -118,6 +124,9 @@ Future _tagAddTextBottom({
                     style: theme.textTheme.bodyText2!
                         .copyWith(color: Colors.white, fontSize: 14),
                     decoration: InputDecoration(
+                        prefixIcon:
+                            const Icon(Icons.tag_rounded, color: Colors.white),
+                        prefixIconConstraints: const BoxConstraints(),
                         hintText: ' 태그를 입력해 주세요',
                         hintStyle: theme.textTheme.bodyText2!.copyWith(
                             color: const Color.fromRGBO(195, 195, 195, 1),
@@ -125,6 +134,18 @@ Future _tagAddTextBottom({
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none),
                   )),
+              Padding(
+                padding: const EdgeInsets.only(left: 12),
+                child: SizedBox(
+                    width: size.width * 0.9,
+                    child: Text(
+                      '# 추천 태그',
+                      style: theme.textTheme.bodyText2!.copyWith(
+                          color: appMainColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    )),
+              )
             ],
           ),
         );

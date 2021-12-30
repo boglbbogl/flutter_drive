@@ -17,7 +17,7 @@ Padding courseSeasonWidget({
             _seasonSelectedButton(
                 value: 1, context: context, icon: CustomIcon.cloudSunEmpty),
             _seasonSelectedButton(
-                value: 2, context: context, icon: CustomIcon.rainEmpty),
+                value: 2, context: context, icon: CustomIcon.windyRainEmpty),
             _seasonSelectedButton(
                 value: 3, context: context, icon: CustomIcon.snowHeavyEmpty),
           ],
