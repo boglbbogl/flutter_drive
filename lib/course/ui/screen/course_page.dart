@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/_constant/custom_icon.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:flutter_drive/course/ui/widgets/course_appbar_widget.dart';
 import 'package:flutter_drive/course/ui/widgets/course_explanation_widget.dart';

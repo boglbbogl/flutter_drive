@@ -18,7 +18,7 @@ import 'package:flutter_drive/content/ui/widgets/like_or_comment_widget.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
-import 'package:flutter_drive/feed/ui/feed_user_page.dart';
+import 'package:flutter_drive/feed/ui/page/feed_user_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
@@ -51,200 +51,249 @@ class ContentMainCard extends StatelessWidget {
                     color: darkThemeCardColor,
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      contentUserInfoCard(
-                        course: courseList[index],
-                        isMe: courseList[index].userKey.contains(
-                            context.read<AuthProvider>().user!.userKey),
-                        docKey: courseList[index].docKey,
-                        context: context,
-                        userOnTap: () {
-                          context.read<FeedUserProvider>().getUserCourse(
-                              userKey: courseList[index].userKey);
-                          context.read<FeedMainProvider>().initialization();
-                          pushNewScreen(context, screen: const FeedUserPage());
-                        },
-                        imageUrl: courseList[index].userProfile.isSocialImage
-                            ? courseList[index].userProfile.socialProfileUrl
-                            : courseList[index].userProfile.localProfileUrl,
-                        nickName: courseList[index].userProfile.nickName,
-                      ),
-                      _divider(),
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 300),
-                        child: imageOrCouseSpotIndex == index &&
-                                isImageOrCouseSpot
-                            ? ContentImageCard(
-                                imageUrl: courseList[index].imageUrl,
-                              )
-                            : ContentCourseCard(courseList: courseList[index]),
-                      ),
-                      if (courseList[index].imageUrl.isNotEmpty) ...[
-                        AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 500),
-                            child: imageOrCouseSpotIndex == index &&
-                                    isImageOrCouseSpot
-                                ? contentCourseWidget(
-                                    isDetail: context
-                                        .read<FeedUserProvider>()
-                                        .isDetail,
+                      ...context
+                          .watch<AuthProvider>()
+                          .allUserProfile
+                          .where((element) => courseList[index]
+                              .userKey
+                              .contains(element.userKey))
+                          .map(
+                            (user) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                contentUserInfoCard(
+                                    imageUrl: user.isSocialImage
+                                        ? user.socialProfileUrl
+                                        : user.localProfileUrl,
+                                    nickName: user.nickName,
+                                    course: courseList[index],
                                     context: context,
-                                    startPlaceName: courseList[index]
-                                        .spot
-                                        .firstOrNull!
-                                        .placeName,
-                                    endPlaceName: courseList[index]
-                                        .spot
-                                        .lastOrNull!
-                                        .placeName,
-                                    index: index,
-                                  )
-                                : contentImageWidget(
-                                    isDetail: context
-                                        .read<FeedUserProvider>()
-                                        .isDetail,
-                                    context: context,
-                                    imageUrls: courseList[index].imageUrl,
-                                    index: index)),
-                      ],
-                      _divider(),
-                      contentIconsCard(
-                          likePageTap: () {
-                            pushNewScreen(context,
-                                screen: ContentLikeBookmarkPage(
-                                  isLike: true,
-                                  userId:
-                                      courseList[index].userProfile.nickName,
-                                  likeAndBookMarkUserKey:
-                                      courseList[index].likeUserKey,
-                                ),
-                                pageTransitionAnimation:
-                                    PageTransitionAnimation.slideUp);
-                          },
-                          bookMarkPageTap: () {
-                            pushNewScreen(context,
-                                screen: ContentLikeBookmarkPage(
-                                  isLike: false,
-                                  userId:
-                                      courseList[index].userProfile.nickName,
-                                  likeAndBookMarkUserKey:
-                                      courseList[index].bookmarkUserKey,
-                                ),
-                                pageTransitionAnimation:
-                                    PageTransitionAnimation.slideUp);
-                          },
-                          bookmarkCount:
-                              courseList[index].bookmarkUserKey.length,
-                          likeCount: courseList[index].likeUserKey.length,
-                          isBookmark: courseList[index]
-                              .bookmarkUserKey
-                              .contains(
-                                  context.read<AuthProvider>().user!.userKey),
-                          isLike: courseList[index].likeUserKey.contains(
-                              context.read<AuthProvider>().user!.userKey),
-                          isComment: courseList[index].commentCount == 0,
-                          bookmarkOnTap: () {
-                            context
-                                .read<ContentProvider>()
-                                .bookmarkAddAndRemove(
+                                    userOnTap: () {
+                                      context
+                                          .read<FeedUserProvider>()
+                                          .getUserCourse(
+                                              userKey:
+                                                  courseList[index].userKey);
+                                      context
+                                          .read<FeedMainProvider>()
+                                          .initialization();
+                                      pushNewScreen(context,
+                                          screen: FeedUserPage(
+                                            allCourseModel: courseList,
+                                          ));
+                                    },
                                     docKey: courseList[index].docKey,
-                                    userKey: context
-                                        .read<AuthProvider>()
-                                        .user!
-                                        .userKey,
+                                    isMe: courseList[index]
+                                        .userKey
+                                        .contains(user.userKey)),
+                                _divider(),
+                                AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 300),
+                                  child: imageOrCouseSpotIndex == index &&
+                                          isImageOrCouseSpot
+                                      ? ContentImageCard(
+                                          imageUrl: courseList[index].imageUrl,
+                                        )
+                                      : ContentCourseCard(
+                                          courseList: courseList[index]),
+                                ),
+                                if (courseList[index].imageUrl.isNotEmpty) ...[
+                                  AnimatedSwitcher(
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      child: imageOrCouseSpotIndex == index &&
+                                              isImageOrCouseSpot
+                                          ? contentCourseWidget(
+                                              isDetail: context
+                                                  .read<FeedUserProvider>()
+                                                  .isDetail,
+                                              context: context,
+                                              startPlaceName: courseList[index]
+                                                  .spot
+                                                  .firstOrNull!
+                                                  .placeName,
+                                              endPlaceName: courseList[index]
+                                                  .spot
+                                                  .lastOrNull!
+                                                  .placeName,
+                                              index: index,
+                                            )
+                                          : contentImageWidget(
+                                              isDetail: context
+                                                  .read<FeedUserProvider>()
+                                                  .isDetail,
+                                              context: context,
+                                              imageUrls:
+                                                  courseList[index].imageUrl,
+                                              index: index)),
+                                ],
+                                _divider(),
+                                contentIconsCard(
+                                    likePageTap: () {
+                                      pushNewScreen(context,
+                                          screen: ContentLikeBookmarkPage(
+                                            isLike: true,
+                                            userId: user.nickName,
+                                            likeAndBookMarkUserKey:
+                                                courseList[index].likeUserKey,
+                                          ),
+                                          pageTransitionAnimation:
+                                              PageTransitionAnimation.slideUp);
+                                    },
+                                    bookMarkPageTap: () {
+                                      pushNewScreen(context,
+                                          screen: ContentLikeBookmarkPage(
+                                            isLike: false,
+                                            userId: user.nickName,
+                                            likeAndBookMarkUserKey:
+                                                courseList[index]
+                                                    .bookmarkUserKey,
+                                          ),
+                                          pageTransitionAnimation:
+                                              PageTransitionAnimation.slideUp);
+                                    },
+                                    bookmarkCount: courseList[index]
+                                        .bookmarkUserKey
+                                        .length,
+                                    likeCount:
+                                        courseList[index].likeUserKey.length,
                                     isBookmark: courseList[index]
                                         .bookmarkUserKey
                                         .contains(context
                                             .read<AuthProvider>()
                                             .user!
-                                            .userKey));
-                          },
-                          likeOnTap: () {
-                            context.read<ContentProvider>().likeAddAndRemove(
-                                isLike: courseList[index].likeUserKey.contains(
-                                    context.read<AuthProvider>().user!.userKey),
-                                docKey: courseList[index].docKey,
-                                userKey:
-                                    context.read<AuthProvider>().user!.userKey);
-                          },
-                          commentOnTap: () async {
-                            await _commentPushPaged(
-                                context: context,
-                                index: index,
-                                docKey: courseList[index].docKey,
-                                allUser: context
-                                    .read<AuthProvider>()
-                                    .allUserProfile);
-                          }),
-                      contentExplanationCard(
-                        isDetail: context.read<FeedUserProvider>().isDetail,
-                        context: context,
-                        nickName: courseList[index].userProfile.nickName,
-                        explanation: courseList[index].explanation,
-                        index: index,
-                        explanationIndex: explanationIndex,
-                      ),
-                      if (courseList[index].srcKeyword.isNotEmpty) ...[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 12,
-                            right: 12,
-                          ),
-                          child: SizedBox(
-                            width: size.width,
-                            height: size.height * 0.015,
-                            child: ListView(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                ...courseList[index]
+                                            .userKey),
+                                    isLike: courseList[index]
+                                        .likeUserKey
+                                        .contains(context
+                                            .read<AuthProvider>()
+                                            .user!
+                                            .userKey),
+                                    isComment:
+                                        courseList[index].commentCount == 0,
+                                    bookmarkOnTap: () {
+                                      context
+                                          .read<ContentProvider>()
+                                          .bookmarkAddAndRemove(
+                                              docKey: courseList[index].docKey,
+                                              userKey: context
+                                                  .read<AuthProvider>()
+                                                  .user!
+                                                  .userKey,
+                                              isBookmark: courseList[index]
+                                                  .bookmarkUserKey
+                                                  .contains(context
+                                                      .read<AuthProvider>()
+                                                      .user!
+                                                      .userKey));
+                                    },
+                                    likeOnTap: () {
+                                      context
+                                          .read<ContentProvider>()
+                                          .likeAddAndRemove(
+                                              isLike: courseList[index]
+                                                  .likeUserKey
+                                                  .contains(context
+                                                      .read<AuthProvider>()
+                                                      .user!
+                                                      .userKey),
+                                              docKey: courseList[index].docKey,
+                                              userKey: context
+                                                  .read<AuthProvider>()
+                                                  .user!
+                                                  .userKey);
+                                    },
+                                    commentOnTap: () async {
+                                      await _commentPushPaged(
+                                          context: context,
+                                          index: index,
+                                          docKey: courseList[index].docKey,
+                                          allUser: context
+                                              .read<AuthProvider>()
+                                              .allUserProfile);
+                                    }),
+                                contentExplanationCard(
+                                  isDetail:
+                                      context.read<FeedUserProvider>().isDetail,
+                                  context: context,
+                                  nickName: user.nickName,
+                                  explanation: courseList[index].explanation,
+                                  index: index,
+                                  explanationIndex: explanationIndex,
+                                ),
+                                if (courseList[index]
                                     .srcKeyword
-                                    .map((e) => Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 8),
-                                          child: Center(
-                                            child: Text(
-                                              "#$e",
-                                              style: theme.textTheme.bodyText2!
-                                                  .copyWith(
-                                                      color:
-                                                          const Color.fromRGBO(
-                                                              195, 195, 195, 1),
-                                                      fontSize: 12),
-                                            ),
-                                          ),
-                                        ))
+                                    .isNotEmpty) ...[
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 12,
+                                      right: 12,
+                                    ),
+                                    child: SizedBox(
+                                      width: size.width,
+                                      height: size.height * 0.018,
+                                      child: ListView(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        children: [
+                                          ...courseList[index]
+                                              .srcKeyword
+                                              .map((e) => Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 8),
+                                                    child: Center(
+                                                      child: Text(
+                                                        "#$e",
+                                                        style: theme.textTheme
+                                                            .bodyText2!
+                                                            .copyWith(
+                                                                color: const Color
+                                                                        .fromRGBO(
+                                                                    195,
+                                                                    195,
+                                                                    195,
+                                                                    1),
+                                                                fontSize: 10),
+                                                      ),
+                                                    ),
+                                                  ))
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                                likeOrCommentWidget(
+                                    onTap: () async {
+                                      await _commentPushPaged(
+                                          context: context,
+                                          index: index,
+                                          docKey: courseList[index].docKey,
+                                          allUser: context
+                                              .read<AuthProvider>()
+                                              .allUserProfile);
+                                    },
+                                    title: courseList[index].commentCount == 0
+                                        ? "댓글 입력..."
+                                        : "댓글 ${courseList[index].commentCount}개 전체보기",
+                                    top: 4,
+                                    bottom: 2),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 12, bottom: 12, top: 4),
+                                  child: Text(
+                                    appDateTime(
+                                        dateTime: courseList[index].createdAt),
+                                    style: theme.textTheme.bodyText2!.copyWith(
+                                        color: const Color.fromRGBO(
+                                            195, 195, 195, 1),
+                                        fontSize: 8),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
-                        ),
-                      ],
-                      likeOrCommentWidget(
-                          onTap: () async {
-                            await _commentPushPaged(
-                                context: context,
-                                index: index,
-                                docKey: courseList[index].docKey,
-                                allUser: context
-                                    .read<AuthProvider>()
-                                    .allUserProfile);
-                          },
-                          title: courseList[index].commentCount == 0
-                              ? "댓글 입력..."
-                              : "댓글 ${courseList[index].commentCount}개 전체보기",
-                          top: 4,
-                          bottom: 2),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 12, bottom: 12, top: 4),
-                        child: Text(
-                          appDateTime(dateTime: courseList[index].createdAt),
-                          style: theme.textTheme.bodyText2!.copyWith(
-                              color: const Color.fromRGBO(195, 195, 195, 1),
-                              fontSize: 8),
-                        ),
-                      ),
                     ],
                   ),
                 ),

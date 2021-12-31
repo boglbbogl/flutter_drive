@@ -2,12 +2,10 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/course/repo/course_repository.dart';
 import 'package:flutter_drive/image/repo/images_repository.dart';
-import 'package:flutter_drive/profile/model/profile_model.dart';
 
 class CourseProvider extends ChangeNotifier {
   final CourseRepository _courseRepository = CourseRepository();
@@ -48,20 +46,21 @@ class CourseProvider extends ChangeNotifier {
     }
     await _courseRepository.createCourseModel(
         courseModel: _courseModel.copyWith(
-            userKey: user.userKey,
-            createdAt: DateTime.now(),
-            updatedAt: DateTime.now(),
-            imageUrl: _imageUrl,
-            spot: _courseSpotList,
-            srcKeyword: _srcsKeyword,
-            tagKeyword: [],
-            driveSeason: _driveSeason,
-            driveTime: _driveTime,
-            userProfile: ProfileModel(
-                socialProfileUrl: user.socialProfileUrl,
-                localProfileUrl: user.localProfileUrl,
-                isSocialImage: user.isSocialImage,
-                nickName: user.nickName)));
+      userKey: user.userKey,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      imageUrl: _imageUrl,
+      spot: _courseSpotList,
+      srcKeyword: _srcsKeyword,
+      tagKeyword: [],
+      driveSeason: _driveSeason,
+      driveTime: _driveTime,
+      // userProfile: ProfileModel(
+      //     socialProfileUrl: user.socialProfileUrl,
+      //     localProfileUrl: user.localProfileUrl,
+      //     isSocialImage: user.isSocialImage,
+      //     nickName: user.nickName),
+    ));
     _isUploading = false;
     notifyListeners();
   }

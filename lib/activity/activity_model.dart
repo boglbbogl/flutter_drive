@@ -10,6 +10,9 @@ class ActivityModel with _$ActivityModel {
     required List<String> contentsDocKey,
     required List<String> likesDocKey,
     required List<String> bookmarksDocKey,
+    required List<String> followerUserKey,
+    required List<String> followingUserKey,
+    required List<String> region,
   }) = _ActivityModel;
   const ActivityModel._();
 
@@ -24,5 +27,8 @@ class ActivityModel with _$ActivityModel {
         contentsDocKey: [],
         likesDocKey: [],
         bookmarksDocKey: [],
+        followerUserKey: [],
+        followingUserKey: [],
+        region: [],
       );
 }

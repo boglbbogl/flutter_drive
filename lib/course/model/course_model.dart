@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_drive/_constant/timestamp_converter.dart';
-import 'package:flutter_drive/profile/model/profile_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'course_model.freezed.dart';
@@ -23,7 +22,7 @@ class CourseModel with _$CourseModel {
     required int commentCount,
     required List<String> imageUrl,
     required List<CourseSpot> spot,
-    required ProfileModel userProfile,
+    // required ProfileModel userProfile,
   }) = _CourseModel;
 
   const CourseModel._();
@@ -50,26 +49,27 @@ class CourseModel with _$CourseModel {
     map["commentCount"] = commentCount;
     map["imageUrl"] = imageUrl;
     map["spot"] = spot.map((e) => e.toFireStore()).toList();
-    map["userProfile"] = userProfile.toFireStore();
+    // map["userProfile"] = userProfile.toFireStore();
     return map;
   }
 
   factory CourseModel.empty() => CourseModel(
-      userKey: "",
-      docKey: "",
-      explanation: "",
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-      srcKeyword: [],
-      tagKeyword: [],
-      driveSeason: [],
-      driveTime: [],
-      likeUserKey: [],
-      bookmarkUserKey: [],
-      commentCount: 0,
-      imageUrl: [],
-      spot: [],
-      userProfile: ProfileModel.empty());
+        userKey: "",
+        docKey: "",
+        explanation: "",
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        srcKeyword: [],
+        tagKeyword: [],
+        driveSeason: [],
+        driveTime: [],
+        likeUserKey: [],
+        bookmarkUserKey: [],
+        commentCount: 0,
+        imageUrl: [],
+        spot: [],
+        // userProfile: ProfileModel.empty(),
+      );
 }
 
 @freezed

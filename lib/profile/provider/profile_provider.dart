@@ -19,6 +19,9 @@ class ProfileProvider extends ChangeNotifier {
   String _nickName = "";
   String _localImageUrl = "";
   bool _updateSuccessOrFailure = false;
+  String _introduction = "";
+  bool _isIntroduction = false;
+  bool _isCars = false;
 
   Future<void> started({
     required bool isSocialImage,
@@ -40,6 +43,8 @@ class ProfileProvider extends ChangeNotifier {
           image: _pickedImage!, userKey: userKey);
     }
     await _profileRepository.userPofileUpdate(
+      introduction: _introduction,
+      cars: [],
       userProfile: ProfileModel(
           socialProfileUrl: socialProfileUrl,
           localProfileUrl:
@@ -77,7 +82,7 @@ class ProfileProvider extends ChangeNotifier {
     required String nickName,
     required BuildContext context,
   }) async {
-    if (nickName.isNotEmpty && nickName.length < 21) {
+    if (nickName.isNotEmpty && nickName.length < 21 && nickName.length > 2) {
       final _nickNameExists = await _profileRepository
           .getUsersNickNameDuplication(nickName: nickName);
       if (_nickNameExists) {
@@ -91,10 +96,35 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void changedIntroduction({
+    required String value,
+  }) {
+    if (value.length > 4999) {
+      //show snackbar
+    } else {
+      _introduction = value;
+    }
+    notifyListeners();
+  }
+
+  void showIntroductionWidget({
+    required bool value,
+  }) {
+    _isIntroduction = value;
+    notifyListeners();
+  }
+
   void showNickNameChangedWidget({
     required bool value,
   }) {
     value == true ? _isTextForm = true : _isTextForm = false;
+    notifyListeners();
+  }
+
+  void showCarsChangedWidget({
+    required bool value,
+  }) {
+    _isCars = value;
     notifyListeners();
   }
 
@@ -106,4 +136,7 @@ class ProfileProvider extends ChangeNotifier {
   bool? get isSocialImage => _isSocialImage;
   Uint8List? get pickedImage => _pickedImage;
   bool get updateSuccessOrFailure => _updateSuccessOrFailure;
+  String get introduction => _introduction;
+  bool get isIntroduction => _isIntroduction;
+  bool get isCars => _isCars;
 }

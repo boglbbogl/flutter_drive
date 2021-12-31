@@ -28,6 +28,8 @@ class _$UserModelTearOff {
       required String socialProfileUrl,
       required String localProfileUrl,
       required bool isSocialImage,
+      required String introduction,
+      required List<String> cars,
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt,
       required String provider}) {
@@ -38,6 +40,8 @@ class _$UserModelTearOff {
       socialProfileUrl: socialProfileUrl,
       localProfileUrl: localProfileUrl,
       isSocialImage: isSocialImage,
+      introduction: introduction,
+      cars: cars,
       createdAt: createdAt,
       updatedAt: updatedAt,
       provider: provider,
@@ -60,6 +64,8 @@ mixin _$UserModel {
   String get socialProfileUrl => throw _privateConstructorUsedError;
   String get localProfileUrl => throw _privateConstructorUsedError;
   bool get isSocialImage => throw _privateConstructorUsedError;
+  String get introduction => throw _privateConstructorUsedError;
+  List<String> get cars => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -83,6 +89,8 @@ abstract class $UserModelCopyWith<$Res> {
       String socialProfileUrl,
       String localProfileUrl,
       bool isSocialImage,
+      String introduction,
+      List<String> cars,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt,
       String provider});
@@ -104,6 +112,8 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? socialProfileUrl = freezed,
     Object? localProfileUrl = freezed,
     Object? isSocialImage = freezed,
+    Object? introduction = freezed,
+    Object? cars = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? provider = freezed,
@@ -133,6 +143,14 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.isSocialImage
           : isSocialImage // ignore: cast_nullable_to_non_nullable
               as bool,
+      introduction: introduction == freezed
+          ? _value.introduction
+          : introduction // ignore: cast_nullable_to_non_nullable
+              as String,
+      cars: cars == freezed
+          ? _value.cars
+          : cars // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -162,6 +180,8 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String socialProfileUrl,
       String localProfileUrl,
       bool isSocialImage,
+      String introduction,
+      List<String> cars,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt,
       String provider});
@@ -184,6 +204,8 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? socialProfileUrl = freezed,
     Object? localProfileUrl = freezed,
     Object? isSocialImage = freezed,
+    Object? introduction = freezed,
+    Object? cars = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? provider = freezed,
@@ -213,6 +235,14 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.isSocialImage
           : isSocialImage // ignore: cast_nullable_to_non_nullable
               as bool,
+      introduction: introduction == freezed
+          ? _value.introduction
+          : introduction // ignore: cast_nullable_to_non_nullable
+              as String,
+      cars: cars == freezed
+          ? _value.cars
+          : cars // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -239,6 +269,8 @@ class _$_UserModel extends _UserModel {
       required this.socialProfileUrl,
       required this.localProfileUrl,
       required this.isSocialImage,
+      required this.introduction,
+      required this.cars,
       @TimestampConverter() required this.createdAt,
       @TimestampConverter() required this.updatedAt,
       required this.provider})
@@ -260,6 +292,10 @@ class _$_UserModel extends _UserModel {
   @override
   final bool isSocialImage;
   @override
+  final String introduction;
+  @override
+  final List<String> cars;
+  @override
   @TimestampConverter()
   final DateTime createdAt;
   @override
@@ -270,7 +306,7 @@ class _$_UserModel extends _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(userKey: $userKey, nickName: $nickName, email: $email, socialProfileUrl: $socialProfileUrl, localProfileUrl: $localProfileUrl, isSocialImage: $isSocialImage, createdAt: $createdAt, updatedAt: $updatedAt, provider: $provider)';
+    return 'UserModel(userKey: $userKey, nickName: $nickName, email: $email, socialProfileUrl: $socialProfileUrl, localProfileUrl: $localProfileUrl, isSocialImage: $isSocialImage, introduction: $introduction, cars: $cars, createdAt: $createdAt, updatedAt: $updatedAt, provider: $provider)';
   }
 
   @override
@@ -287,6 +323,9 @@ class _$_UserModel extends _UserModel {
                 .equals(other.localProfileUrl, localProfileUrl) &&
             const DeepCollectionEquality()
                 .equals(other.isSocialImage, isSocialImage) &&
+            const DeepCollectionEquality()
+                .equals(other.introduction, introduction) &&
+            const DeepCollectionEquality().equals(other.cars, cars) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
             const DeepCollectionEquality().equals(other.provider, provider));
@@ -301,6 +340,8 @@ class _$_UserModel extends _UserModel {
       const DeepCollectionEquality().hash(socialProfileUrl),
       const DeepCollectionEquality().hash(localProfileUrl),
       const DeepCollectionEquality().hash(isSocialImage),
+      const DeepCollectionEquality().hash(introduction),
+      const DeepCollectionEquality().hash(cars),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(updatedAt),
       const DeepCollectionEquality().hash(provider));
@@ -324,6 +365,8 @@ abstract class _UserModel extends UserModel {
       required String socialProfileUrl,
       required String localProfileUrl,
       required bool isSocialImage,
+      required String introduction,
+      required List<String> cars,
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt,
       required String provider}) = _$_UserModel;
@@ -344,6 +387,10 @@ abstract class _UserModel extends UserModel {
   String get localProfileUrl;
   @override
   bool get isSocialImage;
+  @override
+  String get introduction;
+  @override
+  List<String> get cars;
   @override
   @TimestampConverter()
   DateTime get createdAt;

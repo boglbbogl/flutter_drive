@@ -58,25 +58,25 @@ class AuthRepository {
   }) async {
     final DocumentReference<Map<String, dynamic>> _userReference =
         _firestore.collection(collectionUser).doc(userKey);
-    final CollectionReference<Map<String, dynamic>> _courseReference =
-        _firestore.collection(collectionCourse);
+    // final CollectionReference<Map<String, dynamic>> _courseReference =
+    //     _firestore.collection(collectionCourse);
 
     final _batch = _firestore.batch();
-    await _courseReference
-        .where('userKey', isEqualTo: userKey)
-        .get()
-        .then((snapshot) {
-      for (final element in snapshot.docs) {
-        _batch.update(
-          FirebaseFirestore.instance
-              .collection(collectionCourse)
-              .doc(element.id),
-          {
-            "userProfile": userProfile.toFireStore(),
-          },
-        );
-      }
-    });
+    // await _courseReference
+    //     .where('userKey', isEqualTo: userKey)
+    //     .get()
+    //     .then((snapshot) {
+    //   for (final element in snapshot.docs) {
+    //     _batch.update(
+    //       FirebaseFirestore.instance
+    //           .collection(collectionCourse)
+    //           .doc(element.id),
+    //       {
+    //         "userProfile": userProfile.toFireStore(),
+    //       },
+    //     );
+    //   }
+    // });
     _batch.update(_userReference, {
       "socialProfileUrl": userProfile.socialProfileUrl,
       "localProfileUrl": userProfile.localProfileUrl,

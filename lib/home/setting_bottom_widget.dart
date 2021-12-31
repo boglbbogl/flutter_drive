@@ -55,7 +55,7 @@ Future<void> settingBottomWidget({
                                             .read<AuthProvider>()
                                             .user!
                                             .isSocialImage),
-                                  child: const ProfilePage()));
+                                  child: ProfilePage()));
                         }),
                     _menuItemListTile(
                         title: '로그아웃',

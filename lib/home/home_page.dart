@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/feed/ui/feed_main_page.dart';
+import 'package:flutter_drive/feed/ui/page/feed_main_page.dart';
 import 'package:flutter_drive/home/home_appbar_widget.dart';
 import 'package:flutter_drive/home/home_shimmer_widget.dart';
 

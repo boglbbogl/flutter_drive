@@ -23,30 +23,34 @@ class ProfileRepository {
 
   Future<bool> userPofileUpdate({
     required ProfileModel userProfile,
+    required String introduction,
     required String userKey,
+    required List<String> cars,
   }) async {
     final DocumentReference<Map<String, dynamic>> _userReference =
         _firestore.collection(collectionUser).doc(userKey);
-    final CollectionReference<Map<String, dynamic>> _courseReference =
-        _firestore.collection(collectionCourse);
+    // final CollectionReference<Map<String, dynamic>> _courseReference =
+    //     _firestore.collection(collectionCourse);
     final _batch = _firestore.batch();
     try {
-      await _courseReference
-          .where('userKey', isEqualTo: userKey)
-          .get()
-          .then((snapshot) async {
-        for (final element in snapshot.docs) {
-          _batch
-              .update(_firestore.collection(collectionCourse).doc(element.id), {
-            "userProfile": userProfile.toFireStore(),
-          });
-        }
-      });
+      // await _courseReference
+      //     .where('userKey', isEqualTo: userKey)
+      //     .get()
+      //     .then((snapshot) async {
+      //   for (final element in snapshot.docs) {
+      //     _batch
+      //         .update(_firestore.collection(collectionCourse).doc(element.id), {
+      //       "userProfile": userProfile.toFireStore(),
+      //     });
+      //   }
+      // });
       _batch.update(_userReference, {
         "socialProfileUrl": userProfile.socialProfileUrl,
         "localProfileUrl": userProfile.localProfileUrl,
         "nickName": userProfile.nickName,
         "isSocialImage": userProfile.isSocialImage,
+        "introduction": introduction,
+        "cars": cars,
         "updatedAt": DateTime.now(),
       });
       await _batch.commit();

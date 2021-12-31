@@ -8,7 +8,7 @@ SizedBox addressItemSelectedWidget({
 }) {
   return SizedBox(
     width: size.width,
-    height: size.height * 0.03,
+    height: size.height * 0.04,
     child: ListView(
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,

@@ -27,18 +27,18 @@ class ContentCourseCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    courseList.spot.firstOrNull!.placeName.length > 15
-                        ? "${courseList.spot.firstOrNull!.placeName.substring(0, 15)} ..."
+                    courseList.spot.firstOrNull!.placeName.length > 12
+                        ? "${courseList.spot.firstOrNull!.placeName.substring(0, 12)} ..."
                         : courseList.spot.firstOrNull!.placeName,
                     style: theme.textTheme.bodyText2!.copyWith(
                         color: Colors.white,
-                        fontSize: 12,
+                        fontSize: 11,
                         fontWeight: FontWeight.bold),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Container(
-                      width: size.width * 0.05,
+                      width: size.width * 0.04,
                       height: 1,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -47,12 +47,12 @@ class ContentCourseCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    courseList.spot.lastOrNull!.placeName.length > 15
-                        ? "${courseList.spot.lastOrNull!.placeName.substring(0, 15)} ..."
+                    courseList.spot.lastOrNull!.placeName.length > 12
+                        ? "${courseList.spot.lastOrNull!.placeName.substring(0, 12)} ..."
                         : courseList.spot.lastOrNull!.placeName,
                     style: theme.textTheme.bodyText2!.copyWith(
                         color: Colors.white,
-                        fontSize: 12,
+                        fontSize: 11,
                         fontWeight: FontWeight.bold),
                   ),
                 ],

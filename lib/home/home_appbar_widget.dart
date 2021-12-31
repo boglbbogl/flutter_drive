@@ -29,8 +29,12 @@ AppBar homeAppbarWidget({
         onTap: () {},
         icon: CustomIcon.bookmarkEmpty,
       ),
-      InkWell(
+      _actionIcons(
         onTap: () => settingBottomWidget(context: context),
+        icon: Icons.settings,
+      ),
+      InkWell(
+        onTap: () {},
         child: Padding(
           padding: const EdgeInsets.only(left: 8, right: 10),
           child: context.watch<AuthProvider>().user == null
@@ -58,6 +62,7 @@ IconButton _actionIcons({
   double? iconSize,
 }) =>
     IconButton(
+        constraints: const BoxConstraints(),
         onPressed: onTap,
         icon: Icon(
           icon,

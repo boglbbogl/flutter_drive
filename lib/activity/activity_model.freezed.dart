@@ -24,11 +24,17 @@ class _$ActivityModelTearOff {
   _ActivityModel call(
       {required List<String> contentsDocKey,
       required List<String> likesDocKey,
-      required List<String> bookmarksDocKey}) {
+      required List<String> bookmarksDocKey,
+      required List<String> followerUserKey,
+      required List<String> followingUserKey,
+      required List<String> region}) {
     return _ActivityModel(
       contentsDocKey: contentsDocKey,
       likesDocKey: likesDocKey,
       bookmarksDocKey: bookmarksDocKey,
+      followerUserKey: followerUserKey,
+      followingUserKey: followingUserKey,
+      region: region,
     );
   }
 
@@ -45,6 +51,9 @@ mixin _$ActivityModel {
   List<String> get contentsDocKey => throw _privateConstructorUsedError;
   List<String> get likesDocKey => throw _privateConstructorUsedError;
   List<String> get bookmarksDocKey => throw _privateConstructorUsedError;
+  List<String> get followerUserKey => throw _privateConstructorUsedError;
+  List<String> get followingUserKey => throw _privateConstructorUsedError;
+  List<String> get region => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,7 +69,10 @@ abstract class $ActivityModelCopyWith<$Res> {
   $Res call(
       {List<String> contentsDocKey,
       List<String> likesDocKey,
-      List<String> bookmarksDocKey});
+      List<String> bookmarksDocKey,
+      List<String> followerUserKey,
+      List<String> followingUserKey,
+      List<String> region});
 }
 
 /// @nodoc
@@ -77,6 +89,9 @@ class _$ActivityModelCopyWithImpl<$Res>
     Object? contentsDocKey = freezed,
     Object? likesDocKey = freezed,
     Object? bookmarksDocKey = freezed,
+    Object? followerUserKey = freezed,
+    Object? followingUserKey = freezed,
+    Object? region = freezed,
   }) {
     return _then(_value.copyWith(
       contentsDocKey: contentsDocKey == freezed
@@ -90,6 +105,18 @@ class _$ActivityModelCopyWithImpl<$Res>
       bookmarksDocKey: bookmarksDocKey == freezed
           ? _value.bookmarksDocKey
           : bookmarksDocKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      followerUserKey: followerUserKey == freezed
+          ? _value.followerUserKey
+          : followerUserKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      followingUserKey: followingUserKey == freezed
+          ? _value.followingUserKey
+          : followingUserKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      region: region == freezed
+          ? _value.region
+          : region // ignore: cast_nullable_to_non_nullable
               as List<String>,
     ));
   }
@@ -105,7 +132,10 @@ abstract class _$ActivityModelCopyWith<$Res>
   $Res call(
       {List<String> contentsDocKey,
       List<String> likesDocKey,
-      List<String> bookmarksDocKey});
+      List<String> bookmarksDocKey,
+      List<String> followerUserKey,
+      List<String> followingUserKey,
+      List<String> region});
 }
 
 /// @nodoc
@@ -124,6 +154,9 @@ class __$ActivityModelCopyWithImpl<$Res>
     Object? contentsDocKey = freezed,
     Object? likesDocKey = freezed,
     Object? bookmarksDocKey = freezed,
+    Object? followerUserKey = freezed,
+    Object? followingUserKey = freezed,
+    Object? region = freezed,
   }) {
     return _then(_ActivityModel(
       contentsDocKey: contentsDocKey == freezed
@@ -138,6 +171,18 @@ class __$ActivityModelCopyWithImpl<$Res>
           ? _value.bookmarksDocKey
           : bookmarksDocKey // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      followerUserKey: followerUserKey == freezed
+          ? _value.followerUserKey
+          : followerUserKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      followingUserKey: followingUserKey == freezed
+          ? _value.followingUserKey
+          : followingUserKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      region: region == freezed
+          ? _value.region
+          : region // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -148,7 +193,10 @@ class _$_ActivityModel extends _ActivityModel {
   const _$_ActivityModel(
       {required this.contentsDocKey,
       required this.likesDocKey,
-      required this.bookmarksDocKey})
+      required this.bookmarksDocKey,
+      required this.followerUserKey,
+      required this.followingUserKey,
+      required this.region})
       : super._();
 
   factory _$_ActivityModel.fromJson(Map<String, dynamic> json) =>
@@ -160,10 +208,16 @@ class _$_ActivityModel extends _ActivityModel {
   final List<String> likesDocKey;
   @override
   final List<String> bookmarksDocKey;
+  @override
+  final List<String> followerUserKey;
+  @override
+  final List<String> followingUserKey;
+  @override
+  final List<String> region;
 
   @override
   String toString() {
-    return 'ActivityModel(contentsDocKey: $contentsDocKey, likesDocKey: $likesDocKey, bookmarksDocKey: $bookmarksDocKey)';
+    return 'ActivityModel(contentsDocKey: $contentsDocKey, likesDocKey: $likesDocKey, bookmarksDocKey: $bookmarksDocKey, followerUserKey: $followerUserKey, followingUserKey: $followingUserKey, region: $region)';
   }
 
   @override
@@ -176,7 +230,12 @@ class _$_ActivityModel extends _ActivityModel {
             const DeepCollectionEquality()
                 .equals(other.likesDocKey, likesDocKey) &&
             const DeepCollectionEquality()
-                .equals(other.bookmarksDocKey, bookmarksDocKey));
+                .equals(other.bookmarksDocKey, bookmarksDocKey) &&
+            const DeepCollectionEquality()
+                .equals(other.followerUserKey, followerUserKey) &&
+            const DeepCollectionEquality()
+                .equals(other.followingUserKey, followingUserKey) &&
+            const DeepCollectionEquality().equals(other.region, region));
   }
 
   @override
@@ -184,7 +243,10 @@ class _$_ActivityModel extends _ActivityModel {
       runtimeType,
       const DeepCollectionEquality().hash(contentsDocKey),
       const DeepCollectionEquality().hash(likesDocKey),
-      const DeepCollectionEquality().hash(bookmarksDocKey));
+      const DeepCollectionEquality().hash(bookmarksDocKey),
+      const DeepCollectionEquality().hash(followerUserKey),
+      const DeepCollectionEquality().hash(followingUserKey),
+      const DeepCollectionEquality().hash(region));
 
   @JsonKey(ignore: true)
   @override
@@ -201,7 +263,10 @@ abstract class _ActivityModel extends ActivityModel {
   const factory _ActivityModel(
       {required List<String> contentsDocKey,
       required List<String> likesDocKey,
-      required List<String> bookmarksDocKey}) = _$_ActivityModel;
+      required List<String> bookmarksDocKey,
+      required List<String> followerUserKey,
+      required List<String> followingUserKey,
+      required List<String> region}) = _$_ActivityModel;
   const _ActivityModel._() : super._();
 
   factory _ActivityModel.fromJson(Map<String, dynamic> json) =
@@ -213,6 +278,12 @@ abstract class _ActivityModel extends ActivityModel {
   List<String> get likesDocKey;
   @override
   List<String> get bookmarksDocKey;
+  @override
+  List<String> get followerUserKey;
+  @override
+  List<String> get followingUserKey;
+  @override
+  List<String> get region;
   @override
   @JsonKey(ignore: true)
   _$ActivityModelCopyWith<_ActivityModel> get copyWith =>
