@@ -14,7 +14,7 @@ Padding profileIntroductionWidget({
     child: Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 15, bottom: 10),
+          padding: const EdgeInsets.only(bottom: 10),
           child: InkWell(
             onTap: () {
               if (isIntroduction) {

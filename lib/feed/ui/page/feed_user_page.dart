@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/app_indicator.dart';
 import 'package:flutter_drive/_constant/custom_icon.dart';
+import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
@@ -46,6 +47,8 @@ class FeedUserPage extends StatelessWidget {
               headerSliverBuilder: (context, value) {
                 return [
                   feedUserInfoWidget(
+                    isMe: provider.userProfile!.userKey
+                        .contains(context.watch<AuthProvider>().user!.userKey),
                     userNickName: provider.userProfile == null
                         ? ""
                         : provider.userProfile!.nickName,
@@ -55,6 +58,7 @@ class FeedUserPage extends StatelessWidget {
                     contentLength:
                         provider.userActivity!.contentsDocKey.length.toString(),
                     userIntroduction: provider.userProfile!.introduction,
+                    cars: provider.userProfile!.cars,
                   )
                 ];
               },

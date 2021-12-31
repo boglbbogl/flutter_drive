@@ -26,6 +26,7 @@ class ProfileRepository {
     required String introduction,
     required String userKey,
     required List<String> cars,
+    required List<String> deleteCars,
   }) async {
     final DocumentReference<Map<String, dynamic>> _userReference =
         _firestore.collection(collectionUser).doc(userKey);
@@ -44,13 +45,17 @@ class ProfileRepository {
       //     });
       //   }
       // });
+      if (deleteCars.isNotEmpty) {
+        _batch.update(
+            _userReference, {"cars": FieldValue.arrayRemove(deleteCars)});
+      }
       _batch.update(_userReference, {
         "socialProfileUrl": userProfile.socialProfileUrl,
         "localProfileUrl": userProfile.localProfileUrl,
         "nickName": userProfile.nickName,
         "isSocialImage": userProfile.isSocialImage,
         "introduction": introduction,
-        "cars": cars,
+        "cars": FieldValue.arrayUnion(cars),
         "updatedAt": DateTime.now(),
       });
       await _batch.commit();

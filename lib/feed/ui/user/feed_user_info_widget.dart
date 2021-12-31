@@ -7,6 +7,8 @@ SliverList feedUserInfoWidget({
   required String userNickName,
   required String contentLength,
   required String userIntroduction,
+  required List<String> cars,
+  required bool isMe,
 }) {
   return SliverList(
       delegate: SliverChildListDelegate([
@@ -20,8 +22,31 @@ SliverList feedUserInfoWidget({
             children: [
               Row(
                 children: [
-                  profileCircleImageWidget(
-                    imageUrl: userImage,
+                  Stack(
+                    children: [
+                      profileCircleImageWidget(
+                        imageUrl: userImage,
+                      ),
+                      if (isMe) ...[
+                        Positioned(
+                          right: -3,
+                          top: -2,
+                          child: InkWell(
+                            onTap: () {},
+                            child: Container(
+                              width: 20,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: darkThemeMainColor),
+                              child: const Center(
+                                  child: Icon(Icons.add_circle_outline,
+                                      size: 16, color: Colors.white)),
+                            ),
+                          ),
+                        )
+                      ],
+                    ],
                   ),
                   const SizedBox(width: 18),
                   _textForm(
@@ -45,10 +70,30 @@ SliverList feedUserInfoWidget({
             child: Text(
               userIntroduction,
               style: theme.textTheme.bodyText2!.copyWith(
-                  color: const Color.fromRGBO(175, 175, 175, 1), fontSize: 10),
+                  color: const Color.fromRGBO(195, 195, 195, 1), fontSize: 11),
             ),
           ),
-          Text('차종'),
+          const SizedBox(height: 10),
+          SizedBox(
+            width: size.width * 0.9,
+            height: size.height * 0.02,
+            child: ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              children: [
+                ...cars.map((e) => Padding(
+                      padding: const EdgeInsets.only(right: 4),
+                      child: Text(
+                        '#$e',
+                        style: theme.textTheme.bodyText2!.copyWith(
+                          fontSize: 11,
+                          color: const Color.fromRGBO(195, 195, 195, 1),
+                        ),
+                      ),
+                    ))
+              ],
+            ),
+          )
         ],
       ),
     )

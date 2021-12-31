@@ -22,6 +22,8 @@ class ProfileProvider extends ChangeNotifier {
   String _introduction = "";
   bool _isIntroduction = false;
   bool _isCars = false;
+  List<String> _cars = [];
+  List<String> _loadCars = [];
 
   Future<void> started({
     required bool isSocialImage,
@@ -44,7 +46,8 @@ class ProfileProvider extends ChangeNotifier {
     }
     await _profileRepository.userPofileUpdate(
       introduction: _introduction,
-      cars: [],
+      deleteCars: loadCars,
+      cars: _cars,
       userProfile: ProfileModel(
           socialProfileUrl: socialProfileUrl,
           localProfileUrl:
@@ -121,6 +124,35 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void loadCarsAddAndRemove({
+    required String value,
+  }) {
+    if (value.isNotEmpty && _loadCars.contains(value)) {
+      _loadCars.remove(value);
+    } else {
+      _loadCars.add(value);
+    }
+    notifyListeners();
+  }
+
+  void changedAddCars({
+    required String value,
+  }) {
+    if (value.isNotEmpty) {
+      _cars.add(value);
+    }
+    notifyListeners();
+  }
+
+  void changedRemoveCars({
+    required String value,
+  }) {
+    if (value.isNotEmpty) {
+      _cars.remove(value);
+    }
+    notifyListeners();
+  }
+
   void showCarsChangedWidget({
     required bool value,
   }) {
@@ -139,4 +171,6 @@ class ProfileProvider extends ChangeNotifier {
   String get introduction => _introduction;
   bool get isIntroduction => _isIntroduction;
   bool get isCars => _isCars;
+  List<String> get cars => _cars;
+  List<String> get loadCars => _loadCars;
 }
