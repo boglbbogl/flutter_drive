@@ -7,6 +7,7 @@ import 'package:flutter_drive/content/provider/content_provider.dart';
 import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
+import 'package:flutter_drive/profile/provider/profile_provider.dart';
 import 'package:flutter_drive/router/route_delegate.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +21,7 @@ class Drive extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => AddressProvider()),
         ChangeNotifierProvider(create: (context) => CourseProvider()),
+        ChangeNotifierProvider(create: (context) => ProfileProvider()),
         ChangeNotifierProvider(create: (context) => FeedMainProvider()),
         ChangeNotifierProvider(create: (context) => FeedUserProvider()),
         ChangeNotifierProvider(create: (context) => ContentProvider()),

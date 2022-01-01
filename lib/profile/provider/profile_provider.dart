@@ -11,6 +11,7 @@ class ProfileProvider extends ChangeNotifier {
   final ProfileRepository _profileRepository = ProfileRepository();
   final ImagesRepository _imagesRepository = ImagesRepository();
   final ImagePicker _imagePicker = ImagePicker();
+  bool _isStartLoading = false;
   bool _isLoading = false;
   Uint8List? _pickedImage;
   bool _isTextForm = false;
@@ -22,14 +23,18 @@ class ProfileProvider extends ChangeNotifier {
   String _introduction = "";
   bool _isIntroduction = false;
   bool _isCars = false;
-  List<String> _cars = [];
-  List<String> _loadCars = [];
+  final List<String> _cars = [];
+  final List<String> _loadCars = [];
 
   Future<void> started({
     required bool isSocialImage,
   }) async {
+    _isStartLoading = true;
+    notifyListeners();
     _isSocialImage = isSocialImage;
     _updateSuccessOrFailure = false;
+    _isStartLoading = false;
+    notifyListeners();
   }
 
   Future userProfileUpdate({
@@ -44,6 +49,7 @@ class ProfileProvider extends ChangeNotifier {
       _localImageUrl = await _imagesRepository.userProfileImageUpladResized(
           image: _pickedImage!, userKey: userKey);
     }
+
     await _profileRepository.userPofileUpdate(
       introduction: _introduction,
       deleteCars: loadCars,
@@ -173,4 +179,5 @@ class ProfileProvider extends ChangeNotifier {
   bool get isCars => _isCars;
   List<String> get cars => _cars;
   List<String> get loadCars => _loadCars;
+  bool get isStartLoading => _isStartLoading;
 }

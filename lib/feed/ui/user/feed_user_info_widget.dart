@@ -9,6 +9,7 @@ SliverList feedUserInfoWidget({
   required String userIntroduction,
   required List<String> cars,
   required bool isMe,
+  required Function() profileOnTap,
 }) {
   return SliverList(
       delegate: SliverChildListDelegate([
@@ -32,7 +33,7 @@ SliverList feedUserInfoWidget({
                           right: -3,
                           top: -2,
                           child: InkWell(
-                            onTap: () {},
+                            onTap: profileOnTap,
                             child: Container(
                               width: 20,
                               height: 20,

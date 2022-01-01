@@ -45,6 +45,9 @@ class ProfileRepository {
       //     });
       //   }
       // });
+      if (introduction.isNotEmpty) {
+        _batch.update(_userReference, {"introduction": introduction});
+      }
       if (deleteCars.isNotEmpty) {
         _batch.update(
             _userReference, {"cars": FieldValue.arrayRemove(deleteCars)});
@@ -54,7 +57,6 @@ class ProfileRepository {
         "localProfileUrl": userProfile.localProfileUrl,
         "nickName": userProfile.nickName,
         "isSocialImage": userProfile.isSocialImage,
-        "introduction": introduction,
         "cars": FieldValue.arrayUnion(cars),
         "updatedAt": DateTime.now(),
       });

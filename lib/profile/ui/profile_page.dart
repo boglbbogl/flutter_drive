@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/_constant/app_indicator.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/profile/provider/profile_provider.dart';
@@ -24,6 +25,9 @@ class ProfilePage extends StatelessWidget {
         final UserModel _user =
             Provider.of<AuthProvider>(context, listen: false).user!;
         _introController.text = _user.introduction;
+        if (provider.isStartLoading) {
+          return const AppIndicator();
+        }
         return GestureDetector(
           onTap: () {
             // FocusScope.of(context).unfocus();

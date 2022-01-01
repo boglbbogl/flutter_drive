@@ -47,15 +47,13 @@ Future<void> settingBottomWidget({
                         icons: Icons.account_circle,
                         onTap: () {
                           Navigator.of(context).pop();
-                          pushNewScreen(context,
-                              screen: ChangeNotifierProvider(
-                                  create: (context) => ProfileProvider()
-                                    ..started(
-                                        isSocialImage: context
-                                            .read<AuthProvider>()
-                                            .user!
-                                            .isSocialImage),
-                                  child: ProfilePage()));
+                          context.read<ProfileProvider>().started(
+                                isSocialImage: context
+                                    .read<AuthProvider>()
+                                    .user!
+                                    .isSocialImage,
+                              );
+                          pushNewScreen(context, screen: ProfilePage());
                         }),
                     _menuItemListTile(
                         title: '로그아웃',
