@@ -22,13 +22,6 @@ class FeedRepostiory {
     });
   }
 
-  // Future<List<CourseModel>> getFeedUserActivityLikes({
-  //   required String userKey,
-  // }) async {
-  //   final CollectionReference<Map<String, dynamic>> _courseRef =
-  //       _firestore.collection(collectionCourse);
-  // }
-
   Future<List<CourseModel>> getFeedUserCourse({
     required String userKey,
   }) async {

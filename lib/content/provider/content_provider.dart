@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/content/repo/content_repository.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
@@ -68,6 +69,7 @@ class ContentProvider extends ChangeNotifier {
     required String userKey,
     required bool isLike,
   }) async {
+    logger.d(isLike);
     if (isLike) {
       await _contentRepository.removeLike(docKey: docKey, userKey: userKey);
     } else {

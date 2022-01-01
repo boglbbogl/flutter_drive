@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/app_date_time.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/comment/provider/comment_provider.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_page.dart';
+import 'package:flutter_drive/feed/ui/page/feed_user_profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
@@ -73,13 +75,13 @@ class ContentMainCard extends StatelessWidget {
                                       context
                                           .read<FeedUserProvider>()
                                           .getUserCourse(
-                                              userKey:
-                                                  courseList[index].userKey);
+                                            userKey: courseList[index].userKey,
+                                          );
                                       context
                                           .read<FeedMainProvider>()
                                           .initialization();
                                       pushNewScreen(context,
-                                          screen: FeedUserPage(
+                                          screen: FeedUserProfilePage(
                                             allCourseModel: courseList,
                                           ));
                                     },
