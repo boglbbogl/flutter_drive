@@ -77,9 +77,6 @@ class ContentMainCard extends StatelessWidget {
                                           .getUserProfileInfo(
                                             userKey: courseList[index].userKey,
                                           );
-                                      context
-                                          .read<FeedMainProvider>()
-                                          .initialization();
                                       pushNewScreen(context,
                                           screen: FeedUserProfilePage(
                                             allCourseModel: courseList,

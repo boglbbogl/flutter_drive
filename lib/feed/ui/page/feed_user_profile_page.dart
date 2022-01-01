@@ -86,6 +86,13 @@ class FeedUserProfilePage extends StatelessWidget {
                             children: [
                               ...provider.courseList.map((feed) => InkWell(
                                     onTap: () {
+                                      context
+                                          .read<FeedUserProvider>()
+                                          .initialization();
+                                      context
+                                          .read<FeedMainProvider>()
+                                          .initialization();
+
                                       pushNewScreen(context,
                                           screen: const FeedUserPage(),
                                           pageTransitionAnimation:
