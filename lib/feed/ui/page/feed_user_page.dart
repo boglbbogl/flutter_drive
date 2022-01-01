@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/content/ui/card/content_main_card.dart';
+import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:provider/provider.dart';
@@ -23,11 +25,13 @@ class FeedUserPage extends StatelessWidget {
               },
               icon: const Icon(Icons.arrow_back_rounded),
             ),
-            // title: Text(
-            //   provider.userProfile == null ? "" : provider.userProfile!.nickName,
-            //   style: theme.textTheme.bodyText2!
-            //       .copyWith(fontSize: 12, fontWeight: FontWeight.bold),
-            // ),
+            title: Text(
+              provider.userProfile == null
+                  ? ""
+                  : provider.userProfile!.nickName,
+              style: theme.textTheme.bodyText2!
+                  .copyWith(fontSize: 12, fontWeight: FontWeight.bold),
+            ),
           ),
           body: ContentMainCard(
             courseList: provider.courseList,

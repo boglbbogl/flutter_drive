@@ -74,7 +74,7 @@ class ContentMainCard extends StatelessWidget {
                                     userOnTap: () {
                                       context
                                           .read<FeedUserProvider>()
-                                          .getUserCourse(
+                                          .getUserProfileInfo(
                                             userKey: courseList[index].userKey,
                                           );
                                       context

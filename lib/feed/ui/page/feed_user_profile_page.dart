@@ -31,13 +31,6 @@ class FeedUserProfilePage extends StatelessWidget {
           length: 3,
           child: Scaffold(
             appBar: AppBar(
-              // title: Text(
-              //   provider.userProfile == null
-              //       ? ""
-              //       : provider.userProfile!.nickName,
-              //   style: theme.textTheme.bodyText2!
-              //       .copyWith(fontSize: 12, fontWeight: FontWeight.bold),
-              // ),
               leading: IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -94,7 +87,7 @@ class FeedUserProfilePage extends StatelessWidget {
                               ...provider.courseList.map((feed) => InkWell(
                                     onTap: () {
                                       pushNewScreen(context,
-                                          screen: FeedUserPage(),
+                                          screen: const FeedUserPage(),
                                           pageTransitionAnimation:
                                               PageTransitionAnimation
                                                   .cupertino);

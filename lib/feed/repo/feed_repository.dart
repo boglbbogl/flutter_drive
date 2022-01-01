@@ -22,17 +22,6 @@ class FeedRepostiory {
     });
   }
 
-  Future<List<CourseModel>> getFeedUserCourse({
-    required String userKey,
-  }) async {
-    final CollectionReference<Map<String, dynamic>> _courseRef =
-        _firestore.collection(collectionCourse);
-    final _snap = await _courseRef.where('userKey', isEqualTo: userKey).get();
-    final _result =
-        _snap.docs.map((e) => CourseModel.fromFireStore(e)).toList();
-    return _result;
-  }
-
   Future<UserModel?> getFeedUserProfile({
     required String userKey,
   }) async {

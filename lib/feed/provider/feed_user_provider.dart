@@ -10,6 +10,7 @@ import 'package:flutter_drive/feed/repo/feed_repository.dart';
 class FeedUserProvider extends ChangeNotifier {
   final FeedRepostiory _feedRepostiory = FeedRepostiory();
   final ActivityRepository _activityRepository = ActivityRepository();
+  StreamSubscription<List<CourseModel>?>? _courseStreamSubscription;
   List<CourseModel> _courseList = [];
   UserModel? _userProfile;
   ActivityModel? _userActivity;
@@ -28,12 +29,18 @@ class FeedUserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getUserCourse({
+  Future getUserProfileInfo({
     required String userKey,
   }) async {
     _isLoading = true;
     notifyListeners();
-    _courseList = await _feedRepostiory.getFeedUserCourse(userKey: userKey);
+    await _courseStreamSubscription?.cancel();
+    _courseStreamSubscription =
+        _feedRepostiory.getStreamCourse().listen((course) {
+      _courseList =
+          course.where((element) => userKey.contains(element.userKey)).toList();
+      notifyListeners();
+    });
     _userProfile = await _feedRepostiory.getFeedUserProfile(userKey: userKey);
     _userActivity = await _activityRepository.getUserActivity(userKey: userKey);
     _isDetail = true;
