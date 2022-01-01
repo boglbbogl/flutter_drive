@@ -16,24 +16,22 @@ class FeedUserProvider extends ChangeNotifier {
   ActivityModel? _userActivity;
   int _imageOrCouseSpotIndex = -1;
   bool _isImageOrCouseSpot = false;
-  int _explanationIndex = -1;
+  List<int> _explanationIndex = [];
   bool _isDetail = false;
   bool _isLoading = false;
 
   void initialization() {
     _isDetail = true;
-    _explanationIndex = -1;
+    _explanationIndex = [];
     _isImageOrCouseSpot = false;
     _imageOrCouseSpotIndex = -1;
     _isLoading = false;
     notifyListeners();
   }
 
-  Future getUserProfileInfo({
+  Future getFeedUserCourse({
     required String userKey,
   }) async {
-    _isLoading = true;
-    notifyListeners();
     await _courseStreamSubscription?.cancel();
     _courseStreamSubscription =
         _feedRepostiory.getStreamCourse().listen((course) {
@@ -41,10 +39,18 @@ class FeedUserProvider extends ChangeNotifier {
           course.where((element) => userKey.contains(element.userKey)).toList();
       notifyListeners();
     });
+  }
+
+  Future getUserProfileInfo({
+    required String userKey,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+    getFeedUserCourse(userKey: userKey);
     _userProfile = await _feedRepostiory.getFeedUserProfile(userKey: userKey);
     _userActivity = await _activityRepository.getUserActivity(userKey: userKey);
     _isDetail = true;
-    _explanationIndex = -1;
+    _explanationIndex = [];
     _isImageOrCouseSpot = false;
     _imageOrCouseSpotIndex = -1;
     _isLoading = false;
@@ -53,9 +59,13 @@ class FeedUserProvider extends ChangeNotifier {
 
   void isShowExplanation({
     required int index,
-    required bool value,
   }) {
-    _explanationIndex = index;
+    if (_explanationIndex.contains(index)) {
+      _explanationIndex.remove(index);
+    } else {
+      _explanationIndex.add(index);
+    }
+    // _explanationIndex = index;
     notifyListeners();
   }
 
@@ -73,7 +83,7 @@ class FeedUserProvider extends ChangeNotifier {
   ActivityModel? get userActivity => _userActivity;
   int get imageOrCouseSpotIndex => _imageOrCouseSpotIndex;
   bool get isImageOrCouseSpot => _isImageOrCouseSpot;
-  int get explanationIndex => _explanationIndex;
+  List<int> get explanationIndex => _explanationIndex;
   bool get isDetail => _isDetail;
   bool get isLoading => _isLoading;
 }

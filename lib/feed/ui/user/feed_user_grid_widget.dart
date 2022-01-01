@@ -79,9 +79,10 @@ InkWell _contentFeedGridListItem({
 }) {
   return InkWell(
     onTap: () {
-      context.read<FeedUserProvider>().initialization();
       context.read<FeedMainProvider>().initialization();
-
+      context.read<FeedUserProvider>()
+        ..initialization()
+        ..getFeedUserCourse(userKey: feed.userKey);
       pushNewScreen(context,
           screen: const FeedUserPage(),
           pageTransitionAnimation: PageTransitionAnimation.cupertino);

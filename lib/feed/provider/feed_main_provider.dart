@@ -9,14 +9,14 @@ class FeedMainProvider extends ChangeNotifier {
   List<CourseModel> _courseList = [];
   int _imageOrCouseSpotIndex = -1;
   bool _isImageOrCouseSpot = false;
-  int _explanationIndex = -1;
+  List<int> _explanationIndex = [];
 
   FeedMainProvider() {
     _courseStream();
   }
 
   void initialization() {
-    _explanationIndex = -1;
+    _explanationIndex = [];
     _isImageOrCouseSpot = false;
     _imageOrCouseSpotIndex = -1;
     notifyListeners();
@@ -33,9 +33,13 @@ class FeedMainProvider extends ChangeNotifier {
 
   void isShowExplanation({
     required int index,
-    required bool value,
   }) {
-    _explanationIndex = index;
+    if (_explanationIndex.contains(index)) {
+      _explanationIndex.remove(index);
+    } else {
+      _explanationIndex.add(index);
+    }
+    // _explanationIndex = index;
     notifyListeners();
   }
 
@@ -51,5 +55,5 @@ class FeedMainProvider extends ChangeNotifier {
   List<CourseModel> get courseList => _courseList;
   int get imageOrCouseSpotIndex => _imageOrCouseSpotIndex;
   bool get isImageOrCouseSpot => _isImageOrCouseSpot;
-  int get explanationIndex => _explanationIndex;
+  List<int> get explanationIndex => _explanationIndex;
 }

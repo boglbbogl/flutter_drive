@@ -28,7 +28,7 @@ class ContentMainCard extends StatelessWidget {
   final List<CourseModel> courseList;
   final int imageOrCouseSpotIndex;
   final bool isImageOrCouseSpot;
-  final int explanationIndex;
+  final List<int> explanationIndex;
   const ContentMainCard({
     Key? key,
     required this.courseList,

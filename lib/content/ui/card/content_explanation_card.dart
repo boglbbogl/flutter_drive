@@ -10,7 +10,7 @@ Padding contentExplanationCard({
   required String nickName,
   required String explanation,
   required int index,
-  required int explanationIndex,
+  required List<int> explanationIndex,
   required bool isDetail,
 }) {
   return Padding(
@@ -26,12 +26,12 @@ Padding contentExplanationCard({
               fontSize: 11,
             )),
         TextSpan(
-            text: explanationIndex != index && explanation.length > 20
+            text: !explanationIndex.contains(index) && explanation.length > 20
                 ? explanation.substring(0, 20)
                 : explanation,
             style: theme.textTheme.bodyText2!.copyWith(
                 fontSize: 10, color: const Color.fromRGBO(215, 215, 215, 1))),
-        if (explanationIndex != index && explanation.length > 20) ...[
+        if (!explanationIndex.contains(index) && explanation.length > 20) ...[
           TextSpan(
               text: ' ...더 보기',
               style: theme.textTheme.bodyText2!.copyWith(
@@ -43,11 +43,11 @@ Padding contentExplanationCard({
                   if (isDetail) {
                     context
                         .read<FeedUserProvider>()
-                        .isShowExplanation(index: index, value: true);
+                        .isShowExplanation(index: index);
                   }
                   context
                       .read<FeedMainProvider>()
-                      .isShowExplanation(index: index, value: true);
+                      .isShowExplanation(index: index);
                 }),
         ],
       ])),
