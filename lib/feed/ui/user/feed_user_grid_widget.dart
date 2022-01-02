@@ -41,8 +41,13 @@ class FeedUserGridWidget extends StatelessWidget {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
               children: [
-                ...contentFeedCourse.map((feed) =>
-                    _contentFeedGridListItem(context: context, feed: feed))
+                ...contentFeedCourse.map((feed) => _contentFeedGridListItem(
+                      context: context,
+                      feed: feed,
+                      userKey: feed.userKey,
+                      likesDocKey: [],
+                      bookmarksDocKey: [],
+                    ))
               ],
             ),
           ),
@@ -63,7 +68,12 @@ class FeedUserGridWidget extends StatelessWidget {
                           .where(
                               (course) => likesDocKey.contains(course.docKey))
                           .map((feed) => _contentFeedGridListItem(
-                              context: context, feed: feed))
+                                context: context,
+                                feed: feed,
+                                userKey: "",
+                                likesDocKey: likesDocKey,
+                                bookmarksDocKey: [],
+                              ))
                     ],
                   ),
           ),
@@ -84,7 +94,12 @@ class FeedUserGridWidget extends StatelessWidget {
                           .where((course) =>
                               bookmarksDocKey.contains(course.docKey))
                           .map((feed) => _contentFeedGridListItem(
-                              context: context, feed: feed))
+                                context: context,
+                                feed: feed,
+                                userKey: "",
+                                likesDocKey: [],
+                                bookmarksDocKey: bookmarksDocKey,
+                              ))
                     ],
                   ),
           ),
@@ -110,17 +125,23 @@ Row _privacyInfoForm() {
 InkWell _contentFeedGridListItem({
   required BuildContext context,
   required CourseModel feed,
+  required String userKey,
+  required List<String> likesDocKey,
+  required List<String> bookmarksDocKey,
 }) {
   return InkWell(
     onTap: () {
       context.read<FeedMainProvider>().initialization();
       context.read<FeedUserProvider>()
         ..initialization()
-        ..getFeedUserCourse(userKey: feed.userKey);
+        ..getFeedUserCourse(
+          userKey: userKey,
+          likesDocKey: likesDocKey,
+          bookmarksDocKey: bookmarksDocKey,
+        );
+
       pushNewScreen(context,
-          screen: FeedUserPage(
-            appBarUserKey: feed.userKey,
-          ),
+          screen: const FeedUserPage(),
           pageTransitionAnimation: PageTransitionAnimation.cupertino);
     },
     child: Container(

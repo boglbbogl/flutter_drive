@@ -29,6 +29,7 @@ class FeedMainProvider extends ChangeNotifier {
         .getStreamCourse(limit: _limit, isMain: true)
         .listen((course) {
       _courseList = course;
+      logger.e(_courseList.length);
       notifyListeners();
     });
   }
