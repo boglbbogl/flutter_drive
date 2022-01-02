@@ -22,9 +22,8 @@ class FeedUserPage extends StatelessWidget {
         ),
         body: ContentMainCard(
           courseList: provider.courseList,
-          imageOrCouseSpotIndex: provider.imageOrCouseSpotIndex,
-          isImageOrCouseSpot: provider.isImageOrCouseSpot,
           explanationIndex: provider.explanationIndex,
+          feedImageOrCourse: provider.feedImageOrCourse,
         ),
       );
     });

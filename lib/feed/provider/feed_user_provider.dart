@@ -5,6 +5,7 @@ import 'package:flutter_drive/activity/activity_model.dart';
 import 'package:flutter_drive/activity/activity_repository.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
+import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/repo/feed_repository.dart';
 
 class FeedUserProvider extends ChangeNotifier {
@@ -14,18 +15,16 @@ class FeedUserProvider extends ChangeNotifier {
   List<CourseModel> _courseList = [];
   UserModel? _userProfile;
   ActivityModel? _userActivity;
-  int _imageOrCouseSpotIndex = -1;
-  bool _isImageOrCouseSpot = false;
   List<int> _explanationIndex = [];
   bool _isDetail = false;
   bool _isLoading = false;
+  List<FeedModel> _feedImageOrCourse = [];
 
   void initialization() {
     _isDetail = true;
     _explanationIndex = [];
-    _isImageOrCouseSpot = false;
-    _imageOrCouseSpotIndex = -1;
     _isLoading = false;
+    _feedImageOrCourse = [];
     notifyListeners();
   }
 
@@ -51,8 +50,7 @@ class FeedUserProvider extends ChangeNotifier {
     _userActivity = await _activityRepository.getUserActivity(userKey: userKey);
     _isDetail = true;
     _explanationIndex = [];
-    _isImageOrCouseSpot = false;
-    _imageOrCouseSpotIndex = -1;
+    _feedImageOrCourse = [];
     _isLoading = false;
     notifyListeners();
   }
@@ -65,7 +63,6 @@ class FeedUserProvider extends ChangeNotifier {
     } else {
       _explanationIndex.add(index);
     }
-    // _explanationIndex = index;
     notifyListeners();
   }
 
@@ -73,17 +70,24 @@ class FeedUserProvider extends ChangeNotifier {
     required int index,
     required bool value,
   }) {
-    _isImageOrCouseSpot = value;
-    _imageOrCouseSpotIndex = index;
+    if (_feedImageOrCourse.contains(FeedModel(index: index, isShow: true))) {
+      _feedImageOrCourse.remove(FeedModel(index: index, isShow: true));
+      _feedImageOrCourse.add(FeedModel(index: index, isShow: false));
+    } else if (_feedImageOrCourse
+        .contains(FeedModel(index: index, isShow: false))) {
+      _feedImageOrCourse.remove(FeedModel(index: index, isShow: false));
+      _feedImageOrCourse.add(FeedModel(index: index, isShow: true));
+    } else {
+      _feedImageOrCourse.add(FeedModel(index: index, isShow: value));
+    }
     notifyListeners();
   }
 
   List<CourseModel> get courseList => _courseList;
   UserModel? get userProfile => _userProfile;
   ActivityModel? get userActivity => _userActivity;
-  int get imageOrCouseSpotIndex => _imageOrCouseSpotIndex;
-  bool get isImageOrCouseSpot => _isImageOrCouseSpot;
   List<int> get explanationIndex => _explanationIndex;
   bool get isDetail => _isDetail;
   bool get isLoading => _isLoading;
+  List<FeedModel> get feedImageOrCourse => _feedImageOrCourse;
 }

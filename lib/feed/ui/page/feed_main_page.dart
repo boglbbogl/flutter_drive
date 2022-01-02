@@ -12,9 +12,8 @@ class FeedMainPage extends StatelessWidget {
       builder: (context, provider, child) {
         return ContentMainCard(
           courseList: provider.courseList,
-          imageOrCouseSpotIndex: provider.imageOrCouseSpotIndex,
-          isImageOrCouseSpot: provider.isImageOrCouseSpot,
           explanationIndex: provider.explanationIndex,
+          feedImageOrCourse: provider.feedImageOrCourse,
         );
       },
     );

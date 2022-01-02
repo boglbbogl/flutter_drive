@@ -2,7 +2,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/app_date_time.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/comment/provider/comment_provider.dart';
@@ -17,23 +16,20 @@ import 'package:flutter_drive/content/ui/page/content_like_bookmark_page.dart';
 import 'package:flutter_drive/content/ui/widgets/image_or_course_widget.dart';
 import 'package:flutter_drive/content/ui/widgets/like_or_comment_widget.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
-import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
+import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
-import 'package:flutter_drive/feed/ui/page/feed_user_page.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
 class ContentMainCard extends StatelessWidget {
   final List<CourseModel> courseList;
-  final int imageOrCouseSpotIndex;
-  final bool isImageOrCouseSpot;
+  final List<FeedModel> feedImageOrCourse;
   final List<int> explanationIndex;
   const ContentMainCard({
     Key? key,
     required this.courseList,
-    required this.imageOrCouseSpotIndex,
-    required this.isImageOrCouseSpot,
+    required this.feedImageOrCourse,
     required this.explanationIndex,
   }) : super(key: key);
 
@@ -89,8 +85,8 @@ class ContentMainCard extends StatelessWidget {
                                 _divider(),
                                 AnimatedSwitcher(
                                   duration: const Duration(milliseconds: 300),
-                                  child: imageOrCouseSpotIndex == index &&
-                                          isImageOrCouseSpot
+                                  child: feedImageOrCourse.contains(
+                                          FeedModel(index: index, isShow: true))
                                       ? ContentImageCard(
                                           imageUrl: courseList[index].imageUrl,
                                         )
@@ -101,8 +97,9 @@ class ContentMainCard extends StatelessWidget {
                                   AnimatedSwitcher(
                                       duration:
                                           const Duration(milliseconds: 500),
-                                      child: imageOrCouseSpotIndex == index &&
-                                              isImageOrCouseSpot
+                                      child: feedImageOrCourse.contains(
+                                              FeedModel(
+                                                  index: index, isShow: true))
                                           ? contentCourseWidget(
                                               isDetail: context
                                                   .read<FeedUserProvider>()
