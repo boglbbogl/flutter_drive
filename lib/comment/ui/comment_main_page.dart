@@ -51,6 +51,9 @@ class CommentMainPage extends StatelessWidget {
                                 Row(
                                   children: [
                                     userCircleImageWidget(
+                                        context: context,
+                                        userKey:
+                                            provider.commentList[index].userKey,
                                         imageUrl: provider.allUserProfile
                                                 .where((e) =>
                                                     e.userKey ==

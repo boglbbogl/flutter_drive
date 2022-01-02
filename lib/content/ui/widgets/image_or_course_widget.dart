@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:provider/provider.dart';

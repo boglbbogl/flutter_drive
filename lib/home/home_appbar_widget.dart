@@ -26,31 +26,26 @@ AppBar homeAppbarWidget({
         icon: CustomIcon.plusSquaredEmpty,
       ),
       _actionIcons(
-        onTap: () {},
-        icon: CustomIcon.bookmarkEmpty,
-      ),
-      _actionIcons(
         onTap: () => settingBottomWidget(context: context),
         icon: Icons.settings,
       ),
-      InkWell(
-        onTap: () {},
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8, right: 10),
-          child: context.watch<AuthProvider>().user == null
-              ? const CircleAvatar(
-                  backgroundColor: Color.fromRGBO(91, 91, 91, 1),
-                  radius: 14,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 2, vertical: 15),
-                    child: CircularProgressIndicator(),
-                  ),
-                )
-              : userCircleImageWidget(
-                  imageUrl: context.watch<AuthProvider>().user!.isSocialImage
-                      ? context.watch<AuthProvider>().user!.socialProfileUrl
-                      : context.watch<AuthProvider>().user!.localProfileUrl),
-        ),
+      Padding(
+        padding: const EdgeInsets.only(left: 8, right: 10),
+        child: context.watch<AuthProvider>().user == null
+            ? const CircleAvatar(
+                backgroundColor: Color.fromRGBO(91, 91, 91, 1),
+                radius: 14,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 2, vertical: 15),
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : userCircleImageWidget(
+                context: context,
+                userKey: context.read<AuthProvider>().user!.userKey,
+                imageUrl: context.watch<AuthProvider>().user!.isSocialImage
+                    ? context.watch<AuthProvider>().user!.socialProfileUrl
+                    : context.watch<AuthProvider>().user!.localProfileUrl),
       ),
     ],
   );

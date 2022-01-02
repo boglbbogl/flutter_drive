@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
+import 'package:flutter_drive/auth/ui/profile_circle_image_widget.dart';
 
 SliverList feedUserInfoWidget({
   required String userImage,

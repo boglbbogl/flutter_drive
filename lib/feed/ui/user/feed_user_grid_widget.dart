@@ -84,7 +84,9 @@ InkWell _contentFeedGridListItem({
         ..initialization()
         ..getFeedUserCourse(userKey: feed.userKey);
       pushNewScreen(context,
-          screen: const FeedUserPage(),
+          screen: FeedUserPage(
+            appBarUserKey: feed.userKey,
+          ),
           pageTransitionAnimation: PageTransitionAnimation.cupertino);
     },
     child: Container(

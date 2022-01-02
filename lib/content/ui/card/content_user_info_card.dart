@@ -14,8 +14,8 @@ Padding contentUserInfoCard({
   required String nickName,
   required CourseModel course,
   required BuildContext context,
-  required Function() userOnTap,
   required String docKey,
+  required String userKey,
   required bool isMe,
 }) {
   return Padding(
@@ -23,20 +23,24 @@ Padding contentUserInfoCard({
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        InkWell(
-          onTap: userOnTap,
-          child: Row(
-            children: [
-              userCircleImageWidget(imageUrl: imageUrl),
-              const SizedBox(width: 8),
-              Text(
-                nickName,
-                style: theme.textTheme.bodyText2!.copyWith(fontSize: 11),
-              ),
-              const SizedBox(width: 12),
-              timeIconWidget(time: course.driveTime),
-            ],
-          ),
+        Row(
+          children: [
+            userCircleImageWidget(
+                imageUrl: imageUrl,
+                context: context,
+                userKey: userKey,
+                widget: Row(
+                  children: [
+                    const SizedBox(width: 8),
+                    Text(
+                      nickName,
+                      style: theme.textTheme.bodyText2!.copyWith(fontSize: 11),
+                    ),
+                  ],
+                )),
+            const SizedBox(width: 12),
+            timeIconWidget(time: course.driveTime),
+          ],
         ),
         IconButton(
           onPressed: () {

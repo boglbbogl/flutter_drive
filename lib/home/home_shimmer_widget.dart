@@ -14,7 +14,49 @@ Shimmer homeShimmerWidet() {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                child: _shimmer(w: size.width, h: size.width, r: 12),
+                child: SizedBox(
+                    width: size.width,
+                    height: size.width,
+                    // decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(12),
+                    //     border: Border.all(width: 2, color: Colors.white)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            _shimmer(
+                                w: size.width * 0.1,
+                                h: size.height * 0.03,
+                                left: 8,
+                                top: 8),
+                            _shimmer(
+                                w: size.width * 0.2,
+                                h: size.height * 0.03,
+                                top: 8,
+                                left: 4),
+                          ],
+                        ),
+                        _shimmer(
+                            w: size.width,
+                            h: size.height * 0.3,
+                            top: 8,
+                            left: 8,
+                            right: 8),
+                        _shimmer(
+                            w: size.width,
+                            h: size.height * 0.06,
+                            top: 8,
+                            left: 8,
+                            right: 8),
+                        _shimmer(
+                            w: size.width * 0.3,
+                            h: size.height * 0.03,
+                            top: 8,
+                            left: 8,
+                            right: 8),
+                      ],
+                    )),
               ),
               const SizedBox(height: 12),
             ],
@@ -23,17 +65,24 @@ Shimmer homeShimmerWidet() {
   );
 }
 
-Container _shimmer({
+Padding _shimmer({
   required double w,
   required double h,
-  required double r,
+  double? left = 0,
+  double? right = 0,
+  double? top = 0,
+  double? bottom = 0,
 }) {
-  return Container(
-    width: w,
-    height: h,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(r),
-      color: Colors.white,
+  return Padding(
+    padding:
+        EdgeInsets.only(left: left!, right: right!, top: top!, bottom: bottom!),
+    child: Container(
+      width: w,
+      height: h,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+      ),
     ),
   );
 }

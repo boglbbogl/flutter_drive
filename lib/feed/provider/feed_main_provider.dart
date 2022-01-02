@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/repo/feed_repository.dart';

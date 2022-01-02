@@ -18,7 +18,6 @@ import 'package:flutter_drive/content/ui/widgets/like_or_comment_widget.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
-import 'package:flutter_drive/feed/ui/page/feed_user_profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
@@ -67,17 +66,7 @@ class ContentMainCard extends StatelessWidget {
                                     nickName: user.nickName,
                                     course: courseList[index],
                                     context: context,
-                                    userOnTap: () {
-                                      context
-                                          .read<FeedUserProvider>()
-                                          .getUserProfileInfo(
-                                            userKey: courseList[index].userKey,
-                                          );
-                                      pushNewScreen(context,
-                                          screen: FeedUserProfilePage(
-                                            allCourseModel: courseList,
-                                          ));
-                                    },
+                                    userKey: courseList[index].userKey,
                                     docKey: courseList[index].docKey,
                                     isMe: courseList[index]
                                         .userKey
