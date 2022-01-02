@@ -15,6 +15,7 @@ class AuthProvider extends ChangeNotifier {
 
   UserModel? _user;
   List<UserModel> _allUserProfile = [];
+  List<ActivityModel> _allUserActivity = [];
   bool _isLoginState = false;
   bool _isGoogle = false;
   bool _isKakao = false;
@@ -22,6 +23,7 @@ class AuthProvider extends ChangeNotifier {
   AuthProvider() {
     _userLoginState();
     _getAllUserProfile();
+    _getAllUserActivity();
   }
 
   Future<void> _userLoginState() async {
@@ -67,6 +69,11 @@ class AuthProvider extends ChangeNotifier {
 
   Future _getAllUserProfile() async {
     _allUserProfile = await _authRepository.getAllUserProfile();
+    notifyListeners();
+  }
+
+  Future _getAllUserActivity() async {
+    _allUserActivity = await _authRepository.getAllUserActivity();
     notifyListeners();
   }
 
@@ -246,4 +253,5 @@ class AuthProvider extends ChangeNotifier {
   bool get isGoogle => _isGoogle;
   bool get isKakao => _isKakao;
   List<UserModel> get allUserProfile => _allUserProfile;
+  List<ActivityModel> get allUserActivity => _allUserActivity;
 }

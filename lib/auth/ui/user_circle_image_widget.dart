@@ -19,6 +19,7 @@ InkWell userCircleImageWidget({
           );
       pushNewScreen(context,
           screen: FeedUserProfilePage(
+            userKey: userKey,
             allCourseModel: context.read<FeedMainProvider>().courseList,
           ));
     },

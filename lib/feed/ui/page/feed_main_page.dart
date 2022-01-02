@@ -15,6 +15,9 @@ class FeedMainPage extends StatelessWidget {
           explanationIndex: provider.explanationIndex,
           feedImageOrCourse: provider.feedImageOrCourse,
           isMain: true,
+          contents: const [],
+          likes: const [],
+          bookmarks: const [],
         );
       },
     );

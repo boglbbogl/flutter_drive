@@ -8,6 +8,7 @@ part of 'activity_model.dart';
 
 _$_ActivityModel _$$_ActivityModelFromJson(Map<String, dynamic> json) =>
     _$_ActivityModel(
+      userKey: json['userKey'] as String,
       contentsDocKey: (json['contentsDocKey'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
@@ -29,6 +30,7 @@ _$_ActivityModel _$$_ActivityModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_ActivityModelToJson(_$_ActivityModel instance) =>
     <String, dynamic>{
+      'userKey': instance.userKey,
       'contentsDocKey': instance.contentsDocKey,
       'likesDocKey': instance.likesDocKey,
       'bookmarksDocKey': instance.bookmarksDocKey,

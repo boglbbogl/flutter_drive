@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/content/ui/card/content_main_card.dart';
+import 'package:flutter_drive/course/model/course_model.dart';
+import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:provider/provider.dart';
 
 class FeedUserPage extends StatelessWidget {
+  final List<String> contents;
+  final List<String> likes;
+  final List<String> bookmarks;
   const FeedUserPage({
     Key? key,
+    required this.contents,
+    required this.likes,
+    required this.bookmarks,
   }) : super(key: key);
 
   @override
@@ -16,21 +25,17 @@ class FeedUserPage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            provider.showCourseListIndex == 1
-                ? "${provider.userProfile!.nickName} 님이 좋아요한 게시물"
-                : provider.showCourseListIndex == 2
-                    ? "${provider.userProfile!.nickName} 님이 북마크한 게시물"
-                    : "${provider.userProfile!.nickName} 님의 게시물",
+            '',
+            // "${provider.userProfile!.nickName} 님의 게시물",
             style: theme.textTheme.bodyText2!
                 .copyWith(fontSize: 12, fontWeight: FontWeight.bold),
           ),
         ),
         body: ContentMainCard(
-          courseList: provider.showCourseListIndex == 1
-              ? provider.likesCourseList
-              : provider.showCourseListIndex == 2
-                  ? provider.bookmarksCourseList
-                  : provider.courseList,
+          likes: likes,
+          bookmarks: bookmarks,
+          contents: contents,
+          courseList: provider.courseList,
           explanationIndex: provider.explanationIndex,
           feedImageOrCourse: provider.feedImageOrCourse,
           isMain: false,

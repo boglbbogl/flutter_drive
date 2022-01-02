@@ -32,6 +32,15 @@ class AuthRepository {
     return _result;
   }
 
+  Future<List<ActivityModel>> getAllUserActivity() async {
+    final CollectionReference<Map<String, dynamic>> _courseRef =
+        _firestore.collection(collectionActivity);
+    final _snap = await _courseRef.get();
+    final _result =
+        _snap.docs.map((e) => ActivityModel.fromFireStore(e)).toList();
+    return _result;
+  }
+
   Future createUserProfile({
     required UserModel userModel,
     required ActivityModel activityModel,
@@ -44,10 +53,11 @@ class AuthRepository {
 
     final DocumentSnapshot _userSnapshot = await _userRef.get();
     final DocumentSnapshot _activitySnapshot = await _userRef.get();
+    final _activityWrite = activityModel.copyWith(userKey: userKey);
     final _batch = _firestore.batch();
     if (!_userSnapshot.exists && !_activitySnapshot.exists) {
       _batch.set(_userRef, userModel.toJson());
-      _batch.set(_activityRef, activityModel.toJson());
+      _batch.set(_activityRef, _activityWrite.toJson());
       await _batch.commit();
     }
   }

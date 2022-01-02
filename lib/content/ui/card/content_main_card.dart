@@ -32,16 +32,30 @@ class ContentMainCard extends StatelessWidget {
   final List<FeedModel> feedImageOrCourse;
   final List<int> explanationIndex;
   final bool isMain;
+  final List<String> contents;
+  final List<String> likes;
+  final List<String> bookmarks;
   ContentMainCard({
     Key? key,
     required this.courseList,
     required this.feedImageOrCourse,
     required this.explanationIndex,
     required this.isMain,
+    required this.contents,
+    required this.likes,
+    required this.bookmarks,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _courseList = contents.isNotEmpty
+        ? courseList.where((c) => contents.contains(c.docKey)).toList()
+        : likes.isNotEmpty
+            ? courseList.where((c) => likes.contains(c.docKey)).toList()
+            : bookmarks.isNotEmpty
+                ? courseList.where((c) => bookmarks.contains(c.docKey)).toList()
+                : courseList;
+    logger.e(_courseList);
     return Stack(
       children: [
         SmartRefresher(
@@ -62,7 +76,7 @@ class ContentMainCard extends StatelessWidget {
           },
           footer: contentRefreshFooter(isMain: isMain),
           child: ListView.builder(
-              itemCount: courseList.length,
+              itemCount: _courseList.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -77,7 +91,7 @@ class ContentMainCard extends StatelessWidget {
                         ...context
                             .watch<AuthProvider>()
                             .allUserProfile
-                            .where((element) => courseList[index]
+                            .where((element) => _courseList[index]
                                 .userKey
                                 .contains(element.userKey))
                             .map(
@@ -89,11 +103,11 @@ class ContentMainCard extends StatelessWidget {
                                           ? user.socialProfileUrl
                                           : user.localProfileUrl,
                                       nickName: user.nickName,
-                                      course: courseList[index],
+                                      course: _courseList[index],
                                       context: context,
-                                      userKey: courseList[index].userKey,
-                                      docKey: courseList[index].docKey,
-                                      isMe: courseList[index]
+                                      userKey: _courseList[index].userKey,
+                                      docKey: _courseList[index].docKey,
+                                      isMe: _courseList[index]
                                           .userKey
                                           .contains(user.userKey)),
                                   _divider(),
@@ -103,12 +117,12 @@ class ContentMainCard extends StatelessWidget {
                                             index: index, isShow: true))
                                         ? ContentImageCard(
                                             imageUrl:
-                                                courseList[index].imageUrl,
+                                                _courseList[index].imageUrl,
                                           )
                                         : ContentCourseCard(
-                                            courseList: courseList[index]),
+                                            courseList: _courseList[index]),
                                   ),
-                                  if (courseList[index]
+                                  if (_courseList[index]
                                       .imageUrl
                                       .isNotEmpty) ...[
                                     AnimatedSwitcher(
@@ -123,11 +137,11 @@ class ContentMainCard extends StatelessWidget {
                                                     .isDetail,
                                                 context: context,
                                                 startPlaceName:
-                                                    courseList[index]
+                                                    _courseList[index]
                                                         .spot
                                                         .firstOrNull!
                                                         .placeName,
-                                                endPlaceName: courseList[index]
+                                                endPlaceName: _courseList[index]
                                                     .spot
                                                     .lastOrNull!
                                                     .placeName,
@@ -139,7 +153,7 @@ class ContentMainCard extends StatelessWidget {
                                                     .isDetail,
                                                 context: context,
                                                 imageUrls:
-                                                    courseList[index].imageUrl,
+                                                    _courseList[index].imageUrl,
                                                 index: index)),
                                   ],
                                   _divider(),
@@ -150,7 +164,8 @@ class ContentMainCard extends StatelessWidget {
                                               isLike: true,
                                               userId: user.nickName,
                                               likeAndBookMarkUserKey:
-                                                  courseList[index].likeUserKey,
+                                                  _courseList[index]
+                                                      .likeUserKey,
                                             ),
                                             pageTransitionAnimation:
                                                 PageTransitionAnimation
@@ -162,43 +177,43 @@ class ContentMainCard extends StatelessWidget {
                                               isLike: false,
                                               userId: user.nickName,
                                               likeAndBookMarkUserKey:
-                                                  courseList[index]
+                                                  _courseList[index]
                                                       .bookmarkUserKey,
                                             ),
                                             pageTransitionAnimation:
                                                 PageTransitionAnimation
                                                     .slideUp);
                                       },
-                                      bookmarkCount: courseList[index]
+                                      bookmarkCount: _courseList[index]
                                           .bookmarkUserKey
                                           .length,
                                       likeCount:
-                                          courseList[index].likeUserKey.length,
-                                      isBookmark: courseList[index]
+                                          _courseList[index].likeUserKey.length,
+                                      isBookmark: _courseList[index]
                                           .bookmarkUserKey
                                           .contains(context
                                               .read<AuthProvider>()
                                               .user!
                                               .userKey),
-                                      isLike: courseList[index]
+                                      isLike: _courseList[index]
                                           .likeUserKey
                                           .contains(context
                                               .read<AuthProvider>()
                                               .user!
                                               .userKey),
                                       isComment:
-                                          courseList[index].commentCount == 0,
+                                          _courseList[index].commentCount == 0,
                                       bookmarkOnTap: () {
                                         context
                                             .read<ContentProvider>()
                                             .bookmarkAddAndRemove(
                                                 docKey:
-                                                    courseList[index].docKey,
+                                                    _courseList[index].docKey,
                                                 userKey: context
                                                     .read<AuthProvider>()
                                                     .user!
                                                     .userKey,
-                                                isBookmark: courseList[index]
+                                                isBookmark: _courseList[index]
                                                     .bookmarkUserKey
                                                     .contains(context
                                                         .read<AuthProvider>()
@@ -209,14 +224,14 @@ class ContentMainCard extends StatelessWidget {
                                         context
                                             .read<ContentProvider>()
                                             .likeAddAndRemove(
-                                                isLike: courseList[index]
+                                                isLike: _courseList[index]
                                                     .likeUserKey
                                                     .contains(context
                                                         .read<AuthProvider>()
                                                         .user!
                                                         .userKey),
                                                 docKey:
-                                                    courseList[index].docKey,
+                                                    _courseList[index].docKey,
                                                 userKey: context
                                                     .read<AuthProvider>()
                                                     .user!
@@ -226,7 +241,7 @@ class ContentMainCard extends StatelessWidget {
                                         await _commentPushPaged(
                                             context: context,
                                             index: index,
-                                            docKey: courseList[index].docKey,
+                                            docKey: _courseList[index].docKey,
                                             allUser: context
                                                 .read<AuthProvider>()
                                                 .allUserProfile);
@@ -237,11 +252,11 @@ class ContentMainCard extends StatelessWidget {
                                         .isDetail,
                                     context: context,
                                     nickName: user.nickName,
-                                    explanation: courseList[index].explanation,
+                                    explanation: _courseList[index].explanation,
                                     index: index,
                                     explanationIndex: explanationIndex,
                                   ),
-                                  if (courseList[index]
+                                  if (_courseList[index]
                                       .srcKeyword
                                       .isNotEmpty) ...[
                                     Padding(
@@ -256,7 +271,7 @@ class ContentMainCard extends StatelessWidget {
                                           shrinkWrap: true,
                                           scrollDirection: Axis.horizontal,
                                           children: [
-                                            ...courseList[index]
+                                            ..._courseList[index]
                                                 .srcKeyword
                                                 .map((e) => Padding(
                                                       padding:
@@ -288,14 +303,15 @@ class ContentMainCard extends StatelessWidget {
                                         await _commentPushPaged(
                                             context: context,
                                             index: index,
-                                            docKey: courseList[index].docKey,
+                                            docKey: _courseList[index].docKey,
                                             allUser: context
                                                 .read<AuthProvider>()
                                                 .allUserProfile);
                                       },
-                                      title: courseList[index].commentCount == 0
+                                      title: _courseList[index].commentCount ==
+                                              0
                                           ? "댓글 입력..."
-                                          : "댓글 ${courseList[index].commentCount}개 전체보기",
+                                          : "댓글 ${_courseList[index].commentCount}개 전체보기",
                                       top: 4,
                                       bottom: 2),
                                   Padding(
@@ -304,7 +320,7 @@ class ContentMainCard extends StatelessWidget {
                                     child: Text(
                                       appDateTime(
                                           dateTime:
-                                              courseList[index].createdAt),
+                                              _courseList[index].createdAt),
                                       style: theme.textTheme.bodyText2!
                                           .copyWith(
                                               color: const Color.fromRGBO(

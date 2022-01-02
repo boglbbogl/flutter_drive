@@ -15,9 +15,11 @@ import 'package:provider/provider.dart';
 
 class FeedUserProfilePage extends StatelessWidget {
   final List<CourseModel> allCourseModel;
+  final String userKey;
   const FeedUserProfilePage({
     Key? key,
     required this.allCourseModel,
+    required this.userKey,
   }) : super(key: key);
 
   @override
@@ -27,85 +29,101 @@ class FeedUserProfilePage extends StatelessWidget {
         if (provider.isLoading) {
           return const AppIndicator();
         }
+
         return DefaultTabController(
           length: 3,
-          child: Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                icon: const Icon(Icons.arrow_back_rounded),
-              ),
-              automaticallyImplyLeading: false,
-            ),
-            body: NestedScrollView(
-              headerSliverBuilder: (context, value) {
-                return [
-                  feedUserInfoWidget(
-                    profileOnTap: () {
-                      context.read<ProfileProvider>().started(
-                            isSocialImage: context
+          child: Stack(
+            children: [
+              ...context
+                  .read<AuthProvider>()
+                  .allUserProfile
+                  .where((element) => userKey.contains(element.userKey))
+                  .map(
+                    (user) => Scaffold(
+                      appBar: AppBar(
+                        leading: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: const Icon(Icons.arrow_back_rounded),
+                        ),
+                        automaticallyImplyLeading: false,
+                      ),
+                      body: NestedScrollView(
+                        headerSliverBuilder: (context, value) {
+                          return [
+                            feedUserInfoWidget(
+                              profileOnTap: () {
+                                context.read<ProfileProvider>().started(
+                                      isSocialImage: user.isSocialImage,
+                                      isPrivacyBookmarks: user.privacyBookmarks,
+                                      isPrivacyLikes: user.privacyLikes,
+                                    );
+                                pushNewScreen(context, screen: ProfilePage());
+                              },
+                              isMe: user.userKey.contains(
+                                  context.watch<AuthProvider>().user!.userKey),
+                              userNickName: user.nickName,
+                              userImage: user.isSocialImage
+                                  ? user.socialProfileUrl
+                                  : user.localProfileUrl,
+                              contentLength: context
+                                  .watch<AuthProvider>()
+                                  .allUserActivity
+                                  .where((element) =>
+                                      user.userKey.contains(element.userKey))
+                                  .map((e) => e.contentsDocKey.length)
+                                  .toString(),
+                              userIntroduction: user.introduction,
+                              cars: user.cars,
+                            )
+                          ];
+                        },
+                        body: Column(
+                          children: [
+                            TabBar(
+                              tabs: [
+                                _tabBarButton(
+                                    title: '게시물',
+                                    icon: Icons.grid_4x4_outlined),
+                                _tabBarButton(
+                                    title: '좋아요',
+                                    icon: user.privacyLikes
+                                        ? Icons.lock
+                                        : CustomIcon.heartEmpty),
+                                _tabBarButton(
+                                    title: '북마크',
+                                    icon: user.privacyBookmarks
+                                        ? Icons.lock
+                                        : CustomIcon.bookmarkEmpty),
+                              ],
+                              indicatorColor: appMainColor,
+                              indicatorSize: TabBarIndicatorSize.label,
+                            ),
+                            ...context
                                 .read<AuthProvider>()
-                                .user!
-                                .isSocialImage,
-                            isPrivacyBookmarks: context
-                                .read<AuthProvider>()
-                                .user!
-                                .privacyBookmarks,
-                            isPrivacyLikes:
-                                context.read<AuthProvider>().user!.privacyLikes,
-                          );
-                      pushNewScreen(context, screen: ProfilePage());
-                    },
-                    isMe: provider.userProfile!.userKey
-                        .contains(context.watch<AuthProvider>().user!.userKey),
-                    userNickName: provider.userProfile == null
-                        ? ""
-                        : provider.userProfile!.nickName,
-                    userImage: provider.userProfile!.isSocialImage
-                        ? provider.userProfile!.socialProfileUrl
-                        : provider.userProfile!.localProfileUrl,
-                    contentLength:
-                        provider.userActivity!.contentsDocKey.length.toString(),
-                    userIntroduction: provider.userProfile!.introduction,
-                    cars: provider.userProfile!.cars,
-                  )
-                ];
-              },
-              body: Column(
-                children: [
-                  TabBar(
-                    tabs: [
-                      _tabBarButton(
-                          title: '게시물', icon: Icons.grid_4x4_outlined),
-                      _tabBarButton(
-                          title: '좋아요',
-                          icon: provider.userProfile!.privacyLikes
-                              ? Icons.lock
-                              : CustomIcon.heartEmpty),
-                      _tabBarButton(
-                          title: '북마크',
-                          icon: provider.userProfile!.privacyBookmarks
-                              ? Icons.lock
-                              : CustomIcon.bookmarkEmpty),
-                    ],
-                    indicatorColor: appMainColor,
-                    indicatorSize: TabBarIndicatorSize.label,
+                                .allUserActivity
+                                .where((a) => user.userKey.contains(a.userKey))
+                                .map(
+                                  (activity) => FeedUserGridWidget(
+                                    allCourseModel: allCourseModel,
+                                    contentsDocKey: activity.contentsDocKey,
+                                    likesDocKey: activity.likesDocKey,
+                                    bookmarksDocKey: activity.bookmarksDocKey,
+                                    privacyLikes: user.privacyLikes,
+                                    privacyBookmarks: user.privacyBookmarks,
+                                    isMe: user.userKey.contains(context
+                                        .watch<AuthProvider>()
+                                        .user!
+                                        .userKey),
+                                  ),
+                                ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  FeedUserGridWidget(
-                    contentFeedCourse: provider.courseList,
-                    allCourseModel: allCourseModel,
-                    likesDocKey: provider.userActivity!.likesDocKey,
-                    bookmarksDocKey: provider.userActivity!.bookmarksDocKey,
-                    privacyLikes: provider.userProfile!.privacyLikes,
-                    privacyBookmarks: provider.userProfile!.privacyBookmarks,
-                    isMe: provider.userProfile!.userKey
-                        .contains(context.watch<AuthProvider>().user!.userKey),
-                  ),
-                ],
-              ),
-            ),
+            ],
           ),
         );
       },

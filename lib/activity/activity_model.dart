@@ -7,6 +7,7 @@ part 'activity_model.g.dart';
 @freezed
 class ActivityModel with _$ActivityModel {
   const factory ActivityModel({
+    required String userKey,
     required List<String> contentsDocKey,
     required List<String> likesDocKey,
     required List<String> bookmarksDocKey,
@@ -24,6 +25,7 @@ class ActivityModel with _$ActivityModel {
   }
 
   factory ActivityModel.empty() => const ActivityModel(
+        userKey: "",
         contentsDocKey: [],
         likesDocKey: [],
         bookmarksDocKey: [],

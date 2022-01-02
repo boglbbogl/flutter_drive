@@ -11,20 +11,20 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
 class FeedUserGridWidget extends StatelessWidget {
-  final List<CourseModel> contentFeedCourse;
   final List<CourseModel> allCourseModel;
   final List<String> likesDocKey;
   final List<String> bookmarksDocKey;
+  final List<String> contentsDocKey;
   final bool privacyLikes;
   final bool privacyBookmarks;
   final bool isMe;
 
   const FeedUserGridWidget({
     Key? key,
-    required this.contentFeedCourse,
     required this.allCourseModel,
     required this.likesDocKey,
     required this.bookmarksDocKey,
+    required this.contentsDocKey,
     required this.privacyBookmarks,
     required this.privacyLikes,
     required this.isMe,
@@ -41,13 +41,14 @@ class FeedUserGridWidget extends StatelessWidget {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
               children: [
-                ...contentFeedCourse.map((feed) => _contentFeedGridListItem(
-                      context: context,
-                      feed: feed,
-                      userKey: feed.userKey,
-                      likesDocKey: [],
-                      bookmarksDocKey: [],
-                    ))
+                ...allCourseModel
+                    .where((element) => contentsDocKey.contains(element.docKey))
+                    .map((feed) => _contentFeedGridListItem(
+                        context: context,
+                        feed: feed,
+                        contents: contentsDocKey,
+                        likes: [],
+                        bookmarks: []))
               ],
             ),
           ),
@@ -68,12 +69,11 @@ class FeedUserGridWidget extends StatelessWidget {
                           .where(
                               (course) => likesDocKey.contains(course.docKey))
                           .map((feed) => _contentFeedGridListItem(
-                                context: context,
-                                feed: feed,
-                                userKey: "",
-                                likesDocKey: likesDocKey,
-                                bookmarksDocKey: [],
-                              ))
+                              context: context,
+                              feed: feed,
+                              contents: [],
+                              likes: likesDocKey,
+                              bookmarks: []))
                     ],
                   ),
           ),
@@ -96,9 +96,9 @@ class FeedUserGridWidget extends StatelessWidget {
                           .map((feed) => _contentFeedGridListItem(
                                 context: context,
                                 feed: feed,
-                                userKey: "",
-                                likesDocKey: [],
-                                bookmarksDocKey: bookmarksDocKey,
+                                contents: [],
+                                likes: [],
+                                bookmarks: bookmarksDocKey,
                               ))
                     ],
                   ),
@@ -125,23 +125,22 @@ Row _privacyInfoForm() {
 InkWell _contentFeedGridListItem({
   required BuildContext context,
   required CourseModel feed,
-  required String userKey,
-  required List<String> likesDocKey,
-  required List<String> bookmarksDocKey,
+  required List<String> contents,
+  required List<String> likes,
+  required List<String> bookmarks,
 }) {
   return InkWell(
     onTap: () {
       context.read<FeedMainProvider>().initialization();
       context.read<FeedUserProvider>()
         ..initialization()
-        ..getFeedUserCourse(
-          userKey: userKey,
-          likesDocKey: likesDocKey,
-          bookmarksDocKey: bookmarksDocKey,
-        );
-
+        ..getFeedUserCourse();
       pushNewScreen(context,
-          screen: const FeedUserPage(),
+          screen: FeedUserPage(
+            contents: contents,
+            likes: likes,
+            bookmarks: bookmarks,
+          ),
           pageTransitionAnimation: PageTransitionAnimation.cupertino);
     },
     child: Container(

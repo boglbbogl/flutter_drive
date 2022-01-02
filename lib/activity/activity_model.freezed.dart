@@ -22,13 +22,15 @@ class _$ActivityModelTearOff {
   const _$ActivityModelTearOff();
 
   _ActivityModel call(
-      {required List<String> contentsDocKey,
+      {required String userKey,
+      required List<String> contentsDocKey,
       required List<String> likesDocKey,
       required List<String> bookmarksDocKey,
       required List<String> followerUserKey,
       required List<String> followingUserKey,
       required List<String> region}) {
     return _ActivityModel(
+      userKey: userKey,
       contentsDocKey: contentsDocKey,
       likesDocKey: likesDocKey,
       bookmarksDocKey: bookmarksDocKey,
@@ -48,6 +50,7 @@ const $ActivityModel = _$ActivityModelTearOff();
 
 /// @nodoc
 mixin _$ActivityModel {
+  String get userKey => throw _privateConstructorUsedError;
   List<String> get contentsDocKey => throw _privateConstructorUsedError;
   List<String> get likesDocKey => throw _privateConstructorUsedError;
   List<String> get bookmarksDocKey => throw _privateConstructorUsedError;
@@ -67,7 +70,8 @@ abstract class $ActivityModelCopyWith<$Res> {
           ActivityModel value, $Res Function(ActivityModel) then) =
       _$ActivityModelCopyWithImpl<$Res>;
   $Res call(
-      {List<String> contentsDocKey,
+      {String userKey,
+      List<String> contentsDocKey,
       List<String> likesDocKey,
       List<String> bookmarksDocKey,
       List<String> followerUserKey,
@@ -86,6 +90,7 @@ class _$ActivityModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? userKey = freezed,
     Object? contentsDocKey = freezed,
     Object? likesDocKey = freezed,
     Object? bookmarksDocKey = freezed,
@@ -94,6 +99,10 @@ class _$ActivityModelCopyWithImpl<$Res>
     Object? region = freezed,
   }) {
     return _then(_value.copyWith(
+      userKey: userKey == freezed
+          ? _value.userKey
+          : userKey // ignore: cast_nullable_to_non_nullable
+              as String,
       contentsDocKey: contentsDocKey == freezed
           ? _value.contentsDocKey
           : contentsDocKey // ignore: cast_nullable_to_non_nullable
@@ -130,7 +139,8 @@ abstract class _$ActivityModelCopyWith<$Res>
       __$ActivityModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {List<String> contentsDocKey,
+      {String userKey,
+      List<String> contentsDocKey,
       List<String> likesDocKey,
       List<String> bookmarksDocKey,
       List<String> followerUserKey,
@@ -151,6 +161,7 @@ class __$ActivityModelCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? userKey = freezed,
     Object? contentsDocKey = freezed,
     Object? likesDocKey = freezed,
     Object? bookmarksDocKey = freezed,
@@ -159,6 +170,10 @@ class __$ActivityModelCopyWithImpl<$Res>
     Object? region = freezed,
   }) {
     return _then(_ActivityModel(
+      userKey: userKey == freezed
+          ? _value.userKey
+          : userKey // ignore: cast_nullable_to_non_nullable
+              as String,
       contentsDocKey: contentsDocKey == freezed
           ? _value.contentsDocKey
           : contentsDocKey // ignore: cast_nullable_to_non_nullable
@@ -191,7 +206,8 @@ class __$ActivityModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ActivityModel extends _ActivityModel {
   const _$_ActivityModel(
-      {required this.contentsDocKey,
+      {required this.userKey,
+      required this.contentsDocKey,
       required this.likesDocKey,
       required this.bookmarksDocKey,
       required this.followerUserKey,
@@ -202,6 +218,8 @@ class _$_ActivityModel extends _ActivityModel {
   factory _$_ActivityModel.fromJson(Map<String, dynamic> json) =>
       _$$_ActivityModelFromJson(json);
 
+  @override
+  final String userKey;
   @override
   final List<String> contentsDocKey;
   @override
@@ -217,7 +235,7 @@ class _$_ActivityModel extends _ActivityModel {
 
   @override
   String toString() {
-    return 'ActivityModel(contentsDocKey: $contentsDocKey, likesDocKey: $likesDocKey, bookmarksDocKey: $bookmarksDocKey, followerUserKey: $followerUserKey, followingUserKey: $followingUserKey, region: $region)';
+    return 'ActivityModel(userKey: $userKey, contentsDocKey: $contentsDocKey, likesDocKey: $likesDocKey, bookmarksDocKey: $bookmarksDocKey, followerUserKey: $followerUserKey, followingUserKey: $followingUserKey, region: $region)';
   }
 
   @override
@@ -225,6 +243,7 @@ class _$_ActivityModel extends _ActivityModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ActivityModel &&
+            const DeepCollectionEquality().equals(other.userKey, userKey) &&
             const DeepCollectionEquality()
                 .equals(other.contentsDocKey, contentsDocKey) &&
             const DeepCollectionEquality()
@@ -241,6 +260,7 @@ class _$_ActivityModel extends _ActivityModel {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(userKey),
       const DeepCollectionEquality().hash(contentsDocKey),
       const DeepCollectionEquality().hash(likesDocKey),
       const DeepCollectionEquality().hash(bookmarksDocKey),
@@ -261,7 +281,8 @@ class _$_ActivityModel extends _ActivityModel {
 
 abstract class _ActivityModel extends ActivityModel {
   const factory _ActivityModel(
-      {required List<String> contentsDocKey,
+      {required String userKey,
+      required List<String> contentsDocKey,
       required List<String> likesDocKey,
       required List<String> bookmarksDocKey,
       required List<String> followerUserKey,
@@ -272,6 +293,8 @@ abstract class _ActivityModel extends ActivityModel {
   factory _ActivityModel.fromJson(Map<String, dynamic> json) =
       _$_ActivityModel.fromJson;
 
+  @override
+  String get userKey;
   @override
   List<String> get contentsDocKey;
   @override
