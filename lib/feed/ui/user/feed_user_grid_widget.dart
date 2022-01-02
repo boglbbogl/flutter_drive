@@ -6,6 +6,7 @@ import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_page.dart';
+import 'package:flutter_drive/feed/ui/user/feed_not_image_widget.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
@@ -124,9 +125,7 @@ InkWell _contentFeedGridListItem({
     },
     child: Container(
       child: feed.imageUrl.isEmpty
-          ? Container(
-              color: Colors.amber,
-            )
+          ? feedNotImageWidget(feed: feed)
           : Stack(
               fit: StackFit.expand,
               children: [
