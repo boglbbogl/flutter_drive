@@ -14,51 +14,57 @@ Shimmer homeShimmerWidet() {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                child: SizedBox(
-                    width: size.width,
-                    height: size.width,
-                    // decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(12),
-                    //     border: Border.all(width: 2, color: Colors.white)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            _shimmer(
-                                w: size.width * 0.1,
-                                h: size.height * 0.03,
-                                left: 8,
-                                top: 8),
-                            _shimmer(
-                                w: size.width * 0.2,
-                                h: size.height * 0.03,
-                                top: 8,
-                                left: 4),
-                          ],
-                        ),
-                        _shimmer(
-                            w: size.width,
-                            h: size.height * 0.3,
-                            top: 8,
-                            left: 8,
-                            right: 8),
-                        _shimmer(
-                            w: size.width,
-                            h: size.height * 0.06,
-                            top: 8,
-                            left: 8,
-                            right: 8),
-                        _shimmer(
-                            w: size.width * 0.3,
-                            h: size.height * 0.03,
-                            top: 8,
-                            left: 8,
-                            right: 8),
-                      ],
-                    )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8, right: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              _shimmer(
+                                  w: size.width * 0.1,
+                                  h: size.height * 0.03,
+                                  top: 8),
+                              _shimmer(
+                                  w: size.width * 0.2,
+                                  h: size.height * 0.03,
+                                  top: 8,
+                                  left: 4),
+                            ],
+                          ),
+                          _shimmer(
+                              w: size.width * 0.1,
+                              h: size.height * 0.03,
+                              top: 8,
+                              left: 4),
+                        ],
+                      ),
+                    ),
+                    _shimmer(
+                        w: size.width,
+                        h: size.height * 0.3,
+                        top: 8,
+                        left: 8,
+                        right: 8),
+                    _shimmer(
+                        w: size.width,
+                        h: size.height * 0.06,
+                        top: 8,
+                        left: 8,
+                        right: 8),
+                    _shimmer(
+                        w: size.width * 0.3,
+                        h: size.height * 0.03,
+                        top: 8,
+                        left: 8,
+                        right: 8),
+                  ],
+                ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 20),
             ],
           );
         }),

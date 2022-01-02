@@ -10,6 +10,7 @@ import 'package:flutter_drive/profile/ui/profile_cars_widget.dart';
 import 'package:flutter_drive/profile/ui/profile_image_selected_widget.dart';
 import 'package:flutter_drive/profile/ui/profile_introduction_widget.dart';
 import 'package:flutter_drive/profile/ui/profile_nick_name_widget.dart';
+import 'package:flutter_drive/profile/ui/profile_privacy_widget.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 
@@ -46,7 +47,9 @@ class ProfilePage extends StatelessWidget {
                       provider.pickedImage != null ||
                       provider.introduction.isNotEmpty ||
                       provider.cars.isNotEmpty ||
-                      provider.loadCars.isNotEmpty
+                      provider.loadCars.isNotEmpty ||
+                      provider.isPrivacyLikes != _user.privacyLikes ||
+                      provider.isPrivacyBookmarks != _user.privacyBookmarks
                   ? appMainColor
                   : const Color.fromRGBO(115, 115, 115, 1),
               onTap: () async {
@@ -56,7 +59,9 @@ class ProfilePage extends StatelessWidget {
                     provider.pickedImage != null ||
                     provider.introduction.isNotEmpty ||
                     provider.cars.isNotEmpty ||
-                    provider.loadCars.isNotEmpty) {
+                    provider.loadCars.isNotEmpty ||
+                    provider.isPrivacyLikes != _user.privacyLikes ||
+                    provider.isPrivacyBookmarks != _user.privacyBookmarks) {
                   await provider.userProfileUpdate(
                     socialProfileUrl: _user.socialProfileUrl,
                     localProfileUrl: _user.localProfileUrl,
@@ -79,7 +84,7 @@ class ProfilePage extends StatelessWidget {
                       changedName: provider.nickName,
                       userName: _user.nickName,
                     ),
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 15),
                     ProfileImageSelectedWidget(
                       user: _user,
                       pickedImage: provider.pickedImage,
@@ -98,6 +103,12 @@ class ProfilePage extends StatelessWidget {
                         cars: provider.cars,
                         profileCars: _user.cars,
                         loadCars: provider.loadCars),
+                    const SizedBox(height: 12),
+                    profilePrivacyWidget(
+                      context: context,
+                      userPrivacyBookmarks: provider.isPrivacyBookmarks,
+                      userPrivacyLikes: provider.isPrivacyLikes,
+                    ),
                   ],
                 ),
                 profileCarsBottomWidget(

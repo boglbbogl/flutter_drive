@@ -30,6 +30,8 @@ class _$UserModelTearOff {
       required bool isSocialImage,
       required String introduction,
       required List<String> cars,
+      required bool privacyBookmarks,
+      required bool privacyLikes,
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt,
       required String provider}) {
@@ -42,6 +44,8 @@ class _$UserModelTearOff {
       isSocialImage: isSocialImage,
       introduction: introduction,
       cars: cars,
+      privacyBookmarks: privacyBookmarks,
+      privacyLikes: privacyLikes,
       createdAt: createdAt,
       updatedAt: updatedAt,
       provider: provider,
@@ -66,6 +70,8 @@ mixin _$UserModel {
   bool get isSocialImage => throw _privateConstructorUsedError;
   String get introduction => throw _privateConstructorUsedError;
   List<String> get cars => throw _privateConstructorUsedError;
+  bool get privacyBookmarks => throw _privateConstructorUsedError;
+  bool get privacyLikes => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -91,6 +97,8 @@ abstract class $UserModelCopyWith<$Res> {
       bool isSocialImage,
       String introduction,
       List<String> cars,
+      bool privacyBookmarks,
+      bool privacyLikes,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt,
       String provider});
@@ -114,6 +122,8 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? isSocialImage = freezed,
     Object? introduction = freezed,
     Object? cars = freezed,
+    Object? privacyBookmarks = freezed,
+    Object? privacyLikes = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? provider = freezed,
@@ -151,6 +161,14 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.cars
           : cars // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      privacyBookmarks: privacyBookmarks == freezed
+          ? _value.privacyBookmarks
+          : privacyBookmarks // ignore: cast_nullable_to_non_nullable
+              as bool,
+      privacyLikes: privacyLikes == freezed
+          ? _value.privacyLikes
+          : privacyLikes // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -182,6 +200,8 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       bool isSocialImage,
       String introduction,
       List<String> cars,
+      bool privacyBookmarks,
+      bool privacyLikes,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt,
       String provider});
@@ -206,6 +226,8 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? isSocialImage = freezed,
     Object? introduction = freezed,
     Object? cars = freezed,
+    Object? privacyBookmarks = freezed,
+    Object? privacyLikes = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? provider = freezed,
@@ -243,6 +265,14 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.cars
           : cars // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      privacyBookmarks: privacyBookmarks == freezed
+          ? _value.privacyBookmarks
+          : privacyBookmarks // ignore: cast_nullable_to_non_nullable
+              as bool,
+      privacyLikes: privacyLikes == freezed
+          ? _value.privacyLikes
+          : privacyLikes // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -271,6 +301,8 @@ class _$_UserModel extends _UserModel {
       required this.isSocialImage,
       required this.introduction,
       required this.cars,
+      required this.privacyBookmarks,
+      required this.privacyLikes,
       @TimestampConverter() required this.createdAt,
       @TimestampConverter() required this.updatedAt,
       required this.provider})
@@ -296,6 +328,10 @@ class _$_UserModel extends _UserModel {
   @override
   final List<String> cars;
   @override
+  final bool privacyBookmarks;
+  @override
+  final bool privacyLikes;
+  @override
   @TimestampConverter()
   final DateTime createdAt;
   @override
@@ -306,7 +342,7 @@ class _$_UserModel extends _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(userKey: $userKey, nickName: $nickName, email: $email, socialProfileUrl: $socialProfileUrl, localProfileUrl: $localProfileUrl, isSocialImage: $isSocialImage, introduction: $introduction, cars: $cars, createdAt: $createdAt, updatedAt: $updatedAt, provider: $provider)';
+    return 'UserModel(userKey: $userKey, nickName: $nickName, email: $email, socialProfileUrl: $socialProfileUrl, localProfileUrl: $localProfileUrl, isSocialImage: $isSocialImage, introduction: $introduction, cars: $cars, privacyBookmarks: $privacyBookmarks, privacyLikes: $privacyLikes, createdAt: $createdAt, updatedAt: $updatedAt, provider: $provider)';
   }
 
   @override
@@ -326,6 +362,10 @@ class _$_UserModel extends _UserModel {
             const DeepCollectionEquality()
                 .equals(other.introduction, introduction) &&
             const DeepCollectionEquality().equals(other.cars, cars) &&
+            const DeepCollectionEquality()
+                .equals(other.privacyBookmarks, privacyBookmarks) &&
+            const DeepCollectionEquality()
+                .equals(other.privacyLikes, privacyLikes) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt) &&
             const DeepCollectionEquality().equals(other.provider, provider));
@@ -342,6 +382,8 @@ class _$_UserModel extends _UserModel {
       const DeepCollectionEquality().hash(isSocialImage),
       const DeepCollectionEquality().hash(introduction),
       const DeepCollectionEquality().hash(cars),
+      const DeepCollectionEquality().hash(privacyBookmarks),
+      const DeepCollectionEquality().hash(privacyLikes),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(updatedAt),
       const DeepCollectionEquality().hash(provider));
@@ -367,6 +409,8 @@ abstract class _UserModel extends UserModel {
       required bool isSocialImage,
       required String introduction,
       required List<String> cars,
+      required bool privacyBookmarks,
+      required bool privacyLikes,
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt,
       required String provider}) = _$_UserModel;
@@ -391,6 +435,10 @@ abstract class _UserModel extends UserModel {
   String get introduction;
   @override
   List<String> get cars;
+  @override
+  bool get privacyBookmarks;
+  @override
+  bool get privacyLikes;
   @override
   @TimestampConverter()
   DateTime get createdAt;

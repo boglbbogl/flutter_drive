@@ -16,6 +16,8 @@ class UserModel with _$UserModel {
     required bool isSocialImage,
     required String introduction,
     required List<String> cars,
+    required bool privacyBookmarks,
+    required bool privacyLikes,
     @TimestampConverter() required DateTime createdAt,
     @TimestampConverter() required DateTime updatedAt,
     required String provider,

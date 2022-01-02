@@ -49,6 +49,12 @@ class FeedUserProfilePage extends StatelessWidget {
                                 .read<AuthProvider>()
                                 .user!
                                 .isSocialImage,
+                            isPrivacyBookmarks: context
+                                .read<AuthProvider>()
+                                .user!
+                                .privacyBookmarks,
+                            isPrivacyLikes:
+                                context.read<AuthProvider>().user!.privacyLikes,
                           );
                       pushNewScreen(context, screen: ProfilePage());
                     },
@@ -73,9 +79,16 @@ class FeedUserProfilePage extends StatelessWidget {
                     tabs: [
                       _tabBarButton(
                           title: '게시물', icon: Icons.grid_4x4_outlined),
-                      _tabBarButton(title: '좋아요', icon: CustomIcon.heartEmpty),
                       _tabBarButton(
-                          title: '북마크', icon: CustomIcon.bookmarkEmpty),
+                          title: '좋아요',
+                          icon: provider.userProfile!.privacyLikes
+                              ? Icons.lock
+                              : CustomIcon.heartEmpty),
+                      _tabBarButton(
+                          title: '북마크',
+                          icon: provider.userProfile!.privacyBookmarks
+                              ? Icons.lock
+                              : CustomIcon.bookmarkEmpty),
                     ],
                     indicatorColor: appMainColor,
                     indicatorSize: TabBarIndicatorSize.label,
@@ -85,6 +98,10 @@ class FeedUserProfilePage extends StatelessWidget {
                     allCourseModel: allCourseModel,
                     likesDocKey: provider.userActivity!.likesDocKey,
                     bookmarksDocKey: provider.userActivity!.bookmarksDocKey,
+                    privacyLikes: provider.userProfile!.privacyLikes,
+                    privacyBookmarks: provider.userProfile!.privacyBookmarks,
+                    isMe: provider.userProfile!.userKey
+                        .contains(context.watch<AuthProvider>().user!.userKey),
                   ),
                 ],
               ),

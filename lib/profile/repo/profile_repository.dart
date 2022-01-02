@@ -27,6 +27,8 @@ class ProfileRepository {
     required String userKey,
     required List<String> cars,
     required List<String> deleteCars,
+    required bool privacyBookmarks,
+    required bool privacyLikes,
   }) async {
     final DocumentReference<Map<String, dynamic>> _userReference =
         _firestore.collection(collectionUser).doc(userKey);
@@ -59,6 +61,8 @@ class ProfileRepository {
         "isSocialImage": userProfile.isSocialImage,
         "cars": FieldValue.arrayUnion(cars),
         "updatedAt": DateTime.now(),
+        "privacyLikes": privacyLikes,
+        "privacyBookmarks": privacyBookmarks,
       });
       await _batch.commit();
 

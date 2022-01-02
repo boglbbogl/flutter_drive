@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
@@ -13,12 +14,19 @@ class FeedUserGridWidget extends StatelessWidget {
   final List<CourseModel> allCourseModel;
   final List<String> likesDocKey;
   final List<String> bookmarksDocKey;
+  final bool privacyLikes;
+  final bool privacyBookmarks;
+  final bool isMe;
+
   const FeedUserGridWidget({
     Key? key,
     required this.contentFeedCourse,
     required this.allCourseModel,
     required this.likesDocKey,
     required this.bookmarksDocKey,
+    required this.privacyBookmarks,
+    required this.privacyLikes,
+    required this.isMe,
   }) : super(key: key);
 
   @override
@@ -41,36 +49,61 @@ class FeedUserGridWidget extends StatelessWidget {
         Tab(
           child: Padding(
             padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-            child: GridView(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
-              children: [
-                ...allCourseModel
-                    .where((course) => likesDocKey.contains(course.docKey))
-                    .map((feed) =>
-                        _contentFeedGridListItem(context: context, feed: feed))
-              ],
-            ),
+            child: privacyLikes && !isMe
+                ? _privacyInfoForm()
+                : GridView(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10),
+                    children: [
+                      ...allCourseModel
+                          .where(
+                              (course) => likesDocKey.contains(course.docKey))
+                          .map((feed) => _contentFeedGridListItem(
+                              context: context, feed: feed))
+                    ],
+                  ),
           ),
         ),
         Tab(
           child: Padding(
             padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-            child: GridView(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
-              children: [
-                ...allCourseModel
-                    .where((course) => bookmarksDocKey.contains(course.docKey))
-                    .map((feed) =>
-                        _contentFeedGridListItem(context: context, feed: feed))
-              ],
-            ),
+            child: privacyBookmarks && !isMe
+                ? _privacyInfoForm()
+                : GridView(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10),
+                    children: [
+                      ...allCourseModel
+                          .where((course) =>
+                              bookmarksDocKey.contains(course.docKey))
+                          .map((feed) => _contentFeedGridListItem(
+                              context: context, feed: feed))
+                    ],
+                  ),
           ),
         ),
       ]),
     );
   }
+}
+
+Row _privacyInfoForm() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Icon(Icons.lock, size: 24, color: appMainColor),
+      const SizedBox(width: 10),
+      Text('비공개',
+          style: theme.textTheme.bodyText2!.copyWith(
+              color: appMainColor, fontSize: 18, fontWeight: FontWeight.bold)),
+    ],
+  );
 }
 
 InkWell _contentFeedGridListItem({

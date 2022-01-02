@@ -25,13 +25,19 @@ class ProfileProvider extends ChangeNotifier {
   bool _isCars = false;
   final List<String> _cars = [];
   final List<String> _loadCars = [];
+  bool? _isPrivacyBookmarks;
+  bool? _isPrivacyLikes;
 
   Future<void> started({
     required bool isSocialImage,
+    required bool isPrivacyBookmarks,
+    required bool isPrivacyLikes,
   }) async {
     _isStartLoading = true;
     notifyListeners();
     _isSocialImage = isSocialImage;
+    _isPrivacyBookmarks = isPrivacyBookmarks;
+    _isPrivacyLikes = isPrivacyLikes;
     _updateSuccessOrFailure = false;
     _isStartLoading = false;
     notifyListeners();
@@ -51,6 +57,8 @@ class ProfileProvider extends ChangeNotifier {
     }
 
     await _profileRepository.userPofileUpdate(
+      privacyBookmarks: _isPrivacyBookmarks!,
+      privacyLikes: _isPrivacyLikes!,
       introduction: _introduction,
       deleteCars: loadCars,
       cars: _cars,
@@ -166,6 +174,20 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void changedPrivacyBookmarks({
+    required bool value,
+  }) {
+    _isPrivacyBookmarks = value;
+    notifyListeners();
+  }
+
+  void changedPrivacyLikes({
+    required bool value,
+  }) {
+    _isPrivacyLikes = value;
+    notifyListeners();
+  }
+
   bool get isTextForm => _isTextForm;
   bool get isImageSelectLoading => _isImageSelectLoading;
   bool get isLoading => _isLoading;
@@ -180,4 +202,6 @@ class ProfileProvider extends ChangeNotifier {
   List<String> get cars => _cars;
   List<String> get loadCars => _loadCars;
   bool get isStartLoading => _isStartLoading;
+  bool get isPrivacyBookmarks => _isPrivacyBookmarks!;
+  bool get isPrivacyLikes => _isPrivacyLikes!;
 }
