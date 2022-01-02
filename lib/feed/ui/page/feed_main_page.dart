@@ -14,6 +14,7 @@ class FeedMainPage extends StatelessWidget {
           courseList: provider.courseList,
           explanationIndex: provider.explanationIndex,
           feedImageOrCourse: provider.feedImageOrCourse,
+          isMain: true,
         );
       },
     );

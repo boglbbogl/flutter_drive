@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/repo/feed_repository.dart';
@@ -10,6 +11,7 @@ class FeedMainProvider extends ChangeNotifier {
   List<CourseModel> _courseList = [];
   List<int> _explanationIndex = [];
   List<FeedModel> _feedImageOrCourse = [];
+  int _limit = 50;
 
   FeedMainProvider() {
     _courseStream();
@@ -23,9 +25,21 @@ class FeedMainProvider extends ChangeNotifier {
 
   Future _courseStream() async {
     await _courseStreamSubscription?.cancel();
-    _courseStreamSubscription =
-        _feedRepostiory.getStreamCourse().listen((course) {
+    _courseStreamSubscription = _feedRepostiory
+        .getStreamCourse(limit: _limit, isMain: true)
+        .listen((course) {
       _courseList = course;
+      notifyListeners();
+    });
+  }
+
+  Future courseStreamMoreFeed() async {
+    await _courseStreamSubscription?.cancel();
+    _courseStreamSubscription = _feedRepostiory
+        .getStreamCourse(limit: _limit + 30, isMain: true)
+        .listen((course) {
+      _courseList = course;
+      _limit = _limit + 30;
       notifyListeners();
     });
   }
@@ -61,4 +75,5 @@ class FeedMainProvider extends ChangeNotifier {
   List<CourseModel> get courseList => _courseList;
   List<int> get explanationIndex => _explanationIndex;
   List<FeedModel> get feedImageOrCourse => _feedImageOrCourse;
+  int get limit => _limit;
 }

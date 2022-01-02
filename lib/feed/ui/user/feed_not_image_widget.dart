@@ -66,7 +66,7 @@ Container feedNotImageWidget({
 SizedBox _feedNotImageMoreIcon() {
   return SizedBox(
       width: size.width,
-      child: Icon(Icons.circle, color: appMainColor, size: 8));
+      child: Icon(Icons.circle, color: appMainColor, size: 6));
 }
 
 Text _feedNotImageTextForm({

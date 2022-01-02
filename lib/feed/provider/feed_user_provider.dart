@@ -33,7 +33,7 @@ class FeedUserProvider extends ChangeNotifier {
   }) async {
     await _courseStreamSubscription?.cancel();
     _courseStreamSubscription =
-        _feedRepostiory.getStreamCourse().listen((course) {
+        _feedRepostiory.getStreamCourse(isMain: false).listen((course) {
       _courseList =
           course.where((element) => userKey.contains(element.userKey)).toList();
       notifyListeners();

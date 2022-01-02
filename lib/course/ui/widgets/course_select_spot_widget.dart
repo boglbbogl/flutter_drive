@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/_constant/app_flushbar.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,7 @@ class CourseSelectSpotWidget extends StatelessWidget {
             InkWell(
               onTap: () {
                 Clipboard.setData(ClipboardData(text: spot.addressName));
-                // show snackbar
+                appFlushbar(message: spot.addressName).show(context);
               },
               child: const SizedBox(
                 width: 40,

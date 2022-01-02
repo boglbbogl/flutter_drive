@@ -11,6 +11,7 @@ Shimmer homeShimmerWidet() {
         itemBuilder: (context, index) {
           return Column(
             children: [
+              const SizedBox(height: 18),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
@@ -25,7 +26,7 @@ Shimmer homeShimmerWidet() {
                           Row(
                             children: [
                               _shimmer(
-                                  w: size.width * 0.1,
+                                  w: size.width * 0.06,
                                   h: size.height * 0.03,
                                   top: 8),
                               _shimmer(

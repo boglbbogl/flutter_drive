@@ -9,17 +9,32 @@ class FeedRepostiory {
   FeedRepostiory._internal();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Stream<List<CourseModel>> getStreamCourse() async* {
+  Stream<List<CourseModel>> getStreamCourse({
+    int? limit,
+    required bool isMain,
+  }) async* {
     final CollectionReference<Map<String, dynamic>> _collectionRef =
         _firestore.collection(collectionCourse);
-    yield* _collectionRef
-        .orderBy('createdAt', descending: true)
-        .snapshots()
-        .map((sn) {
-      return sn.docs.map((doc) {
-        return CourseModel.fromFireStore(doc);
-      }).toList();
-    });
+    if (isMain) {
+      yield* _collectionRef
+          .orderBy('createdAt', descending: true)
+          .limit(limit!)
+          .snapshots()
+          .map((sn) {
+        return sn.docs.map((doc) {
+          return CourseModel.fromFireStore(doc);
+        }).toList();
+      });
+    } else {
+      yield* _collectionRef
+          .orderBy('createdAt', descending: true)
+          .snapshots()
+          .map((sn) {
+        return sn.docs.map((doc) {
+          return CourseModel.fromFireStore(doc);
+        }).toList();
+      });
+    }
   }
 
   Future<UserModel?> getFeedUserProfile({

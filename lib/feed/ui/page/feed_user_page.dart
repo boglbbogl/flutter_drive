@@ -33,6 +33,7 @@ class FeedUserPage extends StatelessWidget {
           courseList: provider.courseList,
           explanationIndex: provider.explanationIndex,
           feedImageOrCourse: provider.feedImageOrCourse,
+          isMain: false,
         ),
       );
     });
