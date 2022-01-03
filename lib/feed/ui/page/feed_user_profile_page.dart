@@ -89,7 +89,7 @@ class FeedUserProfilePage extends StatelessWidget {
                               tabs: [
                                 _tabBarButton(
                                     title: '게시물',
-                                    icon: Icons.grid_4x4_outlined),
+                                    icon: Icons.view_quilt_rounded),
                                 _tabBarButton(
                                     title: '좋아요',
                                     icon: user.privacyLikes
@@ -113,6 +113,7 @@ class FeedUserProfilePage extends StatelessWidget {
                                     allCourseModel: allCourseModel,
                                     contentsDocKey: activity.contentsDocKey,
                                     likesDocKey: activity.likesDocKey,
+                                    userNickName: user.nickName,
                                     bookmarksDocKey: activity.bookmarksDocKey,
                                     privacyLikes: user.privacyLikes,
                                     privacyBookmarks: user.privacyBookmarks,

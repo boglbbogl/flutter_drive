@@ -20,7 +20,6 @@ class FeedMainProvider extends ChangeNotifier {
   void initialization() {
     _explanationIndex = [];
     _feedImageOrCourse = [];
-    logger.e(_feedImageOrCourse);
     notifyListeners();
   }
 

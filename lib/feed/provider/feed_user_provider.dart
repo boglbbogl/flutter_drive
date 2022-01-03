@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/repo/feed_repository.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
 
 class FeedUserProvider extends ChangeNotifier {
   final FeedRepostiory _feedRepostiory = FeedRepostiory();
   StreamSubscription<List<CourseModel>?>? _courseStreamSubscription;
+
   List<CourseModel> _courseList = [];
   List<int> _explanationIndex = [];
   bool _isLoading = false;

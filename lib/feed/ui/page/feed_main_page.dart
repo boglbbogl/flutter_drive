@@ -18,7 +18,7 @@ class FeedMainPage extends StatelessWidget {
           contents: const [],
           likes: const [],
           bookmarks: const [],
-          scrollIndex: 0,
+          scrollPositionIndex: 0,
         );
       },
     );

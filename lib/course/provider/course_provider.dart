@@ -55,11 +55,6 @@ class CourseProvider extends ChangeNotifier {
       tagKeyword: [],
       driveSeason: _driveSeason,
       driveTime: _driveTime,
-      // userProfile: ProfileModel(
-      //     socialProfileUrl: user.socialProfileUrl,
-      //     localProfileUrl: user.localProfileUrl,
-      //     isSocialImage: user.isSocialImage,
-      //     nickName: user.nickName),
     ));
     _isUploading = false;
     notifyListeners();

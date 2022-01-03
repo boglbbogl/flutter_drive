@@ -42,12 +42,12 @@ class ImagesRepository {
     final List<String> _url = [];
     final String _dateTime = DateTime.now().millisecondsSinceEpoch.toString();
     final appDocDir = await getApplicationDocumentsDirectory();
-    const fileName = '375.jpg';
+    const fileName = '1024.jpg';
     for (final uIntImage in imageFile) {
       _decodeImageList.add(decodeImage(uIntImage));
     }
     for (int i = 0; i < _decodeImageList.length; i++) {
-      _resizedImage.add(copyResize(_decodeImageList[i]!, width: 375));
+      _resizedImage.add(copyResize(_decodeImageList[i]!, width: 1024));
     }
 
     try {

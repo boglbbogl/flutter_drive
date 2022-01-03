@@ -10,6 +10,7 @@ SizedBox courseExplanationWidget({
       width: size.width * 0.6,
       height: size.width * 0.4,
       child: TextFormField(
+        readOnly: context.read<CourseProvider>().isUploading,
         onChanged: (value) {
           context.read<CourseProvider>().getCourseExplanation(value: value);
         },

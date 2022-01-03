@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
@@ -16,6 +15,7 @@ class FeedUserGridWidget extends StatelessWidget {
   final List<String> likesDocKey;
   final List<String> bookmarksDocKey;
   final List<String> contentsDocKey;
+  final String userNickName;
   final bool privacyLikes;
   final bool privacyBookmarks;
   final bool isMe;
@@ -26,6 +26,7 @@ class FeedUserGridWidget extends StatelessWidget {
     required this.likesDocKey,
     required this.bookmarksDocKey,
     required this.contentsDocKey,
+    required this.userNickName,
     required this.privacyBookmarks,
     required this.privacyLikes,
     required this.isMe,
@@ -46,7 +47,8 @@ class FeedUserGridWidget extends StatelessWidget {
                     mainAxisSpacing: 10),
                 itemBuilder: (context, index) {
                   return _contentFeedGridListItem(
-                    itemIndex: index,
+                    userNickName: userNickName,
+                    index: index,
                     context: context,
                     feed: allCourseModel
                         .where((c) => contentsDocKey.contains(c.docKey))
@@ -72,7 +74,8 @@ class FeedUserGridWidget extends StatelessWidget {
                               mainAxisSpacing: 10),
                       itemBuilder: (context, index) {
                         return _contentFeedGridListItem(
-                          itemIndex: index,
+                          userNickName: userNickName,
+                          index: index,
                           context: context,
                           feed: allCourseModel
                               .where((c) => likesDocKey.contains(c.docKey))
@@ -97,7 +100,8 @@ class FeedUserGridWidget extends StatelessWidget {
                             mainAxisSpacing: 10),
                     itemBuilder: (context, index) {
                       return _contentFeedGridListItem(
-                        itemIndex: index,
+                        userNickName: userNickName,
+                        index: index,
                         context: context,
                         feed: allCourseModel
                             .where((c) => bookmarksDocKey.contains(c.docKey))
@@ -107,25 +111,6 @@ class FeedUserGridWidget extends StatelessWidget {
                         bookmarks: bookmarksDocKey,
                       );
                     }),
-            // : GridView(
-            //     gridDelegate:
-            //         const SliverGridDelegateWithFixedCrossAxisCount(
-            //             crossAxisCount: 2,
-            //             crossAxisSpacing: 10,
-            //             mainAxisSpacing: 10),
-            //     children: [
-            //       ...allCourseModel
-            //           .where((course) =>
-            //               bookmarksDocKey.contains(course.docKey))
-            //           .map((feed) => _contentFeedGridListItem(
-            //                 context: context,
-            //                 feed: feed,
-            //                 contents: [],
-            //                 likes: [],
-            //                 bookmarks: bookmarksDocKey,
-            //               ))
-            //     ],
-            //   ),
           ),
         ),
       ]),
@@ -152,19 +137,20 @@ InkWell _contentFeedGridListItem({
   required List<String> contents,
   required List<String> likes,
   required List<String> bookmarks,
-  required int itemIndex,
+  required String userNickName,
+  required int index,
 }) {
   return InkWell(
     onTap: () {
-      logger.d(itemIndex);
       context.read<FeedMainProvider>().initialization();
       context.read<FeedUserProvider>().initialization();
       pushNewScreen(context,
           screen: FeedUserPage(
+            userNickName: userNickName,
+            scrollPositionIndex: index,
             contents: contents,
             likes: likes,
             bookmarks: bookmarks,
-            scrollIndex: itemIndex,
           ),
           pageTransitionAnimation: PageTransitionAnimation.cupertino);
     },
