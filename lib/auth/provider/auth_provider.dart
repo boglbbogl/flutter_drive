@@ -67,6 +67,11 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  void getAllUserStatus() {
+    _getAllUserProfile();
+    _getAllUserActivity();
+  }
+
   Future _getAllUserProfile() async {
     _allUserProfile = await _authRepository.getAllUserProfile();
     notifyListeners();

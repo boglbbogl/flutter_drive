@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:collection/collection.dart';
-import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/content/ui/card/content_main_card.dart';
-import 'package:flutter_drive/course/model/course_model.dart';
-import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -12,11 +9,13 @@ class FeedUserPage extends StatelessWidget {
   final List<String> contents;
   final List<String> likes;
   final List<String> bookmarks;
+  final int scrollIndex;
   const FeedUserPage({
     Key? key,
     required this.contents,
     required this.likes,
     required this.bookmarks,
+    required this.scrollIndex,
   }) : super(key: key);
 
   @override
@@ -39,6 +38,7 @@ class FeedUserPage extends StatelessWidget {
           explanationIndex: provider.explanationIndex,
           feedImageOrCourse: provider.feedImageOrCourse,
           isMain: false,
+          scrollIndex: scrollIndex,
         ),
       );
     });

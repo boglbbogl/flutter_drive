@@ -16,6 +16,8 @@ class ProfileProvider extends ChangeNotifier {
   Uint8List? _pickedImage;
   bool _isTextForm = false;
   bool? _isSocialImage;
+  late bool? _isPrivacyBookmarks;
+  late bool? _isPrivacyLikes;
   bool _isImageSelectLoading = false;
   String _nickName = "";
   String _localImageUrl = "";
@@ -25,8 +27,6 @@ class ProfileProvider extends ChangeNotifier {
   bool _isCars = false;
   final List<String> _cars = [];
   final List<String> _loadCars = [];
-  bool? _isPrivacyBookmarks;
-  bool? _isPrivacyLikes;
 
   Future<void> started({
     required bool isSocialImage,

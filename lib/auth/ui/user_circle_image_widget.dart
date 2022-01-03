@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
-import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +14,7 @@ InkWell userCircleImageWidget({
 }) {
   return InkWell(
     onTap: () {
-      context.read<FeedUserProvider>().getUserProfileInfo(
-            userKey: userKey,
-          );
+      context.read<AuthProvider>().getAllUserStatus();
       pushNewScreen(context,
           screen: FeedUserProfilePage(
             userKey: userKey,

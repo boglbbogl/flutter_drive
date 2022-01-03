@@ -1,20 +1,15 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_drive/activity/activity_model.dart';
-import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/repo/feed_repository.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class FeedUserProvider extends ChangeNotifier {
   final FeedRepostiory _feedRepostiory = FeedRepostiory();
   StreamSubscription<List<CourseModel>?>? _courseStreamSubscription;
   List<CourseModel> _courseList = [];
-
-  UserModel? _userProfile;
-  ActivityModel? _userActivity;
   List<int> _explanationIndex = [];
-  bool _isDetail = false;
   bool _isLoading = false;
   List<FeedModel> _feedImageOrCourse = [];
 
@@ -23,7 +18,6 @@ class FeedUserProvider extends ChangeNotifier {
   }
 
   void initialization() {
-    _isDetail = true;
     _explanationIndex = [];
     _isLoading = false;
     _feedImageOrCourse = [];
@@ -35,20 +29,8 @@ class FeedUserProvider extends ChangeNotifier {
     _courseStreamSubscription =
         _feedRepostiory.getStreamCourse(isMain: false).listen((course) {
       _courseList = course;
-
       notifyListeners();
     });
-  }
-
-  Future getUserProfileInfo({
-    required String userKey,
-  }) async {
-    _isLoading = true;
-    _isDetail = true;
-    _explanationIndex = [];
-    _feedImageOrCourse = [];
-    _isLoading = false;
-    notifyListeners();
   }
 
   void isShowExplanation({
@@ -80,10 +62,7 @@ class FeedUserProvider extends ChangeNotifier {
   }
 
   List<CourseModel> get courseList => _courseList;
-  UserModel? get userProfile => _userProfile;
-  ActivityModel? get userActivity => _userActivity;
   List<int> get explanationIndex => _explanationIndex;
-  bool get isDetail => _isDetail;
   bool get isLoading => _isLoading;
   List<FeedModel> get feedImageOrCourse => _feedImageOrCourse;
 }

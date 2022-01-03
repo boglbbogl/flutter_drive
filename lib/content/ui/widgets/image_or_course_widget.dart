@@ -10,7 +10,7 @@ Stack contentCourseWidget({
   required String startPlaceName,
   required String endPlaceName,
   required int index,
-  required bool isDetail,
+  required bool isMain,
 }) {
   return Stack(
     children: [
@@ -49,19 +49,19 @@ Stack contentCourseWidget({
         ),
       ),
       _changedButtonForm(
-          // onTap: () {},
           widget: TextButton(
               onPressed: () {
-                if (isDetail) {
+                if (!isMain) {
                   context.read<FeedUserProvider>().isShowImageOrCourseSpot(
                         index: index,
                         value: false,
                       );
+                } else {
+                  context.read<FeedMainProvider>().isShowImageOrCourseSpot(
+                        index: index,
+                        value: false,
+                      );
                 }
-                context.read<FeedMainProvider>().isShowImageOrCourseSpot(
-                      index: index,
-                      value: false,
-                    );
               },
               child: Text(
                 '경로보기',
@@ -76,7 +76,7 @@ Stack contentImageWidget({
   required BuildContext context,
   required List<String> imageUrls,
   required int index,
-  required bool isDetail,
+  required bool isMain,
 }) {
   return Stack(
     children: [
@@ -115,16 +115,17 @@ Stack contentImageWidget({
       ),
       _changedButtonForm(
         onTap: () {
-          if (isDetail) {
+          if (!isMain) {
             context.read<FeedUserProvider>().isShowImageOrCourseSpot(
                   index: index,
                   value: true,
                 );
+          } else {
+            context.read<FeedMainProvider>().isShowImageOrCourseSpot(
+                  index: index,
+                  value: true,
+                );
           }
-          context.read<FeedMainProvider>().isShowImageOrCourseSpot(
-                index: index,
-                value: true,
-              );
         },
         widget: Icon(
           Icons.double_arrow_rounded,

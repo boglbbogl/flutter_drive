@@ -52,31 +52,35 @@ class FeedUserProfilePage extends StatelessWidget {
                       body: NestedScrollView(
                         headerSliverBuilder: (context, value) {
                           return [
-                            feedUserInfoWidget(
-                              profileOnTap: () {
-                                context.read<ProfileProvider>().started(
-                                      isSocialImage: user.isSocialImage,
-                                      isPrivacyBookmarks: user.privacyBookmarks,
-                                      isPrivacyLikes: user.privacyLikes,
-                                    );
-                                pushNewScreen(context, screen: ProfilePage());
-                              },
-                              isMe: user.userKey.contains(
-                                  context.watch<AuthProvider>().user!.userKey),
-                              userNickName: user.nickName,
-                              userImage: user.isSocialImage
-                                  ? user.socialProfileUrl
-                                  : user.localProfileUrl,
-                              contentLength: context
-                                  .watch<AuthProvider>()
-                                  .allUserActivity
-                                  .where((element) =>
-                                      user.userKey.contains(element.userKey))
-                                  .map((e) => e.contentsDocKey.length)
-                                  .toString(),
-                              userIntroduction: user.introduction,
-                              cars: user.cars,
-                            )
+                            ...context
+                                .watch<AuthProvider>()
+                                .allUserActivity
+                                .where((c) => user.userKey.contains(c.userKey))
+                                .map((activity) => feedUserInfoWidget(
+                                      profileOnTap: () {
+                                        context.read<ProfileProvider>().started(
+                                              isSocialImage: user.isSocialImage,
+                                              isPrivacyBookmarks:
+                                                  user.privacyBookmarks,
+                                              isPrivacyLikes: user.privacyLikes,
+                                            );
+                                        pushNewScreen(context,
+                                            screen: ProfilePage());
+                                      },
+                                      isMe: user.userKey.contains(context
+                                          .watch<AuthProvider>()
+                                          .user!
+                                          .userKey),
+                                      userNickName: user.nickName,
+                                      userImage: user.isSocialImage
+                                          ? user.socialProfileUrl
+                                          : user.localProfileUrl,
+                                      contentLength: activity
+                                          .contentsDocKey.length
+                                          .toString(),
+                                      userIntroduction: user.introduction,
+                                      cars: user.cars,
+                                    )),
                           ];
                         },
                         body: Column(
