@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/profile/provider/profile_provider.dart';
-import 'package:flutter_drive/profile/ui/profile_page.dart';
+import 'package:flutter_drive/profile/ui/page/profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 

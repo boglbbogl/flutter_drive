@@ -4,20 +4,15 @@ import 'package:flutter_drive/_constant/app_indicator.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/profile/provider/profile_provider.dart';
-import 'package:flutter_drive/profile/ui/profile_appbar_widget.dart';
-import 'package:flutter_drive/profile/ui/profile_cars_bottom_widget.dart';
-import 'package:flutter_drive/profile/ui/profile_cars_widget.dart';
-import 'package:flutter_drive/profile/ui/profile_image_selected_widget.dart';
-import 'package:flutter_drive/profile/ui/profile_introduction_widget.dart';
-import 'package:flutter_drive/profile/ui/profile_nick_name_widget.dart';
-import 'package:flutter_drive/profile/ui/profile_privacy_widget.dart';
+import 'package:flutter_drive/profile/ui/widgets/profile_appbar_widget.dart';
+import 'package:flutter_drive/profile/ui/widgets/profile_image_selected_widget.dart';
+import 'package:flutter_drive/profile/ui/widgets/profile_nick_name_widget.dart';
+import 'package:flutter_drive/profile/ui/widgets/profile_privacy_widget.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
-  final TextEditingController _introController = TextEditingController();
-  final TextEditingController _carController = TextEditingController();
-  ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +20,10 @@ class ProfilePage extends StatelessWidget {
       builder: (context, provider, child) {
         final UserModel _user =
             Provider.of<AuthProvider>(context, listen: false).user!;
-        _introController.text = _user.introduction;
-        if (provider.isStartLoading) {
-          return const AppIndicator();
-        }
+
         return GestureDetector(
           onTap: () {
-            // FocusScope.of(context).unfocus();
             provider.showNickNameChangedWidget(value: false);
-            provider.showIntroductionWidget(value: false);
-            provider.showCarsChangedWidget(value: false);
           },
           child: Scaffold(
             resizeToAvoidBottomInset: false,
@@ -45,9 +34,6 @@ class ProfilePage extends StatelessWidget {
                       (provider.nickName != _user.nickName &&
                           provider.nickName.isNotEmpty) ||
                       provider.pickedImage != null ||
-                      provider.introduction.isNotEmpty ||
-                      provider.cars.isNotEmpty ||
-                      provider.loadCars.isNotEmpty ||
                       provider.isPrivacyLikes != _user.privacyLikes ||
                       provider.isPrivacyBookmarks != _user.privacyBookmarks
                   ? appMainColor
@@ -57,9 +43,6 @@ class ProfilePage extends StatelessWidget {
                     (provider.nickName != _user.nickName &&
                         provider.nickName.isNotEmpty) ||
                     provider.pickedImage != null ||
-                    provider.introduction.isNotEmpty ||
-                    provider.cars.isNotEmpty ||
-                    provider.loadCars.isNotEmpty ||
                     provider.isPrivacyLikes != _user.privacyLikes ||
                     provider.isPrivacyBookmarks != _user.privacyBookmarks) {
                   await provider.userProfileUpdate(
@@ -69,9 +52,7 @@ class ProfilePage extends StatelessWidget {
                     userKey: _user.userKey,
                   );
                 }
-                if (context.read<ProfileProvider>().updateSuccessOrFailure) {
-                  Phoenix.rebirth(context);
-                }
+                Phoenix.rebirth(context);
               },
             ),
             body: Stack(
@@ -92,17 +73,6 @@ class ProfilePage extends StatelessWidget {
                       isImageSelectLoading: provider.isImageSelectLoading,
                     ),
                     const SizedBox(height: 15),
-                    profileIntroductionWidget(
-                      introduction: provider.introduction,
-                      controller: _introController,
-                      isIntroduction: provider.isIntroduction,
-                      context: context,
-                    ),
-                    profileCarsWidget(
-                        context: context,
-                        cars: provider.cars,
-                        profileCars: _user.cars,
-                        loadCars: provider.loadCars),
                     const SizedBox(height: 12),
                     profilePrivacyWidget(
                       context: context,
@@ -111,10 +81,6 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                profileCarsBottomWidget(
-                    context: context,
-                    isCars: provider.isCars,
-                    controller: _carController),
               ],
             ),
           ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/ui/profile_circle_image_widget.dart';
+import 'package:flutter_drive/profile/ui/page/profile_cars_page.dart';
+import 'package:flutter_drive/profile/ui/page/profile_introduction_page.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 SliverList feedUserInfoWidget({
   required String userImage,
@@ -8,6 +11,7 @@ SliverList feedUserInfoWidget({
   required String contentLength,
   required String userIntroduction,
   required List<String> cars,
+  required BuildContext context,
   required bool isMe,
   required Function() profileOnTap,
 }) {
@@ -65,40 +69,88 @@ SliverList feedUserInfoWidget({
                   bottomFontColor: const Color.fromRGBO(195, 195, 195, 1))
             ],
           ),
-          const SizedBox(height: 20),
-          SizedBox(
-            width: size.width * 0.8,
-            child: Text(
-              userIntroduction,
-              style: theme.textTheme.bodyText2!.copyWith(
-                  color: const Color.fromRGBO(195, 195, 195, 1), fontSize: 11),
-            ),
+          const SizedBox(height: 12),
+          _userProfileBottomForm(
+              context: context,
+              isMe: isMe,
+              textBtn: userIntroduction.isEmpty ? '소개글 작성하러 가기...' : '수정하기',
+              icon: Icons.create,
+              widget: Text(
+                userIntroduction,
+                style: theme.textTheme.bodyText2!.copyWith(
+                    color: const Color.fromRGBO(195, 195, 195, 1),
+                    fontSize: 11),
+              ),
+              onTap: () {
+                pushNewScreen(context,
+                    screen: ProfileIntrodutionPage(
+                      introduction: userIntroduction,
+                    ),
+                    pageTransitionAnimation: PageTransitionAnimation.cupertino);
+              }),
+          const SizedBox(height: 6),
+          _userProfileBottomForm(
+            isMe: isMe,
+            context: context,
+            textBtn: cars.isEmpty ? "자동차 추가하러 가기..." : "수정하기",
+            icon: Icons.add_box_outlined,
+            widget: RichText(
+                text: TextSpan(children: [
+              ...cars.map((e) => TextSpan(
+                  text: "#$e  ",
+                  style: theme.textTheme.bodyText2!.copyWith(
+                    color: const Color.fromRGBO(195, 195, 195, 1),
+                    fontSize: 10,
+                  )))
+            ])),
+            onTap: () {
+              pushNewScreen(context,
+                  screen: ProfileCarsPage(
+                    cars: cars,
+                  ),
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino);
+            },
           ),
-          const SizedBox(height: 10),
-          SizedBox(
-            width: size.width * 0.9,
-            height: size.height * 0.02,
-            child: ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: [
-                ...cars.map((e) => Padding(
-                      padding: const EdgeInsets.only(right: 4),
-                      child: Text(
-                        '#$e',
-                        style: theme.textTheme.bodyText2!.copyWith(
-                          fontSize: 11,
-                          color: const Color.fromRGBO(195, 195, 195, 1),
-                        ),
-                      ),
-                    ))
-              ],
-            ),
-          )
         ],
       ),
     )
   ]));
+}
+
+SizedBox _userProfileBottomForm({
+  required bool isMe,
+  required BuildContext context,
+  required Widget widget,
+  required Function() onTap,
+  required String textBtn,
+  required IconData icon,
+}) {
+  return SizedBox(
+    width: size.width * 0.9,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        widget,
+        const SizedBox(height: 2),
+        if (isMe) ...[
+          InkWell(
+            onTap: onTap,
+            child: Row(
+              children: [
+                Icon(icon, color: appSubColor, size: 11),
+                const SizedBox(width: 4),
+                Text(
+                  textBtn,
+                  style: theme.textTheme.bodyText2!
+                      .copyWith(color: appSubColor, fontSize: 10),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ],
+    ),
+  );
 }
 
 Column _textForm({

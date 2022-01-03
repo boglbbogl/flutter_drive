@@ -4,7 +4,6 @@ import 'package:flutter_drive/_constant/app_flushbar.dart';
 import 'package:flutter_drive/activity/activity_model.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/repo/user_repository.dart';
-import 'package:flutter_drive/profile/model/profile_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/all.dart' as kakao;
 
@@ -92,12 +91,8 @@ class AuthProvider extends ChangeNotifier {
     required String socialProfileUrl,
   }) async {
     await _authRepository.loginUpdateSocialUserImage(
-      userProfile: ProfileModel(
-        socialProfileUrl: socialProfileUrl,
-        localProfileUrl: _user!.localProfileUrl,
-        isSocialImage: _user!.isSocialImage,
-        nickName: _user!.nickName,
-      ),
+      socialProfileUrl: socialProfileUrl,
+      localProfileUrl: _user!.localProfileUrl,
       userKey: _user!.userKey,
     );
   }

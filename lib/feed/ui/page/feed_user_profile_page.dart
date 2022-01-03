@@ -9,7 +9,7 @@ import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:flutter_drive/feed/ui/user/feed_user_grid_widget.dart';
 import 'package:flutter_drive/feed/ui/user/feed_user_info_widget.dart';
 import 'package:flutter_drive/profile/provider/profile_provider.dart';
-import 'package:flutter_drive/profile/ui/profile_page.dart';
+import 'package:flutter_drive/profile/ui/page/profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
@@ -57,6 +57,7 @@ class FeedUserProfilePage extends StatelessWidget {
                                 .allUserActivity
                                 .where((c) => user.userKey.contains(c.userKey))
                                 .map((activity) => feedUserInfoWidget(
+                                      context: context,
                                       profileOnTap: () {
                                         context.read<ProfileProvider>().started(
                                               isSocialImage: user.isSocialImage,

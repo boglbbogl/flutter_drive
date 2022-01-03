@@ -2,8 +2,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
 import 'package:flutter_drive/_constant/logger.dart';
+import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/image/repo/images_repository.dart';
-import 'package:flutter_drive/profile/model/profile_model.dart';
 import 'package:flutter_drive/profile/repo/profile_repository.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -11,7 +11,6 @@ class ProfileProvider extends ChangeNotifier {
   final ProfileRepository _profileRepository = ProfileRepository();
   final ImagesRepository _imagesRepository = ImagesRepository();
   final ImagePicker _imagePicker = ImagePicker();
-  bool _isStartLoading = false;
   bool _isLoading = false;
   Uint8List? _pickedImage;
   bool _isTextForm = false;
@@ -21,25 +20,18 @@ class ProfileProvider extends ChangeNotifier {
   bool _isImageSelectLoading = false;
   String _nickName = "";
   String _localImageUrl = "";
-  bool _updateSuccessOrFailure = false;
-  String _introduction = "";
-  bool _isIntroduction = false;
-  bool _isCars = false;
-  final List<String> _cars = [];
-  final List<String> _loadCars = [];
+  final List<String> _addCars = [];
+  final List<String> _deleteCars = [];
 
   Future<void> started({
     required bool isSocialImage,
     required bool isPrivacyBookmarks,
     required bool isPrivacyLikes,
   }) async {
-    _isStartLoading = true;
     notifyListeners();
     _isSocialImage = isSocialImage;
     _isPrivacyBookmarks = isPrivacyBookmarks;
     _isPrivacyLikes = isPrivacyLikes;
-    _updateSuccessOrFailure = false;
-    _isStartLoading = false;
     notifyListeners();
   }
 
@@ -57,22 +49,25 @@ class ProfileProvider extends ChangeNotifier {
     }
 
     await _profileRepository.userPofileUpdate(
-      privacyBookmarks: _isPrivacyBookmarks!,
-      privacyLikes: _isPrivacyLikes!,
-      introduction: _introduction,
-      deleteCars: loadCars,
-      cars: _cars,
-      userProfile: ProfileModel(
-          socialProfileUrl: socialProfileUrl,
-          localProfileUrl:
-              _localImageUrl.isEmpty ? localProfileUrl : _localImageUrl,
-          isSocialImage: _isSocialImage!,
-          nickName: _nickName.isEmpty ? nickName : _nickName),
+      userModel: UserModel(
+        userKey: userKey,
+        nickName: _nickName.isEmpty ? nickName : _nickName,
+        email: "",
+        socialProfileUrl: socialProfileUrl,
+        localProfileUrl:
+            _localImageUrl.isEmpty ? localProfileUrl : _localImageUrl,
+        isSocialImage: _isSocialImage!,
+        introduction: "",
+        cars: [],
+        privacyBookmarks: _isPrivacyBookmarks!,
+        privacyLikes: _isPrivacyLikes!,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        provider: "",
+      ),
       userKey: userKey,
     );
     _isLoading = false;
-    logger.e('success');
-    _updateSuccessOrFailure = true;
     notifyListeners();
   }
 
@@ -85,6 +80,54 @@ class ProfileProvider extends ChangeNotifier {
       _pickedImage = await _selectedImage.readAsBytes();
     }
     _isImageSelectLoading = false;
+    notifyListeners();
+  }
+
+  Future profileIntroductionUpdate({
+    required String userKey,
+    required String introduction,
+  }) async {
+    await _profileRepository.profileIntroductionUpdate(
+        userKey: userKey, introduction: introduction);
+  }
+
+  Future profileCarsUpdate({
+    required String userKey,
+    required BuildContext context,
+  }) async {
+    if (addCars.isEmpty && _deleteCars.isEmpty) {
+      appFlushbar(message: '변경 사항이 없습니다').show(context);
+    } else {
+      await _profileRepository.profileCarsUpdate(
+        deleteCars: _deleteCars,
+        addCars: _addCars,
+        userKey: userKey,
+      );
+      Navigator.of(context)
+        ..pop()
+        ..pop();
+    }
+  }
+
+  void profileAddCars({
+    required String value,
+  }) {
+    if (_addCars.contains(value)) {
+      _addCars.remove(value);
+    } else {
+      _addCars.add(value);
+    }
+    notifyListeners();
+  }
+
+  void profileDeleteCars({
+    required String value,
+  }) {
+    if (_deleteCars.contains(value)) {
+      _deleteCars.remove(value);
+    } else {
+      _deleteCars.add(value);
+    }
     notifyListeners();
   }
 
@@ -113,64 +156,10 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void changedIntroduction({
-    required String value,
-  }) {
-    if (value.length > 4999) {
-      //show snackbar
-    } else {
-      _introduction = value;
-    }
-    notifyListeners();
-  }
-
-  void showIntroductionWidget({
-    required bool value,
-  }) {
-    _isIntroduction = value;
-    notifyListeners();
-  }
-
   void showNickNameChangedWidget({
     required bool value,
   }) {
     value == true ? _isTextForm = true : _isTextForm = false;
-    notifyListeners();
-  }
-
-  void loadCarsAddAndRemove({
-    required String value,
-  }) {
-    if (value.isNotEmpty && _loadCars.contains(value)) {
-      _loadCars.remove(value);
-    } else {
-      _loadCars.add(value);
-    }
-    notifyListeners();
-  }
-
-  void changedAddCars({
-    required String value,
-  }) {
-    if (value.isNotEmpty) {
-      _cars.add(value);
-    }
-    notifyListeners();
-  }
-
-  void changedRemoveCars({
-    required String value,
-  }) {
-    if (value.isNotEmpty) {
-      _cars.remove(value);
-    }
-    notifyListeners();
-  }
-
-  void showCarsChangedWidget({
-    required bool value,
-  }) {
-    _isCars = value;
     notifyListeners();
   }
 
@@ -195,13 +184,8 @@ class ProfileProvider extends ChangeNotifier {
   String get localImageUrl => _localImageUrl;
   bool? get isSocialImage => _isSocialImage;
   Uint8List? get pickedImage => _pickedImage;
-  bool get updateSuccessOrFailure => _updateSuccessOrFailure;
-  String get introduction => _introduction;
-  bool get isIntroduction => _isIntroduction;
-  bool get isCars => _isCars;
-  List<String> get cars => _cars;
-  List<String> get loadCars => _loadCars;
-  bool get isStartLoading => _isStartLoading;
+  List<String> get addCars => _addCars;
+  List<String> get deleteCars => _deleteCars;
   bool get isPrivacyBookmarks => _isPrivacyBookmarks!;
   bool get isPrivacyLikes => _isPrivacyLikes!;
 }
