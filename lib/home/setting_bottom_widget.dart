@@ -52,16 +52,8 @@ Future<void> settingBottomWidget({
                                     .read<AuthProvider>()
                                     .user!
                                     .isSocialImage,
-                                isPrivacyBookmarks: context
-                                    .read<AuthProvider>()
-                                    .user!
-                                    .privacyBookmarks,
-                                isPrivacyLikes: context
-                                    .read<AuthProvider>()
-                                    .user!
-                                    .privacyLikes,
                               );
-                          pushNewScreen(context, screen: ProfilePage());
+                          pushNewScreen(context, screen: const ProfilePage());
                         }),
                     _menuItemListTile(
                         title: '로그아웃',

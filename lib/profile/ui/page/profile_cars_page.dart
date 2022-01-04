@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/profile/provider/profile_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_drive/profile/ui/widgets/profile_appbar_widget.dart';
+import 'package:flutter_drive/profile/ui/widgets/profile_text_form_widget.dart';
+import 'package:provider/provider.dart';
 
 class ProfileCarsPage extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
@@ -48,48 +49,22 @@ class ProfileCarsPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.35,
-                      height: size.height * 0.06,
-                      child: TextFormField(
-                          controller: _controller,
-                          onFieldSubmitted: (value) {
-                            context
-                                .read<ProfileProvider>()
-                                .profileAddCars(value: value);
-                            _controller.clear();
-                          },
-                          style: theme.textTheme.bodyText2!.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12),
-                          decoration: InputDecoration(
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            hintText: '차량의 애칭을 입력해 주세요',
-                            hintStyle: theme.textTheme.bodyText2!.copyWith(
-                                color: const Color.fromRGBO(155, 155, 155, 1),
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold),
-                          )),
-                    ),
-                    IconButton(
-                      constraints: const BoxConstraints(),
-                      onPressed: () {
-                        context
-                            .read<ProfileProvider>()
-                            .profileAddCars(value: _controller.text);
-                        _controller.clear();
-                      },
-                      icon: const Icon(Icons.add_box, color: Colors.white),
-                    ),
-                  ],
-                ),
-              ),
+              profileTextFormWidget(
+                  horizontal: 8,
+                  controller: _controller,
+                  hintText: '차량의 애칭을 입력해 주세요',
+                  onFieldSubmitted: (value) {
+                    context
+                        .read<ProfileProvider>()
+                        .profileAddCars(value: value);
+                    _controller.clear();
+                  },
+                  onTap: () {
+                    context
+                        .read<ProfileProvider>()
+                        .profileAddCars(value: _controller.text);
+                    _controller.clear();
+                  }),
               const SizedBox(height: 12),
               Wrap(
                 children: [

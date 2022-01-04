@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/auth/ui/profile_circle_image_widget.dart';
+import 'package:flutter_drive/profile/provider/profile_provider.dart';
 import 'package:flutter_drive/profile/ui/page/profile_cars_page.dart';
+import 'package:flutter_drive/profile/ui/page/profile_city_page.dart';
 import 'package:flutter_drive/profile/ui/page/profile_introduction_page.dart';
+import 'package:flutter_drive/profile/ui/page/profile_privacy_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:provider/provider.dart';
 
 SliverList feedUserInfoWidget({
   required String userImage,
   required String userNickName,
   required String contentLength,
+  required String likesUserLength,
   required String userIntroduction,
   required List<String> cars,
   required BuildContext context,
+  required List<String> city,
+  required bool isLockLikes,
+  required bool isLockBookmarks,
   required bool isMe,
   required Function() profileOnTap,
 }) {
@@ -61,12 +70,23 @@ SliverList feedUserInfoWidget({
                       topFontColor: const Color.fromRGBO(225, 225, 225, 1)),
                 ],
               ),
-              _textForm(
-                  topTitle: contentLength,
-                  bottomTitle: '게시물수',
-                  topFontSize: 18,
-                  bottomFontWeight: FontWeight.w400,
-                  bottomFontColor: const Color.fromRGBO(195, 195, 195, 1))
+              Row(
+                children: [
+                  _textForm(
+                      topTitle: contentLength,
+                      bottomTitle: '게시물수',
+                      topFontSize: 18,
+                      bottomFontWeight: FontWeight.w400,
+                      bottomFontColor: const Color.fromRGBO(195, 195, 195, 1)),
+                  const SizedBox(width: 8),
+                  _textForm(
+                      topTitle: likesUserLength,
+                      bottomTitle: '좋아요',
+                      topFontSize: 18,
+                      bottomFontWeight: FontWeight.w400,
+                      bottomFontColor: const Color.fromRGBO(195, 195, 195, 1))
+                ],
+              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -75,12 +95,14 @@ SliverList feedUserInfoWidget({
               isMe: isMe,
               textBtn: userIntroduction.isEmpty ? '소개글 작성하러 가기...' : '수정하기',
               icon: Icons.create,
-              widget: Text(
-                userIntroduction,
-                style: theme.textTheme.bodyText2!.copyWith(
-                    color: const Color.fromRGBO(195, 195, 195, 1),
-                    fontSize: 11),
-              ),
+              widget: userIntroduction.isEmpty
+                  ? Container()
+                  : Text(
+                      userIntroduction,
+                      style: theme.textTheme.bodyText2!.copyWith(
+                          color: const Color.fromRGBO(195, 195, 195, 1),
+                          fontSize: 11),
+                    ),
               onTap: () {
                 pushNewScreen(context,
                     screen: ProfileIntrodutionPage(
@@ -92,17 +114,23 @@ SliverList feedUserInfoWidget({
           _userProfileBottomForm(
             isMe: isMe,
             context: context,
-            textBtn: cars.isEmpty ? "자동차 추가하러 가기..." : "수정하기",
+            textBtn: cars.isEmpty ? "차량 정보 추가하러 가기..." : "차량 정보 수정하기",
             icon: Icons.add_box_outlined,
-            widget: RichText(
-                text: TextSpan(children: [
-              ...cars.map((e) => TextSpan(
-                  text: "#$e  ",
-                  style: theme.textTheme.bodyText2!.copyWith(
-                    color: const Color.fromRGBO(195, 195, 195, 1),
-                    fontSize: 10,
-                  )))
-            ])),
+            widget: cars.isEmpty
+                ? Container()
+                : RichText(
+                    text: TextSpan(children: [
+                    ...context
+                        .watch<AuthProvider>()
+                        .user!
+                        .cars
+                        .map((e) => TextSpan(
+                            text: "#$e  ",
+                            style: theme.textTheme.bodyText2!.copyWith(
+                              color: const Color.fromRGBO(195, 195, 195, 1),
+                              fontSize: 10,
+                            )))
+                  ])),
             onTap: () {
               pushNewScreen(context,
                   screen: ProfileCarsPage(
@@ -111,10 +139,87 @@ SliverList feedUserInfoWidget({
                   pageTransitionAnimation: PageTransitionAnimation.cupertino);
             },
           ),
+          const SizedBox(height: 6),
+          _userProfileBottomForm(
+            isMe: isMe,
+            context: context,
+            textBtn: city.isEmpty ? "활동 지역 추가하러 가기..." : "지역 수정하기",
+            icon: Icons.add_box_outlined,
+            widget: city.isEmpty
+                ? Container()
+                : RichText(
+                    text: TextSpan(children: [
+                    ...city.map((e) => TextSpan(
+                        text: "#$e  ",
+                        style: theme.textTheme.bodyText2!.copyWith(
+                          color: const Color.fromRGBO(195, 195, 195, 1),
+                          fontSize: 10,
+                        )))
+                  ])),
+            onTap: () {
+              pushNewScreen(context,
+                  screen: ProfileCityPage(
+                    city: city,
+                  ),
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino);
+            },
+          ),
+          const SizedBox(height: 6),
+          _userProfileBottomForm(
+            isMe: isMe,
+            context: context,
+            textBtn: "공개 여부 설정하러 가기...",
+            icon: Icons.lock_open_rounded,
+            widget: Row(
+              children: [
+                _userPrivacyForm(title: '좋아요', isLock: isLockLikes),
+                const SizedBox(width: 10),
+                _userPrivacyForm(title: '북마크', isLock: isLockBookmarks),
+              ],
+            ),
+            onTap: () {
+              context.read<ProfileProvider>().privacyUpdateStarted(
+                  isPrivacyBookmarks: isLockBookmarks,
+                  isPrivacyLikes: isLockLikes);
+              pushNewScreen(context,
+                  screen: const ProfilePrivacyPage(),
+                  pageTransitionAnimation: PageTransitionAnimation.cupertino);
+            },
+          ),
         ],
       ),
     )
   ]));
+}
+
+Row _userPrivacyForm({
+  required String title,
+  required bool isLock,
+}) {
+  return Row(
+    children: [
+      Text(
+        title,
+        style: theme.textTheme.bodyText2!.copyWith(
+          color: const Color.fromRGBO(195, 195, 195, 1),
+          fontSize: 10,
+        ),
+      ),
+      const SizedBox(width: 3),
+      if (isLock)
+        Icon(
+          Icons.lock,
+          size: 12,
+          color: appMainColor,
+        )
+      else
+        const Icon(
+          Icons.lock_open_rounded,
+          size: 12,
+          color: Color.fromRGBO(195, 195, 195, 1),
+        ),
+    ],
+  );
 }
 
 SizedBox _userProfileBottomForm({

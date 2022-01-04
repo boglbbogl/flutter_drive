@@ -24,7 +24,12 @@ _$_ActivityModel _$$_ActivityModelFromJson(Map<String, dynamic> json) =>
       followingUserKey: (json['followingUserKey'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      city: (json['city'] as List<dynamic>).map((e) => e as String).toList(),
+      likesUserKey: (json['likesUserKey'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      likeMeUserKey: (json['likeMeUserKey'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$$_ActivityModelToJson(_$_ActivityModel instance) =>
@@ -35,5 +40,6 @@ Map<String, dynamic> _$$_ActivityModelToJson(_$_ActivityModel instance) =>
       'bookmarksDocKey': instance.bookmarksDocKey,
       'followerUserKey': instance.followerUserKey,
       'followingUserKey': instance.followingUserKey,
-      'city': instance.city,
+      'likesUserKey': instance.likesUserKey,
+      'likeMeUserKey': instance.likeMeUserKey,
     };

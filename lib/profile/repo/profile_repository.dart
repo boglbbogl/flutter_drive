@@ -21,13 +21,30 @@ class ProfileRepository {
     return _usersNickName.contains(nickName);
   }
 
+  Future profilePrivacyUpdate({
+    required String userkey,
+    required bool privacyLikes,
+    required bool privacyBookmarks,
+  }) async {
+    final DocumentReference<Map<String, dynamic>> _userRef =
+        _firestore.collection(collectionUser).doc(userkey);
+    await _userRef.update({
+      "privacyLikes": privacyLikes,
+      "privacyBookmarks": privacyBookmarks,
+      "updatedAt": DateTime.now(),
+    });
+  }
+
   Future profileIntroductionUpdate({
     required String userKey,
     required String introduction,
   }) async {
     final DocumentReference<Map<String, dynamic>> _userRef =
         _firestore.collection(collectionUser).doc(userKey);
-    await _userRef.update({"introduction": introduction});
+    final _batch = _firestore.batch();
+    _batch.update(_userRef, {"introduction": introduction});
+    _batch.update(_userRef, {"updatedAt": DateTime.now()});
+    await _batch.commit();
   }
 
   Future profileCarsUpdate({
@@ -42,6 +59,24 @@ class ProfileRepository {
       _batch.update(_userRef, {"cars": FieldValue.arrayRemove(deleteCars)});
     }
     _batch.update(_userRef, {"cars": FieldValue.arrayUnion(addCars)});
+    _batch.update(_userRef, {"updatedAt": DateTime.now()});
+
+    await _batch.commit();
+  }
+
+  Future profileCityUpdate({
+    required List<String> deleteCity,
+    required List<String> addCity,
+    required String userKey,
+  }) async {
+    final DocumentReference<Map<String, dynamic>> _userRef =
+        _firestore.collection(collectionUser).doc(userKey);
+    final _batch = _firestore.batch();
+    if (deleteCity.isNotEmpty) {
+      _batch.update(_userRef, {"city": FieldValue.arrayRemove(deleteCity)});
+    }
+    _batch.update(_userRef, {"city": FieldValue.arrayUnion(addCity)});
+    _batch.update(_userRef, {"updatedAt": DateTime.now()});
     await _batch.commit();
   }
 
@@ -70,8 +105,6 @@ class ProfileRepository {
       "nickName": userModel.nickName,
       "isSocialImage": userModel.isSocialImage,
       "updatedAt": DateTime.now(),
-      "privacyLikes": userModel.privacyLikes,
-      "privacyBookmarks": userModel.privacyBookmarks,
     });
     await _batch.commit();
   }

@@ -16,6 +16,7 @@ class UserModel with _$UserModel {
     required bool isSocialImage,
     required String introduction,
     required List<String> cars,
+    required List<String> city,
     required bool privacyBookmarks,
     required bool privacyLikes,
     @TimestampConverter() required DateTime createdAt,
@@ -30,4 +31,21 @@ class UserModel with _$UserModel {
   factory UserModel.fromFireStore(DocumentSnapshot<Map<String, dynamic>> doc) {
     return UserModel.fromJson(doc.data()!);
   }
+
+  factory UserModel.empty() => UserModel(
+        userKey: "",
+        nickName: "",
+        email: "",
+        socialProfileUrl: "",
+        localProfileUrl: "",
+        isSocialImage: false,
+        introduction: "",
+        cars: [],
+        city: [],
+        privacyBookmarks: false,
+        privacyLikes: false,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        provider: "",
+      );
 }

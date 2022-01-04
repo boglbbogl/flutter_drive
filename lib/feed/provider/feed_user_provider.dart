@@ -33,6 +33,20 @@ class FeedUserProvider extends ChangeNotifier {
     });
   }
 
+  Future addAndRemovLikesUserAndLikeMeUser({
+    required String userKey,
+    required String likeMeUserKey,
+    required bool isLikeUser,
+  }) async {
+    if (isLikeUser) {
+      await _feedRepostiory.removeLikesUserAndLikeMeUser(
+          userKey: userKey, likeMeUserKey: likeMeUserKey);
+    } else {
+      await _feedRepostiory.addLikesUserAndLikeMeUser(
+          userKey: userKey, likeMeUserKey: likeMeUserKey);
+    }
+  }
+
   void isShowExplanation({
     required int index,
   }) {

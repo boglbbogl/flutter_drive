@@ -64,7 +64,7 @@ class CourseProvider extends ChangeNotifier {
     required CourseSpot courseSpot,
     required BuildContext context,
   }) {
-    if (_courseSpotList.length < 10) {
+    if (_courseSpotList.length < 10 || _courseSpotList.contains(courseSpot)) {
       if (_courseSpotList.contains(courseSpot)) {
         _courseSpotList.remove(courseSpot);
       } else {

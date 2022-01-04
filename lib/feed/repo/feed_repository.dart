@@ -50,4 +50,36 @@ class FeedRepostiory {
     }
     return null;
   }
+
+  Future addLikesUserAndLikeMeUser({
+    required String userKey,
+    required String likeMeUserKey,
+  }) async {
+    final CollectionReference<Map<String, dynamic>> _activityRef =
+        _firestore.collection(collectionActivity);
+    final _batch = _firestore.batch();
+    _batch.update(_activityRef.doc(userKey), {
+      "likesUserKey": FieldValue.arrayUnion([likeMeUserKey])
+    });
+    _batch.update(_activityRef.doc(likeMeUserKey), {
+      "likeMeUserKey": FieldValue.arrayUnion([userKey])
+    });
+    await _batch.commit();
+  }
+
+  Future removeLikesUserAndLikeMeUser({
+    required String userKey,
+    required String likeMeUserKey,
+  }) async {
+    final CollectionReference<Map<String, dynamic>> _activityRef =
+        _firestore.collection(collectionActivity);
+    final _batch = _firestore.batch();
+    _batch.update(_activityRef.doc(userKey), {
+      "likesUserKey": FieldValue.arrayRemove([likeMeUserKey])
+    });
+    _batch.update(_activityRef.doc(likeMeUserKey), {
+      "likeMeUserKey": FieldValue.arrayRemove([userKey])
+    });
+    await _batch.commit();
+  }
 }

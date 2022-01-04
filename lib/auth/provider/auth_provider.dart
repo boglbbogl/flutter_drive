@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
@@ -13,16 +15,18 @@ class AuthProvider extends ChangeNotifier {
   final AuthRepository _authRepository = AuthRepository();
 
   UserModel? _user;
+  ActivityModel? _activityModel;
   List<UserModel> _allUserProfile = [];
   List<ActivityModel> _allUserActivity = [];
   bool _isLoginState = false;
   bool _isGoogle = false;
   bool _isKakao = false;
+  bool _isUserLoading = false;
 
   AuthProvider() {
     _userLoginState();
     _getAllUserProfile();
-    _getAllUserActivity();
+    getAllUserActivity();
   }
 
   Future<void> _userLoginState() async {
@@ -33,12 +37,16 @@ class AuthProvider extends ChangeNotifier {
         await kakao.TokenManager.instance.getToken();
     if (_firebaseUser != null) {
       _user = await _authRepository.getUserProfile(userKey: _firebaseUser.uid);
+      _activityModel =
+          await _authRepository.getUserActivity(userKey: _firebaseUser.uid);
       if (_user != null) {
         if (!_user!.socialProfileUrl.contains(_firebaseUser.photoURL!)) {
           await _updateSoicalUserImage(
               socialProfileUrl: _firebaseUser.photoURL!);
           _user =
               await _authRepository.getUserProfile(userKey: _firebaseUser.uid);
+          _activityModel =
+              await _authRepository.getUserActivity(userKey: _firebaseUser.uid);
         }
       }
       notifyListeners();
@@ -47,6 +55,9 @@ class AuthProvider extends ChangeNotifier {
       final kakao.User _kakaoUser = await kakao.UserApi.instance.me();
       _user = await _authRepository.getUserProfile(
           userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
+      _activityModel = await _authRepository.getUserActivity(
+          userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
+
       if (_user != null) {
         if (!_user!.socialProfileUrl
             .contains(_kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!)) {
@@ -54,6 +65,9 @@ class AuthProvider extends ChangeNotifier {
               socialProfileUrl:
                   _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!);
           _user = await _authRepository.getUserProfile(
+              userKey:
+                  _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
+          _activityModel = await _authRepository.getUserActivity(
               userKey:
                   _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
         }
@@ -66,9 +80,28 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  Future getUserActivity({
+    required String userKey,
+  }) async {
+    _activityModel = await _authRepository.getUserActivity(userKey: userKey);
+    notifyListeners();
+  }
+
+  Future<void> getSingleUserStatus({
+    required String userKey,
+  }) async {
+    _isUserLoading = true;
+    notifyListeners();
+    _user = await _authRepository.getUserProfile(userKey: userKey);
+    _activityModel = await _authRepository.getUserActivity(userKey: userKey);
+    _isUserLoading = false;
+
+    notifyListeners();
+  }
+
   void getAllUserStatus() {
     _getAllUserProfile();
-    _getAllUserActivity();
+    getAllUserActivity();
   }
 
   Future _getAllUserProfile() async {
@@ -76,15 +109,9 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future _getAllUserActivity() async {
+  Future getAllUserActivity() async {
     _allUserActivity = await _authRepository.getAllUserActivity();
     notifyListeners();
-  }
-
-  Future<void> getUpdateUserProfile({
-    required String userKey,
-  }) async {
-    _user = await _authRepository.getUserProfile(userKey: userKey);
   }
 
   Future<void> _updateSoicalUserImage({
@@ -113,6 +140,7 @@ class AuthProvider extends ChangeNotifier {
           provider: 'Google',
           introduction: "",
           cars: [],
+          city: [],
           privacyBookmarks: false,
           privacyLikes: false,
         ),
@@ -133,6 +161,7 @@ class AuthProvider extends ChangeNotifier {
           provider: 'Kakao',
           introduction: "",
           cars: [],
+          city: [],
           privacyBookmarks: false,
           privacyLikes: false,
         ),
@@ -249,9 +278,11 @@ class AuthProvider extends ChangeNotifier {
   }
 
   UserModel? get user => _user;
+  ActivityModel? get activity => _activityModel;
   bool get isLoginState => _isLoginState;
   bool get isGoogle => _isGoogle;
   bool get isKakao => _isKakao;
   List<UserModel> get allUserProfile => _allUserProfile;
   List<ActivityModel> get allUserActivity => _allUserActivity;
+  bool get isUserLoading => _isUserLoading;
 }

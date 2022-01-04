@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/image/repo/images_repository.dart';
 import 'package:flutter_drive/profile/repo/profile_repository.dart';
@@ -11,25 +10,32 @@ class ProfileProvider extends ChangeNotifier {
   final ProfileRepository _profileRepository = ProfileRepository();
   final ImagesRepository _imagesRepository = ImagesRepository();
   final ImagePicker _imagePicker = ImagePicker();
+  final UserModel _userModel = UserModel.empty();
   bool _isLoading = false;
   Uint8List? _pickedImage;
   bool _isTextForm = false;
   bool? _isSocialImage;
-  late bool? _isPrivacyBookmarks;
-  late bool? _isPrivacyLikes;
+  bool _isPrivacyBookmarks = false;
+  bool _isPrivacyLikes = false;
   bool _isImageSelectLoading = false;
   String _nickName = "";
   String _localImageUrl = "";
   final List<String> _addCars = [];
   final List<String> _deleteCars = [];
+  final List<String> _addCity = [];
+  final List<String> _deleteCity = [];
 
   Future<void> started({
     required bool isSocialImage,
+  }) async {
+    _isSocialImage = isSocialImage;
+    notifyListeners();
+  }
+
+  void privacyUpdateStarted({
     required bool isPrivacyBookmarks,
     required bool isPrivacyLikes,
-  }) async {
-    notifyListeners();
-    _isSocialImage = isSocialImage;
+  }) {
     _isPrivacyBookmarks = isPrivacyBookmarks;
     _isPrivacyLikes = isPrivacyLikes;
     notifyListeners();
@@ -49,21 +55,13 @@ class ProfileProvider extends ChangeNotifier {
     }
 
     await _profileRepository.userPofileUpdate(
-      userModel: UserModel(
-        userKey: userKey,
+      userModel: _userModel.copyWith(
         nickName: _nickName.isEmpty ? nickName : _nickName,
-        email: "",
         socialProfileUrl: socialProfileUrl,
+        isSocialImage: _isSocialImage!,
         localProfileUrl:
             _localImageUrl.isEmpty ? localProfileUrl : _localImageUrl,
-        isSocialImage: _isSocialImage!,
-        introduction: "",
-        cars: [],
-        privacyBookmarks: _isPrivacyBookmarks!,
-        privacyLikes: _isPrivacyLikes!,
-        createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
-        provider: "",
       ),
       userKey: userKey,
     );
@@ -83,19 +81,39 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future profilePrivacyUpdate({
+    required String userKey,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+    await _profileRepository.profilePrivacyUpdate(
+      userkey: userKey,
+      privacyLikes: _isPrivacyLikes,
+      privacyBookmarks: _isPrivacyBookmarks,
+    );
+    _isLoading = false;
+    notifyListeners();
+  }
+
   Future profileIntroductionUpdate({
     required String userKey,
     required String introduction,
   }) async {
+    _isLoading = true;
+    notifyListeners();
     await _profileRepository.profileIntroductionUpdate(
         userKey: userKey, introduction: introduction);
+    _isLoading = false;
+    notifyListeners();
   }
 
   Future profileCarsUpdate({
     required String userKey,
     required BuildContext context,
   }) async {
-    if (addCars.isEmpty && _deleteCars.isEmpty) {
+    _isLoading = true;
+    notifyListeners();
+    if (_addCars.isEmpty && _deleteCars.isEmpty) {
       appFlushbar(message: '변경 사항이 없습니다').show(context);
     } else {
       await _profileRepository.profileCarsUpdate(
@@ -103,10 +121,56 @@ class ProfileProvider extends ChangeNotifier {
         addCars: _addCars,
         userKey: userKey,
       );
+      _isLoading = false;
+      notifyListeners();
       Navigator.of(context)
         ..pop()
         ..pop();
     }
+  }
+
+  Future profileCityUpdate({
+    required String userKey,
+    required BuildContext context,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+    if (_addCity.isEmpty && _deleteCity.isEmpty) {
+      appFlushbar(message: '변경 사항이 없습니다').show(context);
+    } else {
+      await _profileRepository.profileCityUpdate(
+        deleteCity: _deleteCity,
+        addCity: _addCity,
+        userKey: userKey,
+      );
+      _isLoading = false;
+      notifyListeners();
+      Navigator.of(context)
+        ..pop()
+        ..pop();
+    }
+  }
+
+  void profileAddCity({
+    required String value,
+  }) {
+    if (_addCity.contains(value)) {
+      _addCity.remove(value);
+    } else {
+      _addCity.add(value);
+    }
+    notifyListeners();
+  }
+
+  void profileDeleteCity({
+    required String value,
+  }) {
+    if (_deleteCity.contains(value)) {
+      _deleteCity.remove(value);
+    } else {
+      _deleteCity.add(value);
+    }
+    notifyListeners();
   }
 
   void profileAddCars({
@@ -186,6 +250,8 @@ class ProfileProvider extends ChangeNotifier {
   Uint8List? get pickedImage => _pickedImage;
   List<String> get addCars => _addCars;
   List<String> get deleteCars => _deleteCars;
-  bool get isPrivacyBookmarks => _isPrivacyBookmarks!;
-  bool get isPrivacyLikes => _isPrivacyLikes!;
+  List<String> get addCity => _addCity;
+  List<String> get deleteCity => _deleteCity;
+  bool get isPrivacyBookmarks => _isPrivacyBookmarks;
+  bool get isPrivacyLikes => _isPrivacyLikes;
 }

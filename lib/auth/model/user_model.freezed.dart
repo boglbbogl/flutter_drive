@@ -30,6 +30,7 @@ class _$UserModelTearOff {
       required bool isSocialImage,
       required String introduction,
       required List<String> cars,
+      required List<String> city,
       required bool privacyBookmarks,
       required bool privacyLikes,
       @TimestampConverter() required DateTime createdAt,
@@ -44,6 +45,7 @@ class _$UserModelTearOff {
       isSocialImage: isSocialImage,
       introduction: introduction,
       cars: cars,
+      city: city,
       privacyBookmarks: privacyBookmarks,
       privacyLikes: privacyLikes,
       createdAt: createdAt,
@@ -70,6 +72,7 @@ mixin _$UserModel {
   bool get isSocialImage => throw _privateConstructorUsedError;
   String get introduction => throw _privateConstructorUsedError;
   List<String> get cars => throw _privateConstructorUsedError;
+  List<String> get city => throw _privateConstructorUsedError;
   bool get privacyBookmarks => throw _privateConstructorUsedError;
   bool get privacyLikes => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -97,6 +100,7 @@ abstract class $UserModelCopyWith<$Res> {
       bool isSocialImage,
       String introduction,
       List<String> cars,
+      List<String> city,
       bool privacyBookmarks,
       bool privacyLikes,
       @TimestampConverter() DateTime createdAt,
@@ -122,6 +126,7 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
     Object? isSocialImage = freezed,
     Object? introduction = freezed,
     Object? cars = freezed,
+    Object? city = freezed,
     Object? privacyBookmarks = freezed,
     Object? privacyLikes = freezed,
     Object? createdAt = freezed,
@@ -160,6 +165,10 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
       cars: cars == freezed
           ? _value.cars
           : cars // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      city: city == freezed
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
               as List<String>,
       privacyBookmarks: privacyBookmarks == freezed
           ? _value.privacyBookmarks
@@ -200,6 +209,7 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       bool isSocialImage,
       String introduction,
       List<String> cars,
+      List<String> city,
       bool privacyBookmarks,
       bool privacyLikes,
       @TimestampConverter() DateTime createdAt,
@@ -226,6 +236,7 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
     Object? isSocialImage = freezed,
     Object? introduction = freezed,
     Object? cars = freezed,
+    Object? city = freezed,
     Object? privacyBookmarks = freezed,
     Object? privacyLikes = freezed,
     Object? createdAt = freezed,
@@ -265,6 +276,10 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.cars
           : cars // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      city: city == freezed
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       privacyBookmarks: privacyBookmarks == freezed
           ? _value.privacyBookmarks
           : privacyBookmarks // ignore: cast_nullable_to_non_nullable
@@ -301,6 +316,7 @@ class _$_UserModel extends _UserModel {
       required this.isSocialImage,
       required this.introduction,
       required this.cars,
+      required this.city,
       required this.privacyBookmarks,
       required this.privacyLikes,
       @TimestampConverter() required this.createdAt,
@@ -328,6 +344,8 @@ class _$_UserModel extends _UserModel {
   @override
   final List<String> cars;
   @override
+  final List<String> city;
+  @override
   final bool privacyBookmarks;
   @override
   final bool privacyLikes;
@@ -342,7 +360,7 @@ class _$_UserModel extends _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(userKey: $userKey, nickName: $nickName, email: $email, socialProfileUrl: $socialProfileUrl, localProfileUrl: $localProfileUrl, isSocialImage: $isSocialImage, introduction: $introduction, cars: $cars, privacyBookmarks: $privacyBookmarks, privacyLikes: $privacyLikes, createdAt: $createdAt, updatedAt: $updatedAt, provider: $provider)';
+    return 'UserModel(userKey: $userKey, nickName: $nickName, email: $email, socialProfileUrl: $socialProfileUrl, localProfileUrl: $localProfileUrl, isSocialImage: $isSocialImage, introduction: $introduction, cars: $cars, city: $city, privacyBookmarks: $privacyBookmarks, privacyLikes: $privacyLikes, createdAt: $createdAt, updatedAt: $updatedAt, provider: $provider)';
   }
 
   @override
@@ -362,6 +380,7 @@ class _$_UserModel extends _UserModel {
             const DeepCollectionEquality()
                 .equals(other.introduction, introduction) &&
             const DeepCollectionEquality().equals(other.cars, cars) &&
+            const DeepCollectionEquality().equals(other.city, city) &&
             const DeepCollectionEquality()
                 .equals(other.privacyBookmarks, privacyBookmarks) &&
             const DeepCollectionEquality()
@@ -382,6 +401,7 @@ class _$_UserModel extends _UserModel {
       const DeepCollectionEquality().hash(isSocialImage),
       const DeepCollectionEquality().hash(introduction),
       const DeepCollectionEquality().hash(cars),
+      const DeepCollectionEquality().hash(city),
       const DeepCollectionEquality().hash(privacyBookmarks),
       const DeepCollectionEquality().hash(privacyLikes),
       const DeepCollectionEquality().hash(createdAt),
@@ -409,6 +429,7 @@ abstract class _UserModel extends UserModel {
       required bool isSocialImage,
       required String introduction,
       required List<String> cars,
+      required List<String> city,
       required bool privacyBookmarks,
       required bool privacyLikes,
       @TimestampConverter() required DateTime createdAt,
@@ -435,6 +456,8 @@ abstract class _UserModel extends UserModel {
   String get introduction;
   @override
   List<String> get cars;
+  @override
+  List<String> get city;
   @override
   bool get privacyBookmarks;
   @override

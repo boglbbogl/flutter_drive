@@ -31,7 +31,7 @@ class AddressScreen extends StatelessWidget {
             ],
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 22),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
                 if (context

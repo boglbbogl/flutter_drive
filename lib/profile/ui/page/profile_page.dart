@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/_constant/app_indicator.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/profile/provider/profile_provider.dart';
 import 'package:flutter_drive/profile/ui/widgets/profile_appbar_widget.dart';
 import 'package:flutter_drive/profile/ui/widgets/profile_image_selected_widget.dart';
 import 'package:flutter_drive/profile/ui/widgets/profile_nick_name_widget.dart';
-import 'package:flutter_drive/profile/ui/widgets/profile_privacy_widget.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 
@@ -33,18 +31,14 @@ class ProfilePage extends StatelessWidget {
               color: provider.isSocialImage != _user.isSocialImage ||
                       (provider.nickName != _user.nickName &&
                           provider.nickName.isNotEmpty) ||
-                      provider.pickedImage != null ||
-                      provider.isPrivacyLikes != _user.privacyLikes ||
-                      provider.isPrivacyBookmarks != _user.privacyBookmarks
+                      provider.pickedImage != null
                   ? appMainColor
                   : const Color.fromRGBO(115, 115, 115, 1),
               onTap: () async {
                 if (provider.isSocialImage != _user.isSocialImage ||
                     (provider.nickName != _user.nickName &&
                         provider.nickName.isNotEmpty) ||
-                    provider.pickedImage != null ||
-                    provider.isPrivacyLikes != _user.privacyLikes ||
-                    provider.isPrivacyBookmarks != _user.privacyBookmarks) {
+                    provider.pickedImage != null) {
                   await provider.userProfileUpdate(
                     socialProfileUrl: _user.socialProfileUrl,
                     localProfileUrl: _user.localProfileUrl,
@@ -74,11 +68,6 @@ class ProfilePage extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     const SizedBox(height: 12),
-                    profilePrivacyWidget(
-                      context: context,
-                      userPrivacyBookmarks: provider.isPrivacyBookmarks,
-                      userPrivacyLikes: provider.isPrivacyLikes,
-                    ),
                   ],
                 ),
               ],

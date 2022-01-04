@@ -7,7 +7,7 @@ class Location extends BeamLocation {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
-      BeamPage(child: HomePage(), key: const ValueKey('main')),
+      BeamPage(child: const HomePage(), key: const ValueKey('main')),
     ];
   }
 
@@ -20,7 +20,7 @@ class RebuildLocation extends BeamLocation {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
-      BeamPage(child: HomePage(), key: const ValueKey('rebuild')),
+      BeamPage(child: const HomePage(), key: const ValueKey('rebuild')),
     ];
   }
 
