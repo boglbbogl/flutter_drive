@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/activity/activity_model.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/repo/user_repository.dart';
@@ -26,7 +27,7 @@ class AuthProvider extends ChangeNotifier {
   AuthProvider() {
     _userLoginState();
     _getAllUserProfile();
-    getAllUserActivity();
+    _getAllUserActivity();
   }
 
   Future<void> _userLoginState() async {
@@ -80,28 +81,52 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future getUserActivity({
-    required String userKey,
-  }) async {
-    _activityModel = await _authRepository.getUserActivity(userKey: userKey);
+  Future<void> getAllUserStatus() async {
+    _isUserLoading = true;
+    notifyListeners();
+    await _getAllUserProfile();
+    await _getAllUserActivity();
+    _isUserLoading = false;
     notifyListeners();
   }
 
-  Future<void> getSingleUserStatus({
+  Future<void> getAllUserFeedUpdateUserModel({
+    required String userKey,
+  }) async {
+    final UserModel _deleteUserModel =
+        _allUserProfile.where((e) => userKey.contains(e.userKey)).toList()[0];
+    final _updateUser = await _authRepository.getUserProfile(userKey: userKey);
+    if (_updateUser != null) {
+      _allUserProfile.remove(_deleteUserModel);
+      _allUserProfile.add(_updateUser);
+      notifyListeners();
+    }
+  }
+
+  Future<void> getAllUserFeedUpdateActivityModel({
+    required String userKey,
+  }) async {
+    final ActivityModel _deleteActivityModel =
+        _allUserActivity.where((e) => userKey.contains(e.userKey)).toList()[0];
+    final _updateActivityModel =
+        await _authRepository.getUserActivity(userKey: userKey);
+    if (_updateActivityModel != null) {
+      _allUserActivity.remove(_deleteActivityModel);
+      _allUserActivity.add(_updateActivityModel);
+
+      notifyListeners();
+    }
+  }
+
+  Future<void> getAllUserFeedUpdateStatus({
     required String userKey,
   }) async {
     _isUserLoading = true;
     notifyListeners();
-    _user = await _authRepository.getUserProfile(userKey: userKey);
-    _activityModel = await _authRepository.getUserActivity(userKey: userKey);
+    await getAllUserFeedUpdateUserModel(userKey: userKey);
+    await getAllUserFeedUpdateActivityModel(userKey: userKey);
     _isUserLoading = false;
-
     notifyListeners();
-  }
-
-  void getAllUserStatus() {
-    _getAllUserProfile();
-    getAllUserActivity();
   }
 
   Future _getAllUserProfile() async {
@@ -109,7 +134,7 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getAllUserActivity() async {
+  Future _getAllUserActivity() async {
     _allUserActivity = await _authRepository.getAllUserActivity();
     notifyListeners();
   }

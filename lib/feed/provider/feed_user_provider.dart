@@ -11,6 +11,7 @@ class FeedUserProvider extends ChangeNotifier {
   List<CourseModel> _courseList = [];
   List<int> _explanationIndex = [];
   bool _isLoading = false;
+  bool _isLikeLoading = false;
   List<FeedModel> _feedImageOrCourse = [];
 
   FeedUserProvider() {
@@ -38,6 +39,8 @@ class FeedUserProvider extends ChangeNotifier {
     required String likeMeUserKey,
     required bool isLikeUser,
   }) async {
+    _isLikeLoading = true;
+    notifyListeners();
     if (isLikeUser) {
       await _feedRepostiory.removeLikesUserAndLikeMeUser(
           userKey: userKey, likeMeUserKey: likeMeUserKey);
@@ -45,6 +48,8 @@ class FeedUserProvider extends ChangeNotifier {
       await _feedRepostiory.addLikesUserAndLikeMeUser(
           userKey: userKey, likeMeUserKey: likeMeUserKey);
     }
+    _isLikeLoading = false;
+    notifyListeners();
   }
 
   void isShowExplanation({
@@ -78,5 +83,6 @@ class FeedUserProvider extends ChangeNotifier {
   List<CourseModel> get courseList => _courseList;
   List<int> get explanationIndex => _explanationIndex;
   bool get isLoading => _isLoading;
+  bool get isLikeLoading => _isLikeLoading;
   List<FeedModel> get feedImageOrCourse => _feedImageOrCourse;
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/auth/ui/profile_circle_image_widget.dart';
+import 'package:flutter_drive/feed/ui/page/feed_user_likes_page.dart';
 import 'package:flutter_drive/profile/provider/profile_provider.dart';
 import 'package:flutter_drive/profile/ui/page/profile_cars_page.dart';
 import 'package:flutter_drive/profile/ui/page/profile_city_page.dart';
@@ -13,6 +14,7 @@ import 'package:provider/provider.dart';
 SliverList feedUserInfoWidget({
   required String userImage,
   required String userNickName,
+  required String userKey,
   required String contentLength,
   required String likesUserLength,
   required String userIntroduction,
@@ -79,12 +81,24 @@ SliverList feedUserInfoWidget({
                       bottomFontWeight: FontWeight.w400,
                       bottomFontColor: const Color.fromRGBO(195, 195, 195, 1)),
                   const SizedBox(width: 8),
-                  _textForm(
-                      topTitle: likesUserLength,
-                      bottomTitle: '좋아요',
-                      topFontSize: 18,
-                      bottomFontWeight: FontWeight.w400,
-                      bottomFontColor: const Color.fromRGBO(195, 195, 195, 1))
+                  InkWell(
+                    onTap: () {
+                      pushNewScreen(context,
+                          screen: FeedUserLikesPage(
+                            userNickName: userNickName,
+                            userKey: userKey,
+                          ),
+                          pageTransitionAnimation:
+                              PageTransitionAnimation.cupertino);
+                    },
+                    child: _textForm(
+                        topTitle: likesUserLength,
+                        bottomTitle: '좋아요',
+                        topFontSize: 18,
+                        bottomFontWeight: FontWeight.w400,
+                        bottomFontColor:
+                            const Color.fromRGBO(195, 195, 195, 1)),
+                  )
                 ],
               ),
             ],

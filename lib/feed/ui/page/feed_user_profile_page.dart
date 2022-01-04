@@ -32,23 +32,32 @@ class FeedUserProfilePage extends StatelessWidget {
         .watch<AuthProvider>()
         .allUserProfile
         .where((u) => userKey.contains(u.userKey))
-        .first;
+        .firstOrNull!;
     final ActivityModel _activity = context
         .watch<AuthProvider>()
         .allUserActivity
         .where((a) => userKey.contains(a.userKey))
-        .first;
+        .firstOrNull!;
     if (context.watch<AuthProvider>().isUserLoading) {
       return const AppIndicator();
     }
+
     return DefaultTabController(
       length: 3,
       child: Stack(
         children: [
           Scaffold(
             appBar: feedUserAppbarWidget(
-              onTap: () {},
-              isLikeUser: _activity.likesUserKey.contains(_user.userKey),
+              isLikeUser: context
+                  .read<AuthProvider>()
+                  .allUserActivity
+                  .where((u) => context
+                      .read<AuthProvider>()
+                      .user!
+                      .userKey
+                      .contains(u.userKey))
+                  .map((a) => a.likesUserKey.contains(_user.userKey))
+                  .firstOrNull!,
               likeMeUserKey: _user.userKey,
               context: context,
               isMe: _user.userKey
@@ -58,6 +67,7 @@ class FeedUserProfilePage extends StatelessWidget {
               headerSliverBuilder: (context, value) {
                 return [
                   feedUserInfoWidget(
+                    userKey: _user.userKey,
                     isLockBookmarks: _user.privacyBookmarks,
                     isLockLikes: _user.privacyLikes,
                     context: context,

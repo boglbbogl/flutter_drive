@@ -9,28 +9,59 @@ AppBar feedUserAppbarWidget({
   required String likeMeUserKey,
   required bool isMe,
   required bool isLikeUser,
-  required Function() onTap,
 }) {
   return AppBar(
     actions: [
       const SizedBox(width: 8),
       if (isMe)
-        IconButton(onPressed: onTap, icon: const Icon(Icons.more_vert_rounded))
+        IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert_rounded))
       else
-        IconButton(
-            onPressed: () {
-              context
-                  .read<FeedUserProvider>()
-                  .addAndRemovLikesUserAndLikeMeUser(
-                    isLikeUser: isLikeUser,
-                    userKey: context.read<AuthProvider>().user!.userKey,
-                    likeMeUserKey: likeMeUserKey,
-                  );
-              context.read<AuthProvider>().getAllUserActivity();
-            },
-            icon: isLikeUser
-                ? Icon(CustomIcon.heart)
-                : Icon(CustomIcon.heartEmpty)),
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 500),
+          transitionBuilder: (child, animation) {
+            return ScaleTransition(scale: animation, child: child);
+          },
+          child: isLikeUser
+              ? IconButton(
+                  key: const ValueKey('icons'),
+                  onPressed: () {
+                    context
+                        .read<FeedUserProvider>()
+                        .addAndRemovLikesUserAndLikeMeUser(
+                          isLikeUser: isLikeUser,
+                          userKey: context.read<AuthProvider>().user!.userKey,
+                          likeMeUserKey: likeMeUserKey,
+                        );
+                    context
+                        .read<AuthProvider>()
+                        .getAllUserFeedUpdateActivityModel(
+                            userKey:
+                                context.read<AuthProvider>().user!.userKey);
+                  },
+                  icon: const Icon(
+                    CustomIcon.heart,
+                    color: Colors.red,
+                  ))
+              : IconButton(
+                  onPressed: () {
+                    context
+                        .read<FeedUserProvider>()
+                        .addAndRemovLikesUserAndLikeMeUser(
+                          isLikeUser: isLikeUser,
+                          userKey: context.read<AuthProvider>().user!.userKey,
+                          likeMeUserKey: likeMeUserKey,
+                        );
+                    context
+                        .read<AuthProvider>()
+                        .getAllUserFeedUpdateActivityModel(
+                            userKey:
+                                context.read<AuthProvider>().user!.userKey);
+                  },
+                  icon: const Icon(
+                    CustomIcon.heartEmpty,
+                    color: Colors.white,
+                  )),
+        ),
       const SizedBox(width: 12),
     ],
   );

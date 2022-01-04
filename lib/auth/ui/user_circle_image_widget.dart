@@ -13,8 +13,8 @@ InkWell userCircleImageWidget({
   Widget? widget,
 }) {
   return InkWell(
-    onTap: () {
-      context.read<AuthProvider>().getAllUserStatus();
+    onTap: () async {
+      context.read<AuthProvider>().getAllUserFeedUpdateStatus(userKey: userKey);
       pushNewScreen(context,
           screen: FeedUserProfilePage(
             userKey: userKey,
