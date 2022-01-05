@@ -88,7 +88,6 @@ class ContentMainCard extends StatelessWidget {
                     index: _index)),
           ],
           ...List.generate(_courseList.length, (index) {
-            if (!isMain) {}
             return _card(
                 isFirst: false,
                 context: context,

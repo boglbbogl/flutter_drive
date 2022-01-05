@@ -25,6 +25,7 @@ class AuthProvider extends ChangeNotifier {
 
   AuthProvider() {
     _userLoginState();
+    getAllUserStatus();
   }
 
   Future<void> _userLoginState() async {
@@ -46,8 +47,6 @@ class AuthProvider extends ChangeNotifier {
           _activityModel =
               await _authRepository.getUserActivity(userKey: _firebaseUser.uid);
         }
-        await _getAllUserProfile();
-        await _getAllUserActivity();
       }
       notifyListeners();
     } else if (_kakaoToken.accessToken != null ||
@@ -70,8 +69,6 @@ class AuthProvider extends ChangeNotifier {
               userKey:
                   _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
         }
-        await _getAllUserProfile();
-        await _getAllUserActivity();
       }
       notifyListeners();
     } else {
@@ -99,6 +96,9 @@ class AuthProvider extends ChangeNotifier {
   Future<void> getAllUserFeedUpdateUserModel({
     required String userKey,
   }) async {
+    if (_allUserProfile.isEmpty) {
+      await _getAllUserProfile();
+    }
     final UserModel _deleteUserModel =
         _allUserProfile.where((e) => userKey.contains(e.userKey)).toList()[0];
     final _updateUser = await _authRepository.getUserProfile(userKey: userKey);
@@ -112,6 +112,9 @@ class AuthProvider extends ChangeNotifier {
   Future<void> getAllUserFeedUpdateActivityModel({
     required String userKey,
   }) async {
+    if (_allUserActivity.isEmpty) {
+      await _getAllUserActivity();
+    }
     final ActivityModel _deleteActivityModel =
         _allUserActivity.where((e) => userKey.contains(e.userKey)).toList()[0];
     final _updateActivityModel =
