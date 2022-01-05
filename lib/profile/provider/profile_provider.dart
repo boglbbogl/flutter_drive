@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
@@ -83,6 +84,7 @@ class ProfileProvider extends ChangeNotifier {
 
   Future profilePrivacyUpdate({
     required String userKey,
+    required BuildContext context,
   }) async {
     _isLoading = true;
     notifyListeners();
@@ -93,11 +95,15 @@ class ProfileProvider extends ChangeNotifier {
     );
     _isLoading = false;
     notifyListeners();
+    Navigator.of(context)
+      ..pop()
+      ..pop();
   }
 
   Future profileIntroductionUpdate({
     required String userKey,
     required String introduction,
+    required BuildContext context,
   }) async {
     _isLoading = true;
     notifyListeners();
@@ -105,6 +111,9 @@ class ProfileProvider extends ChangeNotifier {
         userKey: userKey, introduction: introduction);
     _isLoading = false;
     notifyListeners();
+    Navigator.of(context)
+      ..pop()
+      ..pop();
   }
 
   Future profileCarsUpdate({

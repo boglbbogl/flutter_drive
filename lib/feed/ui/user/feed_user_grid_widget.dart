@@ -163,6 +163,14 @@ InkWell _contentFeedGridListItem({
                 CachedNetworkImage(
                   imageUrl: feed.imageUrl.firstOrNull!,
                   fit: BoxFit.cover,
+                  placeholder: (context, url) => Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 70, horizontal: 70),
+                    child: CircularProgressIndicator(
+                      strokeWidth: 5,
+                      color: appMainColor,
+                    ),
+                  ),
                 ),
                 if (feed.imageUrl.length > 1) ...[
                   Positioned(

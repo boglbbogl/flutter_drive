@@ -4,6 +4,7 @@ import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
 import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:flutter_drive/course/ui/screen/course_page.dart';
+import 'package:flutter_drive/feed/ui/page/feed_user_likes_page.dart';
 import 'package:flutter_drive/home/setting_bottom_widget.dart';
 import 'package:flutter_drive/image/provider/images_provider.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -28,6 +29,17 @@ AppBar homeAppbarWidget({
       _actionIcons(
         onTap: () => settingBottomWidget(context: context),
         icon: Icons.settings,
+      ),
+      _actionIcons(
+        onTap: () {
+          context.read<AuthProvider>().getAllUserFeedUpdateActivityModel(
+              userKey: context.read<AuthProvider>().user!.userKey);
+          pushNewScreen(context,
+              screen: FeedUserLikesPage(
+                  userKey: context.read<AuthProvider>().user!.userKey,
+                  userNickName: context.read<AuthProvider>().user!.nickName));
+        },
+        icon: CustomIcon.heartEmpty,
       ),
       Padding(
         padding: const EdgeInsets.only(left: 8, right: 10),

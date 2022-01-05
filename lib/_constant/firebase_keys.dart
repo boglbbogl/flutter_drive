@@ -1,6 +1,7 @@
 const collectionUser = 'USERS';
 const collectionCourse = 'COURSE';
 const collectionComment = 'COURSE_COMMENT';
+const collectionMoreComment = 'COURSE_MORE_COMMENT';
 const collectionActivity = 'ACTIVITY';
 const collectionCity = 'CITY';
 const documentCity = 'activity_city';

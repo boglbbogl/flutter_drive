@@ -11,6 +11,7 @@ class CommentModel with _$CommentModel {
     required String userKey,
     required String docKey,
     required String comment,
+    required int isMoreCount,
     @TimestampConverter() required DateTime createdAt,
     @TimestampConverter() required DateTime updatedAt,
   }) = _CommentModel;
@@ -27,6 +28,7 @@ class CommentModel with _$CommentModel {
     map["userKey"] = userKey;
     map["docKey"] = docKey;
     map["comment"] = comment;
+    map["isMoreCount"] = isMoreCount;
     map["createdAt"] = createdAt;
     map["updatedAt"] = updatedAt;
     return map;
@@ -36,6 +38,54 @@ class CommentModel with _$CommentModel {
         userKey: "",
         docKey: "",
         comment: "",
+        isMoreCount: 0,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      );
+}
+
+@freezed
+class MoreCommentModel with _$MoreCommentModel {
+  const factory MoreCommentModel({
+    required String userKey,
+    required String commentUserKey,
+    required String docKey,
+    required String commentDocKey,
+    required String comment,
+    required int isMoreCount,
+    @TimestampConverter() required DateTime createdAt,
+    @TimestampConverter() required DateTime updatedAt,
+  }) = _MoreCommentModel;
+
+  const MoreCommentModel._();
+
+  factory MoreCommentModel.fromFireStore(
+      DocumentSnapshot<Map<String, dynamic>> doc) {
+    return MoreCommentModel.fromJson(doc.data()!);
+  }
+  factory MoreCommentModel.fromJson(Map<String, dynamic> json) =>
+      _$MoreCommentModelFromJson(json);
+
+  Map<String, dynamic> toFireStore() {
+    final map = <String, dynamic>{};
+    map["userKey"] = userKey;
+    map["commentUserKey"] = commentUserKey;
+    map["docKey"] = docKey;
+    map["commentDocKey"] = commentDocKey;
+    map["comment"] = comment;
+    map["isMoreCount"] = isMoreCount;
+    map["createdAt"] = createdAt;
+    map["updatedAt"] = updatedAt;
+    return map;
+  }
+
+  factory MoreCommentModel.empty() => MoreCommentModel(
+        userKey: "",
+        commentUserKey: "",
+        docKey: "",
+        comment: "",
+        commentDocKey: "",
+        isMoreCount: 0,
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
       );

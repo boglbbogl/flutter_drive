@@ -45,8 +45,11 @@ class ProfilePage extends StatelessWidget {
                     nickName: _user.nickName,
                     userKey: _user.userKey,
                   );
+                  context.read<AuthProvider>()
+                    ..getAllUserFeedUpdateUserModel(userKey: _user.userKey)
+                    ..getSingleUserProfileUpdate(userKey: _user.userKey);
+                  Navigator.of(context).pop();
                 }
-                Phoenix.rebirth(context);
               },
             ),
             body: Stack(

@@ -26,6 +26,54 @@ class CommentRepository {
     });
   }
 
+  Stream<List<MoreCommentModel>> getStreamMoreComment({
+    required String courseDocKey,
+    required String commentDocKey,
+  }) async* {
+    final CollectionReference<Map<String, dynamic>> _collectionRef = _firestore
+        .collection(collectionCourse)
+        .doc(courseDocKey)
+        .collection(collectionComment)
+        .doc(commentDocKey)
+        .collection(collectionMoreComment);
+    yield* _collectionRef
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map((sn) {
+      return sn.docs.map((doc) {
+        return MoreCommentModel.fromFireStore(doc);
+      }).toList();
+    });
+  }
+
+  Future<void> createMoreComment({
+    required String courseDocKey,
+    required String commentDocKey,
+    required MoreCommentModel moreComment,
+  }) async {
+    final DocumentReference<Map<String, dynamic>> _commentRef = _firestore
+        .collection(collectionCourse)
+        .doc(courseDocKey)
+        .collection(collectionComment)
+        .doc(commentDocKey);
+    final DocumentReference<Map<String, dynamic>> _moreCommentRef = _firestore
+        .collection(collectionCourse)
+        .doc(courseDocKey)
+        .collection(collectionComment)
+        .doc(commentDocKey)
+        .collection(collectionMoreComment)
+        .doc();
+    final DocumentSnapshot _ds = await _moreCommentRef.get();
+    final _toWrite =
+        moreComment.copyWith(docKey: _ds.id, commentDocKey: commentDocKey);
+    final _batch = _firestore.batch();
+    _batch.update(_commentRef, {
+      "isMoreCount": FieldValue.increment(1),
+    });
+    _batch.set(_moreCommentRef, _toWrite.toFireStore());
+    await _batch.commit();
+  }
+
   Future<void> createComment({
     required String docKey,
     required CommentModel commentModel,

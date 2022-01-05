@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/custom_icon.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
 AppBar feedUserAppbarWidget({
@@ -14,7 +15,7 @@ AppBar feedUserAppbarWidget({
     actions: [
       const SizedBox(width: 8),
       if (isMe)
-        IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert_rounded))
+        IconButton(onPressed: () {}, icon: const Icon(Icons.menu))
       else
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),

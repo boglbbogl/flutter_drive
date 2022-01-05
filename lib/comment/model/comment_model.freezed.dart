@@ -25,12 +25,14 @@ class _$CommentModelTearOff {
       {required String userKey,
       required String docKey,
       required String comment,
+      required int isMoreCount,
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt}) {
     return _CommentModel(
       userKey: userKey,
       docKey: docKey,
       comment: comment,
+      isMoreCount: isMoreCount,
       createdAt: createdAt,
       updatedAt: updatedAt,
     );
@@ -49,6 +51,7 @@ mixin _$CommentModel {
   String get userKey => throw _privateConstructorUsedError;
   String get docKey => throw _privateConstructorUsedError;
   String get comment => throw _privateConstructorUsedError;
+  int get isMoreCount => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -69,6 +72,7 @@ abstract class $CommentModelCopyWith<$Res> {
       {String userKey,
       String docKey,
       String comment,
+      int isMoreCount,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt});
 }
@@ -86,6 +90,7 @@ class _$CommentModelCopyWithImpl<$Res> implements $CommentModelCopyWith<$Res> {
     Object? userKey = freezed,
     Object? docKey = freezed,
     Object? comment = freezed,
+    Object? isMoreCount = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -102,6 +107,10 @@ class _$CommentModelCopyWithImpl<$Res> implements $CommentModelCopyWith<$Res> {
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as String,
+      isMoreCount: isMoreCount == freezed
+          ? _value.isMoreCount
+          : isMoreCount // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -125,6 +134,7 @@ abstract class _$CommentModelCopyWith<$Res>
       {String userKey,
       String docKey,
       String comment,
+      int isMoreCount,
       @TimestampConverter() DateTime createdAt,
       @TimestampConverter() DateTime updatedAt});
 }
@@ -144,6 +154,7 @@ class __$CommentModelCopyWithImpl<$Res> extends _$CommentModelCopyWithImpl<$Res>
     Object? userKey = freezed,
     Object? docKey = freezed,
     Object? comment = freezed,
+    Object? isMoreCount = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
@@ -160,6 +171,10 @@ class __$CommentModelCopyWithImpl<$Res> extends _$CommentModelCopyWithImpl<$Res>
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as String,
+      isMoreCount: isMoreCount == freezed
+          ? _value.isMoreCount
+          : isMoreCount // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -179,6 +194,7 @@ class _$_CommentModel extends _CommentModel {
       {required this.userKey,
       required this.docKey,
       required this.comment,
+      required this.isMoreCount,
       @TimestampConverter() required this.createdAt,
       @TimestampConverter() required this.updatedAt})
       : super._();
@@ -193,6 +209,8 @@ class _$_CommentModel extends _CommentModel {
   @override
   final String comment;
   @override
+  final int isMoreCount;
+  @override
   @TimestampConverter()
   final DateTime createdAt;
   @override
@@ -201,7 +219,7 @@ class _$_CommentModel extends _CommentModel {
 
   @override
   String toString() {
-    return 'CommentModel(userKey: $userKey, docKey: $docKey, comment: $comment, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'CommentModel(userKey: $userKey, docKey: $docKey, comment: $comment, isMoreCount: $isMoreCount, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -212,6 +230,8 @@ class _$_CommentModel extends _CommentModel {
             const DeepCollectionEquality().equals(other.userKey, userKey) &&
             const DeepCollectionEquality().equals(other.docKey, docKey) &&
             const DeepCollectionEquality().equals(other.comment, comment) &&
+            const DeepCollectionEquality()
+                .equals(other.isMoreCount, isMoreCount) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
   }
@@ -222,6 +242,7 @@ class _$_CommentModel extends _CommentModel {
       const DeepCollectionEquality().hash(userKey),
       const DeepCollectionEquality().hash(docKey),
       const DeepCollectionEquality().hash(comment),
+      const DeepCollectionEquality().hash(isMoreCount),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(updatedAt));
 
@@ -241,6 +262,7 @@ abstract class _CommentModel extends CommentModel {
       {required String userKey,
       required String docKey,
       required String comment,
+      required int isMoreCount,
       @TimestampConverter() required DateTime createdAt,
       @TimestampConverter() required DateTime updatedAt}) = _$_CommentModel;
   const _CommentModel._() : super._();
@@ -255,6 +277,8 @@ abstract class _CommentModel extends CommentModel {
   @override
   String get comment;
   @override
+  int get isMoreCount;
+  @override
   @TimestampConverter()
   DateTime get createdAt;
   @override
@@ -263,5 +287,332 @@ abstract class _CommentModel extends CommentModel {
   @override
   @JsonKey(ignore: true)
   _$CommentModelCopyWith<_CommentModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+MoreCommentModel _$MoreCommentModelFromJson(Map<String, dynamic> json) {
+  return _MoreCommentModel.fromJson(json);
+}
+
+/// @nodoc
+class _$MoreCommentModelTearOff {
+  const _$MoreCommentModelTearOff();
+
+  _MoreCommentModel call(
+      {required String userKey,
+      required String commentUserKey,
+      required String docKey,
+      required String commentDocKey,
+      required String comment,
+      required int isMoreCount,
+      @TimestampConverter() required DateTime createdAt,
+      @TimestampConverter() required DateTime updatedAt}) {
+    return _MoreCommentModel(
+      userKey: userKey,
+      commentUserKey: commentUserKey,
+      docKey: docKey,
+      commentDocKey: commentDocKey,
+      comment: comment,
+      isMoreCount: isMoreCount,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
+    );
+  }
+
+  MoreCommentModel fromJson(Map<String, Object?> json) {
+    return MoreCommentModel.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $MoreCommentModel = _$MoreCommentModelTearOff();
+
+/// @nodoc
+mixin _$MoreCommentModel {
+  String get userKey => throw _privateConstructorUsedError;
+  String get commentUserKey => throw _privateConstructorUsedError;
+  String get docKey => throw _privateConstructorUsedError;
+  String get commentDocKey => throw _privateConstructorUsedError;
+  String get comment => throw _privateConstructorUsedError;
+  int get isMoreCount => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  @TimestampConverter()
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $MoreCommentModelCopyWith<MoreCommentModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MoreCommentModelCopyWith<$Res> {
+  factory $MoreCommentModelCopyWith(
+          MoreCommentModel value, $Res Function(MoreCommentModel) then) =
+      _$MoreCommentModelCopyWithImpl<$Res>;
+  $Res call(
+      {String userKey,
+      String commentUserKey,
+      String docKey,
+      String commentDocKey,
+      String comment,
+      int isMoreCount,
+      @TimestampConverter() DateTime createdAt,
+      @TimestampConverter() DateTime updatedAt});
+}
+
+/// @nodoc
+class _$MoreCommentModelCopyWithImpl<$Res>
+    implements $MoreCommentModelCopyWith<$Res> {
+  _$MoreCommentModelCopyWithImpl(this._value, this._then);
+
+  final MoreCommentModel _value;
+  // ignore: unused_field
+  final $Res Function(MoreCommentModel) _then;
+
+  @override
+  $Res call({
+    Object? userKey = freezed,
+    Object? commentUserKey = freezed,
+    Object? docKey = freezed,
+    Object? commentDocKey = freezed,
+    Object? comment = freezed,
+    Object? isMoreCount = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      userKey: userKey == freezed
+          ? _value.userKey
+          : userKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      commentUserKey: commentUserKey == freezed
+          ? _value.commentUserKey
+          : commentUserKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      docKey: docKey == freezed
+          ? _value.docKey
+          : docKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      commentDocKey: commentDocKey == freezed
+          ? _value.commentDocKey
+          : commentDocKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      comment: comment == freezed
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
+      isMoreCount: isMoreCount == freezed
+          ? _value.isMoreCount
+          : isMoreCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$MoreCommentModelCopyWith<$Res>
+    implements $MoreCommentModelCopyWith<$Res> {
+  factory _$MoreCommentModelCopyWith(
+          _MoreCommentModel value, $Res Function(_MoreCommentModel) then) =
+      __$MoreCommentModelCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String userKey,
+      String commentUserKey,
+      String docKey,
+      String commentDocKey,
+      String comment,
+      int isMoreCount,
+      @TimestampConverter() DateTime createdAt,
+      @TimestampConverter() DateTime updatedAt});
+}
+
+/// @nodoc
+class __$MoreCommentModelCopyWithImpl<$Res>
+    extends _$MoreCommentModelCopyWithImpl<$Res>
+    implements _$MoreCommentModelCopyWith<$Res> {
+  __$MoreCommentModelCopyWithImpl(
+      _MoreCommentModel _value, $Res Function(_MoreCommentModel) _then)
+      : super(_value, (v) => _then(v as _MoreCommentModel));
+
+  @override
+  _MoreCommentModel get _value => super._value as _MoreCommentModel;
+
+  @override
+  $Res call({
+    Object? userKey = freezed,
+    Object? commentUserKey = freezed,
+    Object? docKey = freezed,
+    Object? commentDocKey = freezed,
+    Object? comment = freezed,
+    Object? isMoreCount = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_MoreCommentModel(
+      userKey: userKey == freezed
+          ? _value.userKey
+          : userKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      commentUserKey: commentUserKey == freezed
+          ? _value.commentUserKey
+          : commentUserKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      docKey: docKey == freezed
+          ? _value.docKey
+          : docKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      commentDocKey: commentDocKey == freezed
+          ? _value.commentDocKey
+          : commentDocKey // ignore: cast_nullable_to_non_nullable
+              as String,
+      comment: comment == freezed
+          ? _value.comment
+          : comment // ignore: cast_nullable_to_non_nullable
+              as String,
+      isMoreCount: isMoreCount == freezed
+          ? _value.isMoreCount
+          : isMoreCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      createdAt: createdAt == freezed
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: updatedAt == freezed
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_MoreCommentModel extends _MoreCommentModel {
+  const _$_MoreCommentModel(
+      {required this.userKey,
+      required this.commentUserKey,
+      required this.docKey,
+      required this.commentDocKey,
+      required this.comment,
+      required this.isMoreCount,
+      @TimestampConverter() required this.createdAt,
+      @TimestampConverter() required this.updatedAt})
+      : super._();
+
+  factory _$_MoreCommentModel.fromJson(Map<String, dynamic> json) =>
+      _$$_MoreCommentModelFromJson(json);
+
+  @override
+  final String userKey;
+  @override
+  final String commentUserKey;
+  @override
+  final String docKey;
+  @override
+  final String commentDocKey;
+  @override
+  final String comment;
+  @override
+  final int isMoreCount;
+  @override
+  @TimestampConverter()
+  final DateTime createdAt;
+  @override
+  @TimestampConverter()
+  final DateTime updatedAt;
+
+  @override
+  String toString() {
+    return 'MoreCommentModel(userKey: $userKey, commentUserKey: $commentUserKey, docKey: $docKey, commentDocKey: $commentDocKey, comment: $comment, isMoreCount: $isMoreCount, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _MoreCommentModel &&
+            const DeepCollectionEquality().equals(other.userKey, userKey) &&
+            const DeepCollectionEquality()
+                .equals(other.commentUserKey, commentUserKey) &&
+            const DeepCollectionEquality().equals(other.docKey, docKey) &&
+            const DeepCollectionEquality()
+                .equals(other.commentDocKey, commentDocKey) &&
+            const DeepCollectionEquality().equals(other.comment, comment) &&
+            const DeepCollectionEquality()
+                .equals(other.isMoreCount, isMoreCount) &&
+            const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
+            const DeepCollectionEquality().equals(other.updatedAt, updatedAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(userKey),
+      const DeepCollectionEquality().hash(commentUserKey),
+      const DeepCollectionEquality().hash(docKey),
+      const DeepCollectionEquality().hash(commentDocKey),
+      const DeepCollectionEquality().hash(comment),
+      const DeepCollectionEquality().hash(isMoreCount),
+      const DeepCollectionEquality().hash(createdAt),
+      const DeepCollectionEquality().hash(updatedAt));
+
+  @JsonKey(ignore: true)
+  @override
+  _$MoreCommentModelCopyWith<_MoreCommentModel> get copyWith =>
+      __$MoreCommentModelCopyWithImpl<_MoreCommentModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_MoreCommentModelToJson(this);
+  }
+}
+
+abstract class _MoreCommentModel extends MoreCommentModel {
+  const factory _MoreCommentModel(
+      {required String userKey,
+      required String commentUserKey,
+      required String docKey,
+      required String commentDocKey,
+      required String comment,
+      required int isMoreCount,
+      @TimestampConverter() required DateTime createdAt,
+      @TimestampConverter() required DateTime updatedAt}) = _$_MoreCommentModel;
+  const _MoreCommentModel._() : super._();
+
+  factory _MoreCommentModel.fromJson(Map<String, dynamic> json) =
+      _$_MoreCommentModel.fromJson;
+
+  @override
+  String get userKey;
+  @override
+  String get commentUserKey;
+  @override
+  String get docKey;
+  @override
+  String get commentDocKey;
+  @override
+  String get comment;
+  @override
+  int get isMoreCount;
+  @override
+  @TimestampConverter()
+  DateTime get createdAt;
+  @override
+  @TimestampConverter()
+  DateTime get updatedAt;
+  @override
+  @JsonKey(ignore: true)
+  _$MoreCommentModelCopyWith<_MoreCommentModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

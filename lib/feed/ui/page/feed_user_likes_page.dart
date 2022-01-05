@@ -4,6 +4,7 @@ import 'package:flutter_drive/_constant/custom_icon.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
+import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:provider/provider.dart';
 
 class FeedUserLikesPage extends StatelessWidget {
@@ -66,7 +67,19 @@ class FeedUserLikesPage extends StatelessWidget {
                                           .where((e) => activity.likesUserKey
                                               .contains(e.userKey))
                                           .map((user) => _userProfileListItem(
-                                              user: user, context: context)),
+                                              isLikeUser: context
+                                                  .read<AuthProvider>()
+                                                  .allUserActivity
+                                                  .where((e) => context
+                                                      .read<AuthProvider>()
+                                                      .user!
+                                                      .userKey
+                                                      .contains(e.userKey))
+                                                  .map((e) => e.likesUserKey
+                                                      .contains(user.userKey))
+                                                  .toList()[0],
+                                              user: user,
+                                              context: context)),
                                     ],
                                   ),
                                 ),
@@ -84,7 +97,20 @@ class FeedUserLikesPage extends StatelessWidget {
                                           .where((e) => activity.likeMeUserKey
                                               .contains(e.userKey))
                                           .map((user) => _userProfileListItem(
-                                              user: user, context: context)),
+                                                isLikeUser: context
+                                                    .read<AuthProvider>()
+                                                    .allUserActivity
+                                                    .where((e) => context
+                                                        .read<AuthProvider>()
+                                                        .user!
+                                                        .userKey
+                                                        .contains(e.userKey))
+                                                    .map((e) => e.likesUserKey
+                                                        .contains(user.userKey))
+                                                    .toList()[0],
+                                                user: user,
+                                                context: context,
+                                              )),
                                     ],
                                   ),
                                 ),
@@ -103,6 +129,7 @@ class FeedUserLikesPage extends StatelessWidget {
   Padding _userProfileListItem({
     required UserModel user,
     required BuildContext context,
+    required bool isLikeUser,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -114,7 +141,7 @@ class FeedUserLikesPage extends StatelessWidget {
                   ? user.socialProfileUrl
                   : user.localProfileUrl,
               context: context,
-              userKey: userKey,
+              userKey: user.userKey,
               widget: Row(
                 children: [
                   const SizedBox(width: 12),
@@ -129,8 +156,8 @@ class FeedUserLikesPage extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 8),
                         child: Text(
-                          user.introduction.length > 30
-                              ? "${user.introduction.substring(0, 30)} ..."
+                          user.introduction.length > 25
+                              ? "${user.introduction.substring(0, 25)} ..."
                               : user.introduction,
                           style: theme.textTheme.bodyText2!.copyWith(
                               color: const Color.fromRGBO(175, 175, 175, 1),
@@ -141,11 +168,55 @@ class FeedUserLikesPage extends StatelessWidget {
                   ),
                 ],
               )),
-          InkWell(
-            onTap: () {},
-            child: const Icon(CustomIcon.heartEmpty,
-                color: Colors.white, size: 14),
-          ),
+          if (context.read<AuthProvider>().user!.userKey.contains(user.userKey))
+            Container()
+          else
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              transitionBuilder: (child, anmation) {
+                return ScaleTransition(scale: anmation, child: child);
+              },
+              child: isLikeUser
+                  ? IconButton(
+                      key: const ValueKey('value'),
+                      onPressed: () {
+                        context
+                            .read<FeedUserProvider>()
+                            .addAndRemovLikesUserAndLikeMeUser(
+                              userKey:
+                                  context.read<AuthProvider>().user!.userKey,
+                              likeMeUserKey: user.userKey,
+                              isLikeUser: isLikeUser,
+                            );
+                        context
+                            .read<AuthProvider>()
+                            .getAllUserFeedUpdateActivityModel(
+                                userKey:
+                                    context.read<AuthProvider>().user!.userKey);
+                      },
+                      icon: const Icon(CustomIcon.heart,
+                          color: Colors.red, size: 14),
+                    )
+                  : IconButton(
+                      onPressed: () {
+                        context
+                            .read<FeedUserProvider>()
+                            .addAndRemovLikesUserAndLikeMeUser(
+                              userKey:
+                                  context.read<AuthProvider>().user!.userKey,
+                              likeMeUserKey: user.userKey,
+                              isLikeUser: isLikeUser,
+                            );
+                        context
+                            .read<AuthProvider>()
+                            .getAllUserFeedUpdateActivityModel(
+                                userKey:
+                                    context.read<AuthProvider>().user!.userKey);
+                      },
+                      icon: const Icon(CustomIcon.heartEmpty,
+                          color: Colors.white, size: 14),
+                    ),
+            ),
         ],
       ),
     );

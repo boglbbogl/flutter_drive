@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_profile_page.dart';
@@ -24,7 +25,10 @@ InkWell userCircleImageWidget({
     child: Row(
       children: [
         CircleAvatar(
-          backgroundColor: Colors.white,
+          backgroundColor:
+              userKey.contains(context.read<AuthProvider>().user!.userKey)
+                  ? appMainColor
+                  : Colors.white,
           radius: 14,
           child: Padding(
             padding: const EdgeInsets.all(2.0),

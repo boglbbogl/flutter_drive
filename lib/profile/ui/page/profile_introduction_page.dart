@@ -27,13 +27,11 @@ class ProfileIntrodutionPage extends StatelessWidget {
               appFlushbar(message: '수정할 내용이 없습니다').show(context);
             } else {
               context.read<ProfileProvider>().profileIntroductionUpdate(
+                    context: context,
                     userKey: context.read<AuthProvider>().user!.userKey,
                     introduction: _controller.text,
                   );
               _controller.clear();
-              Navigator.of(context)
-                ..pop()
-                ..pop();
             }
           }),
       body: Padding(

@@ -83,6 +83,9 @@ SliverList feedUserInfoWidget({
                   const SizedBox(width: 8),
                   InkWell(
                     onTap: () {
+                      context
+                          .read<AuthProvider>()
+                          .getAllUserFeedUpdateActivityModel(userKey: userKey);
                       pushNewScreen(context,
                           screen: FeedUserLikesPage(
                             userNickName: userNickName,

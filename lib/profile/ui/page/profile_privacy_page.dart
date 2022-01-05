@@ -17,11 +17,10 @@ class ProfilePrivacyPage extends StatelessWidget {
         isLoading: context.read<ProfileProvider>().isLoading,
         onTap: () {
           context.read<ProfileProvider>().profilePrivacyUpdate(
+              context: context,
               userKey: context.read<AuthProvider>().user!.userKey);
 
-          Navigator.of(context)
-            ..pop()
-            ..pop();
+          // Navigator.of(context).pop();
         },
       ),
       body: Column(

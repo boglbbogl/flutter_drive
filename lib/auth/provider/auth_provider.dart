@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/activity/activity_model.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/repo/user_repository.dart';
@@ -37,15 +36,16 @@ class AuthProvider extends ChangeNotifier {
     final kakao.OAuthToken _kakaoToken =
         await kakao.TokenManager.instance.getToken();
     if (_firebaseUser != null) {
-      _user = await _authRepository.getUserProfile(userKey: _firebaseUser.uid);
+      getSingleUserProfileUpdate(userKey: _firebaseUser.uid);
+      // _user = await _authRepository.getUserProfile(userKey: _firebaseUser.uid);
       _activityModel =
           await _authRepository.getUserActivity(userKey: _firebaseUser.uid);
       if (_user != null) {
         if (!_user!.socialProfileUrl.contains(_firebaseUser.photoURL!)) {
           await _updateSoicalUserImage(
               socialProfileUrl: _firebaseUser.photoURL!);
-          _user =
-              await _authRepository.getUserProfile(userKey: _firebaseUser.uid);
+          getSingleUserProfileUpdate(userKey: _firebaseUser.uid);
+
           _activityModel =
               await _authRepository.getUserActivity(userKey: _firebaseUser.uid);
         }
@@ -54,8 +54,9 @@ class AuthProvider extends ChangeNotifier {
     } else if (_kakaoToken.accessToken != null ||
         _kakaoToken.refreshToken != null) {
       final kakao.User _kakaoUser = await kakao.UserApi.instance.me();
-      _user = await _authRepository.getUserProfile(
+      getSingleUserProfileUpdate(
           userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
+
       _activityModel = await _authRepository.getUserActivity(
           userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
 
@@ -65,7 +66,7 @@ class AuthProvider extends ChangeNotifier {
           await _updateSoicalUserImage(
               socialProfileUrl:
                   _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!);
-          _user = await _authRepository.getUserProfile(
+          getSingleUserProfileUpdate(
               userKey:
                   _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
           _activityModel = await _authRepository.getUserActivity(
@@ -79,6 +80,12 @@ class AuthProvider extends ChangeNotifier {
       _isLoginState = false;
       notifyListeners();
     }
+  }
+
+  Future<void> getSingleUserProfileUpdate({
+    required String userKey,
+  }) async {
+    _user = await _authRepository.getUserProfile(userKey: userKey);
   }
 
   Future<void> getAllUserStatus() async {
@@ -288,6 +295,9 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> signOut({required String provider}) async {
+    _isLoginState = false;
+    notifyListeners();
+
     if (provider.contains('Google')) {
       await _googleSignIn.signOut();
       await _firebaseAuth.signOut();
@@ -300,6 +310,7 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
     } else {}
     _isLoginState = false;
+    notifyListeners();
   }
 
   UserModel? get user => _user;
