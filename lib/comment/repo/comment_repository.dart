@@ -63,12 +63,17 @@ class CommentRepository {
         .doc(commentDocKey)
         .collection(collectionMoreComment)
         .doc();
+    final _courseRef =
+        _firestore.collection(collectionCourse).doc(courseDocKey);
     final DocumentSnapshot _ds = await _moreCommentRef.get();
     final _toWrite =
         moreComment.copyWith(docKey: _ds.id, commentDocKey: commentDocKey);
     final _batch = _firestore.batch();
     _batch.update(_commentRef, {
       "isMoreCount": FieldValue.increment(1),
+    });
+    _batch.update(_courseRef, {
+      "moreCommentDocKey": FieldValue.arrayUnion([commentDocKey])
     });
     _batch.set(_moreCommentRef, _toWrite.toFireStore());
     await _batch.commit();
@@ -95,6 +100,30 @@ class CommentRepository {
       });
       await _batch.commit();
     }
+  }
+
+  Future removeMoreComment({
+    required String courseDocKey,
+    required String commentDocKey,
+    required String moreCommentDocKey,
+  }) async {
+    final DocumentReference<Map<String, dynamic>> _commentRef = _firestore
+        .collection(collectionCourse)
+        .doc(courseDocKey)
+        .collection(collectionComment)
+        .doc(commentDocKey);
+    final DocumentReference<Map<String, dynamic>> _moreCommentRef = _firestore
+        .collection(collectionCourse)
+        .doc(courseDocKey)
+        .collection(collectionComment)
+        .doc(commentDocKey)
+        .collection(collectionMoreComment)
+        .doc(moreCommentDocKey);
+
+    final _batch = _firestore.batch();
+    _batch.update(_commentRef, {"isMoreCount": FieldValue.increment(-1)});
+    _batch.delete(_moreCommentRef);
+    await _batch.commit();
   }
 
   Future removeComment({
@@ -130,6 +159,7 @@ class CommentRepository {
       _batch.delete(_commentRef);
       _batch.update(_commentCountRef, {
         "commentCount": FieldValue.increment(-1),
+        "moreCommentDocKey": FieldValue.arrayRemove([commentDocKey])
       });
       await _batch.commit();
     }

@@ -27,10 +27,25 @@ Positioned commentSettingWidget({
               title: '댓글 지우기',
               titleColor: appSubColor,
               onTap: () {
+                if (context.read<CommentProvider>().isRemveMoreComment) {
+                  context.read<CommentProvider>()
+                    ..removeMoreComment(docKey: docKey)
+                    ..showCommentSettingBottom(
+                      isMoreComment: false,
+                      value: false,
+                      commentDocKey: "",
+                      isMoreCount: 0,
+                      removeMoreCommentDocKey: "",
+                    );
+                }
                 context.read<CommentProvider>()
                   ..removeComment(docKey: docKey)
                   ..showCommentSettingBottom(
-                      value: false, commentDocKey: "", isMoreCount: 0);
+                      isMoreComment: false,
+                      removeMoreCommentDocKey: "",
+                      value: false,
+                      commentDocKey: "",
+                      isMoreCount: 0);
               }),
           const SizedBox(height: 10),
           textButtonItem(
@@ -38,7 +53,11 @@ Positioned commentSettingWidget({
               titleColor: Colors.white,
               onTap: () {
                 context.read<CommentProvider>().showCommentSettingBottom(
-                    value: false, commentDocKey: "", isMoreCount: 0);
+                    isMoreComment: false,
+                    removeMoreCommentDocKey: "",
+                    value: false,
+                    commentDocKey: "",
+                    isMoreCount: 0);
               })
         ],
       ),

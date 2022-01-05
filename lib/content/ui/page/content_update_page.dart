@@ -160,6 +160,7 @@ class ContentUpdatePage extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             context.read<ContentProvider>().contentFeedDelete(
+                                moreCommentDocKey: course.moreCommentDocKey,
                                 isMe: isMe,
                                 context: context,
                                 userKey:

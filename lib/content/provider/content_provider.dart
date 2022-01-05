@@ -13,13 +13,14 @@ class ContentProvider extends ChangeNotifier {
   Future contentFeedDelete({
     required bool isMe,
     required String userKey,
+    required List<String> moreCommentDocKey,
     required BuildContext context,
   }) async {
     _isLoading = true;
     notifyListeners();
     if (_docKey.isNotEmpty && isMe) {
       await _contentRepository.contentFeedDelete(
-          docKey: _docKey, userKey: userKey);
+          docKeyList: moreCommentDocKey, docKey: _docKey, userKey: userKey);
       Phoenix.rebirth(context);
     } else {
       appFlushbar(message: "삭제하지 못했습니다. 잠시 후 다시 사용 바랍니다").show(context);

@@ -22,6 +22,7 @@ class CourseModel with _$CourseModel {
     required int commentCount,
     required List<String> imageUrl,
     required List<CourseSpot> spot,
+    required List<String> moreCommentDocKey,
     // required ProfileModel userProfile,
   }) = _CourseModel;
 
@@ -50,6 +51,7 @@ class CourseModel with _$CourseModel {
     map["imageUrl"] = imageUrl;
     map["spot"] = spot.map((e) => e.toFireStore()).toList();
     // map["userProfile"] = userProfile.toFireStore();
+    map["moreCommentDocKey"] = moreCommentDocKey;
     return map;
   }
 
@@ -69,6 +71,7 @@ class CourseModel with _$CourseModel {
         imageUrl: [],
         spot: [],
         // userProfile: ProfileModel.empty(),
+        moreCommentDocKey: [],
       );
 }
 

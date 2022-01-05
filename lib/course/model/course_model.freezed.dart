@@ -35,7 +35,8 @@ class _$CourseModelTearOff {
       required List<String> bookmarkUserKey,
       required int commentCount,
       required List<String> imageUrl,
-      required List<CourseSpot> spot}) {
+      required List<CourseSpot> spot,
+      required List<String> moreCommentDocKey}) {
     return _CourseModel(
       userKey: userKey,
       docKey: docKey,
@@ -51,6 +52,7 @@ class _$CourseModelTearOff {
       commentCount: commentCount,
       imageUrl: imageUrl,
       spot: spot,
+      moreCommentDocKey: moreCommentDocKey,
     );
   }
 
@@ -80,6 +82,7 @@ mixin _$CourseModel {
   int get commentCount => throw _privateConstructorUsedError;
   List<String> get imageUrl => throw _privateConstructorUsedError;
   List<CourseSpot> get spot => throw _privateConstructorUsedError;
+  List<String> get moreCommentDocKey => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -106,7 +109,8 @@ abstract class $CourseModelCopyWith<$Res> {
       List<String> bookmarkUserKey,
       int commentCount,
       List<String> imageUrl,
-      List<CourseSpot> spot});
+      List<CourseSpot> spot,
+      List<String> moreCommentDocKey});
 }
 
 /// @nodoc
@@ -133,6 +137,7 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? commentCount = freezed,
     Object? imageUrl = freezed,
     Object? spot = freezed,
+    Object? moreCommentDocKey = freezed,
   }) {
     return _then(_value.copyWith(
       userKey: userKey == freezed
@@ -191,6 +196,10 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
           ? _value.spot
           : spot // ignore: cast_nullable_to_non_nullable
               as List<CourseSpot>,
+      moreCommentDocKey: moreCommentDocKey == freezed
+          ? _value.moreCommentDocKey
+          : moreCommentDocKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -216,7 +225,8 @@ abstract class _$CourseModelCopyWith<$Res>
       List<String> bookmarkUserKey,
       int commentCount,
       List<String> imageUrl,
-      List<CourseSpot> spot});
+      List<CourseSpot> spot,
+      List<String> moreCommentDocKey});
 }
 
 /// @nodoc
@@ -245,6 +255,7 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
     Object? commentCount = freezed,
     Object? imageUrl = freezed,
     Object? spot = freezed,
+    Object? moreCommentDocKey = freezed,
   }) {
     return _then(_CourseModel(
       userKey: userKey == freezed
@@ -303,6 +314,10 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
           ? _value.spot
           : spot // ignore: cast_nullable_to_non_nullable
               as List<CourseSpot>,
+      moreCommentDocKey: moreCommentDocKey == freezed
+          ? _value.moreCommentDocKey
+          : moreCommentDocKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -324,7 +339,8 @@ class _$_CourseModel extends _CourseModel {
       required this.bookmarkUserKey,
       required this.commentCount,
       required this.imageUrl,
-      required this.spot})
+      required this.spot,
+      required this.moreCommentDocKey})
       : super._();
 
   factory _$_CourseModel.fromJson(Map<String, dynamic> json) =>
@@ -360,10 +376,12 @@ class _$_CourseModel extends _CourseModel {
   final List<String> imageUrl;
   @override
   final List<CourseSpot> spot;
+  @override
+  final List<String> moreCommentDocKey;
 
   @override
   String toString() {
-    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createdAt: $createdAt, updatedAt: $updatedAt, srcKeyword: $srcKeyword, tagKeyword: $tagKeyword, driveSeason: $driveSeason, driveTime: $driveTime, likeUserKey: $likeUserKey, bookmarkUserKey: $bookmarkUserKey, commentCount: $commentCount, imageUrl: $imageUrl, spot: $spot)';
+    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createdAt: $createdAt, updatedAt: $updatedAt, srcKeyword: $srcKeyword, tagKeyword: $tagKeyword, driveSeason: $driveSeason, driveTime: $driveTime, likeUserKey: $likeUserKey, bookmarkUserKey: $bookmarkUserKey, commentCount: $commentCount, imageUrl: $imageUrl, spot: $spot, moreCommentDocKey: $moreCommentDocKey)';
   }
 
   @override
@@ -391,7 +409,9 @@ class _$_CourseModel extends _CourseModel {
             const DeepCollectionEquality()
                 .equals(other.commentCount, commentCount) &&
             const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
-            const DeepCollectionEquality().equals(other.spot, spot));
+            const DeepCollectionEquality().equals(other.spot, spot) &&
+            const DeepCollectionEquality()
+                .equals(other.moreCommentDocKey, moreCommentDocKey));
   }
 
   @override
@@ -410,7 +430,8 @@ class _$_CourseModel extends _CourseModel {
       const DeepCollectionEquality().hash(bookmarkUserKey),
       const DeepCollectionEquality().hash(commentCount),
       const DeepCollectionEquality().hash(imageUrl),
-      const DeepCollectionEquality().hash(spot));
+      const DeepCollectionEquality().hash(spot),
+      const DeepCollectionEquality().hash(moreCommentDocKey));
 
   @JsonKey(ignore: true)
   @override
@@ -438,7 +459,8 @@ abstract class _CourseModel extends CourseModel {
       required List<String> bookmarkUserKey,
       required int commentCount,
       required List<String> imageUrl,
-      required List<CourseSpot> spot}) = _$_CourseModel;
+      required List<CourseSpot> spot,
+      required List<String> moreCommentDocKey}) = _$_CourseModel;
   const _CourseModel._() : super._();
 
   factory _CourseModel.fromJson(Map<String, dynamic> json) =
@@ -474,6 +496,8 @@ abstract class _CourseModel extends CourseModel {
   List<String> get imageUrl;
   @override
   List<CourseSpot> get spot;
+  @override
+  List<String> get moreCommentDocKey;
   @override
   @JsonKey(ignore: true)
   _$CourseModelCopyWith<_CourseModel> get copyWith =>

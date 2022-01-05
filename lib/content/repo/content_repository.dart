@@ -11,6 +11,7 @@ class ContentRepository {
   Future contentFeedDelete({
     required String docKey,
     required String userKey,
+    required List<String> docKeyList,
   }) async {
     final DocumentReference<Map<String, dynamic>> _courseRef =
         _firestore.collection(collectionCourse).doc(docKey);
@@ -18,16 +19,20 @@ class ContentRepository {
         .collection(collectionCourse)
         .doc(docKey)
         .collection(collectionComment);
-    final CollectionReference<Map<String, dynamic>> _moreCommentRef = _firestore
-        .collection(collectionCourse)
-        .doc(docKey)
-        .collection(collectionComment)
-        .doc()
-        .collection(collectionMoreComment);
     final CollectionReference<Map<String, dynamic>> _activityRef =
         _firestore.collection(collectionActivity);
     final _batch = _firestore.batch();
-    _batch.delete(_moreCommentRef.doc());
+    for (final element in docKeyList) {
+      await _commentRef
+          .doc(element)
+          .collection(collectionMoreComment)
+          .get()
+          .then((snapshot) {
+        for (final element in snapshot.docs) {
+          _batch.delete(element.reference);
+        }
+      });
+    }
     await _commentRef.get().then((snapshot) {
       for (final element in snapshot.docs) {
         _batch.delete(element.reference);
@@ -44,9 +49,7 @@ class ContentRepository {
       }
     });
     _batch.update(_activityRef.doc(userKey), {
-      "contentsDocKey": FieldValue.arrayRemove([
-        docKey,
-      ])
+      "contentsDocKey": FieldValue.arrayRemove([docKey])
     });
     _batch.delete(_courseRef);
     await _batch.commit();

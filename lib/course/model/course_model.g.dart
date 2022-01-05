@@ -38,6 +38,9 @@ _$_CourseModel _$$_CourseModelFromJson(Map<String, dynamic> json) =>
       spot: (json['spot'] as List<dynamic>)
           .map((e) => CourseSpot.fromJson(e as Map<String, dynamic>))
           .toList(),
+      moreCommentDocKey: (json['moreCommentDocKey'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
@@ -56,6 +59,7 @@ Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
       'commentCount': instance.commentCount,
       'imageUrl': instance.imageUrl,
       'spot': instance.spot,
+      'moreCommentDocKey': instance.moreCommentDocKey,
     };
 
 _$_CourseSpot _$$_CourseSpotFromJson(Map<String, dynamic> json) =>

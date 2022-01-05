@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/comment/model/comment_model.dart';
 import 'package:flutter_drive/comment/repo/comment_repository.dart';
@@ -19,7 +18,9 @@ class CommentProvider extends ChangeNotifier {
   String _moreCommentText = "";
   bool _isShowBottom = false;
   String _commentDocKey = "";
-  String _commentMoreDcoKey = "";
+  String _commentMoreDocKey = "";
+  String _removeMoreCommentDocKey = "";
+  bool _isRemveMoreComment = false;
   bool _isLongPressed = false;
   int _showMoreCommentIndex = -1;
   UserModel? _moreCommentUser;
@@ -78,6 +79,16 @@ class CommentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future removeMoreComment({
+    required String docKey,
+  }) async {
+    await _commentRepository.removeMoreComment(
+      courseDocKey: docKey,
+      commentDocKey: _commentDocKey,
+      moreCommentDocKey: _removeMoreCommentDocKey,
+    );
+  }
+
   Future createComment({
     required String docKey,
     required UserModel userModel,
@@ -99,7 +110,7 @@ class CommentProvider extends ChangeNotifier {
   }) async {
     await _commentRepository.createMoreComment(
       courseDocKey: courseDocKey,
-      commentDocKey: _commentMoreDcoKey,
+      commentDocKey: _commentMoreDocKey,
       moreComment: _moreCommentModel.copyWith(
         userKey: userKey,
         commentUserKey: _moreCommentUser!.userKey,
@@ -119,13 +130,17 @@ class CommentProvider extends ChangeNotifier {
   }
 
   void showCommentSettingBottom({
+    required bool isMoreComment,
     required bool value,
     required String commentDocKey,
     required int isMoreCount,
+    required String removeMoreCommentDocKey,
   }) {
+    _isRemveMoreComment = isMoreComment;
     _isShowBottom = value;
     _commentDocKey = commentDocKey;
     _isMoreCount = isMoreCount;
+    _removeMoreCommentDocKey = removeMoreCommentDocKey;
     notifyListeners();
   }
 
@@ -142,7 +157,7 @@ class CommentProvider extends ChangeNotifier {
     required UserModel user,
   }) {
     _isLongPressed = value;
-    _commentMoreDcoKey = commentMoreDcoKey;
+    _commentMoreDocKey = commentMoreDcoKey;
     _moreCommentUser = user;
     notifyListeners();
   }
@@ -157,7 +172,7 @@ class CommentProvider extends ChangeNotifier {
   CommentModel? get comment => _comment;
   List<CommentModel> get commentList => _commentList;
   List<MoreCommentModel> get moreCommentList => _moreCommentList;
-
+  bool get isRemveMoreComment => _isRemveMoreComment;
   List<UserModel> get allUserProfile => _allUserProfile;
   bool get isShowBottom => _isShowBottom;
   bool get isLongPressed => _isLongPressed;
