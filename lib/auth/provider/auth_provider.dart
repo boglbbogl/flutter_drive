@@ -25,8 +25,6 @@ class AuthProvider extends ChangeNotifier {
 
   AuthProvider() {
     _userLoginState();
-    _getAllUserProfile();
-    _getAllUserActivity();
   }
 
   Future<void> _userLoginState() async {
@@ -45,10 +43,11 @@ class AuthProvider extends ChangeNotifier {
           await _updateSoicalUserImage(
               socialProfileUrl: _firebaseUser.photoURL!);
           getSingleUserProfileUpdate(userKey: _firebaseUser.uid);
-
           _activityModel =
               await _authRepository.getUserActivity(userKey: _firebaseUser.uid);
         }
+        await _getAllUserProfile();
+        await _getAllUserActivity();
       }
       notifyListeners();
     } else if (_kakaoToken.accessToken != null ||
@@ -56,10 +55,8 @@ class AuthProvider extends ChangeNotifier {
       final kakao.User _kakaoUser = await kakao.UserApi.instance.me();
       getSingleUserProfileUpdate(
           userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
-
       _activityModel = await _authRepository.getUserActivity(
           userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
-
       if (_user != null) {
         if (!_user!.socialProfileUrl
             .contains(_kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!)) {
@@ -73,6 +70,8 @@ class AuthProvider extends ChangeNotifier {
               userKey:
                   _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
         }
+        await _getAllUserProfile();
+        await _getAllUserActivity();
       }
       notifyListeners();
     } else {

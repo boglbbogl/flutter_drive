@@ -18,9 +18,16 @@ class ContentRepository {
         .collection(collectionCourse)
         .doc(docKey)
         .collection(collectionComment);
+    final CollectionReference<Map<String, dynamic>> _moreCommentRef = _firestore
+        .collection(collectionCourse)
+        .doc(docKey)
+        .collection(collectionComment)
+        .doc()
+        .collection(collectionMoreComment);
     final CollectionReference<Map<String, dynamic>> _activityRef =
         _firestore.collection(collectionActivity);
     final _batch = _firestore.batch();
+    _batch.delete(_moreCommentRef.doc());
     await _commentRef.get().then((snapshot) {
       for (final element in snapshot.docs) {
         _batch.delete(element.reference);

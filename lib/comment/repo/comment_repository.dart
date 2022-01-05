@@ -37,7 +37,7 @@ class CommentRepository {
         .doc(commentDocKey)
         .collection(collectionMoreComment);
     yield* _collectionRef
-        .orderBy('createdAt', descending: true)
+        .orderBy('createdAt', descending: false)
         .snapshots()
         .map((sn) {
       return sn.docs.map((doc) {
@@ -100,16 +100,32 @@ class CommentRepository {
   Future removeComment({
     required String docKey,
     required String commentDocKey,
+    required int isMoreCount,
   }) async {
     final DocumentReference<Map<String, dynamic>> _commentRef = _firestore
         .collection(collectionCourse)
         .doc(docKey)
         .collection(collectionComment)
         .doc(commentDocKey);
+    final CollectionReference<Map<String, dynamic>> _moreCommentRef = _firestore
+        .collection(collectionCourse)
+        .doc(docKey)
+        .collection(collectionComment)
+        .doc(commentDocKey)
+        .collection(collectionMoreComment);
     final _commentCountRef =
         _firestore.collection(collectionCourse).doc(docKey);
+
     final DocumentSnapshot _documentSnapshot = await _commentRef.get();
     final _batch = _firestore.batch();
+
+    if (isMoreCount != 0) {
+      await _moreCommentRef.get().then((snapshot) {
+        for (final element in snapshot.docs) {
+          _batch.delete(element.reference);
+        }
+      });
+    }
     if (_documentSnapshot.exists) {
       _batch.delete(_commentRef);
       _batch.update(_commentCountRef, {

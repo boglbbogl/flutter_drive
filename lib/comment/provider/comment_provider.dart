@@ -21,8 +21,9 @@ class CommentProvider extends ChangeNotifier {
   String _commentDocKey = "";
   String _commentMoreDcoKey = "";
   bool _isLongPressed = false;
-  final List<int> _showMoreCommentIndex = [];
+  int _showMoreCommentIndex = -1;
   UserModel? _moreCommentUser;
+  int _isMoreCount = 0;
 
   CommentProvider(List<UserModel> allUser) {
     _getUserProfile(allUser: allUser);
@@ -51,7 +52,7 @@ class CommentProvider extends ChangeNotifier {
         .getStreamMoreComment(
             courseDocKey: courseDocKey, commentDocKey: commentDocKey)
         .listen((moreComment) {
-      _moreCommentList.addAll(moreComment);
+      _moreCommentList = moreComment;
       notifyListeners();
     });
   }
@@ -70,7 +71,9 @@ class CommentProvider extends ChangeNotifier {
       //show SnackBar
     } else {
       await _commentRepository.removeComment(
-          docKey: docKey, commentDocKey: _commentDocKey);
+          docKey: docKey,
+          commentDocKey: _commentDocKey,
+          isMoreCount: _isMoreCount);
     }
     notifyListeners();
   }
@@ -118,20 +121,18 @@ class CommentProvider extends ChangeNotifier {
   void showCommentSettingBottom({
     required bool value,
     required String commentDocKey,
+    required int isMoreCount,
   }) {
     _isShowBottom = value;
     _commentDocKey = commentDocKey;
+    _isMoreCount = isMoreCount;
     notifyListeners();
   }
 
   void showMoreCommentItem({
     required int index,
   }) {
-    if (_showMoreCommentIndex.contains(index)) {
-      _showMoreCommentIndex.remove(index);
-    } else {
-      _showMoreCommentIndex.add(index);
-    }
+    _showMoreCommentIndex = index;
     notifyListeners();
   }
 
@@ -160,6 +161,6 @@ class CommentProvider extends ChangeNotifier {
   List<UserModel> get allUserProfile => _allUserProfile;
   bool get isShowBottom => _isShowBottom;
   bool get isLongPressed => _isLongPressed;
-  List<int> get showMoreCommentIndex => _showMoreCommentIndex;
+  int get showMoreCommentIndex => _showMoreCommentIndex;
   UserModel? get moreCommentUser => _moreCommentUser;
 }

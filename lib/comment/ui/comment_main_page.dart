@@ -27,7 +27,8 @@ class CommentMainPage extends StatelessWidget {
       }
       return GestureDetector(
         onTap: () {
-          provider.showCommentSettingBottom(value: false, commentDocKey: "");
+          provider.showCommentSettingBottom(
+              value: false, commentDocKey: "", isMoreCount: 0);
           provider.showLongPressed(
               user: UserModel.empty(), value: false, commentMoreDcoKey: "");
         },
@@ -44,7 +45,7 @@ class CommentMainPage extends StatelessWidget {
                 children: [
                   Flexible(
                     child: ListView.builder(
-                        reverse: true,
+                        // reverse: true,
                         itemCount: provider.commentList.length,
                         itemBuilder: (context, index) {
                           return Padding(
@@ -57,7 +58,6 @@ class CommentMainPage extends StatelessWidget {
                                   children: [
                                     InkWell(
                                       onLongPress: () {
-                                        logger.e(provider.commentList[index]);
                                         context
                                             .read<CommentProvider>()
                                             .showLongPressed(
@@ -72,6 +72,8 @@ class CommentMainPage extends StatelessWidget {
                                                     .firstOrNull!);
                                       },
                                       child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           userCircleImageWidget(
                                               context: context,
@@ -186,7 +188,10 @@ class CommentMainPage extends StatelessWidget {
                                             provider.showCommentSettingBottom(
                                                 value: true,
                                                 commentDocKey: provider
-                                                    .commentList[index].docKey);
+                                                    .commentList[index].docKey,
+                                                isMoreCount: provider
+                                                    .commentList[index]
+                                                    .isMoreCount);
                                           },
                                           icon: const Icon(
                                               Icons.more_horiz_rounded,
@@ -198,71 +203,221 @@ class CommentMainPage extends StatelessWidget {
                                 //more Comment
                                 if (provider.commentList[index].isMoreCount !=
                                     0) ...[
-                                  if (provider.showMoreCommentIndex
-                                      .contains(index))
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 15),
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 18),
-                                            child: Container(
-                                              width: size.width * 0.05,
-                                              height: 0.4,
-                                              color: const Color.fromRGBO(
-                                                  155, 155, 155, 1),
+                                  if (provider.showMoreCommentIndex == index)
+                                    Column(
+                                      children: [
+                                        const SizedBox(height: 12),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(width: 4),
+                                            Flexible(
+                                              child: ListView.builder(
+                                                  physics:
+                                                      const NeverScrollableScrollPhysics(),
+                                                  shrinkWrap: true,
+                                                  itemCount: provider
+                                                      .moreCommentList.length,
+                                                  itemBuilder:
+                                                      (context, moreIndex) {
+                                                    return Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 8,
+                                                              bottom: 8),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        top:
+                                                                            10),
+                                                                child: Container(
+                                                                    width: size
+                                                                            .width *
+                                                                        0.03,
+                                                                    height: 0.5,
+                                                                    color: const Color
+                                                                            .fromRGBO(
+                                                                        71,
+                                                                        71,
+                                                                        71,
+                                                                        1)),
+                                                              ),
+                                                              SizedBox(
+                                                                width:
+                                                                    size.width *
+                                                                        0.03,
+                                                              ),
+                                                              userCircleImageWidget(
+                                                                radius: 10,
+                                                                context:
+                                                                    context,
+                                                                userKey: provider
+                                                                    .moreCommentList[
+                                                                        moreIndex]
+                                                                    .userKey,
+                                                                imageUrl: provider
+                                                                        .allUserProfile
+                                                                        .where((e) =>
+                                                                            e.userKey ==
+                                                                            provider
+                                                                                .moreCommentList[
+                                                                                    moreIndex]
+                                                                                .userKey)
+                                                                        .firstOrNull!
+                                                                        .isSocialImage
+                                                                    ? provider
+                                                                        .allUserProfile
+                                                                        .where((e) =>
+                                                                            e.userKey ==
+                                                                            provider
+                                                                                .moreCommentList[
+                                                                                    moreIndex]
+                                                                                .userKey)
+                                                                        .firstOrNull!
+                                                                        .socialProfileUrl
+                                                                    : provider
+                                                                        .allUserProfile
+                                                                        .where((e) =>
+                                                                            e.userKey ==
+                                                                            provider.moreCommentList[moreIndex].userKey)
+                                                                        .firstOrNull!
+                                                                        .localProfileUrl,
+                                                              ),
+                                                              SizedBox(
+                                                                width:
+                                                                    size.width *
+                                                                        0.03,
+                                                              ),
+                                                              Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  SizedBox(
+                                                                    width:
+                                                                        size.width *
+                                                                            0.7,
+                                                                    child: RichText(
+                                                                        text: TextSpan(children: [
+                                                                      TextSpan(
+                                                                        text: provider
+                                                                            .allUserProfile
+                                                                            .where((e) =>
+                                                                                e.userKey ==
+                                                                                provider.moreCommentList[moreIndex].userKey)
+                                                                            .firstOrNull!
+                                                                            .nickName,
+                                                                        style: theme
+                                                                            .textTheme
+                                                                            .bodyText2!
+                                                                            .copyWith(
+                                                                                color: const Color.fromRGBO(195, 195, 195, 1),
+                                                                                fontSize: 7),
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text:
+                                                                            " @${provider.allUserProfile.where((e) => e.userKey == provider.moreCommentList[moreIndex].commentUserKey).firstOrNull!.nickName}   ",
+                                                                        style: theme
+                                                                            .textTheme
+                                                                            .bodyText2!
+                                                                            .copyWith(
+                                                                          color:
+                                                                              appMainColor,
+                                                                          fontSize:
+                                                                              8,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                      ),
+                                                                      TextSpan(
+                                                                        text: provider
+                                                                            .moreCommentList[moreIndex]
+                                                                            .comment,
+                                                                        style: theme
+                                                                            .textTheme
+                                                                            .bodyText2!
+                                                                            .copyWith(
+                                                                                color: Colors.white,
+                                                                                fontSize: 9),
+                                                                      )
+                                                                    ])),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                      height:
+                                                                          8),
+                                                                  Text(
+                                                                      appDateTime(
+                                                                        dateTime: provider
+                                                                            .moreCommentList[moreIndex]
+                                                                            .createdAt,
+                                                                      ),
+                                                                      style: theme.textTheme.bodyText2!.copyWith(
+                                                                          color: const Color.fromRGBO(
+                                                                              195,
+                                                                              195,
+                                                                              195,
+                                                                              1),
+                                                                          fontSize:
+                                                                              8)),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          if (context
+                                                              .watch<
+                                                                  AuthProvider>()
+                                                              .user!
+                                                              .userKey
+                                                              .contains(provider
+                                                                  .moreCommentList[
+                                                                      moreIndex]
+                                                                  .userKey)) ...[
+                                                            IconButton(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                constraints:
+                                                                    const BoxConstraints(),
+                                                                onPressed: () {
+                                                                  provider.showCommentSettingBottom(
+                                                                      value:
+                                                                          true,
+                                                                      commentDocKey: provider
+                                                                          .commentList[
+                                                                              index]
+                                                                          .docKey,
+                                                                      isMoreCount: provider
+                                                                          .commentList[
+                                                                              index]
+                                                                          .isMoreCount);
+                                                                },
+                                                                icon: const Icon(
+                                                                    Icons
+                                                                        .more_horiz_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    size: 18)),
+                                                          ],
+                                                        ],
+                                                      ),
+                                                    );
+                                                  }),
                                             ),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          userCircleImageWidget(
-                                              context: context,
-                                              userKey: provider
-                                                  .commentList[index].userKey,
-                                              imageUrl: provider.allUserProfile
-                                                      .where((e) =>
-                                                          e.userKey ==
-                                                          provider
-                                                              .commentList[
-                                                                  index]
-                                                              .userKey)
-                                                      .firstOrNull!
-                                                      .isSocialImage
-                                                  ? provider.allUserProfile
-                                                      .where((e) =>
-                                                          e.userKey ==
-                                                          provider
-                                                              .commentList[
-                                                                  index]
-                                                              .userKey)
-                                                      .firstOrNull!
-                                                      .socialProfileUrl
-                                                  : provider.allUserProfile
-                                                      .where((e) =>
-                                                          e.userKey ==
-                                                          provider
-                                                              .commentList[
-                                                                  index]
-                                                              .userKey)
-                                                      .firstOrNull!
-                                                      .localProfileUrl),
-                                          Wrap(
-                                            children: [
-                                              ...provider.moreCommentList
-                                                  .where((e) => e.commentDocKey
-                                                      .contains(provider
-                                                          .commentList[index]
-                                                          .docKey))
-                                                  .map((e) => Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Text(e.comment),
-                                                      ))
-                                            ],
-                                          )
-                                        ],
-                                      ),
+                                          ],
+                                        ),
+                                      ],
                                     )
                                   else
                                     Padding(
@@ -285,7 +440,7 @@ class CommentMainPage extends StatelessWidget {
                                               color: const Color.fromRGBO(
                                                   155, 155, 155, 1),
                                             ),
-                                            const SizedBox(width: 45),
+                                            const SizedBox(width: 30),
                                             Text(
                                               '답글보기 (${provider.commentList[index].isMoreCount})',
                                               style: theme.textTheme.bodyText2!
@@ -431,7 +586,10 @@ class CommentMainPage extends StatelessWidget {
                 ],
               ),
               if (provider.isShowBottom) ...[
-                commentSettingWidget(docKey: docKey, context: context),
+                commentSettingWidget(
+                  docKey: docKey,
+                  context: context,
+                )
               ],
             ],
           ),

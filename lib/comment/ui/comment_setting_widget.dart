@@ -29,16 +29,16 @@ Positioned commentSettingWidget({
               onTap: () {
                 context.read<CommentProvider>()
                   ..removeComment(docKey: docKey)
-                  ..showCommentSettingBottom(value: false, commentDocKey: "");
+                  ..showCommentSettingBottom(
+                      value: false, commentDocKey: "", isMoreCount: 0);
               }),
           const SizedBox(height: 10),
           textButtonItem(
               title: '닫기',
               titleColor: Colors.white,
               onTap: () {
-                context
-                    .read<CommentProvider>()
-                    .showCommentSettingBottom(value: false, commentDocKey: "");
+                context.read<CommentProvider>().showCommentSettingBottom(
+                    value: false, commentDocKey: "", isMoreCount: 0);
               })
         ],
       ),
