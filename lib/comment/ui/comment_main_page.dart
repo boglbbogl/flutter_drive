@@ -1,18 +1,15 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
-import 'package:flutter_drive/_constant/app_date_time.dart';
 import 'package:flutter_drive/_constant/app_indicator.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
-import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
 import 'package:flutter_drive/comment/provider/comment_provider.dart';
-import 'package:flutter_drive/comment/ui/comment_list_widget.dart';
-import 'package:flutter_drive/comment/ui/comment_setting_widget.dart';
-import 'package:flutter_drive/comment/ui/comment_field_widget.dart';
-import 'package:flutter_drive/comment/ui/more_comment_field_widget.dart';
-import 'package:flutter_drive/comment/ui/more_comment_list_widget.dart';
+import 'package:flutter_drive/comment/ui/widgets/comment_field_widget.dart';
+import 'package:flutter_drive/comment/ui/widgets/comment_list_widget.dart';
+import 'package:flutter_drive/comment/ui/widgets/comment_setting_widget.dart';
+import 'package:flutter_drive/comment/ui/widgets/more_comment_field_widget.dart';
+import 'package:flutter_drive/comment/ui/widgets/more_comment_list_widget.dart';
 import 'package:provider/provider.dart';
 
 class CommentMainPage extends StatelessWidget {

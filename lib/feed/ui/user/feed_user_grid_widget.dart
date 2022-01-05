@@ -146,8 +146,8 @@ InkWell _contentFeedGridListItem({
       context.read<FeedUserProvider>().initialization();
       pushNewScreen(context,
           screen: FeedUserPage(
+            docKey: feed.docKey,
             userNickName: userNickName,
-            scrollPositionIndex: index,
             contents: contents,
             likes: likes,
             bookmarks: bookmarks,

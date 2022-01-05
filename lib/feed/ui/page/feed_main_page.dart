@@ -11,6 +11,7 @@ class FeedMainPage extends StatelessWidget {
     return Consumer<FeedMainProvider>(
       builder: (context, provider, child) {
         return ContentMainCard(
+          docKey: "",
           courseList: provider.courseList,
           explanationIndex: provider.explanationIndex,
           feedImageOrCourse: provider.feedImageOrCourse,
@@ -18,7 +19,6 @@ class FeedMainPage extends StatelessWidget {
           contents: const [],
           likes: const [],
           bookmarks: const [],
-          scrollPositionIndex: 0,
         );
       },
     );

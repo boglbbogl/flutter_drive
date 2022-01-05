@@ -11,15 +11,15 @@ class FeedUserPage extends StatelessWidget {
   final List<String> contents;
   final List<String> likes;
   final List<String> bookmarks;
-  final int scrollPositionIndex;
+  final String docKey;
   final String userNickName;
   const FeedUserPage({
     Key? key,
     required this.contents,
     required this.likes,
     required this.bookmarks,
+    required this.docKey,
     required this.userNickName,
-    required this.scrollPositionIndex,
   }) : super(key: key);
 
   @override
@@ -64,6 +64,7 @@ class FeedUserPage extends StatelessWidget {
           ),
         ),
         body: ContentMainCard(
+          docKey: docKey,
           likes: likes,
           bookmarks: bookmarks,
           contents: contents,
@@ -71,7 +72,6 @@ class FeedUserPage extends StatelessWidget {
           explanationIndex: provider.explanationIndex,
           feedImageOrCourse: provider.feedImageOrCourse,
           isMain: false,
-          scrollPositionIndex: scrollPositionIndex,
         ),
       );
     });
