@@ -7,6 +7,8 @@ import 'package:flutter_drive/activity/activity_model.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
+import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
+import 'package:flutter_drive/feed/ui/page/setting_drawer_page.dart';
 import 'package:flutter_drive/feed/ui/user/feed_user_appbar_widget.dart';
 import 'package:flutter_drive/feed/ui/user/feed_user_grid_widget.dart';
 import 'package:flutter_drive/feed/ui/user/feed_user_info_widget.dart';
@@ -17,11 +19,14 @@ import 'package:provider/provider.dart';
 
 class FeedUserProfilePage extends StatelessWidget {
   final List<CourseModel> allCourseModel;
+
   final String userKey;
+  final bool isProfileUpdate;
   const FeedUserProfilePage({
     Key? key,
     required this.allCourseModel,
     required this.userKey,
+    required this.isProfileUpdate,
   }) : super(key: key);
 
   @override
@@ -44,86 +49,97 @@ class FeedUserProfilePage extends StatelessWidget {
       length: 3,
       child: Stack(
         children: [
-          Scaffold(
-            appBar: feedUserAppbarWidget(
-              isLikeUser: context
-                  .read<AuthProvider>()
-                  .allUserActivity
-                  .where((u) => context
-                      .read<AuthProvider>()
-                      .user!
-                      .userKey
-                      .contains(u.userKey))
-                  .map((a) => a.likesUserKey.contains(_user.userKey))
-                  .firstOrNull!,
-              likeMeUserKey: _user.userKey,
-              context: context,
-              isMe: _user.userKey
-                  .contains(context.watch<AuthProvider>().user!.userKey),
-            ),
-            body: NestedScrollView(
-              headerSliverBuilder: (context, value) {
-                return [
-                  feedUserInfoWidget(
-                    userKey: _user.userKey,
-                    isLockBookmarks: _user.privacyBookmarks,
-                    isLockLikes: _user.privacyLikes,
-                    context: context,
-                    profileOnTap: () {
-                      context.read<ProfileProvider>().started(
-                            isSocialImage: _user.isSocialImage,
-                          );
-                      pushNewScreen(context, screen: const ProfilePage());
-                    },
-                    isMe: _user.userKey
-                        .contains(context.watch<AuthProvider>().user!.userKey),
-                    userNickName: _user.nickName,
-                    userImage: _user.isSocialImage
-                        ? _user.socialProfileUrl
-                        : _user.localProfileUrl,
-                    likesUserLength: _activity.likesUserKey.length.toString(),
-                    contentLength: _activity.contentsDocKey.length.toString(),
-                    userIntroduction: _user.introduction,
-                    cars: _user.cars,
-                    city: _user.city,
-                  )
-                ];
-              },
-              body: Column(
-                children: [
-                  TabBar(
-                    tabs: [
-                      _tabBarButton(
-                          title: '게시물', icon: Icons.view_quilt_rounded),
-                      _tabBarButton(
-                          title: '좋아요',
-                          icon: _user.privacyLikes
-                              ? Icons.lock
-                              : CustomIcon.heartEmpty),
-                      _tabBarButton(
-                          title: '북마크',
-                          icon: _user.privacyBookmarks
-                              ? Icons.lock
-                              : CustomIcon.bookmarkEmpty),
-                    ],
-                    indicatorColor: appMainColor,
-                    indicatorSize: TabBarIndicatorSize.label,
-                  ),
-                  FeedUserGridWidget(
-                    allCourseModel: allCourseModel,
-                    contentsDocKey: _activity.contentsDocKey,
-                    likesDocKey: _activity.likesDocKey,
-                    userNickName: _user.nickName,
-                    bookmarksDocKey: _activity.bookmarksDocKey,
-                    privacyLikes: _user.privacyLikes,
-                    privacyBookmarks: _user.privacyBookmarks,
-                    isMe: _user.userKey
-                        .contains(context.watch<AuthProvider>().user!.userKey),
-                  ),
-                ],
+          AnimatedContainer(
+            curve: Curves.ease,
+            duration: const Duration(milliseconds: 300),
+            transform: Matrix4.translationValues(
+                context.watch<FeedUserProvider>().isShowDrawer
+                    ? -size.width * 0.5
+                    : 0,
+                0,
+                0),
+            child: Scaffold(
+              appBar: feedUserAppbarWidget(
+                isLikeUser: context
+                    .read<AuthProvider>()
+                    .allUserActivity
+                    .where((u) => context
+                        .read<AuthProvider>()
+                        .user!
+                        .userKey
+                        .contains(u.userKey))
+                    .map((a) => a.likesUserKey.contains(_user.userKey))
+                    .firstOrNull!,
+                likeMeUserKey: _user.userKey,
+                context: context,
+                isProfileUpdate: isProfileUpdate,
+                isMe: _user.userKey
+                    .contains(context.watch<AuthProvider>().user!.userKey),
+              ),
+              body: NestedScrollView(
+                headerSliverBuilder: (context, value) {
+                  return [
+                    feedUserInfoWidget(
+                      userKey: _user.userKey,
+                      isLockBookmarks: _user.privacyBookmarks,
+                      isLockLikes: _user.privacyLikes,
+                      context: context,
+                      profileOnTap: () {
+                        context.read<ProfileProvider>().started(
+                              isSocialImage: _user.isSocialImage,
+                            );
+                        pushNewScreen(context, screen: const ProfilePage());
+                      },
+                      isProfileUpdate: isProfileUpdate,
+                      userNickName: _user.nickName,
+                      userImage: _user.isSocialImage
+                          ? _user.socialProfileUrl
+                          : _user.localProfileUrl,
+                      likesUserLength: _activity.likesUserKey.length.toString(),
+                      contentLength: _activity.contentsDocKey.length.toString(),
+                      userIntroduction: _user.introduction,
+                      cars: _user.cars,
+                      city: _user.city,
+                    )
+                  ];
+                },
+                body: Column(
+                  children: [
+                    TabBar(
+                      tabs: [
+                        _tabBarButton(
+                            title: '게시물', icon: Icons.view_quilt_rounded),
+                        _tabBarButton(
+                            title: '좋아요',
+                            icon: _user.privacyLikes
+                                ? Icons.lock
+                                : CustomIcon.heartEmpty),
+                        _tabBarButton(
+                            title: '북마크',
+                            icon: _user.privacyBookmarks
+                                ? Icons.lock
+                                : CustomIcon.bookmarkEmpty),
+                      ],
+                      indicatorColor: appMainColor,
+                      indicatorSize: TabBarIndicatorSize.label,
+                    ),
+                    FeedUserGridWidget(
+                      allCourseModel: allCourseModel,
+                      contentsDocKey: _activity.contentsDocKey,
+                      likesDocKey: _activity.likesDocKey,
+                      userNickName: _user.nickName,
+                      bookmarksDocKey: _activity.bookmarksDocKey,
+                      privacyLikes: _user.privacyLikes,
+                      privacyBookmarks: _user.privacyBookmarks,
+                      isMe: _user.userKey.contains(
+                          context.watch<AuthProvider>().user!.userKey),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
+          SettingDrawerPage(),
         ],
       ),
     );

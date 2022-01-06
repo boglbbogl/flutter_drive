@@ -73,6 +73,7 @@ class ContentLikeBookmarkPage extends StatelessWidget {
                           child: Row(
                             children: [
                               userCircleImageWidget(
+                                  isProfileUpdate: false,
                                   context: context,
                                   userKey: user.userKey,
                                   imageUrl: user.isSocialImage

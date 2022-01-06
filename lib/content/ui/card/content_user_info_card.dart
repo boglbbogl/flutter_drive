@@ -26,6 +26,7 @@ Padding contentUserInfoCard({
         Row(
           children: [
             userCircleImageWidget(
+                isProfileUpdate: false,
                 imageUrl: imageUrl,
                 context: context,
                 userKey: userKey,

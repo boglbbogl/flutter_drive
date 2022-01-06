@@ -13,6 +13,7 @@ class FeedUserProvider extends ChangeNotifier {
   bool _isLoading = false;
   bool _isLikeLoading = false;
   List<FeedModel> _feedImageOrCourse = [];
+  bool _isShowDrawer = false;
 
   FeedUserProvider() {
     getFeedUserCourse();
@@ -80,9 +81,17 @@ class FeedUserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void showCustomDrawer({
+    required bool value,
+  }) {
+    value ? _isShowDrawer = false : _isShowDrawer = true;
+    notifyListeners();
+  }
+
   List<CourseModel> get courseList => _courseList;
   List<int> get explanationIndex => _explanationIndex;
   bool get isLoading => _isLoading;
   bool get isLikeLoading => _isLikeLoading;
   List<FeedModel> get feedImageOrCourse => _feedImageOrCourse;
+  bool get isShowDrawer => _isShowDrawer;
 }

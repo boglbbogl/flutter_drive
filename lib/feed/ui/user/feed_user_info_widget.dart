@@ -23,7 +23,7 @@ SliverList feedUserInfoWidget({
   required List<String> city,
   required bool isLockLikes,
   required bool isLockBookmarks,
-  required bool isMe,
+  required bool isProfileUpdate,
   required Function() profileOnTap,
 }) {
   return SliverList(
@@ -43,7 +43,7 @@ SliverList feedUserInfoWidget({
                       profileCircleImageWidget(
                         imageUrl: userImage,
                       ),
-                      if (isMe) ...[
+                      if (isProfileUpdate) ...[
                         Positioned(
                           right: -3,
                           top: -2,
@@ -109,7 +109,7 @@ SliverList feedUserInfoWidget({
           const SizedBox(height: 12),
           _userProfileBottomForm(
               context: context,
-              isMe: isMe,
+              isProfileUpdate: isProfileUpdate,
               textBtn: userIntroduction.isEmpty ? '소개글 작성하러 가기...' : '수정하기',
               icon: Icons.create,
               widget: userIntroduction.isEmpty
@@ -129,7 +129,7 @@ SliverList feedUserInfoWidget({
               }),
           const SizedBox(height: 6),
           _userProfileBottomForm(
-            isMe: isMe,
+            isProfileUpdate: isProfileUpdate,
             context: context,
             textBtn: cars.isEmpty ? "차량 정보 추가하러 가기..." : "차량 정보 수정하기",
             icon: Icons.add_box_outlined,
@@ -155,7 +155,7 @@ SliverList feedUserInfoWidget({
           ),
           const SizedBox(height: 6),
           _userProfileBottomForm(
-            isMe: isMe,
+            isProfileUpdate: isProfileUpdate,
             context: context,
             textBtn: city.isEmpty ? "활동 지역 추가하러 가기..." : "지역 수정하기",
             icon: Icons.add_box_outlined,
@@ -181,7 +181,7 @@ SliverList feedUserInfoWidget({
           ),
           const SizedBox(height: 6),
           _userProfileBottomForm(
-            isMe: isMe,
+            isProfileUpdate: isProfileUpdate,
             context: context,
             textBtn: "공개 여부 설정하러 가기...",
             icon: Icons.lock_open_rounded,
@@ -238,7 +238,7 @@ Row _userPrivacyForm({
 }
 
 SizedBox _userProfileBottomForm({
-  required bool isMe,
+  required bool isProfileUpdate,
   required BuildContext context,
   required Widget widget,
   required Function() onTap,
@@ -252,7 +252,7 @@ SizedBox _userProfileBottomForm({
       children: [
         widget,
         const SizedBox(height: 2),
-        if (isMe) ...[
+        if (isProfileUpdate) ...[
           InkWell(
             onTap: onTap,
             child: Row(

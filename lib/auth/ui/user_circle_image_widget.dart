@@ -6,17 +6,20 @@ import 'package:flutter_drive/feed/ui/page/feed_user_profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
-InkWell userCircleImageWidget(
-    {required String imageUrl,
-    required BuildContext context,
-    required String userKey,
-    Widget? widget,
-    double? radius = 14}) {
+InkWell userCircleImageWidget({
+  required String imageUrl,
+  required BuildContext context,
+  required String userKey,
+  required bool isProfileUpdate,
+  Widget? widget,
+  double? radius = 14,
+}) {
   return InkWell(
     onTap: () async {
       context.read<AuthProvider>().getAllUserFeedUpdateStatus(userKey: userKey);
       pushNewScreen(context,
           screen: FeedUserProfilePage(
+            isProfileUpdate: isProfileUpdate,
             userKey: userKey,
             allCourseModel: context.read<FeedMainProvider>().courseList,
           ));

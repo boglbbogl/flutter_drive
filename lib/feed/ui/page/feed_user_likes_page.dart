@@ -137,6 +137,7 @@ class FeedUserLikesPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           userCircleImageWidget(
+              isProfileUpdate: false,
               imageUrl: user.isSocialImage
                   ? user.socialProfileUrl
                   : user.localProfileUrl,

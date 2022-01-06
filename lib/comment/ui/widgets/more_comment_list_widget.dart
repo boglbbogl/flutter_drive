@@ -38,6 +38,7 @@ Padding moreCommentListWidget(
               width: size.width * 0.03,
             ),
             userCircleImageWidget(
+                isProfileUpdate: false,
                 radius: 10,
                 context: context,
                 userKey: profileUserKey,

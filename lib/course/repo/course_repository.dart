@@ -20,7 +20,7 @@ class CourseRepository {
     final DocumentReference<Map<String, dynamic>> _activityRef =
         _fireStore.collection(collectionActivity).doc(courseModel.userKey);
     final DocumentReference<Map<String, dynamic>> _keywordRef =
-        _fireStore.collection(collectionKeyword).doc(documentTagKeyword);
+        _fireStore.collection(collectionKeyword).doc("$documentTagKeyword+1");
     final DocumentSnapshot _documentSnapshot = await _courseRef.get();
 
     final _toWrite = courseModel.copyWith(docKey: _documentSnapshot.id);

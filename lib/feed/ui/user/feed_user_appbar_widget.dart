@@ -7,14 +7,28 @@ import 'package:provider/provider.dart';
 AppBar feedUserAppbarWidget({
   required BuildContext context,
   required String likeMeUserKey,
+  required bool isProfileUpdate,
   required bool isMe,
   required bool isLikeUser,
 }) {
   return AppBar(
     actions: [
       const SizedBox(width: 8),
-      if (isMe)
-        IconButton(onPressed: () {}, icon: const Icon(Icons.menu))
+      if (isProfileUpdate)
+        AnimatedSwitcher(
+            duration: const Duration(milliseconds: 500),
+            transitionBuilder: (child, animation) {
+              return RotationTransition(turns: animation, child: child);
+            },
+            child: context.read<FeedUserProvider>().isShowDrawer
+                ? _darwerIcon(
+                    context: context, key: "key", icon: Icons.clear_rounded)
+                : _darwerIcon(
+                    context: context,
+                    key: "key_open",
+                    icon: Icons.menu_rounded))
+      else if (!isProfileUpdate && isMe)
+        Container()
       else
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),
@@ -65,4 +79,18 @@ AppBar feedUserAppbarWidget({
       const SizedBox(width: 12),
     ],
   );
+}
+
+IconButton _darwerIcon({
+  required BuildContext context,
+  required String key,
+  required IconData icon,
+}) {
+  return IconButton(
+      key: ValueKey(key),
+      onPressed: () {
+        context.read<FeedUserProvider>().showCustomDrawer(
+            value: context.read<FeedUserProvider>().isShowDrawer);
+      },
+      icon: Icon(icon, color: Colors.white));
 }

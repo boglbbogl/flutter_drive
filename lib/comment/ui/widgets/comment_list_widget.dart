@@ -33,6 +33,7 @@ Row commentListWidget({
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             userCircleImageWidget(
+                isProfileUpdate: false,
                 context: context,
                 userKey: profileUserKey,
                 imageUrl: profileUrl),
