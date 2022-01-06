@@ -137,18 +137,15 @@ SliverList feedUserInfoWidget({
                 ? Container()
                 : RichText(
                     text: TextSpan(children: [
-                    ...context
-                        .watch<AuthProvider>()
-                        .user!
-                        .cars
-                        .map((e) => TextSpan(
-                            text: "#$e  ",
-                            style: theme.textTheme.bodyText2!.copyWith(
-                              color: const Color.fromRGBO(195, 195, 195, 1),
-                              fontSize: 10,
-                            )))
+                    ...cars.map((e) => TextSpan(
+                        text: "#$e  ",
+                        style: theme.textTheme.bodyText2!.copyWith(
+                          color: const Color.fromRGBO(195, 195, 195, 1),
+                          fontSize: 10,
+                        )))
                   ])),
             onTap: () {
+              context.read<ProfileProvider>().profileUpdateInitial();
               pushNewScreen(context,
                   screen: ProfileCarsPage(
                     cars: cars,
@@ -174,6 +171,7 @@ SliverList feedUserInfoWidget({
                         )))
                   ])),
             onTap: () {
+              context.read<ProfileProvider>().profileUpdateInitial();
               pushNewScreen(context,
                   screen: ProfileCityPage(
                     city: city,

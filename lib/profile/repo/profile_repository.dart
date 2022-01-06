@@ -60,7 +60,6 @@ class ProfileRepository {
     }
     _batch.update(_userRef, {"cars": FieldValue.arrayUnion(addCars)});
     _batch.update(_userRef, {"updatedAt": DateTime.now()});
-
     await _batch.commit();
   }
 

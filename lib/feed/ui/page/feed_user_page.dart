@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_drive/_constant/custom_icon.dart';
-import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/content/ui/card/content_main_card.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:provider/provider.dart';

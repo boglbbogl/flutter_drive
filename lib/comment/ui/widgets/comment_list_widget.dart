@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/app_date_time.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
-import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_drive/comment/provider/comment_provider.dart';
+import 'package:provider/provider.dart';
 
 Row commentListWidget({
   required BuildContext context,

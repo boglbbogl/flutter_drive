@@ -1,73 +1,113 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Size _size = MediaQuery.of(context).size;
     if (context.watch<AuthProvider>().isLoginState) {
       return const Center(child: CircularProgressIndicator());
     }
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: SizedBox(
+        height: _size.height,
+        width: _size.width,
+        child: Stack(
           children: [
-            const Text(
-              'Drive',
-              style: TextStyle(fontSize: 30),
+            SizedBox(
+              width: _size.width,
+              height: _size.height,
+              child: Opacity(
+                opacity: 0.3,
+                child: Image.asset(
+                  'assets/images/background_image.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _socialLoginIconForm(
-                    isSignIn: context.watch<AuthProvider>().isGoogle,
-                    onTap: () {
-                      context
-                          .read<AuthProvider>()
-                          .signInWithGoogle(context: context);
-                    },
-                    title: 'G',
-                    color: Colors.red),
-                _socialLoginIconForm(
-                    isSignIn: context.watch<AuthProvider>().isKakao,
-                    onTap: () {
-                      context
-                          .read<AuthProvider>()
-                          .signInWithKakao(context: context);
-                    },
-                    title: 'K',
-                    color: Colors.amber),
-              ],
-            )
+            SizedBox(
+              width: _size.width,
+              height: _size.height,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      SizedBox(height: _size.height * 0.2),
+                      Shimmer.fromColors(
+                        baseColor: const Color.fromRGBO(195, 195, 195, 1),
+                        highlightColor: const Color.fromRGBO(235, 235, 235, 1),
+                        child: Text(
+                          'ROUTE 66',
+                          style: TextStyle(
+                              fontFamily: 'Monoton',
+                              fontSize: 50,
+                              fontWeight: FontWeight.bold,
+                              color: appMainColor),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _socialLoginButton(
+                              isLogin: context.watch<AuthProvider>().isGoogle,
+                              onTap: () {
+                                context
+                                    .read<AuthProvider>()
+                                    .signInWithGoogle(context: context);
+                              },
+                              assets: 'assets/images/google.png'),
+                          SizedBox(width: _size.width * 0.15),
+                          _socialLoginButton(
+                              isLogin: context.watch<AuthProvider>().isKakao,
+                              onTap: () {
+                                context
+                                    .read<AuthProvider>()
+                                    .signInWithKakao(context: context);
+                              },
+                              assets: 'assets/images/kakao-talk.png'),
+                        ],
+                      ),
+                      SizedBox(height: _size.height * 0.15)
+                    ],
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Padding _socialLoginIconForm({
+  InkWell _socialLoginButton({
     required Function() onTap,
-    required String title,
-    required Color color,
-    required bool isSignIn,
+    required String assets,
+    required bool isLogin,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: InkWell(
-        onTap: onTap,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(50),
-          child: Container(
-            width: 60,
-            height: 60,
-            color: color,
-            child: Center(
-                child:
-                    isSignIn ? const CircularProgressIndicator() : Text(title)),
-          ),
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: 50,
+        height: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(18), color: Colors.white),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: isLogin
+              ? const CircularProgressIndicator(
+                  color: Colors.black,
+                )
+              : Image.asset(assets),
         ),
       ),
     );

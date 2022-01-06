@@ -5,8 +5,18 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color.fromRGBO(91, 91, 91, 1),
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        height: constraints.maxHeight,
+        width: constraints.maxWidth,
+        color: Colors.white,
+        child: Opacity(
+            opacity: 1,
+            child: Image.asset(
+              'assets/images/background_image.jpg',
+              fit: BoxFit.cover,
+            )),
+      );
+    });
   }
 }

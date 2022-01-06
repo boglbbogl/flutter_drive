@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/custom_icon.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
@@ -14,7 +15,12 @@ AppBar homeAppbarWidget({
   required BuildContext context,
 }) {
   return AppBar(
-    title: const Text('ROUTE 66'),
+    title: Text(
+      'ROUTE 66',
+      style: theme.appBarTheme.titleTextStyle!.copyWith(
+        fontFamily: 'Monoton',
+      ),
+    ),
     actions: [
       _actionIcons(
         onTap: () {

@@ -21,16 +21,23 @@ class ProfileProvider extends ChangeNotifier {
   bool _isImageSelectLoading = false;
   String _nickName = "";
   String _localImageUrl = "";
-  final List<String> _addCars = [];
-  final List<String> _deleteCars = [];
-  final List<String> _addCity = [];
-  final List<String> _deleteCity = [];
+  List<String> _addCars = [];
+  List<String> _deleteCars = [];
+  List<String> _addCity = [];
+  List<String> _deleteCity = [];
 
   Future<void> started({
     required bool isSocialImage,
   }) async {
     _isSocialImage = isSocialImage;
     notifyListeners();
+  }
+
+  void profileUpdateInitial() {
+    _addCars = [];
+    _deleteCars = [];
+    _addCity = [];
+    _deleteCity = [];
   }
 
   void privacyUpdateStarted({
@@ -163,10 +170,12 @@ class ProfileProvider extends ChangeNotifier {
   void profileAddCity({
     required String value,
   }) {
-    if (_addCity.contains(value)) {
-      _addCity.remove(value);
-    } else {
-      _addCity.add(value);
+    if (value.isNotEmpty) {
+      if (_addCity.contains(value)) {
+        _addCity.remove(value);
+      } else {
+        _addCity.add(value);
+      }
     }
     notifyListeners();
   }
@@ -174,10 +183,12 @@ class ProfileProvider extends ChangeNotifier {
   void profileDeleteCity({
     required String value,
   }) {
-    if (_deleteCity.contains(value)) {
-      _deleteCity.remove(value);
-    } else {
-      _deleteCity.add(value);
+    if (value.isNotEmpty) {
+      if (_deleteCity.contains(value)) {
+        _deleteCity.remove(value);
+      } else {
+        _deleteCity.add(value);
+      }
     }
     notifyListeners();
   }
@@ -185,22 +196,28 @@ class ProfileProvider extends ChangeNotifier {
   void profileAddCars({
     required String value,
   }) {
-    if (_addCars.contains(value)) {
-      _addCars.remove(value);
-    } else {
-      _addCars.add(value);
+    if (value.isNotEmpty) {
+      if (_addCars.contains(value)) {
+        _addCars.remove(value);
+      } else {
+        _addCars.add(value);
+      }
     }
+
     notifyListeners();
   }
 
   void profileDeleteCars({
     required String value,
   }) {
-    if (_deleteCars.contains(value)) {
-      _deleteCars.remove(value);
-    } else {
-      _deleteCars.add(value);
+    if (value.isNotEmpty) {
+      if (_deleteCars.contains(value)) {
+        _deleteCars.remove(value);
+      } else {
+        _deleteCars.add(value);
+      }
     }
+
     notifyListeners();
   }
 

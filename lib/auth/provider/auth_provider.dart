@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/activity/activity_model.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/repo/user_repository.dart';
@@ -47,6 +48,7 @@ class AuthProvider extends ChangeNotifier {
           _activityModel =
               await _authRepository.getUserActivity(userKey: _firebaseUser.uid);
         }
+        getAllUserStatus();
       }
       notifyListeners();
     } else if (_kakaoToken.accessToken != null ||
@@ -69,6 +71,7 @@ class AuthProvider extends ChangeNotifier {
               userKey:
                   _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
         }
+        getAllUserStatus();
       }
       notifyListeners();
     } else {
@@ -211,6 +214,7 @@ class AuthProvider extends ChangeNotifier {
     _isKakao = true;
     notifyListeners();
     final _installed = await kakao.isKakaoTalkInstalled();
+    logger.e(_installed);
     if (!_installed) {
       signInFlushbar(message: '카카오톡이 설치되어 있지 않습니다', color: Colors.amber)
           .show(context);

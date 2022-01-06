@@ -6,7 +6,6 @@ import 'package:flutter_drive/profile/provider/profile_provider.dart';
 import 'package:flutter_drive/profile/ui/widgets/profile_appbar_widget.dart';
 import 'package:flutter_drive/profile/ui/widgets/profile_image_selected_widget.dart';
 import 'package:flutter_drive/profile/ui/widgets/profile_nick_name_widget.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
