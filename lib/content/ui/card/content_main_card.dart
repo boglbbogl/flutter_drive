@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/app_date_time.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/comment/provider/comment_provider.dart';
@@ -129,18 +130,22 @@ class ContentMainCard extends StatelessWidget {
                       (user) => Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          contentUserInfoCard(
-                              imageUrl: user.isSocialImage
-                                  ? user.socialProfileUrl
-                                  : user.localProfileUrl,
-                              nickName: user.nickName,
-                              course: courseList[index],
-                              context: context,
-                              userKey: courseList[index].userKey,
-                              docKey: courseList[index].docKey,
-                              isMe: courseList[index]
-                                  .userKey
-                                  .contains(user.userKey)),
+                          InkWell(
+                            onTap: () {},
+                            child: contentUserInfoCard(
+                                imageUrl: user.isSocialImage
+                                    ? user.socialProfileUrl
+                                    : user.localProfileUrl,
+                                nickName: user.nickName,
+                                course: courseList[index],
+                                context: context,
+                                userKey: courseList[index].userKey,
+                                docKey: courseList[index].docKey,
+                                isMe: courseList[index].userKey.contains(context
+                                    .read<AuthProvider>()
+                                    .user!
+                                    .userKey)),
+                          ),
                           _divider(),
                           AnimatedSwitcher(
                             duration: const Duration(milliseconds: 300),
