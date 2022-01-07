@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_drive/blocked/feed_blocked_page.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 Future<void> contentSettingWidget({
   required BuildContext context,
   required Function() updateTap,
+  required String docKey,
   required bool isMe,
 }) {
   return showModalBottomSheet(
@@ -50,7 +55,18 @@ Future<void> contentSettingWidget({
                           title: '신고하기',
                           icons: Icons.error_outline_rounded,
                           color: appSubColor,
-                          onTap: () {}),
+                          onTap: () {
+                            pushNewScreen(context,
+                                screen: FeedBlockedPage(
+                                  userKey: context
+                                      .read<AuthProvider>()
+                                      .user!
+                                      .userKey,
+                                  docKey: docKey,
+                                ),
+                                pageTransitionAnimation:
+                                    PageTransitionAnimation.slideUp);
+                          }),
                     ],
                   ],
                 ),

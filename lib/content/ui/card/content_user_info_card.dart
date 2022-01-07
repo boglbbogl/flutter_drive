@@ -46,11 +46,11 @@ Padding contentUserInfoCard({
         ),
         IconButton(
           onPressed: () {
-            logger.e(isMe);
             context.read<ContentProvider>().getDocKey(docKey: docKey);
             contentSettingWidget(
               context: context,
               isMe: isMe,
+              docKey: docKey,
               updateTap: () {
                 Navigator.of(context).pop();
                 pushNewScreen(context,

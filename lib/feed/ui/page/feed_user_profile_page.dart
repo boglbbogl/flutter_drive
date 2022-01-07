@@ -31,17 +31,20 @@ class FeedUserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UserModel _user = context
+    final UserModel? _user = context
         .watch<AuthProvider>()
         .allUserProfile
         .where((u) => userKey.contains(u.userKey))
-        .firstOrNull!;
-    final ActivityModel _activity = context
+        .firstOrNull;
+    final ActivityModel? _activity = context
         .watch<AuthProvider>()
         .allUserActivity
         .where((a) => userKey.contains(a.userKey))
-        .firstOrNull!;
-    if (context.watch<AuthProvider>().isUserLoading) {
+        .firstOrNull;
+    if (context.watch<AuthProvider>().isUserLoading ||
+        context.watch<AuthProvider>().user == null ||
+        _user == null ||
+        _activity == null) {
       return const AppIndicator();
     }
 

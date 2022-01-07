@@ -9,13 +9,6 @@ class AuthRepository {
   AuthRepository._internal();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Stream<UserModel?> getStreamUserProfile({
-  //   required String userKey,
-  // }) async* {
-  //   final DocumentReference<Map<String, dynamic>> _userRef =
-  //       _firestore.collection(collectionUser).doc(userKey);
-  //   yield* _userRef.snapshots().map((user) => UserModel.fromFireStore(user));
-  // }
   Future<ActivityModel?> getUserActivity({
     required String userKey,
   }) async {

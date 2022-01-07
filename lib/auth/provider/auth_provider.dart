@@ -190,7 +190,7 @@ class AuthProvider extends ChangeNotifier {
           userKey: kakaoUser.id.toString() + kakaoUser.kakaoAccount!.email!,
           nickName: '${kakaoUser.kakaoAccount!.email!.split('@')[0]}_kakao',
           email: kakaoUser.kakaoAccount!.email!,
-          socialProfileUrl: kakaoUser.kakaoAccount!.profile!.profileImageUrl!,
+          socialProfileUrl: kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!,
           localProfileUrl: "",
           isSocialImage: true,
           createdAt: DateTime.now(),
@@ -214,7 +214,6 @@ class AuthProvider extends ChangeNotifier {
     _isKakao = true;
     notifyListeners();
     final _installed = await kakao.isKakaoTalkInstalled();
-    logger.e(_installed);
     if (!_installed) {
       signInFlushbar(message: '카카오톡이 설치되어 있지 않습니다', color: Colors.amber)
           .show(context);

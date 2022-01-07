@@ -9,7 +9,7 @@ import 'package:flutter_drive/course/ui/widgets/course_image_widget.dart';
 import 'package:flutter_drive/course/ui/widgets/course_season_widget.dart';
 import 'package:flutter_drive/course/ui/widgets/course_select_button.dart';
 import 'package:flutter_drive/course/ui/widgets/course_select_spot_widget.dart';
-import 'package:flutter_drive/course/ui/widgets/course_tag_keyword_widget.dart';
+import 'package:flutter_drive/course/ui/widgets/course_src_keyword_widget.dart';
 import 'package:flutter_drive/image/provider/images_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -64,8 +64,10 @@ class CoursePage extends StatelessWidget {
                                 ),
                               )),
                         ],
-                        courseTagKeywordWidget(
-                            context: context, controller: _tagController),
+                        courseSrcKeywordWidget(
+                          context: context,
+                          controller: _tagController,
+                        ),
                         courseSeasonWidget(context: context),
                         courseSelectButton(context: context),
                         const SizedBox(height: 15),

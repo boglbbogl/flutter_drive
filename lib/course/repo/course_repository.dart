@@ -20,26 +20,21 @@ class CourseRepository {
     final DocumentReference<Map<String, dynamic>> _activityRef =
         _fireStore.collection(collectionActivity).doc(courseModel.userKey);
     final DocumentReference<Map<String, dynamic>> _keywordRef =
-        _fireStore.collection(collectionKeyword).doc("$documentTagKeyword+1");
+        _fireStore.collection(collectionKeyword).doc();
+
     final DocumentSnapshot _documentSnapshot = await _courseRef.get();
 
     final _toWrite = courseModel.copyWith(docKey: _documentSnapshot.id);
     final _batch = _fireStore.batch();
     if (!_documentSnapshot.exists) {
-      if (courseModel.srcKeyword.isNotEmpty) {
-        for (final element in courseModel.srcKeyword) {
-          _batch.update(_keywordRef, {
-            "srcKeyword": FieldValue.arrayUnion([element])
-          });
-        }
+      if (courseModel.srcKeyword.isNotEmpty ||
+          courseModel.tagKeyword.isNotEmpty) {
+        _batch.set(_keywordRef, {
+          "srcKeyword": courseModel.srcKeyword,
+          "tagKeyword": courseModel.tagKeyword,
+        });
       }
-      if (courseModel.tagKeyword.isNotEmpty) {
-        for (final element in courseModel.tagKeyword) {
-          _batch.update(_keywordRef, {
-            "tagKeyword": FieldValue.arrayUnion([element])
-          });
-        }
-      }
+
       _batch.update(_activityRef, {
         "contentsDocKey": FieldValue.arrayUnion([
           _documentSnapshot.id,

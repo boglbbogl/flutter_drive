@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/custom_icon.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:provider/provider.dart';
 
-Row courseTagKeywordWidget({
+Row courseSrcKeywordWidget({
   required BuildContext context,
   required TextEditingController controller,
 }) {
@@ -87,7 +86,7 @@ Future _tagAddTextBottom({
 }) {
   return showModalBottomSheet(
       context: context,
-      isDismissible: false,
+      // isDismissible: false,
       builder: (context) {
         return Container(
           width: size.width,
@@ -118,7 +117,6 @@ Future _tagAddTextBottom({
                       context
                           .read<CourseProvider>()
                           .hashTagsKeyword(srcKeyword: value);
-                      logger.e(context.read<CourseProvider>().srcsKeyword);
                       controller.clear();
                     },
                     style: theme.textTheme.bodyText2!
@@ -134,20 +132,63 @@ Future _tagAddTextBottom({
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none),
                   )),
-              Padding(
-                padding: const EdgeInsets.only(left: 12),
-                child: SizedBox(
-                    width: size.width * 0.9,
-                    child: Text(
-                      '# 추천 태그',
-                      style: theme.textTheme.bodyText2!.copyWith(
-                          color: appMainColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
-                    )),
+              _srcKeywordWrapView(
+                title: '# 추천 태그',
+                context: context,
+                item: context.watch<CourseProvider>().recommendationSrcKeyword,
+              ),
+              const SizedBox(height: 15),
+              _srcKeywordWrapView(
+                title: '# 자주 사용하는 태그',
+                context: context,
+                item: context.watch<CourseProvider>().srcKeywordSortedList,
               )
             ],
           ),
         );
       });
+}
+
+Padding _srcKeywordWrapView({
+  required String title,
+  required BuildContext context,
+  required List item,
+}) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 12),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+            width: size.width * 0.9,
+            child: Text(
+              title,
+              style: theme.textTheme.bodyText2!.copyWith(
+                  color: appMainColor,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold),
+            )),
+        Wrap(
+          children: [
+            ...item.map(
+              (e) => Padding(
+                padding: const EdgeInsets.only(right: 8, top: 4, bottom: 4),
+                child: InkWell(
+                    onTap: () {
+                      context
+                          .read<CourseProvider>()
+                          .hashTagsKeyword(srcKeyword: e.toString());
+                    },
+                    child: Text(
+                      "#$e",
+                      style: theme.textTheme.bodyText2!
+                          .copyWith(fontSize: 14, color: Colors.white),
+                    )),
+              ),
+            )
+          ],
+        ),
+      ],
+    ),
+  );
 }

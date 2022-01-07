@@ -6,10 +6,14 @@ import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/course/repo/course_repository.dart';
 import 'package:flutter_drive/image/repo/images_repository.dart';
+import 'package:flutter_drive/recommendation/recommendation_repository.dart';
+import 'package:flutter_drive/search/keyword_model.dart';
 
 class CourseProvider extends ChangeNotifier {
   final CourseRepository _courseRepository = CourseRepository();
   final ImagesRepository _imagesRepository = ImagesRepository();
+  final RecommendationRepository _recommendationRepository =
+      RecommendationRepository();
   CourseModel _courseModel = CourseModel.empty();
   CourseSpot _courseSpot = CourseSpot.empty();
   List<CourseSpot> _courseSpotList = [];
@@ -19,7 +23,9 @@ class CourseProvider extends ChangeNotifier {
   List<String> _imageUrl = [];
   List<String> _driveSeason = [];
   List<String> _driveTime = [];
-  List<String> _srcsKeyword = [];
+  List<String> _srcKeyword = [];
+  List<String> _srcKeywordSortedList = [];
+  List _recommendationSrcKeyword = [];
 
   void started() {
     _explanation = "";
@@ -30,7 +36,9 @@ class CourseProvider extends ChangeNotifier {
     _courseSpot = CourseSpot.empty();
     _driveSeason = [];
     _driveTime = [];
-    _srcsKeyword = [];
+    _srcKeyword = [];
+    _getSearchKeyword();
+    _getRecommendationSrcKeyword();
   }
 
   Future<void> createCourse({
@@ -51,13 +59,42 @@ class CourseProvider extends ChangeNotifier {
       updatedAt: DateTime.now(),
       imageUrl: _imageUrl,
       spot: _courseSpotList,
-      srcKeyword: _srcsKeyword,
+      srcKeyword: _srcKeyword,
       tagKeyword: [],
       driveSeason: _driveSeason,
       driveTime: _driveTime,
     ));
     _isUploading = false;
     notifyListeners();
+  }
+
+  Future _getRecommendationSrcKeyword() async {
+    _recommendationSrcKeyword =
+        await _recommendationRepository.getRecommandationSrcKeyword();
+    notifyListeners();
+  }
+
+  Future _getSearchKeyword() async {
+    List<KeywordModel> _list = [];
+    final List<String> _searchKeyword = [];
+    final Map<String, int> _map = {};
+    _list = await _recommendationRepository.getSrcKeyword();
+    for (final e in _list) {
+      _searchKeyword.addAll(e.srcKeyword);
+    }
+    for (final element in _searchKeyword) {
+      if (!_map.containsKey(element)) {
+        _map[element] = 1;
+      } else {
+        _map[element] = (_map[element] ?? 0) + 1;
+      }
+    }
+    final _sortedMap = _map.entries.toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
+    _map
+      ..clear()
+      ..addEntries(_sortedMap);
+    _srcKeywordSortedList = _map.keys.toList();
   }
 
   void getCourseSpotList({
@@ -74,8 +111,6 @@ class CourseProvider extends ChangeNotifier {
       // show SnackBar
       appFlushbar(message: '더 이상 추가할 수 없습니다').show(context);
     }
-    // _courseSpotList
-    //     .removeWhere((element) => element.containsValue(courseSpot.id));
     notifyListeners();
   }
 
@@ -104,10 +139,10 @@ class CourseProvider extends ChangeNotifier {
   void hashTagsKeyword({
     required String srcKeyword,
   }) {
-    if (_srcsKeyword.contains(srcKeyword)) {
-      _srcsKeyword.remove(srcKeyword);
+    if (_srcKeyword.contains(srcKeyword)) {
+      _srcKeyword.remove(srcKeyword);
     } else {
-      _srcsKeyword.add(srcKeyword);
+      _srcKeyword.add(srcKeyword);
     }
     notifyListeners();
   }
@@ -137,5 +172,7 @@ class CourseProvider extends ChangeNotifier {
   bool get isUploading => _isUploading;
   List<String> get driveSeason => _driveSeason;
   List<String> get driveTime => _driveTime;
-  List<String> get srcsKeyword => _srcsKeyword;
+  List<String> get srcsKeyword => _srcKeyword;
+  List<String> get srcKeywordSortedList => _srcKeywordSortedList;
+  List get recommendationSrcKeyword => _recommendationSrcKeyword;
 }

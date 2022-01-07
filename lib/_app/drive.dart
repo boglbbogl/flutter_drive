@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_theme.dart';
 import 'package:flutter_drive/address/provider/address_provider.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:flutter_drive/blocked/provider/blocker_provider.dart';
 import 'package:flutter_drive/content/provider/content_provider.dart';
 import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
@@ -25,6 +26,7 @@ class Drive extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => FeedMainProvider()),
         ChangeNotifierProvider(create: (context) => FeedUserProvider()),
         ChangeNotifierProvider(create: (context) => ContentProvider()),
+        ChangeNotifierProvider(create: (context) => BlockedProvider()),
       ],
       child: MaterialApp.router(
         routeInformationParser: BeamerParser(),
