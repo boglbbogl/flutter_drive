@@ -50,25 +50,33 @@ class ContentMainCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String _userKey = context.watch<AuthProvider>().user == null
+        ? ""
+        : context.watch<AuthProvider>().user!.userKey;
     final _courseList = contents.isNotEmpty
         ? courseList
-            .where((c) => contents.contains(c.docKey) && !c.isBlocked)
+            .where((c) =>
+                contents.contains(c.docKey) &&
+                !c.isBlocked &&
+                !c.blockedUserKey.contains(_userKey))
             .toList()
         : likes.isNotEmpty
             ? courseList
-                .where((c) => likes.contains(c.docKey) && !c.isBlocked)
+                .where((c) =>
+                    likes.contains(c.docKey) &&
+                    !c.isBlocked &&
+                    !c.blockedUserKey.contains(_userKey))
                 .toList()
             : bookmarks.isNotEmpty
                 ? courseList
-                    .where((c) => bookmarks.contains(c.docKey) && !c.isBlocked)
+                    .where((c) =>
+                        bookmarks.contains(c.docKey) &&
+                        !c.isBlocked &&
+                        !c.blockedUserKey.contains(_userKey))
                     .toList()
                 : courseList
                     .where((c) =>
-                        !c.isBlocked &&
-                        !c.blockedUserKey.contains(
-                            context.watch<AuthProvider>().user == null
-                                ? ""
-                                : context.watch<AuthProvider>().user!.userKey))
+                        !c.isBlocked && !c.blockedUserKey.contains(_userKey))
                     .toList();
     final _index = _courseList.indexWhere((e) => docKey.contains(e.docKey));
     if (context.read<AuthProvider>().user == null) {

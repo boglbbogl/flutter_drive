@@ -35,7 +35,7 @@ class AuthProvider extends ChangeNotifier {
     final kakao.OAuthToken _kakaoToken =
         await kakao.TokenManager.instance.getToken();
     if (_firebaseUser != null) {
-      getSingleUserProfileUpdate(userKey: _firebaseUser.uid);
+      await getSingleUserProfileUpdate(userKey: _firebaseUser.uid);
       // _user = await _authRepository.getUserProfile(userKey: _firebaseUser.uid);
       _activityModel =
           await _authRepository.getUserActivity(userKey: _firebaseUser.uid);
@@ -43,17 +43,17 @@ class AuthProvider extends ChangeNotifier {
         if (!_user!.socialProfileUrl.contains(_firebaseUser.photoURL!)) {
           await _updateSoicalUserImage(
               socialProfileUrl: _firebaseUser.photoURL!);
-          getSingleUserProfileUpdate(userKey: _firebaseUser.uid);
+          await getSingleUserProfileUpdate(userKey: _firebaseUser.uid);
           _activityModel =
               await _authRepository.getUserActivity(userKey: _firebaseUser.uid);
         }
-        getAllUserStatus();
+        await getAllUserStatus();
       }
       notifyListeners();
     } else if (_kakaoToken.accessToken != null ||
         _kakaoToken.refreshToken != null) {
       final kakao.User _kakaoUser = await kakao.UserApi.instance.me();
-      getSingleUserProfileUpdate(
+      await getSingleUserProfileUpdate(
           userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
       _activityModel = await _authRepository.getUserActivity(
           userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
@@ -63,14 +63,14 @@ class AuthProvider extends ChangeNotifier {
           await _updateSoicalUserImage(
               socialProfileUrl:
                   _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!);
-          getSingleUserProfileUpdate(
+          await getSingleUserProfileUpdate(
               userKey:
                   _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
           _activityModel = await _authRepository.getUserActivity(
               userKey:
                   _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
         }
-        getAllUserStatus();
+        await getAllUserStatus();
       }
       notifyListeners();
     } else {
