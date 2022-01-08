@@ -38,79 +38,76 @@ class FeedUserGridWidget extends StatelessWidget {
       child: TabBarView(children: [
         Tab(
           child: Padding(
-            padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-            child: GridView.builder(
-                itemCount: contentsDocKey.length,
+              padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+              child: GridView(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10),
-                itemBuilder: (context, index) {
-                  return _contentFeedGridListItem(
-                    userNickName: userNickName,
-                    index: index,
-                    context: context,
-                    feed: allCourseModel
-                        .where((c) => contentsDocKey.contains(c.docKey))
-                        .toList()[index],
-                    contents: contentsDocKey,
-                    likes: [],
-                    bookmarks: [],
-                  );
-                }),
-          ),
+                children: [
+                  ...allCourseModel
+                      .where((c) => contentsDocKey.contains(c.docKey))
+                      .map((feed) => _contentFeedGridListItem(
+                            context: context,
+                            feed: feed,
+                            contents: contentsDocKey,
+                            likes: [],
+                            bookmarks: [],
+                            userNickName: userNickName,
+                          ))
+                ],
+              )),
         ),
         Tab(
           child: Padding(
-              padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
-              child: privacyLikes && !isMe
-                  ? _privacyInfoForm()
-                  : GridView.builder(
-                      itemCount: likesDocKey.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10),
-                      itemBuilder: (context, index) {
-                        return _contentFeedGridListItem(
-                          userNickName: userNickName,
-                          index: index,
-                          context: context,
-                          feed: allCourseModel
-                              .where((c) => likesDocKey.contains(c.docKey))
-                              .toList()[index],
-                          contents: [],
-                          likes: likesDocKey,
-                          bookmarks: [],
-                        );
-                      })),
+            padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+            child: privacyLikes && !isMe
+                ? _privacyInfoForm()
+                : GridView(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10),
+                    children: [
+                      ...allCourseModel
+                          .where((c) => likesDocKey.contains(c.docKey))
+                          .map((feed) => _contentFeedGridListItem(
+                                context: context,
+                                feed: feed,
+                                contents: [],
+                                likes: likesDocKey,
+                                bookmarks: [],
+                                userNickName: userNickName,
+                              ))
+                    ],
+                  ),
+          ),
         ),
         Tab(
           child: Padding(
             padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
             child: privacyBookmarks && !isMe
                 ? _privacyInfoForm()
-                : GridView.builder(
-                    itemCount: bookmarksDocKey.length,
+                : GridView(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 10),
-                    itemBuilder: (context, index) {
-                      return _contentFeedGridListItem(
-                        userNickName: userNickName,
-                        index: index,
-                        context: context,
-                        feed: allCourseModel
-                            .where((c) => bookmarksDocKey.contains(c.docKey))
-                            .toList()[index],
-                        contents: [],
-                        likes: [],
-                        bookmarks: bookmarksDocKey,
-                      );
-                    }),
+                    children: [
+                      ...allCourseModel
+                          .where((c) => bookmarksDocKey.contains(c.docKey))
+                          .map((feed) => _contentFeedGridListItem(
+                                context: context,
+                                feed: feed,
+                                contents: [],
+                                likes: [],
+                                bookmarks: bookmarksDocKey,
+                                userNickName: userNickName,
+                              ))
+                    ],
+                  ),
           ),
         ),
       ]),
@@ -138,7 +135,6 @@ InkWell _contentFeedGridListItem({
   required List<String> likes,
   required List<String> bookmarks,
   required String userNickName,
-  required int index,
 }) {
   return InkWell(
     onTap: () {

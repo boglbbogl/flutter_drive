@@ -19,6 +19,10 @@ InkWell userCircleImageWidget({
   return InkWell(
     onTap: () async {
       context.read<AuthProvider>().getAllUserFeedUpdateStatus(userKey: userKey);
+      logger.e(context.read<AuthProvider>().user);
+      logger.e(context.read<AuthProvider>().activity);
+      logger.e(context.read<AuthProvider>().allUserProfile);
+      logger.e(context.read<AuthProvider>().allUserActivity);
       pushNewScreen(context,
           screen: FeedUserProfilePage(
             isProfileUpdate: isProfileUpdate,

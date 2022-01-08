@@ -26,18 +26,18 @@ class _$ContentBlockedModelTearOff {
       required String email,
       required String blockedDocKey,
       required String docKey,
-      required String explanation,
-      required List<String> cause,
+      required String cause,
       required String category,
+      required bool isCheck,
       @TimestampConverter() required DateTime createdAt}) {
     return _ContentBlockedModel(
       userKey: userKey,
       email: email,
       blockedDocKey: blockedDocKey,
       docKey: docKey,
-      explanation: explanation,
       cause: cause,
       category: category,
+      isCheck: isCheck,
       createdAt: createdAt,
     );
   }
@@ -56,9 +56,9 @@ mixin _$ContentBlockedModel {
   String get email => throw _privateConstructorUsedError;
   String get blockedDocKey => throw _privateConstructorUsedError;
   String get docKey => throw _privateConstructorUsedError;
-  String get explanation => throw _privateConstructorUsedError;
-  List<String> get cause => throw _privateConstructorUsedError;
+  String get cause => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
+  bool get isCheck => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
 
@@ -78,9 +78,9 @@ abstract class $ContentBlockedModelCopyWith<$Res> {
       String email,
       String blockedDocKey,
       String docKey,
-      String explanation,
-      List<String> cause,
+      String cause,
       String category,
+      bool isCheck,
       @TimestampConverter() DateTime createdAt});
 }
 
@@ -99,9 +99,9 @@ class _$ContentBlockedModelCopyWithImpl<$Res>
     Object? email = freezed,
     Object? blockedDocKey = freezed,
     Object? docKey = freezed,
-    Object? explanation = freezed,
     Object? cause = freezed,
     Object? category = freezed,
+    Object? isCheck = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -121,18 +121,18 @@ class _$ContentBlockedModelCopyWithImpl<$Res>
           ? _value.docKey
           : docKey // ignore: cast_nullable_to_non_nullable
               as String,
-      explanation: explanation == freezed
-          ? _value.explanation
-          : explanation // ignore: cast_nullable_to_non_nullable
-              as String,
       cause: cause == freezed
           ? _value.cause
           : cause // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as String,
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
+      isCheck: isCheck == freezed
+          ? _value.isCheck
+          : isCheck // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -153,9 +153,9 @@ abstract class _$ContentBlockedModelCopyWith<$Res>
       String email,
       String blockedDocKey,
       String docKey,
-      String explanation,
-      List<String> cause,
+      String cause,
       String category,
+      bool isCheck,
       @TimestampConverter() DateTime createdAt});
 }
 
@@ -176,9 +176,9 @@ class __$ContentBlockedModelCopyWithImpl<$Res>
     Object? email = freezed,
     Object? blockedDocKey = freezed,
     Object? docKey = freezed,
-    Object? explanation = freezed,
     Object? cause = freezed,
     Object? category = freezed,
+    Object? isCheck = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_ContentBlockedModel(
@@ -198,18 +198,18 @@ class __$ContentBlockedModelCopyWithImpl<$Res>
           ? _value.docKey
           : docKey // ignore: cast_nullable_to_non_nullable
               as String,
-      explanation: explanation == freezed
-          ? _value.explanation
-          : explanation // ignore: cast_nullable_to_non_nullable
-              as String,
       cause: cause == freezed
           ? _value.cause
           : cause // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as String,
       category: category == freezed
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
               as String,
+      isCheck: isCheck == freezed
+          ? _value.isCheck
+          : isCheck // ignore: cast_nullable_to_non_nullable
+              as bool,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -226,9 +226,9 @@ class _$_ContentBlockedModel extends _ContentBlockedModel {
       required this.email,
       required this.blockedDocKey,
       required this.docKey,
-      required this.explanation,
       required this.cause,
       required this.category,
+      required this.isCheck,
       @TimestampConverter() required this.createdAt})
       : super._();
 
@@ -244,18 +244,18 @@ class _$_ContentBlockedModel extends _ContentBlockedModel {
   @override
   final String docKey;
   @override
-  final String explanation;
-  @override
-  final List<String> cause;
+  final String cause;
   @override
   final String category;
+  @override
+  final bool isCheck;
   @override
   @TimestampConverter()
   final DateTime createdAt;
 
   @override
   String toString() {
-    return 'ContentBlockedModel(userKey: $userKey, email: $email, blockedDocKey: $blockedDocKey, docKey: $docKey, explanation: $explanation, cause: $cause, category: $category, createdAt: $createdAt)';
+    return 'ContentBlockedModel(userKey: $userKey, email: $email, blockedDocKey: $blockedDocKey, docKey: $docKey, cause: $cause, category: $category, isCheck: $isCheck, createdAt: $createdAt)';
   }
 
   @override
@@ -268,10 +268,9 @@ class _$_ContentBlockedModel extends _ContentBlockedModel {
             const DeepCollectionEquality()
                 .equals(other.blockedDocKey, blockedDocKey) &&
             const DeepCollectionEquality().equals(other.docKey, docKey) &&
-            const DeepCollectionEquality()
-                .equals(other.explanation, explanation) &&
             const DeepCollectionEquality().equals(other.cause, cause) &&
             const DeepCollectionEquality().equals(other.category, category) &&
+            const DeepCollectionEquality().equals(other.isCheck, isCheck) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt));
   }
 
@@ -282,9 +281,9 @@ class _$_ContentBlockedModel extends _ContentBlockedModel {
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(blockedDocKey),
       const DeepCollectionEquality().hash(docKey),
-      const DeepCollectionEquality().hash(explanation),
       const DeepCollectionEquality().hash(cause),
       const DeepCollectionEquality().hash(category),
+      const DeepCollectionEquality().hash(isCheck),
       const DeepCollectionEquality().hash(createdAt));
 
   @JsonKey(ignore: true)
@@ -305,9 +304,9 @@ abstract class _ContentBlockedModel extends ContentBlockedModel {
           required String email,
           required String blockedDocKey,
           required String docKey,
-          required String explanation,
-          required List<String> cause,
+          required String cause,
           required String category,
+          required bool isCheck,
           @TimestampConverter() required DateTime createdAt}) =
       _$_ContentBlockedModel;
   const _ContentBlockedModel._() : super._();
@@ -324,11 +323,11 @@ abstract class _ContentBlockedModel extends ContentBlockedModel {
   @override
   String get docKey;
   @override
-  String get explanation;
-  @override
-  List<String> get cause;
+  String get cause;
   @override
   String get category;
+  @override
+  bool get isCheck;
   @override
   @TimestampConverter()
   DateTime get createdAt;

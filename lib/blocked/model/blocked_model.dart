@@ -12,9 +12,9 @@ class ContentBlockedModel with _$ContentBlockedModel {
     required String email,
     required String blockedDocKey,
     required String docKey,
-    required String explanation,
-    required List<String> cause,
+    required String cause,
     required String category,
+    required bool isCheck,
     @TimestampConverter() required DateTime createdAt,
   }) = _ContentBlockedModel;
   factory ContentBlockedModel.fromJson(Map<String, dynamic> json) =>
@@ -29,9 +29,9 @@ class ContentBlockedModel with _$ContentBlockedModel {
         email: "",
         blockedDocKey: "",
         docKey: "",
-        explanation: "",
-        cause: [],
+        cause: "",
         category: "content",
+        isCheck: false,
         createdAt: DateTime.now(),
       );
 }

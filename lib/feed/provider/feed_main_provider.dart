@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/repo/feed_repository.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class FeedMainProvider extends ChangeNotifier {
   final FeedRepostiory _feedRepostiory = FeedRepostiory();
@@ -11,6 +12,7 @@ class FeedMainProvider extends ChangeNotifier {
   List<int> _explanationIndex = [];
   List<FeedModel> _feedImageOrCourse = [];
   int _limit = 50;
+  final RefreshController _refreshController = RefreshController();
 
   FeedMainProvider() {
     _courseStream();
@@ -75,4 +77,5 @@ class FeedMainProvider extends ChangeNotifier {
   List<int> get explanationIndex => _explanationIndex;
   List<FeedModel> get feedImageOrCourse => _feedImageOrCourse;
   int get limit => _limit;
+  RefreshController get refreshController => _refreshController;
 }

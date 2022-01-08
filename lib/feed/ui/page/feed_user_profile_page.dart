@@ -99,7 +99,12 @@ class FeedUserProfilePage extends StatelessWidget {
                           ? _user.socialProfileUrl
                           : _user.localProfileUrl,
                       likesUserLength: _activity.likesUserKey.length.toString(),
-                      contentLength: _activity.contentsDocKey.length.toString(),
+                      contentLength: allCourseModel
+                          .where((c) =>
+                              _activity.contentsDocKey.contains(c.docKey) &&
+                              !c.isBlocked)
+                          .length
+                          .toString(),
                       userIntroduction: _user.introduction,
                       cars: _user.cars,
                       city: _user.city,
@@ -127,7 +132,17 @@ class FeedUserProfilePage extends StatelessWidget {
                       indicatorSize: TabBarIndicatorSize.label,
                     ),
                     FeedUserGridWidget(
-                      allCourseModel: allCourseModel,
+                      allCourseModel: allCourseModel
+                          .where((c) =>
+                              !c.isBlocked &&
+                              !c.blockedUserKey.contains(
+                                  context.watch<AuthProvider>().user == null
+                                      ? ""
+                                      : context
+                                          .watch<AuthProvider>()
+                                          .user!
+                                          .userKey))
+                          .toList(),
                       contentsDocKey: _activity.contentsDocKey,
                       likesDocKey: _activity.likesDocKey,
                       userNickName: _user.nickName,
@@ -142,7 +157,7 @@ class FeedUserProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          SettingDrawerPage(),
+          const SettingDrawerPage(),
         ],
       ),
     );

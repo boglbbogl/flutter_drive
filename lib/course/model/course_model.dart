@@ -23,7 +23,8 @@ class CourseModel with _$CourseModel {
     required List<String> imageUrl,
     required List<CourseSpot> spot,
     required List<String> moreCommentDocKey,
-    // required ProfileModel userProfile,
+    required bool isBlocked,
+    required List<String> blockedUserKey,
   }) = _CourseModel;
 
   const CourseModel._();
@@ -50,8 +51,9 @@ class CourseModel with _$CourseModel {
     map["commentCount"] = commentCount;
     map["imageUrl"] = imageUrl;
     map["spot"] = spot.map((e) => e.toFireStore()).toList();
-    // map["userProfile"] = userProfile.toFireStore();
     map["moreCommentDocKey"] = moreCommentDocKey;
+    map["isBlocked"] = isBlocked;
+    map["blockedUserKey"] = blockedUserKey;
     return map;
   }
 
@@ -70,8 +72,10 @@ class CourseModel with _$CourseModel {
         commentCount: 0,
         imageUrl: [],
         spot: [],
+        isBlocked: false,
         // userProfile: ProfileModel.empty(),
         moreCommentDocKey: [],
+        blockedUserKey: [],
       );
 }
 

@@ -41,6 +41,10 @@ _$_CourseModel _$$_CourseModelFromJson(Map<String, dynamic> json) =>
       moreCommentDocKey: (json['moreCommentDocKey'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      isBlocked: json['isBlocked'] as bool,
+      blockedUserKey: (json['blockedUserKey'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
@@ -60,6 +64,8 @@ Map<String, dynamic> _$$_CourseModelToJson(_$_CourseModel instance) =>
       'imageUrl': instance.imageUrl,
       'spot': instance.spot,
       'moreCommentDocKey': instance.moreCommentDocKey,
+      'isBlocked': instance.isBlocked,
+      'blockedUserKey': instance.blockedUserKey,
     };
 
 _$_CourseSpot _$$_CourseSpotFromJson(Map<String, dynamic> json) =>

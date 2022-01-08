@@ -94,7 +94,7 @@ class CourseProvider extends ChangeNotifier {
     _map
       ..clear()
       ..addEntries(_sortedMap);
-    _srcKeywordSortedList = _map.keys.toList();
+    _srcKeywordSortedList = _map.keys.toList().sublist(0, 10);
   }
 
   void getCourseSpotList({

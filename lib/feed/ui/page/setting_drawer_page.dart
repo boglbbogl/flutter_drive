@@ -70,6 +70,9 @@ class SettingDrawerPage extends StatelessWidget {
                         context.read<AuthProvider>().signOut(
                             provider:
                                 context.read<AuthProvider>().user!.provider);
+                        context.read<FeedUserProvider>().showCustomDrawer(
+                            value:
+                                context.read<FeedUserProvider>().isShowDrawer);
                       }),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12, top: 4),

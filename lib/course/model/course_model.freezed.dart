@@ -36,7 +36,9 @@ class _$CourseModelTearOff {
       required int commentCount,
       required List<String> imageUrl,
       required List<CourseSpot> spot,
-      required List<String> moreCommentDocKey}) {
+      required List<String> moreCommentDocKey,
+      required bool isBlocked,
+      required List<String> blockedUserKey}) {
     return _CourseModel(
       userKey: userKey,
       docKey: docKey,
@@ -53,6 +55,8 @@ class _$CourseModelTearOff {
       imageUrl: imageUrl,
       spot: spot,
       moreCommentDocKey: moreCommentDocKey,
+      isBlocked: isBlocked,
+      blockedUserKey: blockedUserKey,
     );
   }
 
@@ -83,6 +87,8 @@ mixin _$CourseModel {
   List<String> get imageUrl => throw _privateConstructorUsedError;
   List<CourseSpot> get spot => throw _privateConstructorUsedError;
   List<String> get moreCommentDocKey => throw _privateConstructorUsedError;
+  bool get isBlocked => throw _privateConstructorUsedError;
+  List<String> get blockedUserKey => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -110,7 +116,9 @@ abstract class $CourseModelCopyWith<$Res> {
       int commentCount,
       List<String> imageUrl,
       List<CourseSpot> spot,
-      List<String> moreCommentDocKey});
+      List<String> moreCommentDocKey,
+      bool isBlocked,
+      List<String> blockedUserKey});
 }
 
 /// @nodoc
@@ -138,6 +146,8 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
     Object? imageUrl = freezed,
     Object? spot = freezed,
     Object? moreCommentDocKey = freezed,
+    Object? isBlocked = freezed,
+    Object? blockedUserKey = freezed,
   }) {
     return _then(_value.copyWith(
       userKey: userKey == freezed
@@ -200,6 +210,14 @@ class _$CourseModelCopyWithImpl<$Res> implements $CourseModelCopyWith<$Res> {
           ? _value.moreCommentDocKey
           : moreCommentDocKey // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      isBlocked: isBlocked == freezed
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      blockedUserKey: blockedUserKey == freezed
+          ? _value.blockedUserKey
+          : blockedUserKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -226,7 +244,9 @@ abstract class _$CourseModelCopyWith<$Res>
       int commentCount,
       List<String> imageUrl,
       List<CourseSpot> spot,
-      List<String> moreCommentDocKey});
+      List<String> moreCommentDocKey,
+      bool isBlocked,
+      List<String> blockedUserKey});
 }
 
 /// @nodoc
@@ -256,6 +276,8 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
     Object? imageUrl = freezed,
     Object? spot = freezed,
     Object? moreCommentDocKey = freezed,
+    Object? isBlocked = freezed,
+    Object? blockedUserKey = freezed,
   }) {
     return _then(_CourseModel(
       userKey: userKey == freezed
@@ -318,6 +340,14 @@ class __$CourseModelCopyWithImpl<$Res> extends _$CourseModelCopyWithImpl<$Res>
           ? _value.moreCommentDocKey
           : moreCommentDocKey // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      isBlocked: isBlocked == freezed
+          ? _value.isBlocked
+          : isBlocked // ignore: cast_nullable_to_non_nullable
+              as bool,
+      blockedUserKey: blockedUserKey == freezed
+          ? _value.blockedUserKey
+          : blockedUserKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -340,7 +370,9 @@ class _$_CourseModel extends _CourseModel {
       required this.commentCount,
       required this.imageUrl,
       required this.spot,
-      required this.moreCommentDocKey})
+      required this.moreCommentDocKey,
+      required this.isBlocked,
+      required this.blockedUserKey})
       : super._();
 
   factory _$_CourseModel.fromJson(Map<String, dynamic> json) =>
@@ -378,10 +410,14 @@ class _$_CourseModel extends _CourseModel {
   final List<CourseSpot> spot;
   @override
   final List<String> moreCommentDocKey;
+  @override
+  final bool isBlocked;
+  @override
+  final List<String> blockedUserKey;
 
   @override
   String toString() {
-    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createdAt: $createdAt, updatedAt: $updatedAt, srcKeyword: $srcKeyword, tagKeyword: $tagKeyword, driveSeason: $driveSeason, driveTime: $driveTime, likeUserKey: $likeUserKey, bookmarkUserKey: $bookmarkUserKey, commentCount: $commentCount, imageUrl: $imageUrl, spot: $spot, moreCommentDocKey: $moreCommentDocKey)';
+    return 'CourseModel(userKey: $userKey, docKey: $docKey, explanation: $explanation, createdAt: $createdAt, updatedAt: $updatedAt, srcKeyword: $srcKeyword, tagKeyword: $tagKeyword, driveSeason: $driveSeason, driveTime: $driveTime, likeUserKey: $likeUserKey, bookmarkUserKey: $bookmarkUserKey, commentCount: $commentCount, imageUrl: $imageUrl, spot: $spot, moreCommentDocKey: $moreCommentDocKey, isBlocked: $isBlocked, blockedUserKey: $blockedUserKey)';
   }
 
   @override
@@ -411,7 +447,10 @@ class _$_CourseModel extends _CourseModel {
             const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
             const DeepCollectionEquality().equals(other.spot, spot) &&
             const DeepCollectionEquality()
-                .equals(other.moreCommentDocKey, moreCommentDocKey));
+                .equals(other.moreCommentDocKey, moreCommentDocKey) &&
+            const DeepCollectionEquality().equals(other.isBlocked, isBlocked) &&
+            const DeepCollectionEquality()
+                .equals(other.blockedUserKey, blockedUserKey));
   }
 
   @override
@@ -431,7 +470,9 @@ class _$_CourseModel extends _CourseModel {
       const DeepCollectionEquality().hash(commentCount),
       const DeepCollectionEquality().hash(imageUrl),
       const DeepCollectionEquality().hash(spot),
-      const DeepCollectionEquality().hash(moreCommentDocKey));
+      const DeepCollectionEquality().hash(moreCommentDocKey),
+      const DeepCollectionEquality().hash(isBlocked),
+      const DeepCollectionEquality().hash(blockedUserKey));
 
   @JsonKey(ignore: true)
   @override
@@ -460,7 +501,9 @@ abstract class _CourseModel extends CourseModel {
       required int commentCount,
       required List<String> imageUrl,
       required List<CourseSpot> spot,
-      required List<String> moreCommentDocKey}) = _$_CourseModel;
+      required List<String> moreCommentDocKey,
+      required bool isBlocked,
+      required List<String> blockedUserKey}) = _$_CourseModel;
   const _CourseModel._() : super._();
 
   factory _CourseModel.fromJson(Map<String, dynamic> json) =
@@ -498,6 +541,10 @@ abstract class _CourseModel extends CourseModel {
   List<CourseSpot> get spot;
   @override
   List<String> get moreCommentDocKey;
+  @override
+  bool get isBlocked;
+  @override
+  List<String> get blockedUserKey;
   @override
   @JsonKey(ignore: true)
   _$CourseModelCopyWith<_CourseModel> get copyWith =>

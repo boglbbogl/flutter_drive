@@ -29,7 +29,9 @@ class _$ActivityModelTearOff {
       required List<String> followerUserKey,
       required List<String> followingUserKey,
       required List<String> likesUserKey,
-      required List<String> likeMeUserKey}) {
+      required List<String> likeMeUserKey,
+      required List<String> contentsBlockedDocKey,
+      required List<String> usersBlockedUserKey}) {
     return _ActivityModel(
       userKey: userKey,
       contentsDocKey: contentsDocKey,
@@ -39,6 +41,8 @@ class _$ActivityModelTearOff {
       followingUserKey: followingUserKey,
       likesUserKey: likesUserKey,
       likeMeUserKey: likeMeUserKey,
+      contentsBlockedDocKey: contentsBlockedDocKey,
+      usersBlockedUserKey: usersBlockedUserKey,
     );
   }
 
@@ -60,6 +64,8 @@ mixin _$ActivityModel {
   List<String> get followingUserKey => throw _privateConstructorUsedError;
   List<String> get likesUserKey => throw _privateConstructorUsedError;
   List<String> get likeMeUserKey => throw _privateConstructorUsedError;
+  List<String> get contentsBlockedDocKey => throw _privateConstructorUsedError;
+  List<String> get usersBlockedUserKey => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -80,7 +86,9 @@ abstract class $ActivityModelCopyWith<$Res> {
       List<String> followerUserKey,
       List<String> followingUserKey,
       List<String> likesUserKey,
-      List<String> likeMeUserKey});
+      List<String> likeMeUserKey,
+      List<String> contentsBlockedDocKey,
+      List<String> usersBlockedUserKey});
 }
 
 /// @nodoc
@@ -102,6 +110,8 @@ class _$ActivityModelCopyWithImpl<$Res>
     Object? followingUserKey = freezed,
     Object? likesUserKey = freezed,
     Object? likeMeUserKey = freezed,
+    Object? contentsBlockedDocKey = freezed,
+    Object? usersBlockedUserKey = freezed,
   }) {
     return _then(_value.copyWith(
       userKey: userKey == freezed
@@ -136,6 +146,14 @@ class _$ActivityModelCopyWithImpl<$Res>
           ? _value.likeMeUserKey
           : likeMeUserKey // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      contentsBlockedDocKey: contentsBlockedDocKey == freezed
+          ? _value.contentsBlockedDocKey
+          : contentsBlockedDocKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      usersBlockedUserKey: usersBlockedUserKey == freezed
+          ? _value.usersBlockedUserKey
+          : usersBlockedUserKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -155,7 +173,9 @@ abstract class _$ActivityModelCopyWith<$Res>
       List<String> followerUserKey,
       List<String> followingUserKey,
       List<String> likesUserKey,
-      List<String> likeMeUserKey});
+      List<String> likeMeUserKey,
+      List<String> contentsBlockedDocKey,
+      List<String> usersBlockedUserKey});
 }
 
 /// @nodoc
@@ -179,6 +199,8 @@ class __$ActivityModelCopyWithImpl<$Res>
     Object? followingUserKey = freezed,
     Object? likesUserKey = freezed,
     Object? likeMeUserKey = freezed,
+    Object? contentsBlockedDocKey = freezed,
+    Object? usersBlockedUserKey = freezed,
   }) {
     return _then(_ActivityModel(
       userKey: userKey == freezed
@@ -213,6 +235,14 @@ class __$ActivityModelCopyWithImpl<$Res>
           ? _value.likeMeUserKey
           : likeMeUserKey // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      contentsBlockedDocKey: contentsBlockedDocKey == freezed
+          ? _value.contentsBlockedDocKey
+          : contentsBlockedDocKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      usersBlockedUserKey: usersBlockedUserKey == freezed
+          ? _value.usersBlockedUserKey
+          : usersBlockedUserKey // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -228,7 +258,9 @@ class _$_ActivityModel extends _ActivityModel {
       required this.followerUserKey,
       required this.followingUserKey,
       required this.likesUserKey,
-      required this.likeMeUserKey})
+      required this.likeMeUserKey,
+      required this.contentsBlockedDocKey,
+      required this.usersBlockedUserKey})
       : super._();
 
   factory _$_ActivityModel.fromJson(Map<String, dynamic> json) =>
@@ -250,10 +282,14 @@ class _$_ActivityModel extends _ActivityModel {
   final List<String> likesUserKey;
   @override
   final List<String> likeMeUserKey;
+  @override
+  final List<String> contentsBlockedDocKey;
+  @override
+  final List<String> usersBlockedUserKey;
 
   @override
   String toString() {
-    return 'ActivityModel(userKey: $userKey, contentsDocKey: $contentsDocKey, likesDocKey: $likesDocKey, bookmarksDocKey: $bookmarksDocKey, followerUserKey: $followerUserKey, followingUserKey: $followingUserKey, likesUserKey: $likesUserKey, likeMeUserKey: $likeMeUserKey)';
+    return 'ActivityModel(userKey: $userKey, contentsDocKey: $contentsDocKey, likesDocKey: $likesDocKey, bookmarksDocKey: $bookmarksDocKey, followerUserKey: $followerUserKey, followingUserKey: $followingUserKey, likesUserKey: $likesUserKey, likeMeUserKey: $likeMeUserKey, contentsBlockedDocKey: $contentsBlockedDocKey, usersBlockedUserKey: $usersBlockedUserKey)';
   }
 
   @override
@@ -275,7 +311,11 @@ class _$_ActivityModel extends _ActivityModel {
             const DeepCollectionEquality()
                 .equals(other.likesUserKey, likesUserKey) &&
             const DeepCollectionEquality()
-                .equals(other.likeMeUserKey, likeMeUserKey));
+                .equals(other.likeMeUserKey, likeMeUserKey) &&
+            const DeepCollectionEquality()
+                .equals(other.contentsBlockedDocKey, contentsBlockedDocKey) &&
+            const DeepCollectionEquality()
+                .equals(other.usersBlockedUserKey, usersBlockedUserKey));
   }
 
   @override
@@ -288,7 +328,9 @@ class _$_ActivityModel extends _ActivityModel {
       const DeepCollectionEquality().hash(followerUserKey),
       const DeepCollectionEquality().hash(followingUserKey),
       const DeepCollectionEquality().hash(likesUserKey),
-      const DeepCollectionEquality().hash(likeMeUserKey));
+      const DeepCollectionEquality().hash(likeMeUserKey),
+      const DeepCollectionEquality().hash(contentsBlockedDocKey),
+      const DeepCollectionEquality().hash(usersBlockedUserKey));
 
   @JsonKey(ignore: true)
   @override
@@ -310,7 +352,9 @@ abstract class _ActivityModel extends ActivityModel {
       required List<String> followerUserKey,
       required List<String> followingUserKey,
       required List<String> likesUserKey,
-      required List<String> likeMeUserKey}) = _$_ActivityModel;
+      required List<String> likeMeUserKey,
+      required List<String> contentsBlockedDocKey,
+      required List<String> usersBlockedUserKey}) = _$_ActivityModel;
   const _ActivityModel._() : super._();
 
   factory _ActivityModel.fromJson(Map<String, dynamic> json) =
@@ -332,6 +376,10 @@ abstract class _ActivityModel extends ActivityModel {
   List<String> get likesUserKey;
   @override
   List<String> get likeMeUserKey;
+  @override
+  List<String> get contentsBlockedDocKey;
+  @override
+  List<String> get usersBlockedUserKey;
   @override
   @JsonKey(ignore: true)
   _$ActivityModelCopyWith<_ActivityModel> get copyWith =>

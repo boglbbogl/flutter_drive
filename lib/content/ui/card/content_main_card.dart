@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/app_date_time.dart';
+import 'package:flutter_drive/_constant/app_indicator.dart';
 import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
@@ -26,7 +27,6 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ContentMainCard extends StatelessWidget {
-  final RefreshController _controller = RefreshController();
   final List<CourseModel> courseList;
   final String docKey;
   final List<FeedModel> feedImageOrCourse;
@@ -36,7 +36,7 @@ class ContentMainCard extends StatelessWidget {
   final List<String> likes;
   final List<String> bookmarks;
 
-  ContentMainCard({
+  const ContentMainCard({
     Key? key,
     required this.courseList,
     required this.feedImageOrCourse,
@@ -51,30 +51,48 @@ class ContentMainCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _courseList = contents.isNotEmpty
-        ? courseList.where((c) => contents.contains(c.docKey)).toList()
+        ? courseList
+            .where((c) => contents.contains(c.docKey) && !c.isBlocked)
+            .toList()
         : likes.isNotEmpty
-            ? courseList.where((c) => likes.contains(c.docKey)).toList()
+            ? courseList
+                .where((c) => likes.contains(c.docKey) && !c.isBlocked)
+                .toList()
             : bookmarks.isNotEmpty
-                ? courseList.where((c) => bookmarks.contains(c.docKey)).toList()
-                : courseList;
+                ? courseList
+                    .where((c) => bookmarks.contains(c.docKey) && !c.isBlocked)
+                    .toList()
+                : courseList
+                    .where((c) =>
+                        !c.isBlocked &&
+                        !c.blockedUserKey.contains(
+                            context.watch<AuthProvider>().user == null
+                                ? ""
+                                : context.watch<AuthProvider>().user!.userKey))
+                    .toList();
     final _index = _courseList.indexWhere((e) => docKey.contains(e.docKey));
+    if (context.read<AuthProvider>().user == null) {
+      return const AppIndicator();
+    }
     return SmartRefresher(
       enablePullDown: false,
       enablePullUp: true,
-      controller: _controller,
+      controller: isMain
+          ? context.read<FeedMainProvider>().refreshController
+          : RefreshController(),
       onLoading: () {
         if (isMain) {
           if (courseList.length == context.read<FeedMainProvider>().limit) {
             context.read<FeedMainProvider>().courseStreamMoreFeed();
-            _controller.loadComplete();
+            context.read<FeedMainProvider>().refreshController.loadComplete();
           } else {
-            _controller.loadNoData();
+            context.read<FeedMainProvider>().refreshController.loadNoData();
           }
         } else {
           // user not loading
         }
       },
-      footer: contentRefreshFooter(isMain: isMain),
+      footer: contentRefreshFooter(isMain: isMain, context: context),
       child: ListView(
         children: [
           if (!isMain) ...[
