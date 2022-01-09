@@ -128,7 +128,7 @@ class ContentRepository {
     await _batch.commit();
   }
 
-  Future removeBookmar({
+  Future removeBookmark({
     required String docKey,
     required String userKey,
   }) async {

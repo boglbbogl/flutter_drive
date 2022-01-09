@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:flutter_drive/profile/provider/profile_provider.dart';
 import 'package:flutter_drive/profile/ui/page/profile_page.dart';
+import 'package:flutter_drive/setting/ui/setting_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 
 class SettingDrawerPage extends StatelessWidget {
-  // final double appBarHeight;
   const SettingDrawerPage({
     Key? key,
-    // required this.appBarHeight,
   }) : super(key: key);
 
   @override
@@ -57,7 +56,19 @@ class SettingDrawerPage extends StatelessWidget {
                                 context.read<FeedUserProvider>().isShowDrawer);
                       }),
                   _menuItemListTile(
-                      title: '설정', icons: Icons.settings, onTap: () {}),
+                      title: '초대하기', icons: Icons.link_outlined, onTap: () {}),
+                  _menuItemListTile(
+                      title: '설정',
+                      icons: Icons.settings,
+                      onTap: () {
+                        pushNewScreen(context,
+                            screen: const SettingPage(),
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.cupertino);
+                        context.read<FeedUserProvider>().showCustomDrawer(
+                            value:
+                                context.read<FeedUserProvider>().isShowDrawer);
+                      }),
                 ],
               ),
               Column(

@@ -44,10 +44,10 @@ class FeedUserLikesPage extends StatelessWidget {
                               const Color.fromRGBO(175, 175, 175, 1),
                           tabs: const [
                             Tab(
-                              text: '내가 좋아한 유저',
+                              text: '내가 좋아한 사용자',
                             ),
                             Tab(
-                              text: '나를 좋아한 유저',
+                              text: '나를 좋아한 사용자',
                             ),
                           ],
                         ),

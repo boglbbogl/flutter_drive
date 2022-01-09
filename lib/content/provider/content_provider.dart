@@ -59,7 +59,7 @@ class ContentProvider extends ChangeNotifier {
     required bool isBookmark,
   }) async {
     if (isBookmark) {
-      await _contentRepository.removeBookmar(docKey: docKey, userKey: userKey);
+      await _contentRepository.removeBookmark(docKey: docKey, userKey: userKey);
     } else {
       await _contentRepository.addBookmark(docKey: docKey, userKey: userKey);
     }

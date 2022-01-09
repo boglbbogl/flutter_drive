@@ -17,6 +17,7 @@ class FeedUserProvider extends ChangeNotifier {
 
   FeedUserProvider() {
     getFeedUserCourse();
+    _isShowDrawer = false;
   }
 
   void initialization() {

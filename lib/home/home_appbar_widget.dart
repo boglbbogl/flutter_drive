@@ -42,6 +42,25 @@ AppBar homeAppbarWidget({
         },
         icon: CustomIcon.heartEmpty,
       ),
+      // Stack(
+      //   alignment: Alignment.center,
+      //   children: [
+      //     _actionIcons(
+      //       onTap: () {},
+      //       icon: Icons.notifications_none,
+      //     ),
+      //     // Positioned(
+      //     //   top: 12,
+      //     //   right: 8,
+      //     //   child: Container(
+      //     //     width: 10,
+      //     //     height: 10,
+      //     //     decoration: BoxDecoration(
+      //     //         borderRadius: BorderRadius.circular(10), color: appMainColor),
+      //     //   ),
+      //     // )
+      //   ],
+      // ),
       Padding(
         padding: const EdgeInsets.only(left: 8, right: 10),
         child: context.watch<AuthProvider>().user == null

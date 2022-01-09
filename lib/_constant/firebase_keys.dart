@@ -9,3 +9,4 @@ const collectionKeyword = 'KEYWORD';
 const collectionRecommendation = 'RECOMMENDATION';
 const documentKeywordRecommendation = 'Keyword_Recommendation';
 const collectionBlocked = 'BLOCKED';
+const collectionComplain = 'COMPLAIN';

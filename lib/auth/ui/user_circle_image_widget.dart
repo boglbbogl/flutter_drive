@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_profile_page.dart';
@@ -19,10 +17,6 @@ InkWell userCircleImageWidget({
   return InkWell(
     onTap: () async {
       context.read<AuthProvider>().getAllUserFeedUpdateStatus(userKey: userKey);
-      logger.e(context.read<AuthProvider>().user);
-      logger.e(context.read<AuthProvider>().activity);
-      logger.e(context.read<AuthProvider>().allUserProfile);
-      logger.e(context.read<AuthProvider>().allUserActivity);
       pushNewScreen(context,
           screen: FeedUserProfilePage(
             isProfileUpdate: isProfileUpdate,

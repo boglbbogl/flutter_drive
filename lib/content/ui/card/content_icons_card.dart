@@ -62,12 +62,12 @@ Padding contentIconsCard({
             ),
           ],
         ),
-        Column(
-          children: [
-            _iconBtn(icon: Icons.share, onTap: () {}),
-            _contentCountForm(onTap: () {}, title: ""),
-          ],
-        ),
+        // Column(
+        //   children:  [
+        //     // _iconBtn(icon: Icons.share, onTap: () {}),
+        //     // _contentCountForm(onTap: () {}, title: ""),
+        //   ],
+        // ),
       ],
     ),
   );
