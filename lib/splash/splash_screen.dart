@@ -9,11 +9,11 @@ class SplashScreen extends StatelessWidget {
       return Container(
         height: constraints.maxHeight,
         width: constraints.maxWidth,
-        color: Colors.white,
+        color: Colors.black,
         child: Opacity(
-            opacity: 1,
+            opacity: 0.7,
             child: Image.asset(
-              'assets/images/background_image.jpg',
+              'assets/images/splash_image.jpg',
               fit: BoxFit.cover,
             )),
       );
