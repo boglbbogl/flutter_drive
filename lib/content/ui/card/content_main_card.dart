@@ -277,6 +277,7 @@ class ContentMainCard extends StatelessWidget {
                               },
                               commentOnTap: () async {
                                 await _commentPushPaged(
+                                    userKey: courseList[index].userKey,
                                     context: context,
                                     docKey: courseList[index].docKey,
                                     allUser: context
@@ -328,6 +329,7 @@ class ContentMainCard extends StatelessWidget {
                           likeOrCommentWidget(
                               onTap: () async {
                                 await _commentPushPaged(
+                                    userKey: courseList[index].userKey,
                                     context: context,
                                     docKey: courseList[index].docKey,
                                     allUser: context
@@ -365,6 +367,7 @@ class ContentMainCard extends StatelessWidget {
     required BuildContext context,
     required List<UserModel> allUser,
     required String docKey,
+    required String userKey,
   }) async {
     return pushNewScreen(
       context,
@@ -373,6 +376,7 @@ class ContentMainCard extends StatelessWidget {
             CommentProvider(allUser)..getComment(docKey: docKey),
         child: CommentMainPage(
           docKey: docKey,
+          userKey: userKey,
         ),
       ),
     );

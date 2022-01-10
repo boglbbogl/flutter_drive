@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/repo/feed_repository.dart';
+import 'package:flutter_drive/notification/notification_model.dart';
 
 class FeedUserProvider extends ChangeNotifier {
   final FeedRepostiory _feedRepostiory = FeedRepostiory();
@@ -48,7 +49,17 @@ class FeedUserProvider extends ChangeNotifier {
           userKey: userKey, likeMeUserKey: likeMeUserKey);
     } else {
       await _feedRepostiory.addLikesUserAndLikeMeUser(
-          userKey: userKey, likeMeUserKey: likeMeUserKey);
+          userLikeNotiModel: NotificationModel(
+              notiDocKey: "",
+              noti: 1,
+              comment: "",
+              userKey: userKey,
+              notiUserKey: likeMeUserKey,
+              isHide: false,
+              docKey: "",
+              createdAt: DateTime.now()),
+          userKey: userKey,
+          likeMeUserKey: likeMeUserKey);
     }
     _isLikeLoading = false;
     notifyListeners();

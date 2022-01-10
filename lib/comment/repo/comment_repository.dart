@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_drive/_constant/firebase_keys.dart';
 import 'package:flutter_drive/comment/model/comment_model.dart';
+import 'package:flutter_drive/notification/notification_model.dart';
 
 class CommentRepository {
   static final CommentRepository _repository = CommentRepository._internal();
@@ -50,6 +51,7 @@ class CommentRepository {
     required String courseDocKey,
     required String commentDocKey,
     required MoreCommentModel moreComment,
+    required NotificationModel notificationModel,
   }) async {
     final DocumentReference<Map<String, dynamic>> _commentRef = _firestore
         .collection(collectionCourse)
@@ -63,12 +65,20 @@ class CommentRepository {
         .doc(commentDocKey)
         .collection(collectionMoreComment)
         .doc();
+    final DocumentReference<Map<String, dynamic>> _notiRef =
+        _firestore.collection(collectionNotification).doc();
     final _courseRef =
         _firestore.collection(collectionCourse).doc(courseDocKey);
+
     final DocumentSnapshot _ds = await _moreCommentRef.get();
+    final _notiToWrite = notificationModel.copyWith(docKey: _notiRef.id);
+
     final _toWrite =
         moreComment.copyWith(docKey: _ds.id, commentDocKey: commentDocKey);
     final _batch = _firestore.batch();
+    if (notificationModel.userKey != notificationModel.notiUserKey) {
+      _batch.set(_notiRef, _notiToWrite.toJson());
+    }
     _batch.update(_commentRef, {
       "isMoreCount": FieldValue.increment(1),
     });
@@ -82,22 +92,32 @@ class CommentRepository {
   Future<void> createComment({
     required String docKey,
     required CommentModel commentModel,
+    required NotificationModel notificationModel,
   }) async {
     final DocumentReference<Map<String, dynamic>> _commentRef = _firestore
         .collection(collectionCourse)
         .doc(docKey)
         .collection(collectionComment)
         .doc();
+    final DocumentReference<Map<String, dynamic>> _notiRef =
+        _firestore.collection(collectionNotification).doc();
+
     final _commentCountRef =
         _firestore.collection(collectionCourse).doc(docKey);
+
     final DocumentSnapshot _documentSnapshot = await _commentRef.get();
     final _toWrite = commentModel.copyWith(docKey: _documentSnapshot.id);
+    final _notiToWrite = notificationModel.copyWith(docKey: _notiRef.id);
     final _batch = _firestore.batch();
     if (!_documentSnapshot.exists) {
+      if (notificationModel.userKey != notificationModel.notiUserKey) {
+        _batch.set(_notiRef, _notiToWrite.toJson());
+      }
       _batch.set(_commentRef, _toWrite.toFireStore());
       _batch.update(_commentCountRef, {
         "commentCount": FieldValue.increment(1),
       });
+
       await _batch.commit();
     }
   }

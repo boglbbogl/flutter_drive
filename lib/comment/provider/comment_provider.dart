@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/comment/model/comment_model.dart';
 import 'package:flutter_drive/comment/repo/comment_repository.dart';
+import 'package:flutter_drive/notification/notification_model.dart';
 
 class CommentProvider extends ChangeNotifier {
   final CommentRepository _commentRepository = CommentRepository();
@@ -92,8 +93,19 @@ class CommentProvider extends ChangeNotifier {
   Future createComment({
     required String docKey,
     required UserModel userModel,
+    required String notiUserKey,
   }) async {
     await _commentRepository.createComment(
+        notificationModel: NotificationModel(
+          notiDocKey: docKey,
+          userKey: userModel.userKey,
+          notiUserKey: notiUserKey,
+          noti: 2,
+          comment: _commentText,
+          isHide: false,
+          docKey: docKey,
+          createdAt: DateTime.now(),
+        ),
         docKey: docKey,
         commentModel: _comment.copyWith(
           createdAt: DateTime.now(),
@@ -109,6 +121,16 @@ class CommentProvider extends ChangeNotifier {
     required String userKey,
   }) async {
     await _commentRepository.createMoreComment(
+      notificationModel: NotificationModel(
+        userKey: userKey,
+        notiUserKey: _moreCommentUser!.userKey,
+        noti: 3,
+        comment: _moreCommentText,
+        notiDocKey: courseDocKey,
+        isHide: false,
+        docKey: "",
+        createdAt: DateTime.now(),
+      ),
       courseDocKey: courseDocKey,
       commentDocKey: _commentMoreDocKey,
       moreComment: _moreCommentModel.copyWith(

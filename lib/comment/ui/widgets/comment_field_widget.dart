@@ -8,6 +8,7 @@ Padding commentFieldWidet({
   required TextEditingController controller,
   required BuildContext context,
   required String docKey,
+  required String userKey,
 }) {
   return Padding(
     padding: const EdgeInsets.only(bottom: 10, top: 10),
@@ -27,6 +28,7 @@ Padding commentFieldWidet({
                 if (value.isEmpty) {
                 } else {
                   context.read<CommentProvider>().createComment(
+                    notiUserKey: userKey,
                         docKey: docKey,
                         userModel: context.read<AuthProvider>().user!,
                       );

@@ -15,9 +15,11 @@ import 'package:provider/provider.dart';
 class CommentMainPage extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
   final String docKey;
+  final String userKey;
   CommentMainPage({
     Key? key,
     required this.docKey,
+    required this.userKey,
   }) : super(key: key);
 
   @override
@@ -263,7 +265,8 @@ class CommentMainPage extends StatelessWidget {
                     commentFieldWidet(
                         controller: _controller,
                         context: context,
-                        docKey: docKey),
+                        docKey: docKey,
+                        userKey: userKey),
                   ],
                 ],
               ),
