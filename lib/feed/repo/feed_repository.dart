@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_drive/_constant/firebase_keys.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
-import 'package:flutter_drive/notification/notification_model.dart';
+import 'package:flutter_drive/notification/model/notification_model.dart';
 
 class FeedRepostiory {
   static final FeedRepostiory _repostiory = FeedRepostiory._internal();

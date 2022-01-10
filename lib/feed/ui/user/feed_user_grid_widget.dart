@@ -147,6 +147,7 @@ InkWell _contentFeedGridListItem({
             contents: contents,
             likes: likes,
             bookmarks: bookmarks,
+            notificationFeedDocKey: [],
           ),
           pageTransitionAnimation: PageTransitionAnimation.cupertino);
     },

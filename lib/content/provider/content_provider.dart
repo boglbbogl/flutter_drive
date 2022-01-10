@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
 import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/content/repo/content_repository.dart';
+import 'package:flutter_drive/notification/model/notification_model.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 class ContentProvider extends ChangeNotifier {
@@ -57,24 +58,50 @@ class ContentProvider extends ChangeNotifier {
     required String docKey,
     required String userKey,
     required bool isBookmark,
+    required String notiUserKey,
   }) async {
     if (isBookmark) {
       await _contentRepository.removeBookmark(docKey: docKey, userKey: userKey);
     } else {
-      await _contentRepository.addBookmark(docKey: docKey, userKey: userKey);
+      await _contentRepository.addBookmark(
+          docKey: docKey,
+          userKey: userKey,
+          notificationModel: NotificationModel(
+            userKey: userKey,
+            notiUserKey: notiUserKey,
+            noti: 5,
+            comment: "",
+            notiDocKey: docKey,
+            isHide: false,
+            docKey: "",
+            createdAt: DateTime.now(),
+          ));
     }
   }
 
   Future likeAddAndRemove({
     required String docKey,
     required String userKey,
+    required String notiUserKey,
     required bool isLike,
   }) async {
     logger.d(isLike);
     if (isLike) {
       await _contentRepository.removeLike(docKey: docKey, userKey: userKey);
     } else {
-      await _contentRepository.addLike(docKey: docKey, userKey: userKey);
+      await _contentRepository.addLike(
+          docKey: docKey,
+          userKey: userKey,
+          notificationModel: NotificationModel(
+            userKey: userKey,
+            notiUserKey: notiUserKey,
+            noti: 4,
+            comment: "",
+            notiDocKey: docKey,
+            isHide: false,
+            docKey: "",
+            createdAt: DateTime.now(),
+          ));
     }
   }
 

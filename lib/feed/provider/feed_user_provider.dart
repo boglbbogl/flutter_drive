@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/repo/feed_repository.dart';
-import 'package:flutter_drive/notification/notification_model.dart';
+import 'package:flutter_drive/notification/model/notification_model.dart';
 
 class FeedUserProvider extends ChangeNotifier {
   final FeedRepostiory _feedRepostiory = FeedRepostiory();

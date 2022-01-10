@@ -16,6 +16,7 @@ import 'package:flutter_drive/content/ui/card/content_icons_card.dart';
 import 'package:flutter_drive/content/ui/card/content_image_card.dart';
 import 'package:flutter_drive/content/ui/card/content_user_info_card.dart';
 import 'package:flutter_drive/content/ui/page/content_like_bookmark_page.dart';
+import 'package:flutter_drive/content/ui/widgets/content_delete_card_widget.dart';
 import 'package:flutter_drive/content/ui/widgets/content_refresher_widget.dart';
 import 'package:flutter_drive/content/ui/widgets/image_or_course_widget.dart';
 import 'package:flutter_drive/content/ui/widgets/like_or_comment_widget.dart';
@@ -35,6 +36,7 @@ class ContentMainCard extends StatelessWidget {
   final List<String> contents;
   final List<String> likes;
   final List<String> bookmarks;
+  final List<String> notificationFeedDocKey;
 
   const ContentMainCard({
     Key? key,
@@ -46,6 +48,7 @@ class ContentMainCard extends StatelessWidget {
     required this.contents,
     required this.likes,
     required this.bookmarks,
+    required this.notificationFeedDocKey,
   }) : super(key: key);
 
   @override
@@ -74,13 +77,24 @@ class ContentMainCard extends StatelessWidget {
                         !c.isBlocked &&
                         !c.blockedUserKey.contains(_userKey))
                     .toList()
-                : courseList
-                    .where((c) =>
-                        !c.isBlocked && !c.blockedUserKey.contains(_userKey))
-                    .toList();
+                : notificationFeedDocKey.isNotEmpty
+                    ? courseList
+                        .where((c) =>
+                            notificationFeedDocKey.contains(c.docKey) &&
+                            !c.isBlocked &&
+                            !c.blockedUserKey.contains(_userKey))
+                        .toList()
+                    : courseList
+                        .where((c) =>
+                            !c.isBlocked &&
+                            !c.blockedUserKey.contains(_userKey))
+                        .toList();
     final _index = _courseList.indexWhere((e) => docKey.contains(e.docKey));
     if (context.read<AuthProvider>().user == null) {
       return const AppIndicator();
+    }
+    if (notificationFeedDocKey.isNotEmpty && _courseList.isEmpty) {
+      return contentDeleteCardWidget();
     }
     return SmartRefresher(
       enablePullDown: false,
@@ -103,7 +117,7 @@ class ContentMainCard extends StatelessWidget {
       footer: contentRefreshFooter(isMain: isMain, context: context),
       child: ListView(
         children: [
-          if (!isMain) ...[
+          if (!isMain && notificationFeedDocKey.isEmpty) ...[
             ..._courseList.where((e) => docKey.contains(e.docKey)).map((e) =>
                 _card(
                     isFirst: true,
@@ -247,6 +261,7 @@ class ContentMainCard extends StatelessWidget {
                                 context
                                     .read<ContentProvider>()
                                     .bookmarkAddAndRemove(
+                                        notiUserKey: courseList[index].userKey,
                                         docKey: courseList[index].docKey,
                                         userKey: context
                                             .read<AuthProvider>()
@@ -263,6 +278,7 @@ class ContentMainCard extends StatelessWidget {
                                 context
                                     .read<ContentProvider>()
                                     .likeAddAndRemove(
+                                        notiUserKey: courseList[index].userKey,
                                         isLike: courseList[index]
                                             .likeUserKey
                                             .contains(context
@@ -369,7 +385,7 @@ class ContentMainCard extends StatelessWidget {
     required String docKey,
     required String userKey,
   }) async {
-    return pushNewScreen(
+    pushNewScreen(
       context,
       screen: ChangeNotifierProvider(
         create: (context) =>

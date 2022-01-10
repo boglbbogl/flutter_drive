@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_drive/_constant/firebase_keys.dart';
-import 'package:flutter_drive/notification/notification_model.dart';
+import 'package:flutter_drive/notification/model/notification_model.dart';
 
 class NotificationRepository {
   static final NotificationRepository _repository =
@@ -24,11 +24,26 @@ class NotificationRepository {
     return _result;
   }
 
+  Future allNotificationRemove({
+    required String userKey,
+  }) async {
+    final CollectionReference<Map<String, dynamic>> _notiRef =
+        _firestore.collection(collectionNotification);
+    await _notiRef
+        .where('notiUserKey', isEqualTo: userKey)
+        .get()
+        .then((snapshot) {
+      for (final element in snapshot.docs) {
+        _notiRef.doc(element.id).delete();
+      }
+    });
+  }
+
   Future removeUserNotification({
     required String docKey,
   }) async {
-    final DocumentReference<Map<String, dynamic>> _userNotiRef =
+    final DocumentReference<Map<String, dynamic>> _notiRef =
         _firestore.collection(collectionNotification).doc(docKey);
-    await _userNotiRef.delete();
+    await _notiRef.delete();
   }
 }

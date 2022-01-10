@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_drive/notification/notification_model.dart';
+import 'package:flutter_drive/notification/model/notification_model.dart';
 import 'package:flutter_drive/notification/notification_repository.dart';
 
 class NotificationProvider extends ChangeNotifier {
@@ -12,6 +12,14 @@ class NotificationProvider extends ChangeNotifier {
   }) async {
     _userNotiList =
         await _notificationRepository.getUserNotification(userKey: userKey);
+    notifyListeners();
+  }
+
+  Future allRemoveNotification({
+    required String notiUserKey,
+  }) async {
+    await _notificationRepository.allNotificationRemove(userKey: notiUserKey);
+    _userNotiList = [];
     notifyListeners();
   }
 

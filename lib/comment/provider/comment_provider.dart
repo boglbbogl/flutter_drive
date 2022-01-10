@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/comment/model/comment_model.dart';
 import 'package:flutter_drive/comment/repo/comment_repository.dart';
-import 'package:flutter_drive/notification/notification_model.dart';
+import 'package:flutter_drive/notification/model/notification_model.dart';
 
 class CommentProvider extends ChangeNotifier {
   final CommentRepository _commentRepository = CommentRepository();

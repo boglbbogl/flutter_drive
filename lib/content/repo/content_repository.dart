@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_drive/_constant/firebase_keys.dart';
+import 'package:flutter_drive/notification/model/notification_model.dart';
 
 class ContentRepository {
   static final ContentRepository _repository = ContentRepository._internal();
@@ -71,13 +72,19 @@ class ContentRepository {
   Future addLike({
     required String docKey,
     required String userKey,
+    required NotificationModel notificationModel,
   }) async {
     final DocumentReference<Map<String, dynamic>> _courseRef =
         _firestore.collection(collectionCourse).doc(docKey);
     final DocumentReference<Map<String, dynamic>> _activityRef =
         _firestore.collection(collectionActivity).doc(userKey);
-
+    final DocumentReference<Map<String, dynamic>> _notiRef =
+        _firestore.collection(collectionNotification).doc();
     final _batch = _firestore.batch();
+    if (notificationModel.userKey != notificationModel.notiUserKey) {
+      final _notiToWrite = notificationModel.copyWith(docKey: _notiRef.id);
+      _batch.set(_notiRef, _notiToWrite.toJson());
+    }
     _batch.update(_courseRef, {
       "likeUserKey": FieldValue.arrayUnion(
         [userKey],
@@ -98,6 +105,7 @@ class ContentRepository {
     final DocumentReference<Map<String, dynamic>> _activityRef =
         _firestore.collection(collectionActivity).doc(userKey);
     final _batch = _firestore.batch();
+
     _batch.update(_courseRef, {
       "likeUserKey": FieldValue.arrayRemove([userKey])
     });
@@ -110,13 +118,20 @@ class ContentRepository {
   Future addBookmark({
     required String docKey,
     required String userKey,
+    required NotificationModel notificationModel,
   }) async {
     final DocumentReference<Map<String, dynamic>> _courseRef =
         _firestore.collection(collectionCourse).doc(docKey);
     final DocumentReference<Map<String, dynamic>> _activityRef =
         _firestore.collection(collectionActivity).doc(userKey);
+    final DocumentReference<Map<String, dynamic>> _notiRef =
+        _firestore.collection(collectionNotification).doc();
 
     final _batch = _firestore.batch();
+    if (notificationModel.userKey != notificationModel.notiUserKey) {
+      final _notiToWrite = notificationModel.copyWith(docKey: _notiRef.id);
+      _batch.set(_notiRef, _notiToWrite.toJson());
+    }
     _batch.update(_courseRef, {
       "bookmarkUserKey": FieldValue.arrayUnion(
         [userKey],

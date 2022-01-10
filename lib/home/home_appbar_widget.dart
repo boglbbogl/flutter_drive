@@ -7,8 +7,8 @@ import 'package:flutter_drive/course/provider/course_provider.dart';
 import 'package:flutter_drive/course/ui/screen/course_page.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_likes_page.dart';
 import 'package:flutter_drive/image/provider/images_provider.dart';
-import 'package:flutter_drive/notification/notification_page.dart';
-import 'package:flutter_drive/notification/notification_provider.dart';
+import 'package:flutter_drive/notification/provider/notification_provider.dart';
+import 'package:flutter_drive/notification/ui/notification_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
