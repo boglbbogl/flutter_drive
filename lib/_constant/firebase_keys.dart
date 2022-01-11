@@ -7,6 +7,7 @@ const collectionCity = 'CITY';
 const documentCity = 'activity_city';
 const collectionKeyword = 'KEYWORD';
 const collectionRecommendation = 'RECOMMENDATION';
+const collectionRecommendationCourse = 'RECOMMENDATION_COURSE';
 const documentKeywordRecommendation = 'Keyword_Recommendation';
 const collectionBlocked = 'BLOCKED';
 const collectionComplain = 'COMPLAIN';

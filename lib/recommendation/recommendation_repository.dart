@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_drive/_constant/firebase_keys.dart';
+import 'package:flutter_drive/recommendation/recommendation_model.dart';
 import 'package:flutter_drive/search/keyword_model.dart';
 
 class RecommendationRepository {
@@ -9,6 +10,15 @@ class RecommendationRepository {
   RecommendationRepository._internal();
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<List<RouteCourseModel>> getRouteCourseList() async {
+    final CollectionReference<Map<String, dynamic>> _recommendationCourseRef =
+        _firestore.collection(collectionRecommendationCourse);
+
+    final _result = await _recommendationCourseRef.get().then((snapshot) =>
+        snapshot.docs.map((e) => RouteCourseModel.fromJson(e.data())).toList());
+    return _result;
+  }
 
   Future<List> getRecommandationSrcKeyword() async {
     final List _srcKeyword = [];

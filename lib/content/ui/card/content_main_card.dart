@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/app_date_time.dart';
 import 'package:flutter_drive/_constant/app_indicator.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
 import 'package:flutter_drive/comment/provider/comment_provider.dart';
@@ -20,9 +20,11 @@ import 'package:flutter_drive/content/ui/widgets/content_delete_card_widget.dart
 import 'package:flutter_drive/content/ui/widgets/content_refresher_widget.dart';
 import 'package:flutter_drive/content/ui/widgets/image_or_course_widget.dart';
 import 'package:flutter_drive/content/ui/widgets/like_or_comment_widget.dart';
+import 'package:flutter_drive/content/ui/widgets/route_course_widget.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/feed/model/feed_model.dart';
 import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
+import 'package:flutter_drive/recommendation/recommendation_provider.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -117,6 +119,15 @@ class ContentMainCard extends StatelessWidget {
       footer: contentRefreshFooter(isMain: isMain, context: context),
       child: ListView(
         children: [
+          if (isMain &&
+              context
+                  .watch<RecommendationProvider>()
+                  .routeCourseList
+                  .isNotEmpty) ...[
+            const SizedBox(height: 8),
+            routeCourseWidget(context: context),
+            const SizedBox(height: 10),
+          ],
           if (!isMain && notificationFeedDocKey.isEmpty) ...[
             ..._courseList.where((e) => docKey.contains(e.docKey)).map((e) =>
                 _card(
@@ -125,11 +136,16 @@ class ContentMainCard extends StatelessWidget {
                     courseList: _courseList,
                     index: _index)),
           ],
-          ...List.generate(_courseList.length, (index) {
+          ...List.generate(isMain ? _courseList.length : _courseList.length - 1,
+              (index) {
             return _card(
                 isFirst: false,
                 context: context,
-                courseList: _courseList,
+                courseList: isMain
+                    ? _courseList
+                    : _courseList
+                        .where((e) => !docKey.contains(e.docKey))
+                        .toList(),
                 index: index);
           })
         ],

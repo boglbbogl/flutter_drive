@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/notification/model/notification_model.dart';
 import 'package:flutter_drive/notification/repo/notification_repository.dart';
 
