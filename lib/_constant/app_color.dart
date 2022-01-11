@@ -10,7 +10,8 @@ Color appMainColor = const Color.fromRGBO(107, 232, 204, 1);
 // Orange
 Color appSubColor = const Color.fromRGBO(208, 84, 69, 1);
 Color darkThemeMainColor = const Color.fromRGBO(31, 31, 31, 1);
-Color darkThemeCardColor = const Color.fromRGBO(46, 47, 64, 1);
+Color darkThemeBlackCardColor = const Color.fromRGBO(51, 51, 51, 1);
+// Color darkThemeNavyCardColor = const Color.fromRGBO(46, 47, 64, 1);
 Color lightThemeMainColor = const Color.fromRGBO(235, 235, 235, 1);
 
 const MaterialColor materialBlackColor = MaterialColor(

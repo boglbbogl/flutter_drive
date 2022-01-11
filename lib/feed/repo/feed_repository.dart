@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_drive/_constant/firebase_keys.dart';
+import 'package:flutter_drive/_constant/logger.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/course/model/course_model.dart';
 import 'package:flutter_drive/notification/model/notification_model.dart';
@@ -61,10 +62,16 @@ class FeedRepostiory {
         _firestore.collection(collectionActivity);
     final DocumentReference<Map<String, dynamic>> _notiRef =
         _firestore.collection(collectionNotification).doc();
-
-    final _userNotiToWrite = userLikeNotiModel.copyWith(docKey: _notiRef.id);
+    final DocumentReference<Map<String, dynamic>> _userNotiSettingRef =
+        _firestore.collection(collectionNotiSetting).doc(likeMeUserKey);
+    final _notiSnapshot = await _userNotiSettingRef.get();
+    final bool _isUserLike =
+        UserNotificationModel.fromFireStore(_notiSnapshot).isUserLike;
     final _batch = _firestore.batch();
-    _batch.set(_notiRef, _userNotiToWrite.toJson());
+    if (_isUserLike) {
+      final _userNotiToWrite = userLikeNotiModel.copyWith(docKey: _notiRef.id);
+      _batch.set(_notiRef, _userNotiToWrite.toJson());
+    }
     _batch.update(_activityRef.doc(userKey), {
       "likesUserKey": FieldValue.arrayUnion([likeMeUserKey])
     });

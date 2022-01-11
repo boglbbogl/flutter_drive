@@ -45,8 +45,8 @@ AppBar homeAppbarWidget({
         icon: CustomIcon.heartEmpty,
       ),
       _actionIcons(
-        onTap: () {
-          context.read<NotificationProvider>().getUserNotification(
+        onTap: () async {
+          await context.read<NotificationProvider>().getUserNotification(
               userKey: context.read<AuthProvider>().user!.userKey);
           pushNewScreen(context,
               screen: const NotificationPage(),

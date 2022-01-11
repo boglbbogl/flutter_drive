@@ -6,6 +6,31 @@ part 'notification_model.freezed.dart';
 part 'notification_model.g.dart';
 
 @freezed
+class UserNotificationModel with _$UserNotificationModel {
+  const factory UserNotificationModel({
+    required bool isUserLike,
+    required bool isFeedLike,
+    required bool isFeedBookmark,
+    required bool isComment,
+    required bool isMoreComment,
+  }) = _UserNotificationModel;
+  const UserNotificationModel._();
+  factory UserNotificationModel.fromJson(Map<String, dynamic> json) =>
+      _$UserNotificationModelFromJson(json);
+  factory UserNotificationModel.fromFireStore(
+      DocumentSnapshot<Map<String, dynamic>> doc) {
+    return UserNotificationModel.fromJson(doc.data()!);
+  }
+  factory UserNotificationModel.empty() => const UserNotificationModel(
+        isUserLike: true,
+        isFeedLike: true,
+        isFeedBookmark: true,
+        isComment: true,
+        isMoreComment: true,
+      );
+}
+
+@freezed
 class NotificationModel with _$NotificationModel {
   const factory NotificationModel({
     required String userKey,

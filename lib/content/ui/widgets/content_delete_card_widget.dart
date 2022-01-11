@@ -11,7 +11,7 @@ Padding contentDeleteCardWidget() {
         height: size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: darkThemeCardColor,
+          color: darkThemeBlackCardColor,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

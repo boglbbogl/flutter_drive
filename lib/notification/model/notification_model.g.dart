@@ -6,6 +6,26 @@ part of 'notification_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_$_UserNotificationModel _$$_UserNotificationModelFromJson(
+        Map<String, dynamic> json) =>
+    _$_UserNotificationModel(
+      isUserLike: json['isUserLike'] as bool,
+      isFeedLike: json['isFeedLike'] as bool,
+      isFeedBookmark: json['isFeedBookmark'] as bool,
+      isComment: json['isComment'] as bool,
+      isMoreComment: json['isMoreComment'] as bool,
+    );
+
+Map<String, dynamic> _$$_UserNotificationModelToJson(
+        _$_UserNotificationModel instance) =>
+    <String, dynamic>{
+      'isUserLike': instance.isUserLike,
+      'isFeedLike': instance.isFeedLike,
+      'isFeedBookmark': instance.isFeedBookmark,
+      'isComment': instance.isComment,
+      'isMoreComment': instance.isMoreComment,
+    };
+
 _$_NotificationModel _$$_NotificationModelFromJson(Map<String, dynamic> json) =>
     _$_NotificationModel(
       userKey: json['userKey'] as String,

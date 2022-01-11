@@ -40,16 +40,13 @@
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSApplicationQueriesSchemes</key>
-  	<array>
-      <!-- common -->
-      <string>kakaoe8bf54a920a92a14134c1b4f2e52610d</string>
-      <!-- KakaoTalk login -->
-      <string>kakaokompassauth</string>
-      <string>storykompassauth</string>
-      <!-- KakaoLink -->
-      <string>kakaolink</string>         
-      <string>kakaotalk-5.9.7</string>
-  	</array>
+	<array>
+		<string>kakaoe8bf54a920a92a14134c1b4f2e52610d</string>
+		<string>kakaokompassauth</string>
+		<string>storykompassauth</string>
+		<string>kakaolink</string>
+		<string>kakaotalk-5.9.7</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>

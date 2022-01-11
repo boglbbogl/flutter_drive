@@ -31,7 +31,7 @@ class ProfileNickNameWidget extends StatelessWidget {
           child: !isTextForm
               ? SizedBox(
                   width: size.width * 0.8,
-                  height: size.height * 0.1,
+                  height: size.height * 0.12,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -71,7 +71,7 @@ class ProfileNickNameWidget extends StatelessWidget {
               : SizedBox(
                   key: const ValueKey('nickName'),
                   width: size.width * 0.8,
-                  height: size.height * 0.1,
+                  height: size.height * 0.12,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

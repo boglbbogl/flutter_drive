@@ -47,7 +47,7 @@ Container courseImageWidget({
                           height: 25,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25),
-                              color: darkThemeCardColor),
+                              color: darkThemeBlackCardColor),
                           child: const Center(
                             child: Icon(
                               Icons.add_circle_outline,

@@ -4,6 +4,7 @@ import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/app_indicator.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:flutter_drive/auth/ui/user_circle_image_widget.dart';
 import 'package:flutter_drive/comment/provider/comment_provider.dart';
 import 'package:flutter_drive/comment/ui/widgets/comment_field_widget.dart';
 import 'package:flutter_drive/comment/ui/widgets/comment_list_widget.dart';
@@ -16,10 +17,12 @@ class CommentMainPage extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
   final String docKey;
   final String userKey;
+  final String feedExplanation;
   CommentMainPage({
     Key? key,
     required this.docKey,
     required this.userKey,
+    required this.feedExplanation,
   }) : super(key: key);
 
   @override
@@ -50,6 +53,56 @@ class CommentMainPage extends StatelessWidget {
             children: [
               Column(
                 children: [
+                  ...provider.allUserProfile
+                      .where((e) => userKey.contains(e.userKey))
+                      .map((e) => Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(width: 12),
+                              userCircleImageWidget(
+                                  imageUrl: e.isSocialImage
+                                      ? e.socialProfileUrl
+                                      : e.localProfileUrl,
+                                  context: context,
+                                  userKey: userKey,
+                                  isProfileUpdate: false),
+                              const SizedBox(width: 12),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: size.width * 0.7,
+                                    child: RichText(
+                                        text: TextSpan(children: [
+                                      TextSpan(
+                                          text: "${e.nickName}    ",
+                                          style: theme.textTheme.bodyText2!
+                                              .copyWith(
+                                                  color: const Color.fromRGBO(
+                                                      195, 195, 195, 1),
+                                                  fontSize: 9)),
+                                      TextSpan(
+                                          text: feedExplanation,
+                                          style: theme.textTheme.bodyText2!
+                                              .copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 11)),
+                                    ])),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                  const SizedBox(height: 25),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Container(
+                      width: size.width,
+                      height: 1,
+                      color: const Color.fromRGBO(71, 71, 71, 1),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
                   Flexible(
                     child: ListView.builder(
                         itemCount: provider.commentList.length,

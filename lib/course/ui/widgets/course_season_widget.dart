@@ -124,7 +124,7 @@ Padding _seasonSelectedButton({
                         .driveSeason
                         .contains(value.toString())
                     ? const Color.fromRGBO(91, 91, 91, 1)
-                    : darkThemeCardColor),
+                    : darkThemeBlackCardColor),
             color: const Color.fromRGBO(91, 91, 91, 1)),
         child: Icon(
           icon,

@@ -80,8 +80,17 @@ class ContentRepository {
         _firestore.collection(collectionActivity).doc(userKey);
     final DocumentReference<Map<String, dynamic>> _notiRef =
         _firestore.collection(collectionNotification).doc();
+    final DocumentReference<Map<String, dynamic>> _userNotiSettingRef =
+        _firestore
+            .collection(collectionNotiSetting)
+            .doc(notificationModel.notiUserKey);
+    final _notiSnapshot = await _userNotiSettingRef.get();
+    final bool _isFeedLike =
+        UserNotificationModel.fromFireStore(_notiSnapshot).isFeedLike;
+
     final _batch = _firestore.batch();
-    if (notificationModel.userKey != notificationModel.notiUserKey) {
+    if ((notificationModel.userKey != notificationModel.notiUserKey) &&
+        _isFeedLike) {
       final _notiToWrite = notificationModel.copyWith(docKey: _notiRef.id);
       _batch.set(_notiRef, _notiToWrite.toJson());
     }
@@ -126,9 +135,17 @@ class ContentRepository {
         _firestore.collection(collectionActivity).doc(userKey);
     final DocumentReference<Map<String, dynamic>> _notiRef =
         _firestore.collection(collectionNotification).doc();
+    final DocumentReference<Map<String, dynamic>> _userNotiSettingRef =
+        _firestore
+            .collection(collectionNotiSetting)
+            .doc(notificationModel.notiUserKey);
+    final _notiSnapshot = await _userNotiSettingRef.get();
+    final bool _isFeedBookmark =
+        UserNotificationModel.fromFireStore(_notiSnapshot).isFeedBookmark;
 
     final _batch = _firestore.batch();
-    if (notificationModel.userKey != notificationModel.notiUserKey) {
+    if ((notificationModel.userKey != notificationModel.notiUserKey) &&
+        _isFeedBookmark) {
       final _notiToWrite = notificationModel.copyWith(docKey: _notiRef.id);
       _batch.set(_notiRef, _notiToWrite.toJson());
     }

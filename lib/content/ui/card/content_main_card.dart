@@ -157,7 +157,7 @@ class ContentMainCard extends StatelessWidget {
                   ? Border.all(
                       color: const Color.fromRGBO(91, 91, 91, 1), width: 2)
                   : Border.all(),
-              color: darkThemeCardColor,
+              color: darkThemeBlackCardColor,
             ),
             child: Column(
               children: [
@@ -293,6 +293,8 @@ class ContentMainCard extends StatelessWidget {
                               },
                               commentOnTap: () async {
                                 await _commentPushPaged(
+                                    feedExplanation:
+                                        courseList[index].explanation,
                                     userKey: courseList[index].userKey,
                                     context: context,
                                     docKey: courseList[index].docKey,
@@ -345,6 +347,8 @@ class ContentMainCard extends StatelessWidget {
                           likeOrCommentWidget(
                               onTap: () async {
                                 await _commentPushPaged(
+                                    feedExplanation:
+                                        courseList[index].explanation,
                                     userKey: courseList[index].userKey,
                                     context: context,
                                     docKey: courseList[index].docKey,
@@ -384,6 +388,7 @@ class ContentMainCard extends StatelessWidget {
     required List<UserModel> allUser,
     required String docKey,
     required String userKey,
+    required String feedExplanation,
   }) async {
     pushNewScreen(
       context,
@@ -391,6 +396,7 @@ class ContentMainCard extends StatelessWidget {
         create: (context) =>
             CommentProvider(allUser)..getComment(docKey: docKey),
         child: CommentMainPage(
+          feedExplanation: feedExplanation,
           docKey: docKey,
           userKey: userKey,
         ),

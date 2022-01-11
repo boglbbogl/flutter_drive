@@ -16,7 +16,7 @@ class FeedMainPage extends StatelessWidget {
           return AnimatedSwitcher(
             duration: const Duration(milliseconds: 2000),
             child: Shimmer.fromColors(
-                baseColor: darkThemeCardColor,
+                baseColor: darkThemeBlackCardColor,
                 highlightColor: const Color.fromRGBO(115, 115, 115, 1),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8, right: 8, top: 4),

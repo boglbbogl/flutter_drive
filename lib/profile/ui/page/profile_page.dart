@@ -46,7 +46,7 @@ class ProfilePage extends StatelessWidget {
                   );
                   context.read<AuthProvider>()
                     ..getAllUserFeedUpdateUserModel(userKey: _user.userKey)
-                    ..getSingleUserProfileUpdate(userKey: _user.userKey);
+                    ..getSingleUserProfile(userKey: _user.userKey);
                   Navigator.of(context).pop();
                 }
               },

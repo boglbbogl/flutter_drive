@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_drive/_constant/firebase_keys.dart';
 import 'package:flutter_drive/activity/activity_model.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
+import 'package:flutter_drive/notification/model/notification_model.dart';
 
 class AuthRepository {
   static final AuthRepository _userRepository = AuthRepository._internal();
@@ -12,13 +13,13 @@ class AuthRepository {
   Future<ActivityModel?> getUserActivity({
     required String userKey,
   }) async {
-    final DocumentReference<Map<String, dynamic>> _documentReference =
+    final DocumentReference<Map<String, dynamic>> _activityRef =
         _firestore.collection(collectionActivity).doc(userKey);
-    final DocumentSnapshot<Map<String, dynamic>> _documentSnapshot =
-        await _documentReference.get();
-    if (_documentSnapshot.exists) {
+    final DocumentSnapshot<Map<String, dynamic>> _activitySnapshot =
+        await _activityRef.get();
+    if (_activitySnapshot.exists) {
       final ActivityModel _activityModel =
-          ActivityModel.fromJson(_documentSnapshot.data()!);
+          ActivityModel.fromJson(_activitySnapshot.data()!);
       return _activityModel;
     }
     return null;
@@ -58,19 +59,26 @@ class AuthRepository {
   Future createUserProfile({
     required UserModel userModel,
     required ActivityModel activityModel,
+    required UserNotificationModel userNotificationModel,
     required String userKey,
   }) async {
     final DocumentReference<Map<String, dynamic>> _userRef =
         _firestore.collection(collectionUser).doc(userKey);
     final DocumentReference<Map<String, dynamic>> _activityRef =
         _firestore.collection(collectionActivity).doc(userKey);
+    final DocumentReference<Map<String, dynamic>> _notiSettingRef =
+        _firestore.collection(collectionNotiSetting).doc(userKey);
 
+    final DocumentSnapshot _notiSettingSnapshot = await _notiSettingRef.get();
     final DocumentSnapshot _userSnapshot = await _userRef.get();
     final DocumentSnapshot _activitySnapshot = await _userRef.get();
     final _activityWrite = activityModel.copyWith(userKey: userKey);
     final _batch = _firestore.batch();
-    if (!_userSnapshot.exists && !_activitySnapshot.exists) {
+    if (!_userSnapshot.exists &&
+        !_activitySnapshot.exists &&
+        !_notiSettingSnapshot.exists) {
       _batch.set(_userRef, userModel.toJson());
+      _batch.set(_notiSettingRef, userNotificationModel.toJson());
       _batch.set(_activityRef, _activityWrite.toJson());
       await _batch.commit();
     }

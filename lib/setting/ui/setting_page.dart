@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
 import 'package:flutter_drive/_constant/app_flushbar.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
+import 'package:flutter_drive/notification/provider/notification_provider.dart';
+import 'package:flutter_drive/setting/provider/setting_provider.dart';
 import 'package:flutter_drive/setting/ui/complain_answer_page.dart';
 import 'package:flutter_drive/setting/ui/complain_page.dart';
-import 'package:flutter_drive/setting/provider/setting_provider.dart';
+import 'package:flutter_drive/setting/ui/notification_setting_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +21,17 @@ class SettingPage extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
+            _listItemForm(
+                title: '알림 설정',
+                icon: Icons.notifications_active_outlined,
+                onTap: () async {
+                  await context.read<NotificationProvider>().getUserNotiSetting(
+                      userKey: context.read<AuthProvider>().user!.userKey);
+                  pushNewScreen(context,
+                      screen: const NotificationSettingPage(),
+                      pageTransitionAnimation:
+                          PageTransitionAnimation.cupertino);
+                }),
             _listItemForm(
                 title: '개선 사항 문의하기',
                 icon: Icons.email_outlined,

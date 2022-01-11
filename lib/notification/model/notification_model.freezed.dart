@@ -13,6 +13,261 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+UserNotificationModel _$UserNotificationModelFromJson(
+    Map<String, dynamic> json) {
+  return _UserNotificationModel.fromJson(json);
+}
+
+/// @nodoc
+class _$UserNotificationModelTearOff {
+  const _$UserNotificationModelTearOff();
+
+  _UserNotificationModel call(
+      {required bool isUserLike,
+      required bool isFeedLike,
+      required bool isFeedBookmark,
+      required bool isComment,
+      required bool isMoreComment}) {
+    return _UserNotificationModel(
+      isUserLike: isUserLike,
+      isFeedLike: isFeedLike,
+      isFeedBookmark: isFeedBookmark,
+      isComment: isComment,
+      isMoreComment: isMoreComment,
+    );
+  }
+
+  UserNotificationModel fromJson(Map<String, Object?> json) {
+    return UserNotificationModel.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $UserNotificationModel = _$UserNotificationModelTearOff();
+
+/// @nodoc
+mixin _$UserNotificationModel {
+  bool get isUserLike => throw _privateConstructorUsedError;
+  bool get isFeedLike => throw _privateConstructorUsedError;
+  bool get isFeedBookmark => throw _privateConstructorUsedError;
+  bool get isComment => throw _privateConstructorUsedError;
+  bool get isMoreComment => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UserNotificationModelCopyWith<UserNotificationModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserNotificationModelCopyWith<$Res> {
+  factory $UserNotificationModelCopyWith(UserNotificationModel value,
+          $Res Function(UserNotificationModel) then) =
+      _$UserNotificationModelCopyWithImpl<$Res>;
+  $Res call(
+      {bool isUserLike,
+      bool isFeedLike,
+      bool isFeedBookmark,
+      bool isComment,
+      bool isMoreComment});
+}
+
+/// @nodoc
+class _$UserNotificationModelCopyWithImpl<$Res>
+    implements $UserNotificationModelCopyWith<$Res> {
+  _$UserNotificationModelCopyWithImpl(this._value, this._then);
+
+  final UserNotificationModel _value;
+  // ignore: unused_field
+  final $Res Function(UserNotificationModel) _then;
+
+  @override
+  $Res call({
+    Object? isUserLike = freezed,
+    Object? isFeedLike = freezed,
+    Object? isFeedBookmark = freezed,
+    Object? isComment = freezed,
+    Object? isMoreComment = freezed,
+  }) {
+    return _then(_value.copyWith(
+      isUserLike: isUserLike == freezed
+          ? _value.isUserLike
+          : isUserLike // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFeedLike: isFeedLike == freezed
+          ? _value.isFeedLike
+          : isFeedLike // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFeedBookmark: isFeedBookmark == freezed
+          ? _value.isFeedBookmark
+          : isFeedBookmark // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isComment: isComment == freezed
+          ? _value.isComment
+          : isComment // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isMoreComment: isMoreComment == freezed
+          ? _value.isMoreComment
+          : isMoreComment // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$UserNotificationModelCopyWith<$Res>
+    implements $UserNotificationModelCopyWith<$Res> {
+  factory _$UserNotificationModelCopyWith(_UserNotificationModel value,
+          $Res Function(_UserNotificationModel) then) =
+      __$UserNotificationModelCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {bool isUserLike,
+      bool isFeedLike,
+      bool isFeedBookmark,
+      bool isComment,
+      bool isMoreComment});
+}
+
+/// @nodoc
+class __$UserNotificationModelCopyWithImpl<$Res>
+    extends _$UserNotificationModelCopyWithImpl<$Res>
+    implements _$UserNotificationModelCopyWith<$Res> {
+  __$UserNotificationModelCopyWithImpl(_UserNotificationModel _value,
+      $Res Function(_UserNotificationModel) _then)
+      : super(_value, (v) => _then(v as _UserNotificationModel));
+
+  @override
+  _UserNotificationModel get _value => super._value as _UserNotificationModel;
+
+  @override
+  $Res call({
+    Object? isUserLike = freezed,
+    Object? isFeedLike = freezed,
+    Object? isFeedBookmark = freezed,
+    Object? isComment = freezed,
+    Object? isMoreComment = freezed,
+  }) {
+    return _then(_UserNotificationModel(
+      isUserLike: isUserLike == freezed
+          ? _value.isUserLike
+          : isUserLike // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFeedLike: isFeedLike == freezed
+          ? _value.isFeedLike
+          : isFeedLike // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isFeedBookmark: isFeedBookmark == freezed
+          ? _value.isFeedBookmark
+          : isFeedBookmark // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isComment: isComment == freezed
+          ? _value.isComment
+          : isComment // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isMoreComment: isMoreComment == freezed
+          ? _value.isMoreComment
+          : isMoreComment // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_UserNotificationModel extends _UserNotificationModel {
+  const _$_UserNotificationModel(
+      {required this.isUserLike,
+      required this.isFeedLike,
+      required this.isFeedBookmark,
+      required this.isComment,
+      required this.isMoreComment})
+      : super._();
+
+  factory _$_UserNotificationModel.fromJson(Map<String, dynamic> json) =>
+      _$$_UserNotificationModelFromJson(json);
+
+  @override
+  final bool isUserLike;
+  @override
+  final bool isFeedLike;
+  @override
+  final bool isFeedBookmark;
+  @override
+  final bool isComment;
+  @override
+  final bool isMoreComment;
+
+  @override
+  String toString() {
+    return 'UserNotificationModel(isUserLike: $isUserLike, isFeedLike: $isFeedLike, isFeedBookmark: $isFeedBookmark, isComment: $isComment, isMoreComment: $isMoreComment)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _UserNotificationModel &&
+            const DeepCollectionEquality()
+                .equals(other.isUserLike, isUserLike) &&
+            const DeepCollectionEquality()
+                .equals(other.isFeedLike, isFeedLike) &&
+            const DeepCollectionEquality()
+                .equals(other.isFeedBookmark, isFeedBookmark) &&
+            const DeepCollectionEquality().equals(other.isComment, isComment) &&
+            const DeepCollectionEquality()
+                .equals(other.isMoreComment, isMoreComment));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(isUserLike),
+      const DeepCollectionEquality().hash(isFeedLike),
+      const DeepCollectionEquality().hash(isFeedBookmark),
+      const DeepCollectionEquality().hash(isComment),
+      const DeepCollectionEquality().hash(isMoreComment));
+
+  @JsonKey(ignore: true)
+  @override
+  _$UserNotificationModelCopyWith<_UserNotificationModel> get copyWith =>
+      __$UserNotificationModelCopyWithImpl<_UserNotificationModel>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_UserNotificationModelToJson(this);
+  }
+}
+
+abstract class _UserNotificationModel extends UserNotificationModel {
+  const factory _UserNotificationModel(
+      {required bool isUserLike,
+      required bool isFeedLike,
+      required bool isFeedBookmark,
+      required bool isComment,
+      required bool isMoreComment}) = _$_UserNotificationModel;
+  const _UserNotificationModel._() : super._();
+
+  factory _UserNotificationModel.fromJson(Map<String, dynamic> json) =
+      _$_UserNotificationModel.fromJson;
+
+  @override
+  bool get isUserLike;
+  @override
+  bool get isFeedLike;
+  @override
+  bool get isFeedBookmark;
+  @override
+  bool get isComment;
+  @override
+  bool get isMoreComment;
+  @override
+  @JsonKey(ignore: true)
+  _$UserNotificationModelCopyWith<_UserNotificationModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 NotificationModel _$NotificationModelFromJson(Map<String, dynamic> json) {
   return _NotificationModel.fromJson(json);
 }

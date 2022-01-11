@@ -62,7 +62,7 @@ Row courseSrcKeywordWidget({
                           height: 20,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: darkThemeCardColor),
+                              color: darkThemeBlackCardColor),
                           child: const Icon(
                             Icons.remove_circle_outline_rounded,
                             size: 12,

@@ -11,3 +11,4 @@ const documentKeywordRecommendation = 'Keyword_Recommendation';
 const collectionBlocked = 'BLOCKED';
 const collectionComplain = 'COMPLAIN';
 const collectionNotification = 'NOTIFICATION';
+const collectionNotiSetting = 'NOTI_SETTING';

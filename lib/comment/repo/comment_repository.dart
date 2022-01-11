@@ -69,6 +69,13 @@ class CommentRepository {
         _firestore.collection(collectionNotification).doc();
     final _courseRef =
         _firestore.collection(collectionCourse).doc(courseDocKey);
+    final DocumentReference<Map<String, dynamic>> _userNotiSettingRef =
+        _firestore
+            .collection(collectionNotiSetting)
+            .doc(notificationModel.notiUserKey);
+    final _notiSnapshot = await _userNotiSettingRef.get();
+    final bool _isMoreComment =
+        UserNotificationModel.fromFireStore(_notiSnapshot).isMoreComment;
 
     final DocumentSnapshot _ds = await _moreCommentRef.get();
     final _notiToWrite = notificationModel.copyWith(docKey: _notiRef.id);
@@ -76,7 +83,8 @@ class CommentRepository {
     final _toWrite =
         moreComment.copyWith(docKey: _ds.id, commentDocKey: commentDocKey);
     final _batch = _firestore.batch();
-    if (notificationModel.userKey != notificationModel.notiUserKey) {
+    if ((notificationModel.userKey != notificationModel.notiUserKey) &&
+        _isMoreComment) {
       _batch.set(_notiRef, _notiToWrite.toJson());
     }
     _batch.update(_commentRef, {
@@ -105,12 +113,21 @@ class CommentRepository {
     final _commentCountRef =
         _firestore.collection(collectionCourse).doc(docKey);
 
+    final DocumentReference<Map<String, dynamic>> _userNotiSettingRef =
+        _firestore
+            .collection(collectionNotiSetting)
+            .doc(notificationModel.notiUserKey);
+    final _notiSnapshot = await _userNotiSettingRef.get();
+    final bool _isComment =
+        UserNotificationModel.fromFireStore(_notiSnapshot).isComment;
+
     final DocumentSnapshot _documentSnapshot = await _commentRef.get();
     final _toWrite = commentModel.copyWith(docKey: _documentSnapshot.id);
     final _notiToWrite = notificationModel.copyWith(docKey: _notiRef.id);
     final _batch = _firestore.batch();
     if (!_documentSnapshot.exists) {
-      if (notificationModel.userKey != notificationModel.notiUserKey) {
+      if ((notificationModel.userKey != notificationModel.notiUserKey) &&
+          _isComment) {
         _batch.set(_notiRef, _notiToWrite.toJson());
       }
       _batch.set(_commentRef, _toWrite.toFireStore());

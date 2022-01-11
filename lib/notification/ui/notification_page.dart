@@ -4,9 +4,6 @@ import 'package:flutter_drive/_constant/app_date_time.dart';
 import 'package:flutter_drive/_constant/app_indicator.dart';
 import 'package:flutter_drive/_constant/custom_icon.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
-import 'package:flutter_drive/comment/provider/comment_provider.dart';
-import 'package:flutter_drive/comment/ui/comment_main_page.dart';
-import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_page.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_profile_page.dart';
@@ -23,6 +20,9 @@ class NotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<NotificationProvider>(
       builder: (context, provider, child) {
+        if (provider.isLoading) {
+          return const AppIndicator();
+        }
         return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -40,6 +40,7 @@ class NotificationPage extends StatelessWidget {
               children: [
                 if (provider.userNotiList.isNotEmpty) ...[
                   notificationDeleteWidget(context: context),
+                  const SizedBox(height: 20),
                 ],
                 if (provider.userNotiList.isNotEmpty) ...[
                   ...provider.userNotiList.map((e) => Stack(
@@ -74,11 +75,11 @@ class NotificationPage extends StatelessWidget {
                                           if (e.noti == 1) ...[
                                             _iconForm(
                                                 icon: CustomIcon.heart,
-                                                color: Colors.red),
+                                                color: appMainColor),
                                           ],
                                           if (e.noti == 2) ...[
                                             _iconForm(
-                                                icon: CustomIcon.chat,
+                                                icon: CustomIcon.comment,
                                                 color: Colors.white),
                                           ],
                                           if (e.noti == 3) ...[

@@ -6,6 +6,7 @@ import 'package:flutter_drive/_constant/app_flushbar.dart';
 import 'package:flutter_drive/activity/activity_model.dart';
 import 'package:flutter_drive/auth/model/user_model.dart';
 import 'package:flutter_drive/auth/repo/user_repository.dart';
+import 'package:flutter_drive/notification/model/notification_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/all.dart' as kakao;
 
@@ -25,7 +26,7 @@ class AuthProvider extends ChangeNotifier {
 
   AuthProvider() {
     _userLoginState();
-    getAllUserStatus();
+    // getAllUserStatus();
   }
 
   Future<void> _userLoginState() async {
@@ -35,17 +36,12 @@ class AuthProvider extends ChangeNotifier {
     final kakao.OAuthToken _kakaoToken =
         await kakao.TokenManager.instance.getToken();
     if (_firebaseUser != null) {
-      await getSingleUserProfileUpdate(userKey: _firebaseUser.uid);
-      // _user = await _authRepository.getUserProfile(userKey: _firebaseUser.uid);
-      _activityModel =
-          await _authRepository.getUserActivity(userKey: _firebaseUser.uid);
+      await _getSingleUserStatus(userKey: _firebaseUser.uid);
       if (_user != null) {
         if (!_user!.socialProfileUrl.contains(_firebaseUser.photoURL!)) {
           await _updateSoicalUserImage(
               socialProfileUrl: _firebaseUser.photoURL!);
-          await getSingleUserProfileUpdate(userKey: _firebaseUser.uid);
-          _activityModel =
-              await _authRepository.getUserActivity(userKey: _firebaseUser.uid);
+          await _getSingleUserStatus(userKey: _firebaseUser.uid);
         }
         await getAllUserStatus();
       }
@@ -53,9 +49,7 @@ class AuthProvider extends ChangeNotifier {
     } else if (_kakaoToken.accessToken != null ||
         _kakaoToken.refreshToken != null) {
       final kakao.User _kakaoUser = await kakao.UserApi.instance.me();
-      await getSingleUserProfileUpdate(
-          userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
-      _activityModel = await _authRepository.getUserActivity(
+      await _getSingleUserStatus(
           userKey: _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
       if (_user != null) {
         if (!_user!.socialProfileUrl
@@ -63,10 +57,7 @@ class AuthProvider extends ChangeNotifier {
           await _updateSoicalUserImage(
               socialProfileUrl:
                   _kakaoUser.kakaoAccount!.profile!.thumbnailImageUrl!);
-          await getSingleUserProfileUpdate(
-              userKey:
-                  _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
-          _activityModel = await _authRepository.getUserActivity(
+          await _getSingleUserStatus(
               userKey:
                   _kakaoUser.id.toString() + _kakaoUser.kakaoAccount!.email!);
         }
@@ -80,10 +71,26 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> getSingleUserProfileUpdate({
+  Future<void> getSingleUserProfile({
     required String userKey,
   }) async {
     _user = await _authRepository.getUserProfile(userKey: userKey);
+    notifyListeners();
+  }
+
+  Future<void> getSingleUserActivity({
+    required String userKey,
+  }) async {
+    _activityModel = await _authRepository.getUserActivity(userKey: userKey);
+    notifyListeners();
+  }
+
+  Future<void> _getSingleUserStatus({
+    required String userKey,
+  }) async {
+    await getSingleUserProfile(userKey: userKey);
+    await getSingleUserActivity(userKey: userKey);
+    notifyListeners();
   }
 
   Future<void> getAllUserStatus() async {
@@ -181,6 +188,7 @@ class AuthProvider extends ChangeNotifier {
           privacyLikes: false,
         ),
         activityModel: ActivityModel.empty(),
+        userNotificationModel: UserNotificationModel.empty(),
         userKey: firebaseUser.uid,
       );
     } else if (kakaoUser != null) {
@@ -202,6 +210,7 @@ class AuthProvider extends ChangeNotifier {
           privacyLikes: false,
         ),
         activityModel: ActivityModel.empty(),
+        userNotificationModel: UserNotificationModel.empty(),
         userKey: kakaoUser.id.toString() + kakaoUser.kakaoAccount!.email!,
       );
     }
