@@ -47,4 +47,4 @@ app.*.map.json
 
 ios/Runner/GoogleService-Info.plist
 android/app/google-services.json
-android/app/justthankyou.jks
+android/app/route66_release_key.keystore

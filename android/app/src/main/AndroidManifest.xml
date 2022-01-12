@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_drive">
+    package="com.tyger.route66">
    <application
         android:label="루트66"
         android:icon="@mipmap/launcher_icon">
