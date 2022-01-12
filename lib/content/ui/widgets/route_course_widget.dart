@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/_constant/app_color.dart';
+import 'package:flutter_drive/_constant/custom_icon.dart';
 import 'package:flutter_drive/recommendation/recommendation_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_drive/_constant/custom_icon.dart';
 
 SizedBox routeCourseWidget({
   required BuildContext context,

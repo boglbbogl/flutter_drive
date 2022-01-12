@@ -4,7 +4,6 @@ import 'package:flutter_drive/_constant/app_date_time.dart';
 import 'package:flutter_drive/_constant/app_indicator.dart';
 import 'package:flutter_drive/_constant/custom_icon.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
-import 'package:flutter_drive/feed/provider/feed_user_provider.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_page.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_profile_page.dart';
 import 'package:flutter_drive/notification/provider/notification_provider.dart';
@@ -250,7 +249,7 @@ class NotificationPage extends StatelessWidget {
     context.read<AuthProvider>().getAllUserFeedUpdateStatus(userKey: userKey);
     pushNewScreen(context,
         screen: FeedUserProfilePage(
-          allCourseModel: context.read<FeedUserProvider>().courseList,
+          // allCourseModel: context.read<FeedUserProvider>().courseList,
           userKey: userKey,
           isProfileUpdate: false,
         ));

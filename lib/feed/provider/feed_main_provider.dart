@@ -11,7 +11,7 @@ class FeedMainProvider extends ChangeNotifier {
   List<CourseModel> _courseList = [];
   List<int> _explanationIndex = [];
   List<FeedModel> _feedImageOrCourse = [];
-  int _limit = 50;
+  int _limit = 30;
   final RefreshController _refreshController = RefreshController();
 
   FeedMainProvider() {

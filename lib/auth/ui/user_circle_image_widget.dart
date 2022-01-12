@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drive/auth/provider/auth_provider.dart';
-import 'package:flutter_drive/feed/provider/feed_main_provider.dart';
 import 'package:flutter_drive/feed/ui/page/feed_user_profile_page.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +20,7 @@ InkWell userCircleImageWidget({
           screen: FeedUserProfilePage(
             isProfileUpdate: isProfileUpdate,
             userKey: userKey,
-            allCourseModel: context.read<FeedMainProvider>().courseList,
+            // allCourseModel: context.read<FeedUserProvider>().courseList,
           ));
     },
     child: Row(
