@@ -174,13 +174,14 @@ class __$RouteCourseModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_RouteCourseModel implements _RouteCourseModel {
+class _$_RouteCourseModel extends _RouteCourseModel {
   const _$_RouteCourseModel(
       {required this.spot,
       required this.title,
       required this.likeUserKey,
       required this.docKey,
-      required this.imageUrl});
+      required this.imageUrl})
+      : super._();
 
   factory _$_RouteCourseModel.fromJson(Map<String, dynamic> json) =>
       _$$_RouteCourseModelFromJson(json);
@@ -234,13 +235,14 @@ class _$_RouteCourseModel implements _RouteCourseModel {
   }
 }
 
-abstract class _RouteCourseModel implements RouteCourseModel {
+abstract class _RouteCourseModel extends RouteCourseModel {
   const factory _RouteCourseModel(
       {required List<CourseSpot> spot,
       required String title,
       required List<String> likeUserKey,
       required String docKey,
       required String imageUrl}) = _$_RouteCourseModel;
+  const _RouteCourseModel._() : super._();
 
   factory _RouteCourseModel.fromJson(Map<String, dynamic> json) =
       _$_RouteCourseModel.fromJson;

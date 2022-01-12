@@ -16,7 +16,7 @@ class RecommendationRepository {
         _firestore.collection(collectionRecommendationCourse);
 
     final _result = await _recommendationCourseRef.get().then((snapshot) =>
-        snapshot.docs.map((e) => RouteCourseModel.fromJson(e.data())).toList());
+        snapshot.docs.map((e) => RouteCourseModel.fromFireStore(e)).toList());
     return _result;
   }
 
@@ -40,5 +40,17 @@ class RecommendationRepository {
     final _result =
         _snapshot.docs.map((e) => KeywordModel.fromFireStore(e)).toList();
     return _result;
+  }
+
+  // RECOMMENDATION_COURSE Collection
+  // 배포 시 주석
+  Future createRecommendationRouteCourse({
+    required RouteCourseModel routeCourseModel,
+  }) async {
+    final DocumentReference<Map<String, dynamic>> _recommendationCourseRef =
+        _firestore.collection(collectionRecommendationCourse).doc();
+    final _toWrite =
+        routeCourseModel.copyWith(docKey: _recommendationCourseRef.id);
+    await _recommendationCourseRef.set(_toWrite.toFireStore());
   }
 }
